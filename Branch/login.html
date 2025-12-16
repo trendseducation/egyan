@@ -2082,6 +2082,22 @@ window.addEventListener('resize', () => {
         initHeaderBar();
     }
 });
+
+	// Override the auto-redirect on login page
+window.addEventListener('DOMContentLoaded', function() {
+    // Don't check auth on login page
+    if (window.location.href.includes('login.html')) {
+        // Clear any existing auth check intervals
+        const highestTimeoutId = setTimeout(() => {});
+        for (let i = 0; i < highestTimeoutId; i++) {
+            clearTimeout(i);
+        }
+        
+        // Show login form instead of redirect
+        document.querySelector('.redirect-message')?.remove();
+    }
+});
 </script>
 </body>
 </html>
+
