@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --success-color: #4cc9f0;
+            --error-color: #f72585;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --text-color: #495057;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* General Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 20px;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            z-index: 1000;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h2 {
+            font-size: 24px;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .sidebar .subtitle {
+            font-size: 14px;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        .sidebar .close-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            font-size: 22px;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(0, 0, 0, 0.05);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar .close-btn:hover {
+            color: var(--error-color);
+            background: rgba(247, 37, 133, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .menu-items {
+            flex-grow: 1;
+        }
+
+        .sidebar .menu-item {
+            padding: 15px 20px;
+            margin: 8px 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar .menu-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+            transform: scaleY(0);
+            transition: var(--transition);
+            transform-origin: bottom;
+        }
+
+        .sidebar .menu-item:hover {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+        }
+
+        .sidebar .menu-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .sidebar .menu-item.active {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .sidebar .menu-item.active::before {
+            transform: scaleY(1);
+        }
+
+        .sidebar .menu-item i {
+            margin-right: 12px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: auto;
+            font-size: 12px;
+            color: var(--text-color);
+            opacity: 0.6;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            animation: fadeInUp 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #4361ee, #4cc9f0);
+        }
+
+        .login-container h2 {
+            margin-bottom: 25px;
+            color: var(--dark-color);
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            font-size: 15px;
+            transition: var(--transition);
+            background-color: rgba(248, 249, 250, 0.7);
+        }
+
+        .input-field:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.6;
+            font-size: 18px;
+        }
+
+        .input-field:focus + .input-icon {
+            color: var(--primary-color);
+            opacity: 1;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.6;
+            font-size: 18px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            outline: none;
+        }
+
+        .password-toggle:hover {
+            opacity: 0.8;
+        }
+
+        .login-btn {
+            background: linear-gradient(to right, #4361ee, #3f37c9);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(to right, #3f37c9, #4361ee);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .create-account-btn {
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            font-size: 15px;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-top: 15px;
+        }
+
+        .create-account-btn:hover {
+            background: rgba(67, 97, 238, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Popup and Spinner Styles */
+        .popup {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 1000;
+            max-width: 90%;
+            box-shadow: var(--box-shadow);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .popup.success {
+            background: var(--success-color);
+        }
+
+        .popup.error {
+            background: var(--error-color);
+        }
+
+        .spinner-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: relative;
+        }
+
+        .spinner::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+        
+        /* Success Popup Styles */
+        .success-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 450px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1000;
+            animation: fadeIn 0.4s ease-out;
+        }
+        
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 40px;
+            animation: bounce 0.8s;
+        }
+        
+        .success-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+        
+        .success-message {
+            font-size: 16px;
+            color: var(--text-color);
+            margin-bottom: 25px;
+            opacity: 0.8;
+        }
+        
+        .passcode-container {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        
+        .passcode-label {
+            font-size: 14px;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+        
+        .passcode {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            color: var(--dark-color);
+            padding: 10px 20px;
+            background: white;
+            border-radius: 8px;
+            display: inline-block;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            animation: reveal 1s forwards;
+            opacity: 0;
+        }
+        
+        .continue-btn {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .continue-btn:hover {
+            background: linear-gradient(to right, #2E7D32, #4CAF50);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .continue-btn:active {
+            transform: translateY(0);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -40%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        
+        @keyframes reveal {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Responsiveness */
+        @media (min-width: 993px) {
+            .sidebar {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 280px;
+            }
+            
+            .header-bar {
+                display: none;
+            }
+            
+            .sidebar .close-btn {
+                display: none;
+            }
+            
+            .sidebar-overlay {
+                display: none;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header-bar {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding-top: 80px;
+            }
+
+            .login-container {
+                padding: 25px;
+            }
+
+            .success-popup {
+                width: 85%;
+                padding: 30px;
+            }
+            
+            .success-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 35px;
+            }
+            
+            .passcode {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .login-container {
+                padding: 20px;
+            }
+
+            .success-popup {
+                padding: 25px;
+            }
+        }
+
+        /* Header Bar Styles */
+        .header-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-bar.active {
+            display: flex;
+        }
+
+        .header-bar .sidebar-toggle {
+            position: absolute;
+            left: 20px;
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-bar .sidebar-toggle:hover {
+            background: rgba(67, 97, 238, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .header-bar .header-label {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        /* Signup Popup Styles */
+        .signup-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .signup-popup h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+        }
+
+        .signup-input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .signup-input-field {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            font-size: 15px;
+            transition: var(--transition);
+            background-color: rgba(248, 249, 250, 0.7);
+        }
+
+        .signup-input-field:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .signup-input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.6;
+            font-size: 18px;
+        }
+
+        .signup-input-field:focus + .signup-input-icon {
+            color: var(--primary-color);
+            opacity: 1;
+        }
+
+        .signup-select {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            font-size: 15px;
+            transition: var(--transition);
+            background-color: rgba(248, 249, 250, 0.7);
+            appearance: none;
+        }
+
+        .signup-select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .conditional-field {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .password-strength {
+            margin-top: 5px;
+            font-size: 12px;
+            height: 15px;
+        }
+
+        .password-strength span {
+            display: inline-block;
+            width: 30%;
+            height: 5px;
+            background: #ddd;
+            margin-right: 5px;
+            border-radius: 3px;
+        }
+
+        .password-strength .weak {
+            background: #ff4d4d;
+        }
+
+        .password-strength .medium {
+            background: #ffa64d;
+        }
+
+        .password-strength .strong {
+            background: #2eb82e;
+        }
+
+        .signup-submit-btn {
+            background: linear-gradient(to right, #4361ee, #3f37c9);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .signup-submit-btn:hover {
+            background: linear-gradient(to right, #3f37c9, #4361ee);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        .signup-submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .close-signup {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 22px;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(0, 0, 0, 0.05);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-signup:hover {
+            color: var(--error-color);
+            background: rgba(247, 37, 133, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .validation-message {
+            font-size: 12px;
+            margin-top: 5px;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        .validation-message.error {
+            color: var(--error-color);
+        }
+
+        .validation-message.success {
+            color: #2eb82e;
+        }
+
+        .password-match-icon {
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            display: none;
+        }
+
+        .password-match-icon.match {
+            color: #2eb82e;
+            display: block;
+        }
+
+        .password-match-icon.no-match {
+            color: var(--error-color);
+            display: block;
+        }
+		
+		/* Forget Password Popup Styles */
+        .forgot-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 450px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .forgot-popup h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+        }
+
+        .forgot-input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .forgot-input-field {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            font-size: 15px;
+            transition: var(--transition);
+            background-color: rgba(248, 249, 250, 0.7);
+        }
+
+        .forgot-input-field:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .forgot-input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.6;
+            font-size: 18px;
+        }
+
+        .forgot-input-field:focus + .forgot-input-icon {
+            color: var(--primary-color);
+            opacity: 1;
+        }
+
+        .forgot-submit-btn {
+            background: linear-gradient(to right, #4361ee, #3f37c9);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .forgot-submit-btn:hover {
+            background: linear-gradient(to right, #3f37c9, #4361ee);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        .close-forgot {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 22px;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(0, 0, 0, 0.05);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-forgot:hover {
+            color: var(--error-color);
+            background: rgba(247, 37, 133, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .password-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            background-color: #f8f9fa;
+            text-align: center;
+            display: none;
+        }
+
+        .password-result.success {
+            background-color: #d4edda;
+            color: #155724;
+            display: block;
+        }
+
+        .password-result.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+
+        .forgot-password-link {
+            text-align: right;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .forgot-password-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .forgot-password-link a:hover {
+            text-decoration: underline;
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+
+   <!-- Header Bar for Mobile -->
+<div class="header-bar" id="headerBar">
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="header-label">Login Portal</div>
+</div>
+
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2>Login Portal</h2>
+        <div class="subtitle">Select your role to continue</div>
+    </div>
+    <div class="close-btn" id="closeSidebar">
+        <i class="fas fa-times"></i>
+    </div>
+    
+    <div class="menu-items">
+	    <div class="menu-item active" onclick="selectLoginType('student')" id="studentBtn">
+            <i class="fas fa-user-graduate"></i> Student Login
+        </div>
+        <div class="menu-item" onclick="selectLoginType('admin')" id="adminBtn">
+            <i class="fas fa-user-shield"></i> Admin
+        </div>
+        <div class="menu-item" onclick="selectLoginType('teacher')" id="teacherBtn">
+            <i class="fas fa-chalkboard-teacher"></i> Teacher
+        </div>
+        <div class="menu-item" onclick="selectLoginType('staff')" id="staffBtn">
+            <i class="fas fa-user-tie"></i> Staff
+        </div>
+    </div>
+    
+    <div class="sidebar-footer">
+        © 2025 E-Gyan Skill Development. All rights reserved.
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="login-container" id="loginContainer">
+        <h2 id="loginTitle">Student Login</h2>
+        
+        <div class="input-group">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="text" id="loginName" class="input-field" placeholder="Enter Email ID">
+        </div>
+        
+        <div class="input-group">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="loginPassword" class="input-field" placeholder="Enter Password">
+            <button type="button" class="password-toggle" id="loginPasswordToggle">
+                <i class="fas fa-eye"></i>
+            </button>
+        </div>
+        
+        <button class="login-btn" onclick="validateLogin()">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+
+        <!-- Forgot Password Link -->
+<div class="forgot-password-link" id="forgotPasswordLink">
+    <a onclick="openForgotPopup()">Forgot Password?</a>
+</div>
+
+        <!-- Create Account Button (Only for Student) -->
+        <button class="create-account-btn" id="createAccountBtn" style="display: block;" onclick="openSignupPopup()">
+            <i class="fas fa-user-plus"></i> Create Account
+        </button>
+    </div>
+</div>
+
+<!-- Forgot Password Popup -->
+<div class="forgot-popup" id="forgotPopup">
+    <div class="close-forgot" onclick="closeForgotPopup()">
+        <i class="fas fa-times"></i>
+    </div>
+    <h2>Recover Password</h2>
+    <form id="forgotForm">
+        <div class="forgot-input-group">
+            <i class="fas fa-envelope forgot-input-icon"></i>
+            <input type="email" id="forgotEmail" class="forgot-input-field" placeholder="Enter Email ID">
+        </div>
+        
+        <div class="forgot-input-group">
+            <i class="fas fa-phone forgot-input-icon"></i>
+            <input type="tel" id="forgotMobile" class="forgot-input-field" placeholder="Enter Mobile Number (10 digits)" pattern="[6-9]{1}[0-9]{9}">
+        </div>
+        
+        <div class="password-result" id="passwordResult"></div>
+        
+        <button type="submit" class="forgot-submit-btn">
+            <i class="fas fa-key"></i> Recover Password
+        </button>
+    </form>
+</div>
+
+<!-- Signup Popup -->
+<div class="signup-popup" id="signupPopup">
+    <div class="close-signup" onclick="closeSignupPopup()">
+        <i class="fas fa-times"></i>
+    </div>
+    <h2>Create Student Account</h2>
+    <form id="signupForm">
+        <div class="signup-input-group">
+            <i class="fas fa-user signup-input-icon"></i>
+            <input type="text" id="fullName" class="signup-input-field" placeholder="Enter Full Name" required>
+        </div>
+        
+        <div class="signup-input-group">
+            <i class="fas fa-phone signup-input-icon"></i>
+            <input type="tel" id="mobileNumber" class="signup-input-field" placeholder="Enter Mobile Number (10 digits)" pattern="[6-9]{1}[0-9]{9}" required onblur="checkMobileNumber(this.value)">
+            <div class="validation-message" id="mobileValidationMsg"></div>
+        </div>
+		
+		<div class="signup-input-group">
+            <i class="fas fa-user signup-input-icon"></i>
+            <input type="text" id="colgname" class="signup-input-field" placeholder="Enter College Name" required>
+        </div>
+        
+        <div class="signup-input-group">
+            <i class="fas fa-envelope signup-input-icon"></i>
+            <input type="email" id="emailId" class="signup-input-field" placeholder="Enter Email ID" required onblur="checkEmailId(this.value)">
+            <div class="validation-message" id="emailValidationMsg"></div>
+        </div>
+        
+        <div class="signup-input-group">
+            <i class="fas fa-graduation-cap signup-input-icon"></i>
+            <select id="stream" class="signup-select" onchange="toggleConditionalField()" required>
+                <option value="">Select Stream</option>
+                <option value="11th Commerce">11th Commerce</option>
+                <option value="11th Science">11th Science</option>
+                <option value="11th Arts">11th Arts</option>
+                <option value="12th Commerce">12th Commerce</option>
+                <option value="12th Science">12th Science</option>
+                <option value="12th Arts">12th Arts</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        
+        <div class="signup-input-group conditional-field" id="teacherField">
+            <i class="fas fa-book signup-input-icon"></i>
+            <input type="text" id="teachingSubject" class="signup-input-field" placeholder="Enter Teaching Subject">
+        </div>
+        
+        <div class="signup-input-group conditional-field" id="otherField">
+            <i class="fas fa-pencil-alt signup-input-icon"></i>
+            <input type="text" id="otherStream" class="signup-input-field" placeholder="Please Enter your Stream/ Profile Roll">
+        </div>
+        
+        <div class="signup-input-group">
+            <i class="fas fa-lock signup-input-icon"></i>
+            <input type="password" id="signupPassword" class="signup-input-field" placeholder="Enter Password (min 6 chars, 1 uppercase, 1 lowercase)" onkeyup="checkPasswordStrength(this.value)" required>
+            <button type="button" class="password-toggle" id="signupPasswordToggle">
+                <i class="fas fa-eye"></i>
+            </button>
+            <div class="password-strength" id="passwordStrength">
+                <span id="strength1"></span>
+                <span id="strength2"></span>
+                <span id="strength3"></span>
+            </div>
+            <div class="password-requirements" id="passwordRequirements">
+                Must include at least 6 characters with 1 uppercase and 1 lowercase letter
+            </div>
+        </div>
+        
+        <div class="signup-input-group">
+            <i class="fas fa-lock signup-input-icon"></i>
+            <input type="password" id="confirmPassword" class="signup-input-field" placeholder="Confirm Password" onkeyup="checkPasswordMatch()" required>
+            <button type="button" class="password-toggle" id="confirmPasswordToggle">
+                <i class="fas fa-eye"></i>
+            </button>
+            <i class="fas fa-check password-match-icon match" id="passwordMatchIcon"></i>
+            <i class="fas fa-times password-match-icon no-match" id="passwordNoMatchIcon"></i>
+        </div>
+        
+        <button type="submit" class="signup-submit-btn">
+            <i class="fas fa-user-plus"></i> Create Account
+        </button>
+    </form>
+</div>
+
+<!-- Popup and Spinner -->
+<div id="popupMessage" class="popup"></div>
+<div id="spinnerOverlay" class="spinner-overlay">
+    <div class="spinner"></div>
+</div>
+
+<div id="successPopup" class="success-popup">
+    <div class="success-icon">
+        <i class="fas fa-check"></i>
+    </div>
+    <h2 class="success-title">Login Successful</h2>
+    <p class="success-message">You have successfully logged in to the system</p>
+    <button class="continue-btn" id="continueBtn">
+        <i class="fas fa-arrow-right"></i> Continue
+    </button>
+</div>
+
+<script>
+// Minified configuration object
+const config = {
+    scriptUrl: "https://script.google.com/macros/s/AKfycbzT2UX4dt2pFFL1swzUSdyrsAbS_0wow14IKtZru5oTM7OURocf-ym4N_DYr2cWna0BkA/exec",
+    studentSpreadsheetId: "1TL2qi8Ey_4c9CIHfKGo7jcMtnLxmA8YG9x90o-dvieg",
+    studentSheetName: "Student_Login",
+    spreadsheetId: "1TL2qi8Ey_4c9CIHfKGo7jcMtnLxmA8YG9x90o-dvieg",
+    sheetName: "Login_Portal",
+    columns: {
+        admin: { name: 1, password: 2, branch: 3 },
+        student: { name: 3, password: 7, branch: 8 },
+        teacher: { name: 9, password: 10, branch: 11 },
+        staff: { name: 13, password: 14, branch: 15 }
+    }
+};
+
+// DOM elements cache
+let domCache = {};
+let currentLoginType = 'student';
+let isMobile = window.innerWidth <= 992;
+
+// Initialize DOM elements
+function initDomCache() {
+    domCache = {
+        loginName: document.getElementById('loginName'),
+        loginPassword: document.getElementById('loginPassword'),
+        loginPasswordToggle: document.getElementById('loginPasswordToggle'),
+        spinner: document.getElementById('spinnerOverlay'),
+        loginTitle: document.getElementById('loginTitle'),
+        popup: document.getElementById('popupMessage'),
+        successPopup: document.getElementById('successPopup'),
+        continueBtn: document.getElementById('continueBtn'),
+        sidebar: document.getElementById('sidebar'),
+        sidebarToggle: document.getElementById('sidebarToggle'),
+        closeSidebar: document.getElementById('closeSidebar'),
+        headerBar: document.getElementById('headerBar'),
+        sidebarOverlay: document.getElementById('sidebarOverlay'),
+        createAccountBtn: document.getElementById('createAccountBtn'),
+        signupPopup: document.getElementById('signupPopup'),
+        signupForm: document.getElementById('signupForm'),
+        teacherField: document.getElementById('teacherField'),
+        otherField: document.getElementById('otherField'),
+        stream: document.getElementById('stream'),
+        forgotPopup: document.getElementById('forgotPopup'),
+        forgotForm: document.getElementById('forgotForm'),
+        passwordResult: document.getElementById('passwordResult'),
+        adminBtn: document.getElementById('adminBtn'),
+        studentBtn: document.getElementById('studentBtn'),
+        teacherBtn: document.getElementById('teacherBtn'),
+        staffBtn: document.getElementById('staffBtn')
+    };
+}
+
+// Initialize the header bar based on screen size
+function initHeaderBar() {
+    isMobile = window.innerWidth <= 992;
+    if (isMobile) {
+        domCache.headerBar.style.display = 'flex';
+        domCache.sidebar.style.transform = 'translateX(-100%)';
+        domCache.sidebar.classList.remove('active');
+    } else {
+        domCache.headerBar.style.display = 'none';
+        domCache.sidebar.style.transform = 'translateX(0)';
+        domCache.sidebar.classList.add('active');
+    }
+}
+
+// Optimized selectLoginType function
+function selectLoginType(role) {
+    currentLoginType = role;
+    const nameInput = domCache.loginName;
+    
+    // Reset fields
+    if (nameInput) nameInput.value = '';
+    if (domCache.loginPassword) domCache.loginPassword.value = '';
+    
+    // Update active menu items
+    if (domCache.adminBtn) domCache.adminBtn.classList.toggle('active', role === 'admin');
+    if (domCache.studentBtn) domCache.studentBtn.classList.toggle('active', role === 'student');
+    if (domCache.teacherBtn) domCache.teacherBtn.classList.toggle('active', role === 'teacher');
+    if (domCache.staffBtn) domCache.staffBtn.classList.toggle('active', role === 'staff');
+    
+    // Update login form based on role
+    const roleTitles = {
+        admin: ['Admin Login', 'Enter Admin Name'],
+        student: ['Student Login', 'Enter Email ID'],
+        teacher: ['Teacher Login', 'Enter Teacher Name'],
+        staff: ['Staff Login', 'Enter Staff Name']
+    };
+    
+    const roleIcons = {
+        admin: 'user',
+        student: 'envelope',
+        teacher: 'user',
+        staff: 'user'
+    };
+    
+    if (domCache.loginTitle) domCache.loginTitle.textContent = roleTitles[role][0];
+    if (nameInput) nameInput.placeholder = roleTitles[role][1];
+    
+    // Update input icon based on role
+    const inputIcon = document.querySelector('.input-icon');
+    if (inputIcon) {
+        inputIcon.className = `fas fa-${roleIcons[role]} input-icon`;
+    }
+    
+    // Show/hide create account button
+    if (domCache.createAccountBtn) {
+        domCache.createAccountBtn.style.display = role === 'student' ? 'block' : 'none';
+    }
+	
+	// Show/hide forgot password link - ONLY FOR STUDENT
+    const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+    if (forgotPasswordLink) {
+        forgotPasswordLink.style.display = role === 'student' ? 'block' : 'none';
+    }
+    
+    // Close sidebar if on mobile
+    if (isMobile) closeSidebar();
+}
+
+function toggleSidebar() {
+    if (!domCache.sidebar || !domCache.sidebarOverlay) return;
+    
+    const wasActive = domCache.sidebar.classList.toggle('active');
+    domCache.sidebarOverlay.classList.toggle('active', wasActive);
+    document.body.style.overflow = wasActive ? 'hidden' : 'auto';
+    
+    // Sync transform with active state for mobile
+    if (isMobile) {
+        domCache.sidebar.style.transform = wasActive ? 'translateX(0)' : 'translateX(-100%)';
+    }
+}
+
+function closeSidebar() {
+    if (!domCache.sidebar || !domCache.sidebarOverlay) return;
+    
+    domCache.sidebar.classList.remove('active');
+    domCache.sidebarOverlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
+    
+    // Ensure sidebar is translated off-screen on mobile when closed
+    if (isMobile) {
+        domCache.sidebar.style.transform = 'translateX(-100%)';
+    }
+}
+
+// Open signup popup
+function openSignupPopup() {
+    if (!domCache.signupPopup) return;
+    domCache.signupPopup.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+// Close signup popup
+function closeSignupPopup() {
+    if (!domCache.signupPopup) return;
+    domCache.signupPopup.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    if (domCache.signupForm) domCache.signupForm.reset();
+    
+    const teacherField = document.getElementById('teacherField');
+    const otherField = document.getElementById('otherField');
+    if (teacherField) teacherField.style.display = 'none';
+    if (otherField) otherField.style.display = 'none';
+    
+    const emailValidationMsg = document.getElementById('emailValidationMsg');
+    const mobileValidationMsg = document.getElementById('mobileValidationMsg');
+    if (emailValidationMsg) {
+        emailValidationMsg.textContent = '';
+        emailValidationMsg.className = 'validation-message';
+    }
+    if (mobileValidationMsg) {
+        mobileValidationMsg.textContent = '';
+        mobileValidationMsg.className = 'validation-message';
+    }
+    
+    const passwordMatchIcon = document.getElementById('passwordMatchIcon');
+    const passwordNoMatchIcon = document.getElementById('passwordNoMatchIcon');
+    if (passwordMatchIcon) passwordMatchIcon.style.display = 'none';
+    if (passwordNoMatchIcon) passwordNoMatchIcon.style.display = 'none';
+    
+    // Reset password strength indicators
+    const strength1 = document.getElementById('strength1');
+    const strength2 = document.getElementById('strength2');
+    const strength3 = document.getElementById('strength3');
+    if (strength1 && strength2 && strength3) {
+        strength1.className = '';
+        strength2.className = '';
+        strength3.className = '';
+    }
+}
+
+// Open forgot password popup
+function openForgotPopup() {
+    if (!domCache.forgotPopup) return;
+    domCache.forgotPopup.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+// Close forgot password popup
+function closeForgotPopup() {
+    if (!domCache.forgotPopup) return;
+    domCache.forgotPopup.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    if (domCache.forgotForm) domCache.forgotForm.reset();
+    if (domCache.passwordResult) {
+        domCache.passwordResult.style.display = 'none';
+        domCache.passwordResult.className = 'password-result';
+    }
+}
+
+// Toggle conditional fields based on stream selection
+function toggleConditionalField() {
+    if (!domCache.stream) return;
+    
+    const streamValue = domCache.stream.value;
+    const teacherField = document.getElementById('teacherField');
+    const otherField = document.getElementById('otherField');
+    
+    if (teacherField) teacherField.style.display = streamValue === 'Teacher' ? 'block' : 'none';
+    if (otherField) otherField.style.display = streamValue === 'Other' ? 'block' : 'none';
+    
+    // Clear fields when not visible
+    if (streamValue !== 'Teacher') {
+        const teachingSubject = document.getElementById('teachingSubject');
+        if (teachingSubject) teachingSubject.value = '';
+    }
+    if (streamValue !== 'Other') {
+        const otherStream = document.getElementById('otherStream');
+        if (otherStream) otherStream.value = '';
+    }
+}
+
+// Check password strength with improved calculation
+function checkPasswordStrength(password) {
+    const strength1 = document.getElementById('strength1');
+    const strength2 = document.getElementById('strength2');
+    const strength3 = document.getElementById('strength3');
+    const requirements = document.getElementById('passwordRequirements');
+    
+    // Reset all
+    if (strength1 && strength2 && strength3) {
+        strength1.className = '';
+        strength2.className = '';
+        strength3.className = '';
+    }
+    
+    if (password.length === 0) {
+        if (requirements) {
+            requirements.textContent = "Must include at least 6 characters with 1 uppercase and 1 lowercase letter";
+            requirements.style.color = "#6c757d";
+        }
+        return;
+    }
+    
+    // Check password requirements
+    const hasMinLength = password.length >= 6;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecialChar = /[^A-Za-z0-9]/.test(password);
+    
+    // Update requirements text
+    if (requirements) {
+        let requirementText = "";
+        if (!hasMinLength) requirementText += "At least 6 characters, ";
+        if (!hasUpperCase) requirementText += "1 uppercase letter, ";
+        if (!hasLowerCase) requirementText += "1 lowercase letter";
+        
+        if (requirementText) {
+            requirements.textContent = requirementText.replace(/,\s*$/, "");
+            requirements.style.color = "#ff4d4d";
+        } else {
+            requirements.textContent = "All requirements met!";
+            requirements.style.color = "#2eb82e";
+        }
+    }
+    
+    // Calculate strength score (0-5)
+    let strength = 0;
+    if (hasMinLength) strength++;
+    if (hasUpperCase) strength++;
+    if (hasLowerCase) strength++;
+    if (hasNumber) strength++;
+    if (hasSpecialChar) strength++;
+    
+    // Update strength indicators
+    if (strength1 && strength2 && strength3) {
+        if (strength >= 1) strength1.className = 'weak';
+        if (strength >= 3) strength2.className = 'medium';
+        if (strength >= 5) strength3.className = 'strong';
+    }
+}
+
+// Check if passwords match
+function checkPasswordMatch() {
+    const password = document.getElementById('signupPassword');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const passwordMatchIcon = document.getElementById('passwordMatchIcon');
+    const passwordNoMatchIcon = document.getElementById('passwordNoMatchIcon');
+    
+    if (!password || !confirmPassword || !passwordMatchIcon || !passwordNoMatchIcon) return;
+    
+    if (confirmPassword.value.length === 0) {
+        passwordMatchIcon.style.display = 'none';
+        passwordNoMatchIcon.style.display = 'none';
+        return;
+    }
+    
+    if (password.value === confirmPassword.value) {
+        passwordMatchIcon.style.display = 'block';
+        passwordNoMatchIcon.style.display = 'none';
+    } else {
+        passwordMatchIcon.style.display = 'none';
+        passwordNoMatchIcon.style.display = 'block';
+    }
+}
+
+// Check if email already exists
+async function checkEmailId(email) {
+    if (!email) return;
+    
+    const emailValidationMsg = document.getElementById('emailValidationMsg');
+    if (!emailValidationMsg) return;
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        emailValidationMsg.textContent = 'Please enter a valid email address';
+        emailValidationMsg.className = 'validation-message error';
+        return;
+    }
+    
+    try {
+        const params = new URLSearchParams({
+            action: 'checkExistingData',
+            spreadsheetId: config.studentSpreadsheetId,
+            sheetName: config.studentSheetName,
+            column: 3, // Column C for email
+            value: email
+        });
+
+        const response = await fetch(`${config.scriptUrl}?${params.toString()}`);
+        const result = await response.json();
+        
+        if (result.status === "success" && result.exists) {
+            emailValidationMsg.textContent = 'This email is already registered';
+            emailValidationMsg.className = 'validation-message error';
+        } else {
+            emailValidationMsg.textContent = 'Email is available';
+            emailValidationMsg.className = 'validation-message success';
+        }
+    } catch (error) {
+        console.error("Error checking email:", error);
+    }
+}
+
+// Check if mobile number already exists
+async function checkMobileNumber(mobile) {
+    if (!mobile) return;
+    
+    const mobileValidationMsg = document.getElementById('mobileValidationMsg');
+    if (!mobileValidationMsg) return;
+    
+    const mobileRegex = /^[6-9]\d{9}$/;
+    if (!mobileRegex.test(mobile)) {
+        mobileValidationMsg.textContent = 'Please enter a valid 10-digit mobile number';
+        mobileValidationMsg.className = 'validation-message error';
+        return;
+    }
+    
+    try {
+        const params = new URLSearchParams({
+            action: 'checkExistingData',
+            spreadsheetId: config.studentSpreadsheetId,
+            sheetName: config.studentSheetName,
+            column: 2, // Column B for mobile
+            value: mobile
+        });
+
+        const response = await fetch(`${config.scriptUrl}?${params.toString()}`);
+        const result = await response.json();
+        
+        if (result.status === "success" && result.exists) {
+            mobileValidationMsg.textContent = 'This mobile number is already registered';
+            mobileValidationMsg.className = 'validation-message error';
+        } else {
+            mobileValidationMsg.textContent = 'Mobile number is available';
+            mobileValidationMsg.className = 'validation-message success';
+        }
+    } catch (error) {
+        console.error("Error checking mobile number:", error);
+    }
+}
+
+// Toggle password visibility
+function setupPasswordToggle() {
+    // Login password toggle
+    if (domCache.loginPasswordToggle && domCache.loginPassword) {
+        domCache.loginPasswordToggle.addEventListener('click', function() {
+            const type = domCache.loginPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            domCache.loginPassword.setAttribute('type', type);
+            this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+    }
+    
+    // Signup password toggle
+    const signupPasswordToggle = document.getElementById('signupPasswordToggle');
+    const signupPassword = document.getElementById('signupPassword');
+    if (signupPasswordToggle && signupPassword) {
+        signupPasswordToggle.addEventListener('click', function() {
+            const type = signupPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            signupPassword.setAttribute('type', type);
+            this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+    }
+    
+    // Confirm password toggle
+    const confirmPasswordToggle = document.getElementById('confirmPasswordToggle');
+    const confirmPassword = document.getElementById('confirmPassword');
+    if (confirmPasswordToggle && confirmPassword) {
+        confirmPasswordToggle.addEventListener('click', function() {
+            const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPassword.setAttribute('type', type);
+            this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+    }
+}
+
+// Handle forgot password form submission
+function setupForgotPasswordForm() {
+    if (!domCache.forgotForm) return;
+    
+    domCache.forgotForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const email = document.getElementById('forgotEmail')?.value.trim();
+        const mobile = document.getElementById('forgotMobile')?.value.trim();
+        
+        if (!domCache.passwordResult) return;
+        
+        // Validate form - now requiring both fields
+        if (!email || !mobile) {
+            domCache.passwordResult.textContent = 'Please enter both email and mobile number';
+            domCache.passwordResult.className = 'password-result error';
+            domCache.passwordResult.style.display = 'block';
+            return;
+        }
+        
+        // Validate email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            domCache.passwordResult.textContent = 'Please enter a valid email address';
+            domCache.passwordResult.className = 'password-result error';
+            domCache.passwordResult.style.display = 'block';
+            return;
+        }
+        
+        // Validate mobile
+        const mobileRegex = /^[6-9]\d{9}$/;
+        if (!mobileRegex.test(mobile)) {
+            domCache.passwordResult.textContent = 'Please enter a valid 10-digit mobile number';
+            domCache.passwordResult.className = 'password-result error';
+            domCache.passwordResult.style.display = 'block';
+            return;
+        }
+        
+        // Show spinner
+        if (domCache.spinner) domCache.spinner.style.display = 'flex';
+        
+        // Prepare data for Google Sheets
+        const formData = {
+            action: 'recoverPassword',
+            spreadsheetId: config.studentSpreadsheetId,
+            sheetName: config.studentSheetName,
+            email: email,
+            mobile: mobile
+        };
+        
+        // Submit to Google Sheets
+        fetch(config.scriptUrl, {
+            method: 'POST',
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (domCache.spinner) domCache.spinner.style.display = 'none';
+            if (domCache.passwordResult) {
+                if (data.status === 'success') {
+                    domCache.passwordResult.innerHTML = `Your password is: <strong>${data.password}</strong>`;
+                    domCache.passwordResult.className = 'password-result success';
+                    domCache.passwordResult.style.display = 'block';
+                } else {
+                    domCache.passwordResult.textContent = data.message;
+                    domCache.passwordResult.className = 'password-result error';
+                    domCache.passwordResult.style.display = 'block';
+                }
+            }
+        })
+        .catch(error => {
+            if (domCache.spinner) domCache.spinner.style.display = 'none';
+            if (domCache.passwordResult) {
+                domCache.passwordResult.textContent = 'Error connecting to server. Please try again.';
+                domCache.passwordResult.className = 'password-result error';
+                domCache.passwordResult.style.display = 'block';
+            }
+            console.error('Error:', error);
+        });
+    });
+}
+
+// Handle signup form submission
+function setupSignupForm() {
+    if (!domCache.signupForm) return;
+    
+    domCache.signupForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const fullName = document.getElementById('fullName')?.value.trim();
+        const mobileNumber = document.getElementById('mobileNumber')?.value.trim();
+		const colgname = document.getElementById('colgname')?.value.trim();
+        const emailId = document.getElementById('emailId')?.value.trim();
+        const stream = document.getElementById('stream')?.value;
+        const teachingSubject = document.getElementById('teachingSubject')?.value.trim();
+        const otherStream = document.getElementById('otherStream')?.value.trim();
+        const password = document.getElementById('signupPassword')?.value;
+        const confirmPassword = document.getElementById('confirmPassword')?.value;
+        
+        // Validate password requirements
+        const hasMinLength = password && password.length >= 6;
+        const hasUpperCase = password && /[A-Z]/.test(password);
+        const hasLowerCase = password && /[a-z]/.test(password);
+        
+        if (!hasMinLength || !hasUpperCase || !hasLowerCase) {
+            showPopup('Password must be at least 6 characters with 1 uppercase and 1 lowercase letter', 'error');
+            return;
+        }
+        
+        // Validate form
+        if (password !== confirmPassword) {
+            showPopup('Passwords do not match', 'error');
+            return;
+        }
+        
+        // Validate mobile number
+        if (mobileNumber) {
+            const mobileRegex = /^[6-9]\d{9}$/;
+            if (!mobileRegex.test(mobileNumber)) {
+                showPopup('Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9', 'error');
+                return;
+            }
+        }
+        
+        // Validate email
+        if (emailId) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailId)) {
+                showPopup('Please enter a valid email address', 'error');
+                return;
+            }
+        }
+        
+        // Check if there are any validation errors
+        const emailValidationMsg = document.getElementById('emailValidationMsg');
+        const mobileValidationMsg = document.getElementById('mobileValidationMsg');
+        if ((emailValidationMsg && emailValidationMsg.classList.contains('error')) || 
+            (mobileValidationMsg && mobileValidationMsg.classList.contains('error'))) {
+            showPopup('Please fix the validation errors before submitting', 'error');
+            return;
+        }
+        
+        // Prepare data for Google Sheets
+        const formData = {
+            action: 'submitSignup',
+            spreadsheetId: config.studentSpreadsheetId,
+            sheetName: config.studentSheetName,
+            fullName: fullName,
+			colgname: colgname,
+            mobileNumber: mobileNumber,
+            emailId: emailId,
+            stream: stream,
+            teachingSubject: teachingSubject,
+            otherStream: otherStream,
+            password: password
+        };
+        
+        // Show spinner
+        if (domCache.spinner) domCache.spinner.style.display = 'flex';
+        
+        // Submit to Google Sheets
+        fetch(config.scriptUrl, {
+            method: 'POST',
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (domCache.spinner) domCache.spinner.style.display = 'none';
+            if (data.status === 'success') {
+                showPopup('Account created successfully! You can now login.', 'success');
+                closeSignupPopup();
+            } else {
+                showPopup('Error creating account: ' + data.message, 'error');
+            }
+        })
+        .catch(error => {
+            if (domCache.spinner) domCache.spinner.style.display = 'none';
+            showPopup('Error connecting to server. Please try again.', 'error');
+            console.error('Error:', error);
+        });
+    });
+}
+
+async function validateLogin() {
+    if (!domCache.loginName || !domCache.loginPassword || !domCache.spinner) return;
+    
+    const name = domCache.loginName.value.trim();
+    const password = domCache.loginPassword.value.trim();
+
+    if (!name || !password) {
+        showPopup('Please fill in all fields.', 'error');
+        return;
+    }
+
+    try {
+        domCache.spinner.style.display = "flex";
+        
+        // For student login, use different spreadsheet and sheet
+        let validationSpreadsheetId = config.spreadsheetId;
+        let validationSheetName = config.sheetName;
+        
+        if (currentLoginType === 'student') {
+            validationSpreadsheetId = config.studentSpreadsheetId;
+            validationSheetName = config.studentSheetName;
+        }
+        
+        const columnConfig = config.columns[currentLoginType];
+        
+        // Construct URL more efficiently
+        const params = new URLSearchParams({
+            action: 'validateLogin',
+            name: name,
+            password: password,
+            spreadsheetId: validationSpreadsheetId,
+            sheetName: validationSheetName,
+            nameCol: columnConfig.name,
+            passwordCol: columnConfig.password,
+            branchCol: columnConfig.branch
+        });
+
+        const loginResponse = await fetch(`${config.scriptUrl}?${params.toString()}`);
+        const loginResult = await loginResponse.json();
+        
+        if (loginResult.status !== "success") {
+            domCache.spinner.style.display = "none";
+            showPopup(loginResult.message, "error");
+            return;
+        }
+
+        // Show spinner during redirect
+        domCache.spinner.style.display = "flex";
+        showPopup("Login successful", "success");
+        
+        // Handle successful login with redirect
+        setTimeout(() => {
+            handleSuccessfulLogin(name, loginResult.branch);
+        }, 1500);
+        
+    } catch (error) {
+        if (domCache.spinner) domCache.spinner.style.display = "none";
+        showPopup("❌ Error connecting to server!", "error");
+        console.error("Error:", error);
+    }
+}
+
+// Function to redirect back to the original page after login
+function redirectToOriginalPage() {
+    const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
+    if (redirectUrl && !redirectUrl.includes('https://trendseducation.github.io/ujjwalacademy/login.html')) {
+        console.log("Redirecting back to original page:", redirectUrl);
+        sessionStorage.removeItem('redirectAfterLogin'); // Clean up
+        window.location.href = redirectUrl;
+    } else {
+        // Fallback to a default page if no redirect URL is found
+        window.location.href = 'https://trendseducation.github.io/ujjwalacademy/Study%20Material/studymaterial.html';
+    }
+}
+
+// Modified handleSuccessfulLogin function
+function handleSuccessfulLogin(name, branch) {
+    const userBranch = branch ? branch.toString().trim().toLowerCase() : '';
+    
+    // Set authentication data
+    // Make sure setAuthentication function is available in login page
+    if (typeof setAuthentication === 'function') {
+        setAuthentication(currentLoginType, {
+            name: name,
+            branch: branch,
+            loginTime: new Date().toISOString()
+        });
+    } else {
+        // Fallback if setAuthentication is not available
+        const loginTime = new Date().getTime();
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('loginTime', loginTime.toString());
+        localStorage.setItem('userRole', currentLoginType);
+        localStorage.setItem('userData', JSON.stringify({
+            name: name,
+            branch: branch,
+            loginTime: new Date().toISOString()
+        }));
+    }
+    
+    // If branch is empty, redirect back to the original page
+    if (!userBranch || userBranch === '') {
+        console.log("No branch assigned, redirecting to original page");
+        
+        // Hide spinner and show success message
+        if (domCache.spinner) domCache.spinner.style.display = "none";
+        showPopup("Login successful! Redirecting...", "success");
+        
+        // Redirect after a short delay
+        setTimeout(() => {
+            redirectToOriginalPage();
+        }, 1500);
+        return;
+    }
+    
+    // If branch is available, use the branch-based redirect logic
+    const encodedName = encodeURIComponent(name);
+    const branchUrls = {
+        kamatghar: {
+            admin: 'AdminEgyan.html',
+            student: `Student login details/studDashboard.html?email=${encodedName}`,
+            teacher: `Practice7.html?teacherName=${encodedName}`,
+            staff: `Practice10.html?staffName=${encodedName}`
+        },
+        naka: {
+            admin: 'Branch/Dhamankar Naka/AdminUjjwal.html',
+            student: `Branch/Dhamankar Naka/Login Details/Student/studDashboard.html?email=${encodedName}`,
+            teacher: `Practice8.html?teacherName=${encodedName}`,
+            staff: `Practice11.html?staffName=${encodedName}`
+        },
+        'computer kamatghar': {
+            admin: 'practice/practice2.html',
+            student: `https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Student/Computer%20Kamatghar/studDashboard.html?email=${encodedName}`,
+            teacher: `Practice9.html?teacherName=${encodedName}`,
+            staff: `Practice12.html?staffName=${encodedName}`
+        },
+        mithpada: {
+            admin: 'https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Admin/adminMithpada.html',
+            student: `https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Student/Mithpada/studDashboard.html?email=${encodedName}`,
+            teacher: `Pract4.html?teacherName=${encodedName}`,
+            staff: `Pract5.html?staffName=${encodedName}`
+        }
+    };
+    
+    const url = branchUrls[userBranch]?.[currentLoginType];
+    if (url) {
+        // Show success message and redirect
+        if (domCache.spinner) domCache.spinner.style.display = "none";
+        showPopup("Login successful! Redirecting...", "success");
+        
+        setTimeout(() => {
+            window.location.href = url;
+        }, 1500);
+    } else {
+        // If no branch URL found, redirect to original page
+        if (domCache.spinner) domCache.spinner.style.display = "none";
+        showPopup("Login successful! Redirecting...", "success");
+        
+        setTimeout(() => {
+            redirectToOriginalPage();
+        }, 1500);
+    }
+}
+
+function showPopup(message, type) {
+    if (!domCache.popup) return;
+    
+    domCache.popup.textContent = message;
+    domCache.popup.className = `popup ${type}`;
+    domCache.popup.style.display = 'block';
+    domCache.popup.style.opacity = '1';
+
+    setTimeout(() => {
+        domCache.popup.style.opacity = '0';
+        setTimeout(() => {
+            domCache.popup.style.display = 'none';
+        }, 500);
+    }, 3000);
+}
+
+// Setup event listeners
+function setupEventListeners() {
+    // Sidebar toggle
+    if (domCache.sidebarToggle) {
+        domCache.sidebarToggle.addEventListener('click', toggleSidebar);
+    }
+    if (domCache.closeSidebar) {
+        domCache.closeSidebar.addEventListener('click', closeSidebar);
+    }
+    if (domCache.sidebarOverlay) {
+        domCache.sidebarOverlay.addEventListener('click', closeSidebar);
+    }
+    
+    // Menu item clicks
+    if (domCache.adminBtn) {
+        domCache.adminBtn.addEventListener('click', () => selectLoginType('admin'));
+    }
+    if (domCache.studentBtn) {
+        domCache.studentBtn.addEventListener('click', () => selectLoginType('student'));
+    }
+    if (domCache.teacherBtn) {
+        domCache.teacherBtn.addEventListener('click', () => selectLoginType('teacher'));
+    }
+    if (domCache.staffBtn) {
+        domCache.staffBtn.addEventListener('click', () => selectLoginType('staff'));
+    }
+    
+    // Create account button
+    if (domCache.createAccountBtn) {
+        domCache.createAccountBtn.addEventListener('click', openSignupPopup);
+    }
+    
+    // Forgot password link
+    const forgotPasswordLink = document.querySelector('.forgot-password-link a');
+    if (forgotPasswordLink) {
+        forgotPasswordLink.addEventListener('click', openForgotPopup);
+    }
+    
+    // Close buttons
+    const closeSignupBtn = document.querySelector('.close-signup');
+    if (closeSignupBtn) {
+        closeSignupBtn.addEventListener('click', closeSignupPopup);
+    }
+    
+    const closeForgotBtn = document.querySelector('.close-forgot');
+    if (closeForgotBtn) {
+        closeForgotBtn.addEventListener('click', closeForgotPopup);
+    }
+    
+    // Stream selection change
+    if (domCache.stream) {
+        domCache.stream.addEventListener('change', toggleConditionalField);
+    }
+    
+    // Login button
+    const loginBtn = document.querySelector('.login-btn');
+    if (loginBtn) {
+        loginBtn.addEventListener('click', validateLogin);
+    }
+    
+    // Setup form submissions
+    setupSignupForm();
+    setupForgotPasswordForm();
+    
+    // Setup password toggles
+    setupPasswordToggle();
+}
+
+// Initialize on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    initDomCache();
+    initHeaderBar();
+    setupEventListeners();
+    
+    // Set student as default on page load
+    selectLoginType('student');
+});
+
+// Add resize event listener to handle screen size changes
+window.addEventListener('resize', () => {
+    const newIsMobile = window.innerWidth <= 992;
+    if (isMobile !== newIsMobile) {
+        isMobile = newIsMobile;
+        initHeaderBar();
+    }
+});
+</script>
+</body>
+</html>

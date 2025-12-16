@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Staff Payment Form</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="auth.js"></script>
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #a5f0b9, #2575fc);
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+      }
+      .form-container {
+        max-width: 500px;
+        width: 90%;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .form-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        font-weight: 500;
+        color: #495057;
+        margin-bottom: 8px;
+      }
+      .form-control {
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #ced4da;
+      }
+	  
+	  .form-control2 {
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #ced4da;
+		background: white;
+      }
+	  .position-relative input{
+	  padding-left: 43px	  
+	  }
+	  .position-relative div{
+	  padding-left: 43px	  
+	  }
+	  .position-relative Select{
+	  padding-left: 40px	  
+	  }
+	  
+	  .position-relative textarea{
+	  padding-left: 40px	  
+	  }
+
+      .form-control:focus, .form-control2:focus {
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+        border-color: #007bff;
+      }
+      .input-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6a11cb;
+        font-size: 18px;
+      }
+	  .input-icons {
+        position: absolute;
+        left: 15px;
+        transform: translateY(-50%);
+        color: #6a11cb;
+        font-size: 18px;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        border: none;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 500;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      .progress-circle {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+      }
+      .success-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 16px;
+        animation: fadeIn 0.5s ease;
+      }
+      .success-popup.fade-out {
+        animation: fadeOut 0.5s ease;
+      }
+      h4 {
+        color: #6a11cb;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+	  /* Spinner Overlay Styles */
+  .submit-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: all 0.3s ease;
+  }
+  
+  .spinner-container {
+    text-align: center;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    width: 100%;
+  }
+  
+  .spinner-border {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-width: 0.35em;
+    color: #4e73df;
+    animation: spin 1s linear infinite;
+  }
+  
+  .spinner-text {
+    margin-top: 1.5rem;
+    font-weight: 600;
+    color: #4e73df;
+    font-size: 1.1rem;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Full-Screen Popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .popup-content {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            height: 80%;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.3s ease-in-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .popup-content h3 {
+            margin: 0;
+            padding-bottom: 10px;
+            color: #007bff;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            color: red;
+            font-weight: bold;
+        }
+        .student-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            border-radius: 10px;
+            padding: 10px;
+            background: #f9f9f9;
+            display: none;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .student-list div {
+            padding: 12px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 300;
+            transition: 0.3s;
+            cursor: pointer;
+            border: 1px solid #007bff;
+        }
+        .student-list div:hover {
+            background: #007bff;
+            color: white;
+        }
+        .studspinner {
+            font-size: 26px;
+            color: red;
+            margin-top: 20px;
+        }
+		checking-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0,0,0,0.1);
+  border-radius: 50%;
+  border-top-color: #000;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Add these styles to your existing CSS */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .popup-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .popup-message {
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .popup-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .popup-button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-button-primary {
+            background-color: #4361ee;
+            color: white;
+        }
+        
+        .popup-button-primary:hover {
+            background-color: #3a56d4;
+        }
+        
+        .popup-button-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .popup-button-secondary:hover {
+            background-color: #e0e0e0;
+        }
+	  
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h4 class="text-center">Staff Payment Form</h4>
+      <form id="submit" oninput="calculateValues()">
+		
+		<div class="form-group">
+            <label for="text_dropdown">Academic Year:<span style="color: red;">*</span></label>
+            <div class="position-relative">
+			<select class="form-control" name="Academic_Year" id="text_dropdown" required>
+              <option value="">Select</option>
+			  <option value="2025-26">2024-25</option>
+              <option value="2025-26">2025-26</option>
+			  <option value="2025-26">2026-27</option>
+            </select>
+			<i class="fas fa-calendar-alt input-icon"></i>
+          </div></div>
+            <div class="form-group">
+		           <label for="Date_of_Payment">Date of Payment<span style="color: red;"> *</span></label>
+                   <div class="position-relative">
+				   <input class="form-control" name="Date_of_Payment" type="date" id="editDOP" required />
+				   <i class="fas fa-calendar-alt input-icon"></i>
+				   </div></div>
+			<div class="form-group">
+      <label for="text_dropdown">Staff Name: <span style="color: red;">*</span></label>
+      <div class="position-relative">
+        <div class="form-control2" onclick="openPopup()" name="Name_of_Student_display" id="Name_of_Student_display" readonly required>Select Staff Name</div>
+        <input type="hidden" name="Staf_Name" id="Name_of_Student" required>
+        <i class="fas fa-user input-icon"></i>
+      </div>
+    </div>
+			<div class="form-group">
+                   <label for="Service">Service<span style="color: red;"> *</span></label>
+                   <div class="position-relative">
+				   <input class="form-control" name="Service" type="text" id="editService" placeholder="Enter the Service Provided" required />
+				   <i class="fas fa-briefcase input-icon"></i>
+				   </div></div>
+			<div class="form-group">
+                   <label for="Total_Salary_Paid">Total Salary (Paid)<span style="color: red;"> *</span></label>
+                   <div class="position-relative">
+				   <input 
+                      type="number" 
+                       id="editTotalSalPaid" 
+					   class="form-control" 
+					   name="Total_Salary_Paid"
+                       placeholder="Enter total Salary (e.g., 5000)" 
+                       min="1" 
+                       required />
+					   <i class="fas fa-money-bill-wave input-icon"></i>
+					   </div></div>
+			<div class="form-group">
+					   <label for="Total_Salary_PM">Total Salary Per Month (₹)<span style="color: red;"> *</span></label>
+                    <div class="position-relative">
+					<input 
+                       type="number" 
+                       id="editTotalSalPM" 
+					   class="form-control" 
+					   name="Total_Salary_PM"
+                       placeholder="Enter total Salary Per Month (e.g., ₹20000)" 
+                       min="1" 
+                       required />
+					   <i class="fas fa-rupee-sign input-icon"></i>
+					   </div></div>
+			<div class="form-group">
+					   <label for="Bal_Salary">Balance Amount</label>
+                       <div class="position-relative">
+					   <input class="form-control" name="Bal_Salary" type="number" id="balanceAmount" readonly placeholder="Balance Figure" style="background-color: #ebe6e6"/>
+					   <i class="fas fa-money-bill-wave input-icon"></i>
+					   </div></div>
+			<div class="form-group">		   
+					   <label for="Note">Note</label>
+                       <div class="position-relative">
+					   <input class="form-control" name="Note" type="text" id="editNote" placeholder="Type any notes (Optional)"/>
+					   <i class="fas fa-sticky-note input-icon"></i>
+					   </div></div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            Submit
+          </button></div>
+        </form>
+  <!-- Overlay for submission loading -->
+  <div class="submit-overlay" id="submitOverlay" style="display: none;">
+    <div class="spinner-container">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-text">Submitting your data...</div>
+    </div>
+  </div>
+</div>
+
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <h3>Select Staff Name</h3>
+        <div class="studspinner" id="spinner"><i class="fas fa-spinner fa-spin"></i> Please Wait...</div>
+        <div class="student-list" id="studentList"></div>
+    </div>
+</div>
+<!-- Add this popup HTML at the bottom of your body -->
+    <div class="popup-overlay" id="errorPopup">
+        <div class="popup-content">
+            <div class="popup-message" id="popupMessage"></div>
+            <div class="popup-buttons">
+                <a href="staf_payment.html" class="popup-button popup-button-primary" id="updateRecordBtn">Update Record</a>
+                <button class="popup-button popup-button-secondary" id="closePopupBtn">Close</button>
+            </div>
+        </div>
+    </div>
+	
+	<script>
+      // Configuration constants
+const scriptURL = "https://script.google.com/macros/s/AKfycbwD-29kpCjkWmA4G0GdHC1IXpbF7GaCpZb5NN-ufwiUO9y12QPIVRYdIHmFmeWUHEx9/exec";
+const SPREADSHEET_ID = '1vA2wS9S05TdOkjiHUZreBfW3mfSJDwqcbQFgAcJ7fI8';
+const sheetName = "Staf_Payment";
+const sheetName2 = "Staff_Details";
+
+// DOM elements
+const form = document.getElementById("submit");
+const submitButton = document.querySelector("#submit button[type='submit']");
+const submitOverlay = document.getElementById("submitOverlay");
+const staffNameDisplay = document.getElementById("Name_of_Student_display");
+const staffNameInput = document.getElementById("Name_of_Student");
+
+// Store existing records
+let existingRecords = [];
+
+// Initialize when page loads
+document.addEventListener("DOMContentLoaded", function() {
+    // Set default date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("editDOP").value = today;
+    
+    // Fetch existing records
+    fetchExistingRecords();
+});
+
+// Fetch existing records from Google Sheet
+async function fetchExistingRecords() {
+    try {
+        const url = `${scriptURL}?action=getRecords&spreadsheetId=${SPREADSHEET_ID}&sheetName=${sheetName}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (data && data.records) {
+            existingRecords = data.records;
+        }
+    } catch (error) {
+        console.error("Error fetching records:", error);
+    }
+}
+
+// Check if staff already exists in the sheet
+async function checkStaffExists(staffName) {
+    try {
+        // Show checking spinner
+        const originalContent = staffNameDisplay.innerHTML;
+        staffNameDisplay.innerHTML = `
+            <span class="checking-status">
+                <span class="checking-spinner"></span>
+                Verifying staff...
+            </span>
+        `;
+        
+        const url = `${scriptURL}?action=getRecords&spreadsheetId=${SPREADSHEET_ID}&sheetName=${sheetName}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        // Restore original content
+        staffNameDisplay.innerHTML = originalContent;
+        
+        if (data && data.records) {
+            // Check for exact match (case insensitive and trimmed)
+            const exists = data.records.some(record => 
+                record.Staf_Name && 
+                record.Staf_Name.toLowerCase().trim() === staffName.toLowerCase().trim()
+            );
+            
+            if (exists) {
+                showErrorPopup('This staff member already has a payment record. Please update the existing record instead.');
+                return true;
+            }
+        }
+        return false;
+    } catch (error) {
+        console.error("Error checking staff:", error);
+        staffNameDisplay.textContent = 'Select Staff Name';
+        staffNameInput.value = '';
+        showErrorPopup('Error verifying staff. Please try again.');
+        return false;
+    }
+}
+
+// Form submission handler
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    // Validate form
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+    
+    // Validate staff name is selected
+    const staffName = staffNameInput.value;
+    if (!staffName || staffName === '') {
+        showErrorPopup('Please select a staff name');
+        return;
+    }
+    
+    // Validate paid salary doesn't exceed total salary
+    const totalSalaryPM = parseFloat(document.getElementById('editTotalSalPM').value) || 0;
+    const totalSalaryPaid = parseFloat(document.getElementById('editTotalSalPaid').value) || 0;
+    
+    if (totalSalaryPaid > totalSalaryPM) {
+        showErrorPopup('Paid salary cannot exceed total salary per month');
+        return;
+    }
+    
+    // Immediately show spinner and disable button
+    submitOverlay.style.display = "flex";
+    submitButton.disabled = true;
+    
+    try {
+        // Check if staff already exists
+        const staffExists = await checkStaffExists(staffName);
+        if (staffExists) {
+            return; // Error message already shown by checkStaffExists
+        }
+        
+        // If staff doesn't exist, proceed with submission
+        const formData = new FormData(form);
+        formData.append("sheetName", sheetName);
+        formData.append("spreadsheetId", SPREADSHEET_ID);
+
+        const response = await fetch(scriptURL, { 
+            method: "POST", 
+            body: formData 
+        });
+        
+        if (!response.ok) throw new Error("Network response was not ok");
+        
+        showSuccessPopup('Payment record submitted successfully!');
+        form.reset();
+        // Reset the staff name display
+        staffNameDisplay.textContent = 'Select Staff Name';
+        staffNameInput.value = '';
+        // Reset calculated fields
+        document.getElementById('balanceAmount').value = '';
+        // Set date back to today
+        document.getElementById("editDOP").value = new Date().toISOString().split('T')[0];
+        
+        await fetchExistingRecords();
+    } catch (error) {
+        showErrorPopup('Something went wrong. Please try again!');
+        console.error('Submission error:', error);
+        // Restore the staff name display in case of error
+        staffNameDisplay.textContent = staffName;
+    } finally {
+        submitOverlay.style.display = "none";
+        submitButton.disabled = false;
+    }
+});
+
+// Calculate values function
+function calculateValues() {
+    const totalSalaryPM = parseFloat(document.getElementById('editTotalSalPM').value) || 0;
+    const totalSalaryPaid = parseFloat(document.getElementById('editTotalSalPaid').value) || 0;
+    const balanceAmount = totalSalaryPM - totalSalaryPaid;
+
+    document.getElementById('balanceAmount').value = balanceAmount.toFixed(2);
+}
+
+// Show success popup
+function showSuccessPopup(message) {
+    Swal.fire({
+        title: 'Success!',
+        text: message,
+        icon: 'success',
+        confirmButtonText: 'OK'
+    });
+}
+
+// Show error popup
+function showErrorPopup(message) {
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: message,
+    });
+}
+
+function openPopup() {
+    document.getElementById("popup").style.display = "flex";
+    fetchStaffNames();
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+
+async function fetchStaffNames() {
+    document.getElementById("spinner").style.display = "block";
+    document.getElementById("studentList").style.display = "none";
+
+    try {
+        const response = await fetch(`${scriptURL}?action=getColumnBData&spreadsheetId=${SPREADSHEET_ID}&sheetName=${sheetName2}`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+
+        let studentList = document.getElementById("studentList");
+        studentList.innerHTML = "";
+
+        if (Array.isArray(data)) {
+            // Remove duplicates and sort alphabetically
+            const uniqueNames = [...new Set(data.filter(name => name && name.trim() !== ''))].sort();
+            
+            uniqueNames.forEach(name => {
+                let div = document.createElement("div");
+                div.textContent = name;
+                div.onclick = async function() {
+                    document.getElementById("popup").style.display = "none";
+                    const originalContent = staffNameDisplay.innerHTML;
+                    staffNameDisplay.innerHTML = `
+                        <span class="checking-status">
+                            <span class="checking-spinner"></span>
+                            Verifying staff...
+                        </span>
+                    `;
+                    
+                    try {
+                        const staffExists = await checkStaffExists(name);
+                        if (staffExists) {
+                            staffNameDisplay.textContent = 'Select Staff Name';
+                            staffNameInput.value = '';
+                        } else {
+                            staffNameDisplay.textContent = name;
+                            staffNameInput.value = name;
+                        }
+                    } catch (error) {
+                        console.error("Error checking staff:", error);
+                        staffNameDisplay.textContent = 'Select Staff Name';
+                        staffNameInput.value = '';
+                        showErrorPopup("Error checking staff. Please try again.");
+                    }
+                };
+                studentList.appendChild(div);
+            });
+        } else {
+            throw new Error(data.error || "Unknown error occurred");
+        }
+
+        document.getElementById("spinner").style.display = "none";
+        studentList.style.display = "block";
+
+    } catch (error) {
+        console.error("Error fetching staff names:", error);
+        showErrorPopup("Error fetching staff names: " + error.message);
+        document.getElementById("spinner").style.display = "none";
+        closePopup();
+    }
+}
+
+ // Add these popup functions
+        function showErrorPopup(message) {
+            const popup = document.getElementById('errorPopup');
+            const popupMessage = document.getElementById('popupMessage');
+            
+            popupMessage.textContent = message;
+            popup.style.display = 'flex';
+            
+            // Close popup when clicking outside
+            popup.addEventListener('click', function(e) {
+                if (e.target === popup) {
+                    hideErrorPopup();
+                }
+            });
+            
+            // Close button event
+            document.getElementById('closePopupBtn').addEventListener('click', hideErrorPopup);
+        }
+        
+        function hideErrorPopup() {
+            document.getElementById('errorPopup').style.display = 'none';
+        }
+  </script>
+  </body>
+</html>

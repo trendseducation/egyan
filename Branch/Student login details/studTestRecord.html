@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Test Records</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<script src="https://trendseducation.github.io/classmanagement/loginscriptforindex.js"></script>
+    <style>
+    :root {
+        --primary-color: #4361ee;
+        --secondary-color: #3f37c9;
+        --accent-color: #4cc9f0;
+        --light-color: #f8f9fa;
+        --dark-color: #212529;
+        --success-color: #4bb543;
+        --warning-color: #f0ad4e;
+        --danger-color: #d9534f;
+        --border-radius: 12px;
+        --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+        --perfect-icon-color: #28a745;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f5f7fb;
+        color: var(--dark-color);
+        line-height: 1.6;
+        position: relative;
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        padding-bottom: 60px; /* Space for potential footer */
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 30px;
+        position: relative;
+        padding-bottom: 20px;
+    }
+
+    header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        border-radius: 2px;
+    }
+
+    header h2 {
+        font-size: 2.2rem;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    header p {
+        color: #6c757d;
+        font-size: 1rem;
+    }
+
+    /* Enhanced Loading Spinner */
+    .loading-spinner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(3px);
+    }
+
+    .spinner {
+        width: 70px;
+        height: 70px;
+        border: 8px solid rgba(67, 97, 238, 0.1);
+        border-radius: 50%;
+        border-top-color: var(--primary-color);
+        border-right-color: var(--accent-color);
+        border-bottom-color: var(--secondary-color);
+        animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    }
+
+    .loading-text {
+        margin-top: 20px;
+        font-size: 1.2rem;
+        color: var(--primary-color);
+        font-weight: 500;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Action Buttons */
+    .action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 8px 15px;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+        border: none;
+        color: white;
+        min-width: 120px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .result-btn {
+        background-color: var(--success-color);
+        background-image: linear-gradient(135deg, #4bb543, #3a9a33);
+    }
+
+    .reason-btn {
+        background-color: var(--danger-color);
+        background-image: linear-gradient(135deg, #d9534f, #c12e2a);
+    }
+
+    .action-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .action-btn:active {
+        transform: translateY(0);
+    }
+
+    .perfect-icon {
+        color: white;
+        font-size: 1rem;
+        background-color: var(--perfect-icon-color);
+        border-radius: 50%;
+        padding: 3px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Enhanced Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 9998;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .modal-content {
+        background-color: white;
+        border-radius: var(--border-radius);
+        width: 90%;
+        max-width: 700px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        animation: modalSlideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        position: relative;
+    }
+
+    @keyframes modalSlideIn {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        background-color: white;
+        z-index: 1;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+
+    .modal-header h3 {
+        color: var(--primary-color);
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .modal-header h3 i {
+        color: var(--accent-color);
+    }
+
+    .close-btn {
+        font-size: 1.8rem;
+        color: #777;
+        cursor: pointer;
+        transition: var(--transition);
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+    .close-btn:hover {
+        color: var(--danger-color);
+        background-color: #f8f9fa;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .test-info {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: var(--border-radius);
+        margin-bottom: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .test-info p {
+        margin: 0;
+        font-size: 0.95rem;
+    }
+
+    .test-info strong {
+        color: var(--primary-color);
+    }
+
+    /* Enhanced Popup Subjects Section - Mobile Responsive */
+.results-table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    position: relative;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 280px; /* Ensure table doesn't get too narrow */
+}
+
+.results-table th {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 12px;
+    position: sticky;
+    top: 0;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.results-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+}
+
+.results-table tr:last-child td {
+    border-bottom: none;
+}
+
+    .result-summary {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: var(--border-radius);
+        margin-top: 20px;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        font-size: 1rem;
+    }
+
+    .summary-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .summary-row hr {
+        margin: 15px 0;
+        border: none;
+        border-top: 1px solid #eee;
+    }
+
+    .pass {
+        color: var(--success-color);
+        font-weight: 600;
+        background-color: rgba(75, 181, 67, 0.1);
+        padding: 3px 8px;
+        border-radius: 4px;
+    }
+
+    .fail {
+        color: var(--danger-color);
+        font-weight: 600;
+        background-color: rgba(217, 83, 79, 0.1);
+        padding: 3px 8px;
+        border-radius: 4px;
+    }
+
+    .absence-reason {
+        background-color: #fff8f8;
+        padding: 20px;
+        border-radius: var(--border-radius);
+        border-left: 4px solid var(--danger-color);
+        margin-top: 20px;
+    }
+
+    .absence-reason h4 {
+        color: var(--danger-color);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.2rem;
+    }
+
+    .absence-reason p {
+        line-height: 1.7;
+        color: #555;
+    }
+
+    .student-info {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    gap: 15px;
+}
+
+.student-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+}
+
+.student-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 15px;
+}
+
+.student-stream {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(67, 97, 238, 0.2);
+    white-space: nowrap;
+}
+
+
+    .table-container {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    thead {
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        color: white;
+    }
+
+    th {
+        padding: 15px;
+        text-align: left;
+        font-weight: 500;
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    th i {
+        margin-left: 8px;
+        opacity: 0.7;
+        transition: var(--transition);
+    }
+
+    th:hover i {
+        opacity: 1;
+    }
+
+    tbody tr {
+        border-bottom: 1px solid #eee;
+        transition: var(--transition);
+    }
+
+    tbody tr:last-child {
+        border-bottom: none;
+    }
+
+    tbody tr:hover {
+        background-color: rgba(67, 97, 238, 0.05);
+    }
+
+    td {
+        padding: 15px;
+        color: #495057;
+    }
+
+    .attendance-present {
+        color: var(--success-color);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .attendance-absent {
+        color: var(--danger-color);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .no-data {
+        text-align: center;
+        padding: 50px 20px;
+        color: #6c757d;
+    }
+
+    .no-data h3 {
+        margin-bottom: 10px;
+        color: var(--dark-color);
+    }
+
+    .no-data i {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        opacity: 0.5;
+        color: var(--primary-color);
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        header h2 {
+            font-size: 1.8rem;
+        }
+
+        .student-info {
+        flex-wrap: nowrap; /* Keep items in one line */
+        overflow-x: auto; /* Allow horizontal scrolling if needed */
+        padding: 12px 15px;
+        gap: 10px;
+    }
+    
+    .student-name {
+        font-size: 1.1rem;
+        margin-right: 10px;
+        flex-shrink: 0; /* Prevent shrinking */
+    }
+    
+    .student-stream {
+        font-size: 0.8rem;
+        padding: 3px 10px;
+        flex-shrink: 0;
+    }
+	
+	/* Popup table adjustments */
+    .results-table th,
+    .results-table td {
+        padding: 10px 8px;
+        font-size: 0.85rem;
+    }
+    
+    .results-table-container {
+        margin: 15px 0;
+    }
+
+        table {
+            display: block;
+            overflow-x: auto;
+        }
+
+        th, td {
+            min-width: 120px;
+        }
+
+        .modal-content {
+            width: 95%;
+        }
+
+        .test-info {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .container {
+            padding: 15px;
+        }
+
+        header h2 {
+            font-size: 1.5rem;
+        }
+
+        header p {
+            font-size: 0.9rem;
+        }
+
+        .student-name {
+            font-size: 1.2rem;
+        }
+
+        th, td {
+            padding: 12px 10px;
+            font-size: 0.9rem;
+        }
+
+        .action-btn {
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            min-width: auto;
+            width: 100%;
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 10px 12px;
+            font-size: 0.9rem;
+			width: 100%;
+        }
+}
+
+    /* Remove FAB button */
+    .fab {
+        display: none !important;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h2><i class="fas fa-graduation-cap"></i> Student Test Records</h2>
+            <p>View and manage student test records</p>
+        </header>
+
+        <div class="student-info">
+            <div class="student-name">
+                <i class="fas fa-user"></i>
+                <span id="studentNameDisplay"></span>
+            </div>
+            <div class="student-stream" id="studentStreamDisplay"></div>
+        </div>
+
+        <div class="table-container">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Date <i class="fas fa-sort"></i></th>
+                        <th>Test Chapter <i class="fas fa-sort"></i></th>
+                        <th>Attendance <i class="fas fa-sort"></i></th>
+                        <th>Action <i class="fas fa-sort"></i></th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be populated by JavaScript -->
+                </tbody>
+            </table>
+            <div id="noData" class="no-data" style="display: none;">
+                <i class="fas fa-database" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;"></i>
+                <h3>No test records found</h3>
+                <p>No test records available for this student</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="fab">
+        <i class="fas fa-plus"></i>
+    </button>
+<script>
+    // Google Apps Script URL
+const scriptUrl = "https://script.google.com/macros/s/AKfycbw052wCLxhKn6mXKKTNkUxe1IBecWG9_ZHWjzyGzHcHrgabpfpBOGX__Hf2dExntKGB/exec";
+
+// Spreadsheet configuration
+const spreadsheetConfig = {
+    spreadsheetId: "1f80UPUNePkklrgONpbHpUdmtay2N4NSEcofv3jRyL-U",
+    sheets: ["Computer", "9th_Std", "10th_Std", "11th_Com", "12th_Com", "11th_Sci", "12th_Sci"],
+    columns: {
+        date: 1,
+        studentName: 2,
+        chapterName: 3,
+        attendance: 4,
+        english: 5,
+        hindi: 6,
+        marathi: 7,
+        bkAccountancy: 8,
+        ocManagement: 9,
+        economy: 10,
+        sp: 11,
+		math: 11,
+		geography: 12,
+        maths: 12,
+        totalObtained: 13,
+        totalMarks: 14,
+        percentage: 15,
+        result: 16,
+        note: 17
+    }
+};
+
+let allData = [];
+let filteredData = [];
+let currentPage = 1;
+const rowsPerPage = 10;
+let sortColumn = null;
+let sortDirection = 1; // 1 for ascending, -1 for descending
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get student name from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const studentName = decodeURIComponent(urlParams.get('studentName') || '');
+    
+    // Display student info
+    document.getElementById('studentNameDisplay').textContent = studentName;
+    
+    // Load data
+    loadData(studentName);
+    
+    // Set up sorting
+    document.querySelectorAll('th').forEach((th, index) => {
+        th.addEventListener('click', () => {
+            sortColumn = index;
+            sortDirection = sortColumn === index ? -sortDirection : 1;
+            sortData();
+            renderTable();
+        });
+    });
+
+    // Remove FAB button
+    const fab = document.querySelector('.fab');
+    if (fab) {
+        fab.remove();
+    }
+});
+
+function loadData(studentName) {
+    showLoading();
+    allData = [];
+    
+    const fetchPromises = spreadsheetConfig.sheets.map(sheetName => {
+        return fetch(`${scriptUrl}?spreadsheetId=${encodeURIComponent(spreadsheetConfig.spreadsheetId)}&sheetName=${encodeURIComponent(sheetName)}`)
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    console.error(`Error in ${sheetName}:`, data.error);
+                    return [];
+                }
+                // Add stream info to each record
+                return data.map(item => {
+                    const stream = sheetName.replace('_', ' ');
+                    return [...item, stream];
+                });
+            })
+            .catch(error => {
+                console.error(`Error loading ${sheetName}:`, error);
+                return [];
+            });
+    });
+    
+    Promise.all(fetchPromises)
+        .then(results => {
+            allData = results.flat();
+            // Filter for the specific student
+            filteredData = allData.filter(item => 
+                item[spreadsheetConfig.columns.studentName - 1]?.toString().trim().toLowerCase() === 
+                studentName.toLowerCase()
+            );
+            
+            if (filteredData.length > 0) {
+                const stream = filteredData[0][17]; // Get stream from first record
+                document.getElementById('studentStreamDisplay').textContent = stream;
+            }
+            
+            renderTable();
+            hideLoading();
+        })
+        .catch(error => {
+            console.error('Error loading data:', error);
+            hideLoading();
+            alert('Error loading student data. Please try again.');
+        });
+}
+
+function renderTable() {
+    const tableBody = document.getElementById('tableBody');
+    const noDataDiv = document.getElementById('noData');
+    
+    if (filteredData.length === 0) {
+        tableBody.innerHTML = '';
+        noDataDiv.style.display = 'block';
+        return;
+    }
+    
+    noDataDiv.style.display = 'none';
+    
+    sortData();
+    
+    const pageData = filteredData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+    
+    tableBody.innerHTML = pageData.map((item, index) => {
+        const dateObj = new Date(item[spreadsheetConfig.columns.date - 1]);
+        const formattedDate = dateObj.toLocaleDateString('en-GB', {
+            day: 'numeric', month: 'short', year: 'numeric'
+        });
+        
+        const attendance = item[spreadsheetConfig.columns.attendance - 1];
+        const attendanceClass = attendance === 'Present' ? 'attendance-present' : 'attendance-absent';
+        const actionBtnText = attendance === 'Present' ? 'View Result' : 'View Reason';
+        const actionBtnClass = attendance === 'Present' ? 'result-btn' : 'reason-btn';
+        
+        return `
+            <tr>
+                <td>${formattedDate}</td>
+                <td>${item[spreadsheetConfig.columns.chapterName - 1]}</td>
+                <td class="${attendanceClass}">${attendance}</td>
+                <td>
+                    <button class="action-btn ${actionBtnClass}" onclick="showDetails(${index})">
+                        ${attendance === 'Present' ? '<i class="fas fa-check-circle perfect-icon"></i>' : '<i class="fas fa-eye"></i>'} ${actionBtnText}
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+    
+    // Update sorting indicators
+    document.querySelectorAll('th i').forEach(icon => {
+        icon.className = 'fas fa-sort';
+    });
+    
+    if (sortColumn !== null) {
+        const th = document.querySelectorAll('th')[sortColumn];
+        const icon = th.querySelector('i');
+        icon.className = sortDirection === 1 ? 'fas fa-sort-up' : 'fas fa-sort-down';
+    }
+}
+
+function showDetails(index) {
+    const item = filteredData[index];
+    const isScienceStream = item[17].includes('Sci');
+    const attendance = item[spreadsheetConfig.columns.attendance - 1];
+    
+    if (attendance === 'Present') {
+        // Create modal HTML for test results
+        let percentage = item[spreadsheetConfig.columns.percentage - 1];
+        if (percentage && !isNaN(percentage)) {
+            if (percentage <= 1) percentage = (percentage * 100).toFixed(2);
+            percentage += '%';
+        } else {
+            percentage = 'N/A';
+        }
+        
+        const result = item[spreadsheetConfig.columns.result - 1];
+        const resultClass = result && result.toString().toLowerCase().includes('pass') ? 'pass' : 'fail';
+        
+        // Create subject rows based on stream
+        const subjectRows = [];
+        
+        // Common subjects
+        if (item[spreadsheetConfig.columns.english - 1]) {
+            subjectRows.push(`<tr><td>English</td><td>${item[spreadsheetConfig.columns.english - 1]}</td></tr>`);
+        }
+        if (item[spreadsheetConfig.columns.hindi - 1]) {
+            subjectRows.push(`<tr><td>Hindi</td><td>${item[spreadsheetConfig.columns.hindi - 1]}</td></tr>`);
+        }
+        if (item[spreadsheetConfig.columns.marathi - 1]) {
+            subjectRows.push(`<tr><td>Marathi</td><td>${item[spreadsheetConfig.columns.marathi - 1]}</td></tr>`);
+        }
+        
+        // Stream-specific subjects
+        if (isScienceStream) {
+            if (item[spreadsheetConfig.columns.bkAccountancy - 1]) {
+                subjectRows.push(`<tr><td>Biology</td><td>${item[spreadsheetConfig.columns.bkAccountancy - 1]}</td></tr>`);
+            }
+            if (item[spreadsheetConfig.columns.ocManagement - 1]) {
+                subjectRows.push(`<tr><td>Chemistry</td><td>${item[spreadsheetConfig.columns.ocManagement - 1]}</td></tr>`);
+            }
+            if (item[spreadsheetConfig.columns.economy - 1]) {
+                subjectRows.push(`<tr><td>Physics</td><td>${item[spreadsheetConfig.columns.economy - 1]}</td></tr>`);
+            }
+            if (item[spreadsheetConfig.columns.sp - 1]) {
+                subjectRows.push(`<tr><td>Geography</td><td>${item[spreadsheetConfig.columns.geography - 1]}</td></tr>`);
+            }
+			// Maths
+            if (item[spreadsheetConfig.columns.maths - 1]) {
+            subjectRows.push(`<tr><td>Maths</td><td>${item[spreadsheetConfig.columns.math - 1]}</td></tr>`);
+        }
+        } else {
+            if (item[spreadsheetConfig.columns.bkAccountancy - 1]) {
+                subjectRows.push(`<tr><td>BK & Accountancy</td><td>${item[spreadsheetConfig.columns.bkAccountancy - 1]}</td></tr>`);
+            }
+            if (item[spreadsheetConfig.columns.ocManagement - 1]) {
+                subjectRows.push(`<tr><td>OC & Management</td><td>${item[spreadsheetConfig.columns.ocManagement - 1]}</td></tr>`);
+            }
+            if (item[spreadsheetConfig.columns.economy - 1]) {
+                subjectRows.push(`<tr><td>Economy</td><td>${item[spreadsheetConfig.columns.economy - 1]}</td></tr>`);
+            }
+            if (item[spreadsheetConfig.columns.sp - 1]) {
+                subjectRows.push(`<tr><td>Secretarial Practice (SP)</td><td>${item[spreadsheetConfig.columns.sp - 1]}</td></tr>`);
+            }
+			// Maths
+            if (item[spreadsheetConfig.columns.maths - 1]) {
+            subjectRows.push(`<tr><td>Maths</td><td>${item[spreadsheetConfig.columns.maths - 1]}</td></tr>`);
+        }
+        }
+        
+        // Create modal HTML
+        const modalHTML = `
+            <div class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Test Results</h3>
+                        <span class="close-btn">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="test-info">
+                            <p><strong>Student:</strong> ${item[spreadsheetConfig.columns.studentName - 1]}</p>
+                            <p><strong>Test Chapter:</strong> ${item[spreadsheetConfig.columns.chapterName - 1]}</p>
+                            <p><strong>Date:</strong> ${new Date(item[spreadsheetConfig.columns.date - 1]).toLocaleDateString()}</p>
+                        </div>
+                        
+                        <table class="results-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Marks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${subjectRows.join('')}
+                            </tbody>
+                        </table>
+                        
+                        <div class="result-summary">
+                            <div class="summary-row">
+                                <span><strong>Total Marks Obtained:</strong></span>
+                                <span>${item[spreadsheetConfig.columns.totalObtained - 1] || 'N/A'}</span>
+                            </div>
+                            <div class="summary-row">
+                                <span><strong>Total Marks:</strong></span>
+                                <span>${item[spreadsheetConfig.columns.totalMarks - 1] || 'N/A'}</span>
+                            </div>
+                            <hr>
+                            <div class="summary-row">
+                                <span><strong>Percentage:</strong> ${percentage}</span>
+                                <span><strong>Result:</strong> <span class="${resultClass}">${result || 'N/A'}</span></span>
+                            </div>
+							<div style="text-align: center; margin-top: 15px; font-style: italic; color: #666;">
+                               ${item[spreadsheetConfig.columns.note - 1] || ''}
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Show modal
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        const modal = document.querySelector('.modal');
+        modal.style.display = 'flex';
+        
+        // Close modal handlers
+        modal.querySelector('.close-btn').addEventListener('click', () => {
+            modal.remove();
+        });
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
+    } else {
+        // Show absence reason modal
+        const modalHTML = `
+            <div class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Absence Details</h3>
+                        <span class="close-btn">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="test-info">
+                            <p><strong>Student:</strong> ${item[spreadsheetConfig.columns.studentName - 1]}</p>
+                            <p><strong>Test Chapter:</strong> ${item[spreadsheetConfig.columns.chapterName - 1]}</p>
+                            <p><strong>Date:</strong> ${new Date(item[spreadsheetConfig.columns.date - 1]).toLocaleDateString()}</p>
+                        </div>
+                        
+                        <div class="absence-reason">
+                            <h4>Reason for Absence</h4>
+                            <p>${item[spreadsheetConfig.columns.note - 1] || 'No reason provided'}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        const modal = document.querySelector('.modal');
+        modal.style.display = 'flex';
+        
+        modal.querySelector('.close-btn').addEventListener('click', () => {
+            modal.remove();
+        });
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
+    }
+}
+
+function sortData() {
+    if (sortColumn !== null) {
+        filteredData.sort((a, b) => {
+            let dataColumn;
+            if (sortColumn === 0) dataColumn = spreadsheetConfig.columns.date - 1;
+            else if (sortColumn === 1) dataColumn = spreadsheetConfig.columns.chapterName - 1;
+            else if (sortColumn === 2) dataColumn = spreadsheetConfig.columns.attendance - 1;
+            
+            let valA = a[dataColumn];
+            let valB = b[dataColumn];
+            
+            if (dataColumn === spreadsheetConfig.columns.date - 1) {
+                valA = new Date(valA).getTime();
+                valB = new Date(valB).getTime();
+            } else {
+                valA = valA?.toString().toLowerCase() || '';
+                valB = valB?.toString().toLowerCase() || '';
+            }
+            
+            if (valA < valB) return -1 * sortDirection;
+            if (valA > valB) return 1 * sortDirection;
+            return 0;
+        });
+    }
+}
+
+function showLoading() {
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'loading-spinner';
+    loadingDiv.innerHTML = `
+        <div class="spinner"></div>
+        <p>Loading data...</p>
+    `;
+    document.body.appendChild(loadingDiv);
+}
+
+function hideLoading() {
+    const loadingDiv = document.querySelector('.loading-spinner');
+    if (loadingDiv) {
+        loadingDiv.remove();
+    }
+}
+</script>
+</body>
+</html>

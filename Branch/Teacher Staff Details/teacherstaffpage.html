@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Gyan Teacher/Staff Management</title>
+  <script src="auth.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --accent-color: #4cc9f0;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --success-color: #4caf50;
+      --warning-color: #ff9800;
+      --danger-color: #f44336;
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --card-hover-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f7fa;
+      color: var(--dark-color);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .blur {
+      filter: blur(8px);
+    }
+
+    /* Header Styles */
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 10;
+    }
+
+    header h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Section Headers */
+    .section-header {
+      background-color: white;
+      border-radius: 12px;
+      border: 2px solid var(--primary-color);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      text-align: center;
+      margin: 2rem auto 1.5rem;
+      max-width: 1200px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--dark-color);
+    }
+
+    /* Main Content */
+    main {
+      padding: 1rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex: 1;
+      width: 100%;
+    }
+
+    .container {
+      display: grid;
+      gap: 1.5rem;
+      padding: 1rem 0;
+    }
+
+    /* Card Styles */
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      text-align: center;
+      transition: var(--transition);
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border: none;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--card-hover-shadow);
+    }
+
+    .card a {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 2rem 1.5rem;
+    }
+
+    .card-img {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 50%;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(67, 97, 238, 0.3);
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .card .name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--dark-color);
+    }
+
+    .card .description {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    /* Spinner Styles */
+    #spinner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      backdrop-filter: blur(3px);
+      transition: opacity 0.3s ease;
+    }
+
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid var(--primary-color);
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Footer Styles */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: var(--dark-color);
+      color: white;
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+
+    /* Responsive Grid */
+    @media (max-width: 599px) {
+      .container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      header h2 {
+        font-size: 1.5rem;
+      }
+      
+      .card a {
+        padding: 1.5rem 1rem;
+      }
+      
+      .section-header {
+        margin: 1.5rem auto 1rem;
+        font-size: 1.1rem;
+        padding: 0.8rem;
+      }
+      
+      footer {
+        padding: 1rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (min-width: 600px) and (max-width: 899px) {
+      .container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 900px) and (max-width: 1199px) {
+      .container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .container {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* Optional: Add subtle border on hover for better visual feedback */
+    .card:hover .card-img {
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    }
+  </style>
+</head>
+<body>
+  <div id="spinner">
+    <div class="spinner"></div>
+  </div>
+  
+  <header>
+    <h2>E-Gyan Teacher / Staff Management</h2>
+    <p>Comprehensive Staff Management Portal</p>
+  </header>
+  
+  <main>
+    <div class="section-header">Teacher Details</div>
+    <div class="container">
+      <div class="card">
+        <a href="teacherform.html">
+          <div class="card-img">
+            <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Teacherform.png" alt="Add Teacher Details">
+          </div>
+          <div class="name">Add Teacher Details</div>
+          <div class="description">Register new teachers with complete personal and professional information</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="TeacherPayform.html">
+          <div class="card-img">
+            <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/PaymentForm.png" alt="Add Teacher Payment Details">
+          </div>
+          <div class="name">Add Teacher Payment Details</div>
+          <div class="description">Record and manage salary information, payments, and financial records for teachers</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="teacher_details.html">
+          <div class="card-img">
+            <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/teacherDetails2.png" alt="Get Teacher Details">
+          </div>
+          <div class="name">Get Teacher Details</div>
+          <div class="description">View, search, and access comprehensive information about teaching staff</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="teacher_payment.html">
+          <div class="card-img">
+            <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Fees%20Details2.png" alt="Get Teacher Payment Details">
+          </div>
+          <div class="name">Get Teacher Payment Details</div>
+          <div class="description">Access salary history, payment records, and financial information for teachers</div>
+        </a>
+      </div>
+    </div>
+    
+    <div class="section-header">Staff Details</div>
+    <div class="container">
+      <div class="card">
+        <a href="stafform.html">
+          <div class="card-img">
+            <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/StafIcon2.png" alt="Add Staff Details">
+          </div>
+          <div class="name">Add Staff Details</div>
+          <div class="description">Register non-teaching staff with complete employment and personal details</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="stafpayform.html">
+          <div class="card-img">
+            <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/PaymentForm.png" alt="Add Staff Payment Details">
+          </div>
+          <div class="name">Add Staff Payment Details</div>
+          <div class="description">Record and manage salary information for administrative and support staff</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="staf_details.html">
+          <div class="card-img">
+            <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Staficonform.png" alt="Get Staff Details">
+          </div>
+          <div class="name">Get Staff Details</div>
+          <div class="description">View and manage information for all non-teaching and administrative staff</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="staf_payment.html">
+          <div class="card-img">
+            <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/PaymentDetails.png" alt="Get Staff Payment Details">
+          </div>
+          <div class="name">Get Staff Payment Details</div>
+          <div class="description">Access payment records and financial information for administrative staff</div>
+        </a>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>E-Gyan Skill Development &copy; <span id="currentYear"></span> | Computer Class Kamatghar</p>
+  </footer>
+  
+  <script>
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    
+    // Show spinner on page load and hide when loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const spinner = document.getElementById('spinner');
+        spinner.style.opacity = '0';
+        setTimeout(() => {
+          spinner.style.display = 'none';
+        }, 300);
+      }, 600);
+    });
+    
+    // Add smooth hover effects
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-5px)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+      });
+    });
+  </script>
+</body>
+</html>

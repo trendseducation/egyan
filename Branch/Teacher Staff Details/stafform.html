@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Staff Detail Form</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="auth.js"></script>
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #a5f0b9, #2575fc);
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+      }
+      .form-container {
+        max-width: 500px;
+        width: 90%;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .form-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        font-weight: 500;
+        color: #495057;
+		font-size: 16px;
+        margin-bottom: 8px;
+      }
+      .form-control {
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #ced4da;
+      }
+	  .position-relative input{
+	  padding-left: 43px	  
+	  }
+	  .position-relative Select{
+	  padding-left: 40px	  
+	  }
+	  
+	  .position-relative textarea{
+	  padding-left: 40px	  
+	  }
+
+      .form-control:focus {
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+        border-color: #007bff;
+      }
+      .input-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6a11cb;
+        font-size: 18px;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        border: none;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 500;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      .progress-circle {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+      }
+      .success-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 16px;
+        animation: fadeIn 0.5s ease;
+      }
+      .success-popup.fade-out {
+        animation: fadeOut 0.5s ease;
+      }
+      h4 {
+        color: #6a11cb;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+	  <! -- >Experience CSS -->
+	  h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        label {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
+        .form-section {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+	  
+    </style>
+  </head>
+  <body class="bg-light">
+    <div class="form-container">
+      <h4 class="text-center">Staff Detail Form</h4>
+      <form id="submit">
+		
+		<div class="form-group">
+            <label for="text_dropdown">Academic Year:<span style="color: red;">*</span></label>
+            <div class="position-relative">
+			<select class="form-control" name="Academic_Year" id="text_dropdown" required>
+              <option value="" disabled selected hidden>Select</option>
+              <option value="2025-26">2025-26</option>
+				<option value="2026-27">2026-27</option>
+            </select>
+			<i class="fas fa-calendar-alt input-icon"></i>
+          </div></div>
+          <div class="form-group">
+			<label for="name">Staff Name: <span style="color: red;">*</span></label>
+            <div class="position-relative">
+			<input
+              class="form-control"
+              type="text"
+              name="Staff_Name"
+              id="name"
+              placeholder="Enter Staff Name"
+              required
+            />
+			<i class="fas fa-user input-icon"></i>
+          </div></div>
+          <div class="form-group">
+            <label for="Compatible_Subject">Service: <span style="color: red;">*</span></label>
+            <div class="position-relative">
+			<input
+              class="form-control"
+              type="text"
+              name="Service"
+              id="Compatible_Subject"
+              placeholder="Enter Specialize subject Name"
+              required
+            />
+			<i class="fas fa-book input-icon"></i>
+			</div></div>
+          <div class="form-group">
+              <label for="email">Email:</label>
+			  <div class="position-relative">
+              <input
+                class="form-control"
+                type="email"
+                name="Email"
+                id="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                title="Please enter a valid email address (e.g., example@mail.com)"
+              />
+			  <i class="fas fa-envelope input-icon"></i>
+              <small class="text-danger" id="emailError" style="display: none;">Invalid email format</small>
+            </div></div>
+          <div class="form-group">
+              <label for="contact_number">Mobile Number:</label>
+              <div class="position-relative">
+			  <input
+                class="form-control"
+                type="tel"
+                name="Mobile_No"
+                id="contact_number"
+                placeholder="Enter your mobile number"
+                pattern="[6789][0-9]{9}"
+               title="Mobile number must be 10 digits and start with 6, 7, 8, or 9"
+              />
+			  <i class="fas fa-phone input-icon"></i>
+              <small class="text-danger" id="mobileError" style="display: none;">
+                Mobile number must be 10 digits and start with 6, 7, 8, or 9
+              </small>
+            </div></div>
+	        <div class="form-group">
+              <label for="contact_number">Alternate Mobile Number: <span style="color: red;">*</span></label>
+              <div class="position-relative">
+			  <input
+                class="form-control"
+                type="tel"
+                name="Alternate_Mobile_No"
+                id="contact_number"
+                placeholder="Enter your mobile number"
+                required
+                pattern="[6789][0-9]{9}"
+                title="Mobile number must be 10 digits and start with 6, 7, 8, or 9"
+              />
+			  <i class="fas fa-phone input-icon"></i>
+              <small class="text-danger" id="mobileError" style="display: none;">
+               Mobile number must be 10 digits and start with 6, 7, 8, or 9
+              </small>
+            </div></div>
+          <div class="form-group">
+            <label for="gender" class="hattrick">Gender:<span style="color: red;">*</span></label>
+			<div class="position-relative">
+            <select class="form-control" name="Gender" id="gender" required>
+              <option value="">Select...</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+			<i class="fas fa-venus-mars input-icon"></i>
+          </div></div>
+			<div class="form-group">
+            <label for="email">Qualification<span style="color: red;">*</span></label>
+            <div class="position-relative">
+			<input
+              class="form-control"
+              type="text"
+              name="Qualification"
+              id="Qualification"
+              placeholder="Enter Qualification"
+			  required
+            />
+			<i class="fas fa-graduation-cap input-icon"></i>
+              </div></div>
+			  <div class="form-containerer">
+			  <div class="form-group">
+			   <label for="experience">Select Experience: <span style="color: red;">*</span></label>
+        <div class="position-relative">
+		<select class="form-control" id="experience" name="experience">
+            <option value="">-- Select an Option --</option>
+            <option value="experience1">Experience 1 (Require)</option>
+            <option value="experience2">Experience 2 (Optional)</option>
+            <option value="experience3">Experience 3 (Optional)</option>
+            <option value="experience4">Experience 4 (Optional)</option>
+        </select>
+          <i class="fas fa-university input-icon"></i></div>
+		 
+        <div id="experience1" class="form-section hidden">
+            <label for="experience1-text">Describe Your Experience <span style="color: red;">*</span></label>
+             <div class="position-relative">
+			<input class="form-control" type="text" id="experience1-text" name="Experience_in_detail_1" placeholder="Type here..." Required>
+        <i class="fas fa-university input-icon"></i>
+		</div></div>
+       
+        <div id="experience2" class="form-section hidden">
+            <label for="experience2-text">Describe Your Experience</label>
+             <div class="position-relative">
+			<input class="form-control" type="text" id="experience2-text" name="Experience_in_detail_2" placeholder="Type here...">
+        <i class="fas fa-university input-icon"></i>
+		</div></div>
+		
+        <div id="experience3" class="form-section hidden">
+            <label for="experience3-text">Describe Your Experience</label>
+             <div class="position-relative">
+			<input class="form-control" type="text" id="experience3-text" name="Experience_in_detail_3" placeholder="Type here...">
+        <i class="fas fa-university input-icon"></i>
+		</div></div>
+        
+        <div id="experience4" class="form-section hidden">
+            <label for="experience4-text">Describe Your Experience</label>
+             <div class="position-relative">
+			<input class="form-control" type="text" id="experience4-text" name="Experience_in_detail_4" placeholder="Type here...">
+        <i class="fas fa-university input-icon"></i>
+		</div></div>
+		</div></div>
+          <div class="form-group">
+            <label for="message">Address:</label>
+            <div class="position-relative">
+			<textarea
+              class="form-control"
+              name="Address"
+              id="address"
+              placeholder="Type Address"
+            ></textarea>
+          <i class="fas fa-map-marker-alt input-icon"></i>
+		  </div></div>
+		  <div class="form-group">
+            <label for="Note">Any Note:</label>
+            <div class="position-relative">
+			<textarea
+              class="form-control"
+              name="Note"
+              id="Note"
+              placeholder="Type Any Notes if Require"
+            ></textarea>
+          <i class="fas fa-sticky-note input-icon"></i>
+		  </div></div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            Submit
+          </button>
+        </form>
+        <div class="progress-circle">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+	<script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwD-29kpCjkWmA4G0GdHC1IXpbF7GaCpZb5NN-ufwiUO9y12QPIVRYdIHmFmeWUHEx9/exec";
+  const spreadsheetId = "1vA2wS9S05TdOkjiHUZreBfW3mfSJDwqcbQFgAcJ7fI8";
+  const sheetName = "Staff_Details"; // Change this to any sheet name
+  const form = document.forms["submit"];
+  const progressCircle = document.querySelector(".progress-circle");
+  const submitButton = document.querySelector("button[type='submit']"); // Get the submit button
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    progressCircle.style.display = "block";
+    submitButton.disabled = true; // Disable the submit button
+
+    // Create FormData object and append sheetName and spreadsheetId
+    var formData = new FormData(form);
+    formData.append("sheetName", sheetName);
+    formData.append("spreadsheetId", spreadsheetId);
+
+    fetch(scriptURL, { method: "POST", body: formData })
+      .then((response) => {
+        progressCircle.style.display = "none";
+        submitButton.disabled = false; // Re-enable the submit button
+        
+        // Show success popup
+        const successPopup = document.createElement("div");
+        successPopup.classList.add("success-popup");
+        successPopup.innerHTML = "Submitted Successfully!";
+        
+        // Add the popup to the body
+        document.body.appendChild(successPopup);
+
+        // Close popup after 3 seconds
+        setTimeout(() => {
+          successPopup.classList.add("fade-out");
+          setTimeout(() => {
+            successPopup.remove();
+          }, 500);
+        }, 3000);
+
+        // Reset the form after submission
+        form.reset();
+      })
+      .catch((error) => {
+        progressCircle.style.display = "none";
+        submitButton.disabled = false; // Re-enable the submit button in case of error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Something went wrong. Please try again!',
+        });
+      });
+  });
+  
+  // Experience Function
+  
+  const dropdown = document.getElementById('experience');
+        const sections = document.querySelectorAll('.form-section');
+
+        dropdown.addEventListener('change', (event) => {
+            // Hide all sections
+            sections.forEach(section => section.classList.add('hidden'));
+
+            // Show the selected section
+            const selectedValue = event.target.value;
+            if (selectedValue) {
+                document.getElementById(selectedValue).classList.remove('hidden');
+            }
+        });
+</script>
+  </body>
+</html>

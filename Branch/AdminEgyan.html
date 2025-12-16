@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EGyan Skill Development</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://trendseducation.github.io/classmanagement/loginscriptforindex.js"></script>
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --accent-color: #4cc9f0;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --success-color: #4caf50;
+      --warning-color: #ff9800;
+      --danger-color: #f44336;
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --card-hover-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f7fa;
+      color: var(--dark-color);
+      line-height: 1.6;
+    }
+
+    .blur {
+      filter: blur(8px);
+    }
+
+    /* Header Styles */
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 10;
+    }
+
+    header h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    header p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    /* Main Content */
+    main {
+      padding: 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .container {
+      display: grid;
+      gap: 1.5rem;
+      padding: 1rem 0;
+    }
+
+    /* Card Styles */
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      text-align: center;
+      transition: var(--transition);
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--card-hover-shadow);
+    }
+
+    .card a {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 1.5rem 1rem;
+    }
+
+    .card-icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 50%;
+      color: white;
+      font-size: 1.8rem;
+      box-shadow: 0 4px 8px rgba(67, 97, 238, 0.3);
+    }
+
+    .card .name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--dark-color);
+    }
+
+    .card .description {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: auto;
+    }
+
+    /* Popup Styles */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      width: 90%;
+      max-width: 400px;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -60%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    .popup h3 {
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+      text-align: center;
+    }
+
+    .popup input[type="password"] {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .popup input[type="password"]:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+
+    .popup-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .popup button {
+      padding: 0.8rem;
+      flex: 1;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .popup button.primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .popup button.primary:hover {
+      background-color: var(--secondary-color);
+    }
+
+    .popup button.secondary {
+      background-color: #f0f0f0;
+      color: var(--dark-color);
+    }
+
+    .popup button.secondary:hover {
+      background-color: #e0e0e0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      backdrop-filter: blur(3px);
+    }
+
+    /* Spinner Styles */
+    #spinner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      backdrop-filter: blur(3px);
+    }
+
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid var(--primary-color);
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: var(--dark-color);
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Grid */
+    @media (max-width: 599px) {
+      .container {
+        grid-template-columns: repeat(2, 1fr);;
+      }
+      header h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (min-width: 600px) and (max-width: 899px) {
+      .container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 900px) and (max-width: 1199px) {
+      .container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .container {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* Logout card special styling */
+    .card.logout {
+      border: 2px solid var(--danger-color);
+    }
+
+    .card.logout .card-icon {
+      background: linear-gradient(135deg, var(--danger-color), #d32f2f);
+      box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+    }
+
+    .card.logout .name {
+      color: var(--danger-color);
+    }
+  </style>
+</head>
+<body>
+  <div id="spinner">
+    <div class="spinner"></div>
+  </div>
+  
+  <header>
+    <h2>E-Gyan Skill Development</h2>
+    <p>Computer class Kamatghar</p>
+  </header>
+  
+  <main id="mainContent">
+    <div class="container">
+      <div class="card">
+        <a href="Enquiry/EnquiryFrontPage.html">
+          <div class="card-icon">
+            <i class="fas fa-question"></i>
+          </div>
+          <div class="name">Enquiry Form</div>
+          <div class="description">Manage student inquiries and information requests</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="Admission/AdmFontPage.html">
+          <div class="card-icon">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+          <div class="name">Admission Process</div>
+          <div class="description">Handle new student admissions and registrations</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="Fees Details/feesfrontpage.html">
+          <div class="card-icon">
+            <i class="fas fa-rupee-sign"></i>
+          </div>
+          <div class="name">Fees Details</div>
+          <div class="description">View and manage student fee payments</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="Teacher Staff Details/teacherstaffpage.html">
+          <div class="card-icon">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <div class="name">Teacher/Staff Details</div>
+          <div class="description">Access faculty and staff information</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="Income Expenses Details/miss_ie_frontpage.html">
+          <div class="card-icon">
+            <i class="fas fa-money-bill-wave"></i>
+          </div>
+          <div class="name">Expenses/Income</div>
+          <div class="description">Track center finances and transactions</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="Student Attendance/attendance_fontpage.html">
+          <div class="card-icon">
+            <i class="fas fa-clipboard-check"></i>
+          </div>
+          <div class="name">Attendance Details</div>
+          <div class="description">Record and monitor student attendance</div>
+        </a>
+      </div>
+
+      <div class="card">
+        <a href="Student Exam Records/MocktestFontPage.html">
+          <div class="card-icon">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </div>
+          <div class="name">Student Test Record</div>
+          <div class="description">Add Student Test Record Here!!!</div>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="Account/accountsummaryfrontpage.html">
+          <div class="card-icon">
+            <i class="fas fa-file-invoice-dollar"></i>
+          </div>
+          <div class="name">Account Summary</div>
+          <div class="description">View financial summaries and reports</div>
+        </a>
+      </div>
+      
+      <div class="card logout">
+  <a href="#" onclick="logout(); return false;">
+    <div class="card-icon">
+      <i class="fas fa-sign-out-alt"></i>
+    </div>
+    <div class="name">Logout</div>
+    <div class="description">Securely exit the system</div>
+  </a>
+</div>
+    </div>
+  </main>
+  
+  <footer>
+        <object id="footer-html" type="text/html" data="https://trendseducation.github.io/classmanagement/footer.html" style="width: 100%; height: 80px;"></object>
+</footer>
+  
+  <script>
+    // Show spinner on page load and hide when loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const spinner = document.getElementById('spinner');
+        spinner.style.opacity = '0';
+        setTimeout(() => {
+          spinner.style.display = 'none';
+        }, 300);
+      }, 500); // Minimum show time for better UX
+    });
+  </script>
+</body>
+</html>

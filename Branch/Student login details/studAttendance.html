@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<script src="https://trendseducation.github.io/classmanagement/loginscriptforindex.js"></script>
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --success-color: #4cc9f0;
+            --danger-color: #f72585;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .attendancecontainer {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .attendancecontainer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--success-color));
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+			text-align: center;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+			transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--success-color));
+            border-radius: 3px;
+			
+        }
+
+        .popup-spinner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .spinner {
+            width: 70px;
+            height: 70px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .table-container {
+            width: 100%;
+            margin-top: 25px;
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+
+        .attendance-summary {
+            width: 100%;
+            margin-top: 25px;
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Ensure the tables maintain their width */
+        #tableContainer table {
+            width: 100%;
+            table-layout: fixed;
+            min-width: 600px;
+        }
+
+        #attendanceSummary {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        /* Optional: Add some spacing between tables */
+        .table-container, .attendance-summary {
+            margin-bottom: 25px;
+        }
+
+        /* Hide tables initially */
+        #tableContainer, #attendanceSummary {
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .attendance-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 500;
+        }
+
+        .attendance-totals {
+            background: linear-gradient(135deg, #4cc9f0, #4895ef);
+            color: white;
+            font-weight: 500;
+        }
+
+        .present {
+            background-color: rgba(76, 201, 240, 0.1);
+            color: #1a759f;
+            font-weight: 500;
+        }
+
+        .absent {
+            background-color: rgba(247, 37, 133, 0.1);
+            color: #9d174d;
+            font-weight: 500;
+        }
+
+        #messageContainer {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #messageContainer i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        /* Filter Dropdown */
+        .filter-container {
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .filter-container::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            pointer-events: none;
+        }
+
+        select {
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: var(--border-radius);
+            border: 1px solid #e0e0e0;
+            width: 100%;
+            max-width: 300px;
+            appearance: none;
+            background-color: white;
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        /* MODAL DESIGN */
+        .monthmodal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 400px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            text-align: center;
+            z-index: 1000;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .monthmodal .modal-content {
+            text-align: center;
+        }
+
+        .monthmodal h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .monthmodal .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--danger-color);
+            transition: var(--transition);
+        }
+
+        .monthmodal .close:hover {
+            transform: rotate(90deg);
+        }
+
+        /* Month List Styling */
+        .month-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .month-list button {
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            background: white;
+            color: var(--dark-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid #e0e0e0;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .month-list button:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        /* BACKDROP */
+        .backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+        }
+
+        /* Table Styling */
+        #totalAttendanceTableContainer {
+            margin: 30px auto;
+            width: 100%;
+            text-align: center;
+            border-radius: var(--border-radius);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+
+        #totalAttendanceTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            min-width: 600px;
+        }
+
+        #totalAttendanceTable th, #totalAttendanceTable td {
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+        }
+
+        #totalAttendanceTable th {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 500;
+        }
+
+        #totalAttendanceTable tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        #totalAttendanceTable tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Style for the total row */
+        #totalAttendanceTable tbody tr:last-child {
+            font-weight: bold;
+            background-color: rgba(76, 201, 240, 0.1);
+        }
+
+        #totalAttendanceTable tbody tr:last-child td {
+            border-top: 2px solid var(--primary-color);
+        }
+
+        /* Message Popup */
+        .message-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .message-popup i {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--danger-color);
+        }
+
+        .message-popup p {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .message-popup button {
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .message-popup button:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .attendancecontainer {
+                padding: 25px;
+            }
+            
+            .month-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .attendancecontainer {
+                width: 95%;
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 22px;
+            }
+            
+            th, td {
+                padding: 12px 10px;
+                font-size: 14px;
+            }
+            
+            .month-list {
+                grid-template-columns: 1fr;
+            }
+            
+            select {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .attendancecontainer {
+                padding: 15px;
+            }
+            
+            h2 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 13px;
+            }
+            
+            .filter-container {
+                margin: 15px 0;
+            }
+            
+            #messageContainer {
+                font-size: 14px;
+                padding: 10px;
+            }
+            
+            .monthmodal {
+                padding: 20px;
+            }
+        }
+
+        /* Animation for table rows */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        table tbody tr {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        table tbody tr:nth-child(1) { animation-delay: 0.1s; }
+        table tbody tr:nth-child(2) { animation-delay: 0.2s; }
+        table tbody tr:nth-child(3) { animation-delay: 0.3s; }
+        table tbody tr:nth-child(4) { animation-delay: 0.4s; }
+        table tbody tr:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="attendancecontainer">
+        <h2><i class="fas fa-user-graduate"></i> Your Attendance</h2>
+        <div class="popup-spinner" id="popupSpinner">
+            <div class="spinner"></div>
+        </div>
+        
+        <!-- Last 3 Days Attendance Table -->
+        <div class="table-container" id="tableContainer">
+            <table id="attendanceTable">
+                <thead>
+                    <tr>
+                        <th class="attendance-header" colspan="4"><i class="fas fa-calendar-alt"></i> Last 3 Days Attendance</th>
+                    </tr>
+                    <tr>
+                        <th>Student Name</th>
+                        <th id="date1">Date 1</th>
+                        <th id="date2">Date 2</th>
+                        <th id="date3">Date 3</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+        
+        <!-- Filter Dropdown -->
+        <div class="filter-container" id="filter-containers">
+            <select id="attendanceFilter" onchange="applyFilter()">
+                <option value="" selected>Filter Attendance</option>
+                <option value="thisMonth">This Month Attendance</option>
+                <option value="lastMonth">Last Month Attendance</option>
+                <option value="monthWise">Month Wise Attendance</option>
+                <option value="totalAttendances">Total Attendance</option>
+            </select>
+        </div>
+
+        <!-- Backdrop -->
+        <div id="backdrop" class="backdrop" onclick="closeMonthPopup()"></div>
+
+        <!-- Month Selection Popup -->
+        <div id="monthPopup" class="monthmodal">
+            <div class="modal-content">
+                <span class="close" onclick="closeMonthPopup()">&times;</span>
+                <h2><i class="fas fa-calendar"></i> Select a Month</h2>
+                <div class="month-list">
+                    <button onclick="fetchMonthData('April_25')"><i class="fas fa-calendar-day"></i> April</button>
+                    <button onclick="fetchMonthData('May_25')"><i class="fas fa-calendar-day"></i> May</button>
+                    <button onclick="fetchMonthData('June_25')"><i class="fas fa-calendar-day"></i> June</button>
+                    <button onclick="fetchMonthData('July_25')"><i class="fas fa-calendar-day"></i> July</button>
+                    <button onclick="fetchMonthData('Aug_25')"><i class="fas fa-calendar-day"></i> August</button>
+                    <button onclick="fetchMonthData('Sept_25')"><i class="fas fa-calendar-day"></i> September</button>
+                    <button onclick="fetchMonthData('Oct_25')"><i class="fas fa-calendar-day"></i> October</button>
+                    <button onclick="fetchMonthData('Nov_25')"><i class="fas fa-calendar-day"></i> November</button>
+                    <button onclick="fetchMonthData('Dec_25')"><i class="fas fa-calendar-day"></i> December</button>
+                    <button onclick="fetchMonthData('Jan_26')"><i class="fas fa-calendar-day"></i> January</button>
+                    <button onclick="fetchMonthData('Feb_26')"><i class="fas fa-calendar-day"></i> February</button>
+                    <button onclick="fetchMonthData('Mar_26')"><i class="fas fa-calendar-day"></i> March</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Last 30 Days Attendance Summary -->
+        <table class="attendance-summary" id="attendanceSummary">
+            <thead>
+                <tr>
+                    <th class="attendance-header" colspan="2" id="summaryHeader"><i class="fas fa-chart-pie"></i> This Month Attendance</th>
+                </tr>
+                <tr>
+                    <th class="attendance-totals"><i class="fas fa-check-circle"></i> Total Present</th>
+                    <th class="attendance-totals"><i class="fas fa-times-circle"></i> Total Absent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="present"><span id="totalPresent"></span></td>
+                    <td class="absent"><span id="totalAbsent"></span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div id="messageContainer" class="message"></div>
+    </div>
+
+    <!-- Table for Total Attendance -->
+    <div class="attendance-summary" id="totalAttendanceTableContainer" style="display: none;">
+        <h2><i class="fas fa-chart-bar"></i> Total Attendance</h2>
+        <table id="totalAttendanceTable">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-calendar"></i> Month</th>
+                    <th><i class="fas fa-check-circle"></i> Total Present</th>
+                    <th><i class="fas fa-times-circle"></i> Total Absent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Message Popup -->
+    <div id="messagePopup" class="message-popup">
+        <i class="fas fa-exclamation-circle"></i>
+        <p id="messageText">The Attendance was not available.</p>
+        <button onclick="closeMessagePopup()">OK</button>
+    </div>
+
+    <script>
+        const scriptUrl = "https://script.google.com/macros/s/AKfycbz_2JeG9jTS4r2Nz8A5oNStgtGJ7m9OE4fcBiFJljwOasDuBPNXXRmf1eXeRaLxnZez/exec"; // Replace with your Google Script URL
+        
+        const spreadsheets = [
+			{ id: "1cNXqipcvpED1kf2cF7A4UBR5zhrYsjzH8A3e7MpZi48", name: "Attendance", label: "Computer" },
+			{ id: "1n2R8RCE_W9AsLzoC-sV5NuG1wXluLOLjxAFWQWsXVdw", name: "Attendance", label: "9th Std" },
+			{ id: "1dEXBRlIw0_ePBnkfClIuPzOjCcYhKWh-P8W1yrYmo4k", name: "Attendance", label: "10th Std" },
+            { id: "1hlz8U_Pkm0SVV8EGG0VeZ16N3HIh1mWsWhed2RMRXVU", name: "Attendance", label: "11th Commerce" },
+            { id: "15ISSGb2bblaqjMj1xDl5BN4ZPuyQgHO3az_bHB9q91g", name: "Attendance", label: "12th Commerce" },
+            { id: "1XBpWwZwZgIXdbNAYfxb44BnLng0rD2pjcGlgqV0iGT4", name: "Attendance", label: "11th Science" },
+            { id: "19oS6T0PuVg2n4r9mGlcn1aH7e3JgHdrk82yikApG6rA", name: "Attendance", label: "12th Science" }
+        ];
+
+        let currentSpreadsheetId = ""; // To store the spreadsheet ID where the name is found
+        let currentSpreadsheetLabel = ""; // To store the spreadsheet label where the name is found
+        let sheetName = "Attendance"; // Default sheet name (changed to April_25)
+
+        // Function to get the student name from the URL query parameter
+        function getStudentNameFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('studentName'); // Returns the value of the 'studentName' parameter
+        }
+
+        // Automatically search for the student name when the page loads
+        window.onload = function () {
+            const studentName = getStudentNameFromURL();
+            if (studentName) {
+                searchName(studentName); // Automatically call searchName with the student name
+            } else {
+                const messageContainer = document.getElementById("messageContainer");
+                messageContainer.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ⚠️ No student name provided in the URL';
+                messageContainer.style.color = "#f72585";
+                messageContainer.style.backgroundColor = "rgba(247, 37, 133, 0.1)";
+                messageContainer.style.border = "1px solid rgba(247, 37, 133, 0.3)";
+            }
+
+            // Hide tables initially
+            document.getElementById("tableContainer").style.display = "none";
+            document.getElementById("attendanceSummary").style.display = "none";
+            document.getElementById("filter-containers").style.display = "none";
+        };
+
+        function getSheetName() {
+            const today = new Date();
+            const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+
+            if (today.getDate() === lastDayOfMonth) {
+                // Switch to the next sheet name explicitly
+                if (sheetName === "Attendance") {
+                    return "April_25";
+                } else if (sheetName === "April_25") {
+                    return "May_25";
+                } else if (sheetName === "May_25") {
+                    return "June_25";
+                } else if (sheetName === "June_25") {
+                    return "July_25";
+                } else if (sheetName === "July_25") {
+                    return "Aug_25";
+                } else if (sheetName === "Aug_25") {
+                    return "Sept_25";
+                } else if (sheetName === "Sept_25") {
+                    return "Oct_25";
+                } else if (sheetName === "Oct_25") {
+                    return "Nov_25";
+                } else if (sheetName === "Nov_25") {
+                    return "Dec_25";
+                } else if (sheetName === "Dec_25") {
+                    return "Jan_26";
+                } else if (sheetName === "Jan_26") {
+                    return "Feb_26";
+                } else if (sheetName === "Feb_26") {
+                    return "Mar_26";
+                } else {
+                    return "Attendance"; // Default to April_25 if no sheet name matches
+                }
+            } else {
+                return "Attendance"; // Default sheet name
+            }
+        }
+
+        function isLastDayOfMonth(date) {
+            const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+            return date.getDate() === lastDayOfMonth;
+        }
+
+        function searchName(name) {
+            let messageContainer = document.getElementById("messageContainer");
+            let popupSpinner = document.getElementById("popupSpinner");
+
+            if (!name || name.trim() === "") {
+                messageContainer.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ⚠️ No student name provided';
+                messageContainer.style.color = "#f72585";
+                messageContainer.style.backgroundColor = "rgba(247, 37, 133, 0.1)";
+                messageContainer.style.border = "1px solid rgba(247, 37, 133, 0.3)";
+                return;
+            }
+
+            // Show spinner
+            popupSpinner.style.display = "flex";
+            messageContainer.innerHTML = "";
+
+            let foundInSheets = [];
+
+            // Function to check a single spreadsheet
+            function checkSpreadsheet(spreadsheet, callback) {
+                fetch(scriptUrl + "?name=" + encodeURIComponent(name) + "&spreadsheetId=" + encodeURIComponent(spreadsheet.id) + "&sheetName=" + encodeURIComponent(spreadsheet.name))
+                    .then(response => response.json())
+                    .then(response => {
+                        if (response.students && response.students.some(student => student.name.toLowerCase() === name.toLowerCase())) {
+                            foundInSheets.push(spreadsheet.label);
+                            currentSpreadsheetId = spreadsheet.id; // Store the spreadsheet ID where the name is found
+                            currentSpreadsheetLabel = spreadsheet.label; // Store the spreadsheet label where the name is found
+                        }
+                        callback();
+                    })
+                    .catch(() => {
+                        callback(); // Continue checking other sheets even if one fails
+                    });
+            }
+
+            // Check all spreadsheets asynchronously
+            let remainingChecks = spreadsheets.length;
+            spreadsheets.forEach(spreadsheet => {
+                checkSpreadsheet(spreadsheet, function () {
+                    remainingChecks--;
+                    if (remainingChecks === 0) {
+                        popupSpinner.style.display = "none"; // Hide spinner
+
+                        if (foundInSheets.length > 0) {
+                            messageContainer.innerHTML = `<i class="fas fa-check-circle"></i> ✅ Welcome <strong>${name}</strong> From <strong>${foundInSheets.join(", ")}</strong>`;
+                            messageContainer.style.color = "#4cc9f0";
+                            messageContainer.style.backgroundColor = "rgba(76, 201, 240, 0.1)";
+                            messageContainer.style.border = "1px solid rgba(76, 201, 240, 0.3)";
+
+                            // After finding the name, check for the last day of the month in the same spreadsheet
+                            if (currentSpreadsheetId && currentSpreadsheetLabel) {
+                                checkLastDayOfMonth(currentSpreadsheetId, currentSpreadsheetLabel);
+                            }
+                        } else {
+                            messageContainer.innerHTML = '<i class="fas fa-times-circle"></i> ❌ Name not found in any sheet';
+                            messageContainer.style.color = "#f72585";
+                            messageContainer.style.backgroundColor = "rgba(247, 37, 133, 0.1)";
+                            messageContainer.style.border = "1px solid rgba(247, 37, 133, 0.3)";
+                        }
+                    }
+                });
+            });
+        }
+
+        function checkLastDayOfMonth(spreadsheetId, spreadsheetLabel) {
+            const messageContainer = document.getElementById("messageContainer");
+            const popupSpinner = document.getElementById("popupSpinner");
+
+            // Show spinner before making the fetch request
+            popupSpinner.style.display = "flex";
+
+            fetch(scriptUrl + "?spreadsheetId=" + encodeURIComponent(spreadsheetId) + "&sheetName=Attendance&checkLastDay=true")
+                .then(response => response.json())
+                .then(response => {
+                    if (response.dates) {
+                        checkForLastDayOfMonth(response.dates, spreadsheetLabel);
+                    } else {
+                        const message = document.createElement('div');
+                        message.innerHTML = '<i class="fas fa-info-circle"></i> No dates found in ' + spreadsheetLabel;
+                        message.style.color = "#4361ee";
+                        message.style.backgroundColor = "rgba(67, 97, 238, 0.1)";
+                        message.style.border = "1px solid rgba(67, 97, 238, 0.3)";
+                        message.style.padding = "10px";
+                        message.style.borderRadius = "8px";
+                        message.style.marginTop = "10px";
+                        messageContainer.appendChild(message);
+                    }
+                })
+                .catch(() => {
+                    console.error("Error checking for the last day of the month");
+                })
+                .finally(() => {
+                    // Hide spinner after the fetch request completes
+                    popupSpinner.style.display = "none";
+                });
+        }
+
+        function checkForLastDayOfMonth(dates, spreadsheetLabel) {
+            const messageContainer = document.getElementById('messageContainer');
+            messageContainer.innerHTML = '';
+
+            dates.forEach(dateStr => {
+                const date = new Date(dateStr);
+                if (isLastDayOfMonth(date)) {
+                    const message = document.createElement('div');
+                    message.innerHTML = `<i class="fas fa-check-circle"></i> ✅ The Attendance of the month till (<strong>${dateStr}</strong>) is done for <strong>${spreadsheetLabel}</strong>`;
+                    message.style.color = "#4cc9f0";
+                    message.style.backgroundColor = "rgba(76, 201, 240, 0.1)";
+                    message.style.border = "1px solid rgba(76, 201, 240, 0.3)";
+                    message.style.padding = "10px";
+                    message.style.borderRadius = "8px";
+                    message.style.marginTop = "10px";
+                    messageContainer.appendChild(message);
+
+                    // Switch to the next sheet name explicitly
+                    if (sheetName === "Attendance") {
+                        sheetName = "April_25";
+                    } else if (sheetName === "April_25") {
+                        sheetName = "May_25";
+                    } else if (sheetName === "May_25") {
+                        sheetName = "June_25";
+                    } else if (sheetName === "June_25") {
+                        sheetName = "July_25";
+                    } else if (sheetName === "July_25") {
+                        sheetName = "Aug_25";
+                    } else if (sheetName === "Aug_25") {
+                        sheetName = "Sept_25";
+                    } else if (sheetName === "Sept_25") {
+                        sheetName = "Oct_25";
+                    } else if (sheetName === "Oct_25") {
+                        sheetName = "Nov_25";
+                    } else if (sheetName === "Nov_25") {
+                        sheetName = "Dec_25";
+                    } else if (sheetName === "Dec_25") {
+                        sheetName = "Jan_26";
+                    } else if (sheetName === "Jan_26") {
+                        sheetName = "Feb_26";
+                    } else if (sheetName === "Feb_26") {
+                        sheetName = "Mar_26";
+                    } else {
+                        sheetName = "Attendance"; // Default to April_25 if no sheet name matches
+                    }
+
+                    updateSummaryHeader();
+                    fetchData(); // Refetch data with the new sheet name
+                }
+            });
+        }
+
+        function updateSummaryHeader() {
+            const summaryHeader = document.getElementById('summaryHeader');
+            if (sheetName === "April_25") {
+                summaryHeader.innerHTML = '<i class="fas fa-chart-pie"></i> This April Attendance';
+            } else if (sheetName === "May_25") {
+                summaryHeader.innerHTML = '<i class="fas fa-chart-pie"></i> This May Attendance';
+            } else if (sheetName === "June_25") {
+                summaryHeader.innerHTML = '<i class="fas fa-chart-pie"></i> This June Attendance';
+            } else if (sheetName === "July_25") {
+                summaryHeader.innerHTML = '<i class="fas fa-chart-pie"></i> This July Attendance';
+            } else if (sheetName === "Aug_25") {
+                summaryHeader.innerHTML = '<i class="fas fa-chart-pie"></i> This August Attendance';
+            } else if (sheetName === "Sept_25") {
+                summaryHeader.innerHTML = '<i class="fas fa-chart-pie"></i> This September Attendance';
+            } else if (sheetName === "Oct_25") {
+                summaryHeader.innerHTML = '<i class="fas fa-chart-pie"></i> This October Attendance';
+            } else if (sheetName === "Nov_25") {
+                summaryHeader.innerHTML = '<i class="fas fa-chart-pie"></i> This November Attendance';
+            } else if (sheetName === "Dec_25") {
+                summaryHeader.innerHTML = '<i class="fas fa-chart-pie"></i> This December Attendance';
+            } else if (sheetName === "Jan_26") {
+                summaryHeader.innerHTML = '<i class="fas fa-chart-pie"></i> This January Attendance';
+            } else if (sheetName === "Feb_26") {
+                summaryHeader.innerHTML = '<i class="fas fa-chart-pie"></i> This February Attendance';
+            } else if (sheetName === "Mar_26") {
+                summaryHeader.innerHTML = '<i class="fas fa-chart-pie"></i> This March Attendance';
+            }  else {
+                summaryHeader.innerHTML = '<i class="fas fa-chart-pie"></i> This Attendance';
+            }
+        }
+
+        function fetchData() {
+            const popupSpinner = document.getElementById('popupSpinner');
+            popupSpinner.style.display = 'flex';
+
+            const url = `${scriptUrl}?spreadsheetId=${encodeURIComponent(currentSpreadsheetId)}&sheetName=${encodeURIComponent(sheetName)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    popupSpinner.style.display = 'none';
+                    checkForLastDayOfMonth(data.dates, currentSpreadsheetLabel);
+
+                    // Render attendance table and summary for the specific student
+                    const studentName = getStudentNameFromURL();
+                    const studentData = data.students.find(student => student.name.toLowerCase() === studentName.toLowerCase());
+                    if (studentData) {
+                        renderAttendanceTable(studentData, data.dates);
+                        renderSummary(studentData);
+                    }
+                    // Show tables after the last day of the month is found and sheet name is switched
+                    document.getElementById("tableContainer").style.display = "block";
+                    document.getElementById("attendanceSummary").style.display = "table";
+                    document.getElementById("filter-containers").style.display = "block";
+                })
+                .catch(error => {
+                    popupSpinner.style.display = 'none';
+                    console.error('Error:', error);
+                });
+        }
+
+        function renderAttendanceTable(student, dates) {
+            const tableBody = document.getElementById('tableBody');
+            const date1Header = document.getElementById('date1');
+            const date2Header = document.getElementById('date2');
+            const date3Header = document.getElementById('date3');
+
+            // Clear table body
+            tableBody.innerHTML = '';
+
+            // Determine which dates are available
+            const availableDates = [];
+            const availableAttendance = [];
+
+            if (dates.length >= 1 && student.attendance[student.attendance.length - 1]) {
+                availableDates.push(dates[dates.length - 1]);
+                availableAttendance.push(student.attendance[student.attendance.length - 1]);
+            }
+            if (dates.length >= 2 && student.attendance[student.attendance.length - 2]) {
+                availableDates.unshift(dates[dates.length - 2]);
+                availableAttendance.unshift(student.attendance[student.attendance.length - 2]);
+            }
+            if (dates.length >= 3 && student.attendance[student.attendance.length - 3]) {
+                availableDates.unshift(dates[dates.length - 3]);
+                availableAttendance.unshift(student.attendance[student.attendance.length - 3]);
+            }
+
+            // Set date headers and hide/show columns based on availability
+            date1Header.textContent = availableDates[0] || "";
+            date2Header.textContent = availableDates[1] || "";
+            date3Header.textContent = availableDates[2] || "";
+
+            date1Header.style.display = availableDates[0] ? "table-cell" : "none";
+            date2Header.style.display = availableDates[1] ? "table-cell" : "none";
+            date3Header.style.display = availableDates[2] ? "table-cell" : "none";
+
+            // Render student data
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${student.name}</td>
+                <td class="${availableAttendance[0] === 'Present' ? 'present' : 'absent'}">${availableAttendance[0] || ""}</td>
+                <td class="${availableAttendance[1] === 'Present' ? 'present' : 'absent'}">${availableAttendance[1] || ""}</td>
+                <td class="${availableAttendance[2] === 'Present' ? 'present' : 'absent'}">${availableAttendance[2] || ""}</td>
+            `;
+            tableBody.appendChild(row);
+        }
+
+        function renderSummary(student) {
+            document.getElementById('totalPresent').textContent = student.present;
+            document.getElementById('totalAbsent').textContent = student.absent;
+        }
+        
+        // Show the month selection popup
+        function applyFilter() {
+            var filter = document.getElementById("attendanceFilter").value;
+            if (filter === "monthWise") {
+                document.getElementById("monthPopup").style.display = "block";
+                document.getElementById("backdrop").style.display = "block";
+            } else if (filter === "totalAttendances") {
+                fetchTotalAttendance();
+            } else if (filter === "thisMonth") {
+                fetchMonthData(sheetName);
+            } else if (filter === "lastMonth") {
+                fetchLastMonthData();
+            }
+        }
+
+        // Close the month popup
+        function closeMonthPopup() {
+            document.getElementById("monthPopup").style.display = "none";
+            document.getElementById("backdrop").style.display = "none";
+        }
+
+        // DOM Elements
+        const attendanceFilter = document.getElementById("attendanceFilter");
+        const monthPopup = document.getElementById("monthPopup");
+        const backdrop = document.getElementById("backdrop");
+        const popupSpinner = document.getElementById("popupSpinner");
+        const messageContainer = document.getElementById("messageContainer");
+
+        // Event Listeners
+        document.addEventListener("DOMContentLoaded", function () {
+            // Hide popup on page load
+            monthPopup.style.display = "none";
+            backdrop.style.display = "none";
+
+            // Filter dropdown change event
+            attendanceFilter.addEventListener("change", function () {
+                const filter = this.value;
+                if (filter === "monthWise") {
+                    openMonthPopup();
+                } else {
+                    applyFilter(filter);
+                }
+            });
+        });
+
+        // Functions
+
+        /**
+         * Opens the month selection popup.
+         */
+        function openMonthPopup() {
+            monthPopup.style.display = "block";
+            backdrop.style.display = "block";
+
+            // Enable all buttons when popup opens
+            document.querySelectorAll(".month-list button").forEach(button => {
+                button.disabled = false;
+            });
+        }
+
+        /**
+         * Closes the month selection popup.
+         */
+        function closeMonthPopup() {
+            monthPopup.style.display = "none";
+            backdrop.style.display = "none";
+        }
+
+        /**
+         * Shows a message popup with the given message.
+         * @param {string} message - The message to display.
+         */
+        function showMessagePopup(message) {
+            const messagePopup = document.getElementById("messagePopup");
+            const messageText = document.getElementById("messageText");
+
+            messageText.textContent = message; // Set the message text
+            messagePopup.style.display = "flex"; // Show the popup
+            backdrop.style.display = "block"; // Show backdrop
+        }
+
+        /**
+         * Closes the message popup.
+         */
+        function closeMessagePopup() {
+            const messagePopup = document.getElementById("messagePopup");
+            messagePopup.style.display = "none"; // Hide the popup
+            backdrop.style.display = "none"; // Hide backdrop
+        }
+
+        /**
+         * Fetches data for the selected month.
+         * @param {string} month - The name of the month (e.g., "June_25").
+         */
+        function fetchMonthData(month) {
+            closeMonthPopup(); // Close the month selection popup
+            popupSpinner.style.display = "flex"; // Show spinner
+
+            // Use the current spreadsheet ID
+            const url = `${scriptUrl}?spreadsheetId=${encodeURIComponent(currentSpreadsheetId)}&sheetName=${encodeURIComponent(month)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    popupSpinner.style.display = "none"; // Hide spinner
+                    if (data.students && data.students.length > 0) {
+                        const studentName = getStudentNameFromURL();
+                        const studentData = data.students.find(student => student.name.toLowerCase() === studentName.toLowerCase());
+                        if (studentData) {
+                            renderSummary(studentData); // Render summary for the student
+                            updateSummaryHeader2(month); // Update the header for the selected month
+                        }
+                    } else {
+                        showMessagePopup("The Attendance was not available."); // Show message if no data is available
+                    }
+                })
+                .catch(error => {
+                    popupSpinner.style.display = "none"; // Hide spinner
+                    console.error("Error:", error);
+                    showMessagePopup("The Attendance was not available."); // Show message on error
+                });
+        }
+
+        /**
+         * Applies the selected filter.
+         * @param {string} filter - The selected filter value.
+         */
+        function applyFilter(filter) {
+            const popupSpinner = document.getElementById("popupSpinner");
+            const messageContainer = document.getElementById("messageContainer");
+            const totalAttendanceTableContainer = document.getElementById("totalAttendanceTableContainer");
+            const attendanceSummary = document.getElementById("attendanceSummary");
+
+            if (filter === "totalAttendances") {
+                // Hide attendanceSummary when Total Attendance is selected
+                attendanceSummary.style.display = "none";
+                // Show the total attendance table container
+                totalAttendanceTableContainer.style.display = "block";
+                // Fetch total attendance for the student
+                fetchTotalAttendance();
+            } else {
+                // Show attendanceSummary when Total Attendance is deselected
+                attendanceSummary.style.display = "table";
+                // Hide the total attendance table container
+                totalAttendanceTableContainer.style.display = "none";
+
+                if (filter === "lastMonth") {
+                    fetchLastMonthData();
+                } else if (filter === "monthWise") {
+                    // Open the month selection popup
+                    openMonthPopup();
+                } else if (filter === "thisMonth") {
+                    // Fetch data for the current month
+                    fetchMonthData(sheetName);
+                } else {
+                    console.log("Applying filter:", filter); // Handle other filters (if any)
+                }
+            }
+        }
+
+        /**
+         * Fetches total attendance for a student.
+         */
+        async function fetchTotalAttendance() {
+            const studentName = getStudentNameFromURL(); // Get student name from URL
+            const popupSpinner = document.getElementById("popupSpinner");
+            const totalAttendanceTableContainer = document.getElementById("totalAttendanceTableContainer");
+            const totalAttendanceTableBody = document.querySelector("#totalAttendanceTable tbody");
+
+            if (!studentName) {
+                showMessagePopup("Please enter a student name.");
+                return;
+            }
+
+            // Show spinner
+            popupSpinner.style.display = "flex";
+
+            // Clear the table body
+            totalAttendanceTableBody.innerHTML = "";
+
+            // Array of all spreadsheet names and their corresponding months (already in correct order)
+            const months = [
+                { name: "April_25", month: "April" },
+                { name: "May_25", month: "May" },
+                { name: "June_25", month: "June" },
+                { name: "July_25", month: "July" },
+                { name: "Aug_25", month: "August" },
+                { name: "Sept_25", month: "September" },
+                { name: "Oct_25", month: "October" },
+                { name: "Nov_25", month: "November" },
+                { name: "Dec_25", month: "December" },
+                { name: "Jan_26", month: "January" },
+                { name: "Feb_26", month: "February" },
+                { name: "Mar_26", month: "March" },
+            ];
+
+            // Variables to store totals
+            let totalPresent = 0;
+            let totalAbsent = 0;
+            let hasData = false; // Flag to check if any data is fetched
+
+            // Array to store fetched data temporarily
+            const fetchedData = [];
+
+            try {
+                // Fetch data for each spreadsheet
+                const fetchPromises = months.map(async (sheet) => {
+                    const url = `${scriptUrl}?spreadsheetId=${encodeURIComponent(currentSpreadsheetId)}&sheetName=${encodeURIComponent(sheet.name)}`;
+
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok) {
+                            throw new Error(`Failed to fetch data for ${sheet.month}`);
+                        }
+                        const data = await response.json();
+                        if (data.students && data.students.length > 0) {
+                            const student = data.students.find(s => s.name.toLowerCase() === studentName.toLowerCase());
+                            if (student) {
+                                hasData = true; // Data is available
+                                // Store fetched data temporarily
+                                fetchedData.push({
+                                    month: sheet.month,
+                                    present: student.present || 0,
+                                    absent: student.absent || 0
+                                });
+
+                                // Update totals
+                                totalPresent += student.present || 0;
+                                totalAbsent += student.absent || 0;
+                            }
+                        }
+                    } catch (error) {
+                        console.error(`Error fetching data for ${sheet.month}:`, error);
+                    }
+                });
+
+                // Wait for all fetch requests to complete
+                await Promise.all(fetchPromises);
+
+                // Sort fetched data by the order of the `months` array
+                const sortedData = months.map(sheet => {
+                    return fetchedData.find(data => data.month === sheet.month);
+                }).filter(data => data); // Remove undefined entries (if any)
+
+                // Append sorted data to the table
+                sortedData.forEach(data => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${data.month}</td>
+                        <td>${data.present}</td>
+                        <td>${data.absent}</td>
+                    `;
+                    totalAttendanceTableBody.appendChild(row);
+                });
+
+            } catch (error) {
+                console.error("Error in fetchTotalAttendance:", error);
+                showMessagePopup("An error occurred while fetching attendance data.");
+            } finally {
+                // Hide spinner when all requests are completed
+                popupSpinner.style.display = "none";
+
+                if (hasData) {
+                    // Add the total row at the bottom of the table
+                    const totalRow = document.createElement("tr");
+                    totalRow.innerHTML = `
+                        <td><strong>Total Attendance</strong></td>
+                        <td><strong>${totalPresent}</strong></td>
+                        <td><strong>${totalAbsent}</strong></td>
+                    `;
+                    totalAttendanceTableBody.appendChild(totalRow);
+
+                    // Show the table container
+                    totalAttendanceTableContainer.style.display = "block";
+                } else {
+                    // Show message popup if no data is available
+                    showMessagePopup("Attendance was not recorded.");
+                }
+            }
+        }
+
+        /**
+         * Fetches data for the last month.
+         */
+        function fetchLastMonthData() {
+            const popupSpinner = document.getElementById("popupSpinner");
+            const messageContainer = document.getElementById("messageContainer");
+
+            // Determine the last month's sheet name based on the current sheet name
+            const lastMonthSheetName = getLastMonthSheetName();
+            if (!lastMonthSheetName) {
+                messageContainer.innerHTML = '<i class="fas fa-info-circle"></i> There is no previous Attendance submitted.';
+                messageContainer.style.color = "#4361ee";
+                messageContainer.style.backgroundColor = "rgba(67, 97, 238, 0.1)";
+                messageContainer.style.border = "1px solid rgba(67, 97, 238, 0.3)";
+                return;
+            }
+
+            popupSpinner.style.display = "flex"; // Show spinner
+
+            // Fetch data for the last month's sheet
+            const url = `${scriptUrl}?spreadsheetId=${encodeURIComponent(currentSpreadsheetId)}&sheetName=${encodeURIComponent(lastMonthSheetName)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    popupSpinner.style.display = "none"; // Hide spinner
+                    if (data.students && data.students.length > 0) {
+                        const studentName = getStudentNameFromURL();
+                        const studentData = data.students.find(student => student.name.toLowerCase() === studentName.toLowerCase());
+                        if (studentData) {
+                            renderSummary(studentData); // Render summary for the student
+                            updateSummaryHeader2(lastMonthSheetName); // Update the header for the last month's data
+                        }
+                    } else {
+                        showMessagePopup("The Attendance was not available."); // Show message if no data is available
+                    }
+                })
+                .catch(error => {
+                    popupSpinner.style.display = "none"; // Hide spinner
+                    console.error("Error:", error);
+                    showMessagePopup("The Attendance was not available."); // Show message on error
+                });
+        }
+
+        /**
+         * Gets the last month's sheet name based on the current sheet name.
+         * @returns {string} - The last month's sheet name.
+         */
+        function getLastMonthSheetName() {
+            const sheetMap = {
+                "May_25": "April_25",
+                "June_25": "May_25",
+                "July_25": "June_25",
+                "Aug_25": "July_25",
+                "Sept_25": "Aug_25",
+                "Oct_25": "Sept_25",
+                "Nov_25": "Oct_25",
+                "Dec_25": "Nov_25",
+                "Jan_26": "Dec_25",
+                "Feb_26": "Jan_26",
+                "Mar_26": "Feb_26",
+                "April_25": null // No previous month for April
+            };
+
+            return sheetMap[sheetName] || null;
+        }
+
+        /**
+         * Updates the summary header for the selected month.
+         * @param {string} sheetName - The name of the sheet.
+         */
+        function updateSummaryHeader2(sheetName) {
+            const summaryHeader = document.getElementById("summaryHeader");
+            const monthMap = {
+                "April_25": "April Attendance",
+                "May_25": "May Attendance",
+                "June_25": "June Attendance",
+                "July_25": "July Attendance",
+                "Aug_25": "August Attendance",
+                "Sept_25": "September Attendance",
+                "Oct_25": "October Attendance",
+                "Nov_25": "November Attendance",
+                "Dec_25": "December Attendance",
+                "Jan_26": "January Attendance",
+                "Feb_26": "February Attendance",
+                "Mar_26": "March Attendance",
+            };
+
+            summaryHeader.innerHTML = `<i class="fas fa-chart-pie"></i> This ${monthMap[sheetName] || "Attendance"}`;
+        }
+
+	    function preventBack() {
+    window.history.forward();
+}
+setTimeout("preventBack()", 0);
+window.onunload = function () {
+    null
+};
+    </script>
+</body>
+</html>

@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information</title>
+    <script src="https://trendseducation.github.io/classmanagement/loginscriptforindex.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modern Color Palette */
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4bb543;
+            --warning-color: #f0ad4e;
+            --danger-color: #d9534f;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Desktop Container */
+        .desktop-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Mobile Container */
+        .mobile-container {
+            display: none;
+            width: 100%;
+            padding: 15px;
+            padding-bottom: 70px; /* Space for bottom nav */
+        }
+
+        /* Card Styles (for both desktop and mobile) */
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 18px 25px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-header i {
+            margin-right: 12px;
+            font-size: 1.1em;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        /* Personal Info Table */
+        .info-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 10px;
+        }
+
+        .info-table th, .info-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .info-table th {
+            background-color: #f8f9fa;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+
+        .info-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .info-table tr:hover td {
+            background-color: #f1f8ff;
+        }
+
+        /* Fees Table */
+        .fees-details {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 20px 0;
+        }
+
+        .fees-details thead {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .fees-details th, .fees-details td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .fees-details tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .fees-details tbody tr:hover {
+            background-color: #e9f5ff;
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .summary-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .summary-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 10px 0;
+        }
+
+        .summary-card .label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c9302c;
+            transform: translateY(-2px);
+        }
+
+        /* Feature Cards (Desktop only) */
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+            height: 180px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .attendance-card {
+            background: url('https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Attendance.jpg') center/cover no-repeat;
+        }
+
+        .test-card {
+            background: url('https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/TestRecord.png') center/cover no-repeat;
+        }
+
+        /* Mobile Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            display: none; /* Hidden by default */
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 0.8rem;
+            padding: 8px;
+            transition: var(--transition);
+            flex: 1;
+            height: 100%;
+        }
+
+        .nav-item i {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .nav-item:hover {
+            color: var(--primary-color);
+        }
+
+        /* Spinner */
+        .spinner {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(67, 97, 238, 0.2);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 10;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Error Popup */
+        #errorPopup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1100;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .error-popup-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border-top: 5px solid var(--danger-color);
+            animation: popupFadeIn 0.3s ease-out;
+        }
+
+        @keyframes popupFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-popup-content h3 {
+            color: var(--danger-color);
+            margin-bottom: 15px;
+        }
+
+        #errorMessage {
+            margin: 15px 0 25px;
+            color: var(--dark-color);
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .error-popup-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .error-popup-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Duplicate Name Popup */
+        #duplicateNamePopup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6c757d;
+            transition: var(--transition);
+        }
+
+        .close:hover {
+            color: var(--danger-color);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .desktop-container {
+                display: none;
+            }
+            
+            .mobile-container {
+                display: block;
+            }
+            
+            .bottom-nav {
+                display: flex;
+            }
+            
+            .card-header {
+                padding: 15px 20px;
+            }
+            
+            .card-body {
+                padding: 20px;
+            }
+            
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-table th, 
+            .info-table td {
+                padding: 12px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .bottom-nav {
+                height: 60px;
+            }
+            
+            .nav-item i {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Desktop Version -->
+    <div class="desktop-container">
+        <!-- Personal Information Card -->
+        <div class="card" id="infoBox">
+            <div class="card-header">
+                <i class="fas fa-user-graduate"></i> Personal Information
+            </div>
+            <div class="card-body">
+                <table class="info-table">
+                    <tr>
+                        <th>Academic Year</th>
+                        <td id="academicYear"></td>
+                    </tr>
+                    <tr>
+                        <th>Student Name</th>
+                        <td id="studentName"></td>
+                    </tr>
+                    <tr>
+                        <th>Course</th>
+                        <td id="course"></td>
+                    </tr>
+                </table>
+                <div class="spinner" id="spinner"></div>
+            </div>
+        </div>
+
+        <!-- Fees Details Card -->
+        <div class="card" id="feesBox">
+            <div class="card-header">
+                <i class="fas fa-money-bill-wave"></i> Fees Details
+            </div>
+            <div class="card-body">
+                <p>Your fees details are as follows:</p>
+                <div style="overflow-x: auto;">
+                    <table class="fees-details">
+                        <thead>
+                            <tr>
+                                <th>Installment</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feesTableBody">
+                            <!-- Rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                 <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="label">Total Fees</div>
+                        <div class="value" id="totalFees2">0</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">Fees Received</div>
+                        <div class="value" id="totalFeesReceived2">0</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">Balance Fees</div>
+                        <div class="value" id="balanceFees2">0</div>
+                    </div>
+                    <div class="summary-card" id="nextInstallmentCard">
+                        <div class="label">Next Installment</div>
+                        <div class="value" id="nextInstallmentDate2">N/A</div>
+                    </div>
+                </div>
+                <div class="spinner" id="feesSpinner"></div>
+            </div>
+        </div>
+
+        <!-- Feature Cards -->
+        <div class="feature-cards">
+            <div class="feature-card attendance-card" onclick="redirectToAttendance()">
+                <div class="overlay">
+                    <h3><i class="fas fa-calendar-check"></i> Attendance</h3>
+                    <p>Tap to view your attendance records</p>
+                </div>
+            </div>
+            
+            <div class="feature-card test-card" onclick="redirectToTest()">
+                <div class="overlay">
+                    <h3><i class="fas fa-clipboard-list"></i> Test Records</h3>
+                    <p>Tap to view your test performance</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desktop Action Buttons -->
+        <div class="card" id="actionBox">
+            <div class="card-header">
+                <i class="fas fa-cog"></i> Quick Actions
+            </div>
+            <div class="card-body">
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="redirectToStudyMaterial()">
+                        <i class="fas fa-book-open"></i> Study Material
+                    </button>
+                    <button class="btn btn-danger" onclick="handleLogout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Version -->
+    <div class="mobile-container">
+        <!-- Profile Section (default view) -->
+        <div class="card" id="infoBoxMobile">
+            <div class="card-header">
+                <i class="fas fa-user-graduate"></i> Personal Information
+            </div>
+            <div class="card-body">
+                <table class="info-table">
+                    <tr>
+                        <th>Academic Year</th>
+                        <td id="academicYearMobile"></td>
+                    </tr>
+                    <tr>
+                        <th>Student Name</th>
+                        <td id="studentNameMobile"></td>
+                    </tr>
+                    <tr>
+                        <th>Course</th>
+                        <td id="courseMobile"></td>
+                    </tr>
+                </table>
+                
+                <!-- Quick Actions in Profile Section -->
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="redirectToStudyMaterial()">
+                        <i class="fas fa-book-open"></i> Study Material
+                    </button>
+                    <button class="btn btn-danger" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+                
+                <div class="spinner" id="spinnerMobile"></div>
+            </div>
+        </div>
+
+        <!-- Fees Details Section (hidden by default) -->
+        <div class="card" id="feesBoxMobile" style="display: none;">
+            <div class="card-header">
+                <i class="fas fa-money-bill-wave"></i> Fees Details
+            </div>
+            <div class="card-body">
+                <div style="overflow-x: auto;">
+                    <table class="fees-details">
+                        <thead>
+                            <tr>
+                                <th>Installment</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feesTableBodyMobile">
+                            <!-- Rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="label">Total Fees</div>
+                        <div class="value" id="totalFees">0</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">Fees Received</div>
+                        <div class="value" id="totalFeesReceived">0</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">Balance Fees</div>
+                        <div class="value" id="balanceFees">0</div>
+                    </div>
+                    <div class="summary-card" id="nextInstallmentCard">
+                        <div class="label">Next Installment</div>
+                        <div class="value" id="nextInstallmentDate">N/A</div>
+                    </div>
+                </div>
+                <div class="spinner" id="feesSpinnerMobile"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active" onclick="showMobileSection('profile'); return false;">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showMobileSection('fees'); return false;">
+            <i class="fas fa-money-bill-wave"></i>
+            <span>Fees</span>
+        </a>
+        <a href="#" class="nav-item" onclick="redirectToAttendance(); return false;">
+            <i class="fas fa-calendar-check"></i>
+            <span>Attendance</span>
+        </a>
+        <a href="#" class="nav-item" onclick="redirectToTest(); return false;">
+            <i class="fas fa-clipboard-list"></i>
+            <span>Tests</span>
+        </a>
+    </div>
+
+    <!-- Popup for duplicate email -->
+    <div id="duplicateEmailPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h3>Duplicate Found</h3>
+            <p>The email ID exists more than once in our records.</p>
+            <button class="error-popup-btn" onclick="closePopup()">OK</button>
+        </div>
+    </div>
+
+    <!-- Error Popup -->
+    <div id="errorPopup">
+        <div class="error-popup-content">
+            <h3>Error</h3>
+            <p id="errorMessage"></p>
+            <button class="error-popup-btn" onclick="closeErrorPopup()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        const scriptUrl = "https://script.google.com/macros/s/AKfycbztMIZdhuVUlwv3qAjQJ7D1PU13IdN0NkCLcac3BqZ0Ee63nfKUjfCLRzEevkbqCyXC/exec"; 
+		                  
+        const urlParams = new URLSearchParams(window.location.search);
+        const encodedEmail = urlParams.get("email");
+        const studentEmail = encodedEmail ? decodeURIComponent(encodedEmail) : null;
+
+        // Spreadsheet and Sheet Details
+        const admissionSheetId = "1rDjeUVYtneVzA6d8-VwyoZ8B8w1MHDxG-vlgN3O2c-0";   // Admission SheetID
+        const admissionSheets = [
+            "Computer", "9th_Std", "10th_Std", 
+            "11th_Com", "12th_Com", "11th_Sci", "12th_Sci"
+        ];
+        
+        const feesSheetId = "17W3uI55kaecrshN3k5Fsd7XjMtsJeQen5GiSiz4qZis";
+        const feesSheets = [
+            "Computer", "9th_Std", "10th_Std", 
+            "11th_Com", "12th_Com", "11th_Sci", "12th_Sci"
+        ];
+
+        // Store the home page URL with email
+        const homePageUrl = "studDashboard.html?email=" + encodeURIComponent(studentEmail);
+
+        // Handle back button functionality
+        window.addEventListener('popstate', function(event) {
+            if (window.location.href.indexOf(homePageUrl) === -1) {
+                window.location.href = homePageUrl;
+                window.history.pushState(null, null, homePageUrl);
+            } else {
+                window.history.pushState(null, null, homePageUrl);
+            }
+        });
+
+        // Initialize history state
+        window.history.pushState(null, null, window.location.href);
+
+        // Show error popup with custom message
+        function showErrorPopup(message) {
+            const popup = document.getElementById("errorPopup");
+            const errorMessage = document.getElementById("errorMessage");
+            errorMessage.textContent = message;
+            popup.style.display = "flex";
+        }
+
+        // Close error popup
+        function closeErrorPopup() {
+            document.getElementById("errorPopup").style.display = "none";
+        }
+
+        function showPopup() {
+            document.getElementById("duplicateEmailPopup").style.display = "flex";
+        }
+
+        function closePopup() {
+            document.getElementById("duplicateEmailPopup").style.display = "none";
+        }
+
+        // Show specific section in mobile view
+        function showMobileSection(section) {
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find and activate the clicked nav item
+            const navItems = document.querySelectorAll('.nav-item');
+            for (let i = 0; i < navItems.length; i++) {
+                if (navItems[i].getAttribute('onclick').includes(section)) {
+                    navItems[i].classList.add('active');
+                    break;
+                }
+            }
+
+            // Show/hide sections
+            if (section === 'profile') {
+                document.getElementById('infoBoxMobile').style.display = 'block';
+                document.getElementById('feesBoxMobile').style.display = 'none';
+            } else if (section === 'fees') {
+                document.getElementById('infoBoxMobile').style.display = 'none';
+                document.getElementById('feesBoxMobile').style.display = 'block';
+            }
+        }
+
+        // Redirect to Attendance
+function redirectToAttendance() {
+    // Get the student name from the displayed data
+    const studentNameElement = document.getElementById("studentName") || document.getElementById("studentNameMobile");
+    const studentName = studentNameElement ? studentNameElement.textContent : null;
+    
+    if (studentName && studentName !== "N/A") {
+        window.location.href = `studAttendance.html?studentName=${encodeURIComponent(studentName)}`;
+    } else {
+        showErrorPopup("Student name not found. Please login again.");
+    }
+    return false;
+}
+
+// Redirect to Test Records
+function redirectToTest() {
+    // Get the student name from the displayed data
+    const studentNameElement = document.getElementById("studentName") || document.getElementById("studentNameMobile");
+    const studentName = studentNameElement ? studentNameElement.textContent : null;
+    
+    if (studentName && studentName !== "N/A") {
+        window.location.href = `studTestRecord.html?studentName=${encodeURIComponent(studentName)}`;
+    } else {
+        showErrorPopup("Student name not found. Please login again.");
+    }
+    return false;
+}
+
+        // Redirect to Study Material
+        function redirectToStudyMaterial() {
+            if (studentEmail) {
+                window.location.href = `https://trendseducation.github.io/ujjwalacademy/Study%20Material/studymaterial.html`;
+            } else {
+                showErrorPopup("Email ID not found. Please login again.");
+            }
+            return false;
+        }
+
+        function handleLogout() {
+            // Set flag to prevent auto-login on the login page
+            sessionStorage.setItem('justLoggedOut', 'true');
+            
+            // Clear any remembered credentials if needed
+            const roles = ['admin', 'student', 'teacher', 'staff'];
+            roles.forEach(role => {
+                localStorage.removeItem(`remembered_${role}`);
+            });
+
+            // Redirect to login page
+            window.location.href = "https://trendseducation.github.io/classmanagement/";
+        }
+
+       // Search for student by email in admission sheets
+async function searchStudentByEmail(email) {
+    if (!email) {
+        throw new Error("No email provided");
+    }
+
+    console.log("DEBUG - Searching for email:", email);
+
+    const searchPromises = admissionSheets.map((sheetName, index) => {
+        // Use 'email' parameter instead of 'studentEmail'
+        const url = `${scriptUrl}?action=searchByEmail&email=${encodeURIComponent(email)}&sheetId=${admissionSheetId}&sheetName=${sheetName}`;
+        console.log("DEBUG - Fetching from:", url);
+        
+        return fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("DEBUG - Response from", sheetName, ":", data);
+                if (data.status === "success" && data.message && data.message.studentDetails) {
+                    return {
+                        studentDetails: data.message.studentDetails,
+                        sheetName: sheetName,
+                        feesSheetName: feesSheets[index]
+                    };
+                }
+                return null;
+            })
+            .catch(error => {
+                console.error(`Error searching in ${sheetName}:`, error);
+                return null;
+            });
+    });
+
+    const results = await Promise.all(searchPromises);
+    const validResults = results.filter(result => result !== null);
+    
+    console.log("DEBUG - Valid results:", validResults);
+    
+    if (validResults.length === 0) {
+        throw new Error("No student found with the provided email ID: " + email);
+    }
+    
+    if (validResults.length > 1) {
+        throw new Error("Duplicate email found in multiple sheets");
+    }
+    
+    return validResults[0];
+}
+
+        // Load fees data using student name from admission details
+        async function loadFeesData(studentName, feesSheetName) {
+            if (!studentName || !feesSheetName) {
+                throw new Error("Student name or fees sheet name not provided");
+            }
+
+            const response = await fetch(`${scriptUrl}?action=getFeesByStudentName&studentName=${encodeURIComponent(studentName)}&sheetId=${feesSheetId}&sheetName=${feesSheetName}`);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.status !== "success") {
+                throw new Error(data.message || "Failed to load fees data");
+            }
+            
+            return data.feesDetails;
+        }
+
+        // Load data for both desktop and mobile
+async function loadStudentData() {
+    if (!studentEmail) {
+        showErrorPopup("No email ID provided. Please access this page through the proper login process.");
+        return;
+    }
+
+    // Show spinners for both desktop and mobile
+    const spinners = [
+        "spinner", "feesSpinner", 
+        "spinnerMobile", "feesSpinnerMobile"
+    ];
+    spinners.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = "block";
+    });
+
+    try {
+        // Use the new complete data approach that gets both student details and fees in one call
+        const searchPromises = admissionSheets.map((sheetName, index) => {
+            const url = `${scriptUrl}?action=getCompleteStudentData&email=${encodeURIComponent(studentEmail)}&sheetId=${admissionSheetId}&sheetName=${sheetName}&feesSheetId=${feesSheetId}&feesSheetName=${feesSheets[index]}`;
+            console.log("Fetching complete data from:", url);
+            
+            return fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Response from", sheetName, ":", data);
+                    if (data.status === "success" && data.message.studentDetails) {
+                        return {
+                            studentDetails: data.message.studentDetails,
+                            feesDetails: data.message.feesDetails,
+                            sheetName: sheetName,
+                            feesSheetName: feesSheets[index]
+                        };
+                    }
+                    return null;
+                })
+                .catch(error => {
+                    console.error(`Error in ${sheetName}:`, error);
+                    return null;
+                });
+        });
+
+        const results = await Promise.all(searchPromises);
+        const validResults = results.filter(result => result !== null);
+        
+        console.log("Valid results:", validResults);
+        
+        if (validResults.length === 0) {
+            throw new Error("No student found with the provided email ID: " + studentEmail);
+        }
+        
+        if (validResults.length > 1) {
+            throw new Error("Duplicate email found in multiple sheets");
+        }
+
+        const result = validResults[0];
+        const studentDetails = result.studentDetails;
+        const feesDetails = result.feesDetails;
+
+        // Update personal information
+        const updateIfExists = (id, value) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = value || "N/A";
+        };
+
+        // Update desktop version
+        updateIfExists("academicYear", studentDetails.academicYear);
+        updateIfExists("studentName", studentDetails.studentName);
+        updateIfExists("course", studentDetails.course);
+
+        // Update mobile version
+        updateIfExists("academicYearMobile", studentDetails.academicYear);
+        updateIfExists("studentNameMobile", studentDetails.studentName);
+        updateIfExists("courseMobile", studentDetails.course);
+
+        // Update fees if available
+        if (feesDetails) {
+            updateFeesDisplay(feesDetails);
+        } else {
+            console.log("No fees details found for student:", studentDetails.studentName);
+            showErrorPopup("Fees details not available for " + studentDetails.studentName);
+        }
+
+        // Hide all spinners
+        spinners.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = "none";
+        });
+
+    } catch (error) {
+        // Hide all spinners
+        spinners.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = "none";
+        });
+        
+        showErrorPopup(`Error: ${error.message}. Please try again later or contact support.`);
+        console.error("Error loading student data:", error);
+    }
+}
+
+        // Update fees display
+        function updateFeesDisplay(feesDetails) {
+            const formatDate = (dateString) => {
+                if (!dateString || dateString === "N/A") return "N/A";
+                try {
+                    const date = new Date(dateString);
+                    if (isNaN(date.getTime())) return "N/A";
+                    const day = String(date.getUTCDate()).padStart(2, '0');
+                    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+                    const year = date.getUTCFullYear();
+                    return `${day}/${month}/${year}`;
+                } catch (e) {
+                    return "N/A";
+                }
+            };
+
+            const createInstallmentRow = (installment, number) => {
+                const date = formatDate(installment.date);
+                const amount = installment.amount || "N/A";
+                if (date === "N/A" && amount === "N/A") return '';
+                return `<tr><td>Installment ${number}</td><td>${date}</td><td>${amount}</td></tr>`;
+            };
+
+            let feesHTML = '';
+            feesHTML += createInstallmentRow(feesDetails.installment1, 1);
+            feesHTML += createInstallmentRow(feesDetails.installment2, 2);
+            feesHTML += createInstallmentRow(feesDetails.installment3, 3);
+            feesHTML += createInstallmentRow(feesDetails.installment4, 4);
+            feesHTML += createInstallmentRow(feesDetails.installment5, 5);
+
+            // Update desktop version
+            const desktopTableBody = document.getElementById("feesTableBody");
+            if (desktopTableBody) desktopTableBody.innerHTML = feesHTML;
+            
+            // Update mobile version
+            const mobileTableBody = document.getElementById("feesTableBodyMobile");
+            if (mobileTableBody) mobileTableBody.innerHTML = feesHTML;
+
+            // Update fees summary
+            updateFeesSummary(feesDetails);
+        }
+
+        // Update fees summary
+        function updateFeesSummary(feesDetails) {
+            const updateFeesElements = (prefix = '') => {
+                const elements = [
+                    { id: `${prefix}totalFeesReceived`, value: feesDetails.totalFeesReceived || "0" },
+                    { id: `${prefix}balanceFees`, value: feesDetails.balanceFees || "0" },
+                    { id: `${prefix}totalFees`, value: feesDetails.totalFees || "0" }
+                ];
+
+                elements.forEach(item => {
+                    const el = document.getElementById(item.id);
+                    if (el) el.textContent = item.value;
+                });
+
+                // Update desktop summary values if available
+                const summaryElements = [
+                    { id: 'totalFees2', value: feesDetails.totalFees || "0" },
+                    { id: 'totalFeesReceived2', value: feesDetails.totalFeesReceived || "0" },
+                    { id: 'balanceFees2', value: feesDetails.balanceFees || "0" }
+                ];
+
+                summaryElements.forEach(item => {
+                    const el = document.getElementById(item.id);
+                    if (el) el.textContent = item.value;
+                });
+
+                // Handle Next Installment Date Logic
+                let nextInstallmentDate = "N/A";
+
+                if (feesDetails.installment1 && feesDetails.installment1.date !== "N/A" && feesDetails.installment1.amount !== "N/A" &&
+                    (feesDetails.installment2.date === "N/A" || feesDetails.installment2.amount === "N/A")) {
+                    nextInstallmentDate = feesDetails.nextInstallmentDate2 || feesDetails.installment2.date;
+                } 
+                else if (feesDetails.installment2 && feesDetails.installment2.date !== "N/A" && feesDetails.installment2.amount !== "N/A" &&
+                    (feesDetails.installment3.date === "N/A" || feesDetails.installment3.amount === "N/A")) {
+                    nextInstallmentDate = feesDetails.nextInstallmentDate3 || feesDetails.installment3.date;
+                } 
+                else if (feesDetails.installment3 && feesDetails.installment3.date !== "N/A" && feesDetails.installment3.amount !== "N/A" &&
+                    (feesDetails.installment4.date === "N/A" || feesDetails.installment4.amount === "N/A")) {
+                    nextInstallmentDate = feesDetails.nextInstallmentDate4 || feesDetails.installment4.date;
+                } 
+                else if (feesDetails.installment4 && feesDetails.installment4.date !== "N/A" && feesDetails.installment4.amount !== "N/A" &&
+                    (feesDetails.installment5.date === "N/A" || feesDetails.installment5.amount === "N/A")) {
+                    nextInstallmentDate = feesDetails.nextInstallmentDate5 || feesDetails.installment5.date;
+                }
+
+                const formatDate = (dateString) => {
+                    if (!dateString || dateString === "N/A") return "N/A";
+                    try {
+                        const date = new Date(dateString);
+                        if (isNaN(date.getTime())) return "N/A";
+                        const day = String(date.getUTCDate()).padStart(2, '0');
+                        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+                        const year = date.getUTCFullYear();
+                        return `${day}/${month}/${year}`;
+                    } catch (e) {
+                        return "N/A";
+                    }
+                };
+
+                const nextInstallmentEl = document.getElementById(`${prefix}nextInstallmentDate`);
+                if (nextInstallmentEl) {
+                    nextInstallmentEl.textContent = formatDate(nextInstallmentDate);
+                    nextInstallmentEl.closest('.summary-card').style.display = "flex";
+                }
+
+                const nextInstallmentEl2 = document.getElementById('nextInstallmentDate2');
+                if (nextInstallmentEl2) {
+                    nextInstallmentEl2.textContent = formatDate(nextInstallmentDate);
+                    nextInstallmentEl2.closest('.summary-card').style.display = "flex";
+                }
+            };
+
+            // Update both desktop and mobile versions
+            updateFeesElements();
+            updateFeesElements('Mobile');
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStudentData();
+            
+            // Set up mobile navigation if in mobile view
+            if (window.innerWidth <= 768) {
+                showMobileSection('profile');
+            }
+        });
+    </script>
+</body>
+</html>
+
