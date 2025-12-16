@@ -1881,13 +1881,13 @@ async function validateLogin() {
 // Function to redirect back to the original page after login
 function redirectToOriginalPage() {
     const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
-    if (redirectUrl && !redirectUrl.includes('https://trendseducation.github.io/ujjwalacademy/login.html')) {
+    if (redirectUrl && !redirectUrl.includes('https://trendseducation.github.io/egyan/Branch/login.html')) {
         console.log("Redirecting back to original page:", redirectUrl);
         sessionStorage.removeItem('redirectAfterLogin'); // Clean up
         window.location.href = redirectUrl;
     } else {
         // Fallback to a default page if no redirect URL is found
-        window.location.href = 'https://trendseducation.github.io/ujjwalacademy/Study%20Material/studymaterial.html';
+        window.location.href = 'https://trendseducation.github.io/egyan/Study%20Materials/studymaterial.html';
     }
 }
 
@@ -1947,10 +1947,10 @@ function handleSuccessfulLogin(name, branch) {
             staff: `Practice11.html?staffName=${encodedName}`
         },
         'computer kamatghar': {
-            admin: 'practice/practice2.html',
-            student: `https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Student/Computer%20Kamatghar/studDashboard.html?email=${encodedName}`,
-            teacher: `Practice9.html?teacherName=${encodedName}`,
-            staff: `Practice12.html?staffName=${encodedName}`
+            admin: 'AdminEgyan.html',
+            student: `Student login details/studDashboard.html?email=${encodedName}`,
+            teacher: `Practice7.html?teacherName=${encodedName}`,
+            staff: `Practice10.html?staffName=${encodedName}`
         },
         mithpada: {
             admin: 'https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Login%20Portal/Admin/adminMithpada.html',
