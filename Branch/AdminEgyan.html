@@ -33,10 +33,9 @@
       background-color: #f5f7fa;
       color: var(--dark-color);
       line-height: 1.6;
-    }
-
-    .blur {
-      filter: blur(8px);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Header Styles */
@@ -50,6 +49,20 @@
       z-index: 10;
     }
 
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .header-text {
+      flex: 1;
+      text-align: center;
+    }
+
     header h2 {
       font-size: 1.8rem;
       font-weight: 600;
@@ -61,11 +74,36 @@
       opacity: 0.9;
     }
 
+    #authButton {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    #authButton a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #authButton a:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
     /* Main Content */
     main {
       padding: 1.5rem;
       max-width: 1400px;
       margin: 0 auto;
+      flex: 1;
+      width: 100%;
     }
 
     .container {
@@ -128,93 +166,6 @@
       margin-top: auto;
     }
 
-    /* Popup Styles */
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: white;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      z-index: 1000;
-      width: 90%;
-      max-width: 400px;
-      animation: fadeIn 0.3s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translate(-50%, -60%); }
-      to { opacity: 1; transform: translate(-50%, -50%); }
-    }
-
-    .popup h3 {
-      margin-bottom: 1.5rem;
-      color: var(--primary-color);
-      text-align: center;
-    }
-
-    .popup input[type="password"] {
-      width: 100%;
-      padding: 0.8rem;
-      margin: 0.5rem 0 1rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-
-    .popup input[type="password"]:focus {
-      border-color: var(--primary-color);
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
-    }
-
-    .popup-buttons {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .popup button {
-      padding: 0.8rem;
-      flex: 1;
-      border: none;
-      border-radius: 8px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .popup button.primary {
-      background-color: var(--primary-color);
-      color: white;
-    }
-
-    .popup button.primary:hover {
-      background-color: var(--secondary-color);
-    }
-
-    .popup button.secondary {
-      background-color: #f0f0f0;
-      color: var(--dark-color);
-    }
-
-    .popup button.secondary:hover {
-      background-color: #e0e0e0;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 999;
-      backdrop-filter: blur(3px);
-    }
-
     /* Spinner Styles */
     #spinner {
       position: fixed;
@@ -228,6 +179,7 @@
       align-items: center;
       z-index: 9999;
       backdrop-filter: blur(3px);
+      transition: opacity 0.3s ease;
     }
 
     .spinner {
@@ -251,15 +203,27 @@
       background-color: var(--dark-color);
       color: white;
       font-size: 0.9rem;
+      margin-top: auto;
     }
 
     /* Responsive Grid */
     @media (max-width: 599px) {
       .container {
-        grid-template-columns: repeat(2, 1fr);;
+        grid-template-columns: repeat(2, 1fr);
       }
       header h2 {
         font-size: 1.5rem;
+      }
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      #authButton {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin-top: 1rem;
       }
     }
 
@@ -294,6 +258,64 @@
     .card.logout .name {
       color: var(--danger-color);
     }
+
+    /* Login message styling */
+    .login-message {
+      text-align: center;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+      margin: 2rem auto;
+      max-width: 500px;
+    }
+
+    .login-message h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .login-message p {
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+
+    .login-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
+    }
+
+    /* Block access message */
+    .access-blocked {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+      margin: 2rem auto;
+      max-width: 600px;
+    }
+
+    .access-blocked h3 {
+      color: var(--danger-color);
+      margin-bottom: 1rem;
+    }
+
+    .access-blocked p {
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
   </style>
 </head>
 <body>
@@ -302,120 +324,294 @@
   </div>
   
   <header>
-    <h2>E-Gyan Skill Development</h2>
-    <p>Computer class Kamatghar</p>
+    <div class="header-content">
+      <div class="header-text">
+        <h2>E-Gyan Skill Development</h2>
+        <p>Computer class Kamatghar</p>
+      </div>
+      <!-- Auth button will be inserted here by JavaScript -->
+      <div id="authButton"></div>
+    </div>
   </header>
   
   <main id="mainContent">
-    <div class="container">
-      <div class="card">
-        <a href="Enquiry/EnquiryFrontPage.html">
-          <div class="card-icon">
-            <i class="fas fa-question"></i>
-          </div>
-          <div class="name">Enquiry Form</div>
-          <div class="description">Manage student inquiries and information requests</div>
-        </a>
-      </div>
-      
-      <div class="card">
-        <a href="Admission/AdmFontPage.html">
-          <div class="card-icon">
-            <i class="fas fa-user-graduate"></i>
-          </div>
-          <div class="name">Admission Process</div>
-          <div class="description">Handle new student admissions and registrations</div>
-        </a>
-      </div>
-      
-      <div class="card">
-        <a href="Fees Details/feesfrontpage.html">
-          <div class="card-icon">
-            <i class="fas fa-rupee-sign"></i>
-          </div>
-          <div class="name">Fees Details</div>
-          <div class="description">View and manage student fee payments</div>
-        </a>
-      </div>
-      
-      <div class="card">
-        <a href="Teacher Staff Details/teacherstaffpage.html">
-          <div class="card-icon">
-            <i class="fas fa-chalkboard-teacher"></i>
-          </div>
-          <div class="name">Teacher/Staff Details</div>
-          <div class="description">Access faculty and staff information</div>
-        </a>
-      </div>
-      
-      <div class="card">
-        <a href="Income Expenses Details/miss_ie_frontpage.html">
-          <div class="card-icon">
-            <i class="fas fa-money-bill-wave"></i>
-          </div>
-          <div class="name">Expenses/Income</div>
-          <div class="description">Track center finances and transactions</div>
-        </a>
-      </div>
-      
-      <div class="card">
-        <a href="Student Attendance/attendance_fontpage.html">
-          <div class="card-icon">
-            <i class="fas fa-clipboard-check"></i>
-          </div>
-          <div class="name">Attendance Details</div>
-          <div class="description">Record and monitor student attendance</div>
-        </a>
-      </div>
-
-      <div class="card">
-        <a href="Student Exam Records/MocktestFontPage.html">
-          <div class="card-icon">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </div>
-          <div class="name">Student Test Record</div>
-          <div class="description">Add Student Test Record Here!!!</div>
-        </a>
-      </div>
-      
-      <div class="card">
-        <a href="Account/accountsummaryfrontpage.html">
-          <div class="card-icon">
-            <i class="fas fa-file-invoice-dollar"></i>
-          </div>
-          <div class="name">Account Summary</div>
-          <div class="description">View financial summaries and reports</div>
-        </a>
-      </div>
-      
-      <div class="card logout">
-  <a href="#" onclick="logout(); return false;">
-    <div class="card-icon">
-      <i class="fas fa-sign-out-alt"></i>
-    </div>
-    <div class="name">Logout</div>
-    <div class="description">Securely exit the system</div>
-  </a>
-</div>
-    </div>
+    <!-- Content will be loaded here if authenticated -->
+    <div id="contentContainer"></div>
   </main>
   
   <footer>
-        <object id="footer-html" type="text/html" data="https://trendseducation.github.io/classmanagement/footer.html" style="width: 100%; height: 80px;"></object>
-</footer>
+    <object id="footer-html" type="text/html" data="https://trendseducation.github.io/classmanagement/footer.html" style="width: 100%; height: 80px;"></object>
+  </footer>
   
   <script>
-    // Show spinner on page load and hide when loaded
+    // Prevent caching of this page
+    window.onpageshow = function(event) {
+      if (event.persisted) {
+        window.location.reload();
+      }
+    };
+
+    // Block back button navigation to this page without auth
+    history.pushState(null, null, location.href);
+    window.onpopstate = function(event) {
+      // When back button is clicked, check auth again
+      if (!checkAuthentication()) {
+        // If not authenticated, redirect to login
+        redirectToLogin();
+      } else {
+        // If authenticated, re-push state to prevent going back
+        history.pushState(null, null, location.href);
+      }
+    };
+
+    // Function to check authentication and redirect if not logged in
+    function checkAuthAndRedirect() {
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      const loginTime = localStorage.getItem('loginTime');
+      const userRole = localStorage.getItem('userRole');
+      
+      if (!isLoggedIn || !loginTime || !userRole) {
+        redirectToLogin();
+        return false;
+      }
+      
+      // Check session expiration
+      const currentTime = new Date().getTime();
+      const sessionDuration = 120 * 60 * 60 * 1000; // 120 hours
+      
+      if (currentTime - parseInt(loginTime) > sessionDuration) {
+        clearAuthentication();
+        redirectToLogin();
+        return false;
+      }
+      
+      return true;
+    }
+
+    // Function to redirect to login page
+    function redirectToLogin() {
+      // Save current URL for redirect back after login
+      if (!window.location.href.includes('login.html')) {
+        sessionStorage.setItem('redirectAfterLogin', window.location.href);
+      }
+      
+      // Redirect to login page
+      window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
+    }
+
+    // Show spinner on page load
     document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        const spinner = document.getElementById('spinner');
-        spinner.style.opacity = '0';
+      console.log("DOM loaded, checking authentication...");
+      
+      // First, check authentication IMMEDIATELY
+      const isAuthenticated = checkAuthAndRedirect();
+      
+      if (isAuthenticated) {
+        // Update auth button
+        updateAuthButton();
+        
+        // Load the main content
+        loadMainContent();
+        
+        // Hide spinner
         setTimeout(() => {
-          spinner.style.display = 'none';
-        }, 300);
-      }, 500); // Minimum show time for better UX
+          const spinner = document.getElementById('spinner');
+          spinner.style.opacity = '0';
+          setTimeout(() => {
+            spinner.style.display = 'none';
+          }, 300);
+        }, 500);
+      } else {
+        // If not authenticated, redirect will happen automatically
+        // Just hide spinner quickly
+        setTimeout(() => {
+          const spinner = document.getElementById('spinner');
+          spinner.style.opacity = '0';
+          setTimeout(() => {
+            spinner.style.display = 'none';
+          }, 300);
+        }, 1000);
+      }
     });
+
+    // Monitor authentication status continuously
+    let lastAuthCheck = Date.now();
+    const AUTH_CHECK_INTERVAL = 30000; // Check every 30 seconds
+    
+    setInterval(() => {
+      const now = Date.now();
+      if (now - lastAuthCheck > AUTH_CHECK_INTERVAL) {
+        if (!checkAuthAndRedirect()) {
+          console.log("Session lost, redirecting...");
+        }
+        lastAuthCheck = now;
+      }
+    }, AUTH_CHECK_INTERVAL);
+
+    // Also check auth on page focus
+    window.addEventListener('focus', () => {
+      if (!checkAuthAndRedirect()) {
+        console.log("Session expired on focus, redirecting...");
+      }
+    });
+
+    function loadMainContent() {
+      const contentContainer = document.getElementById('contentContainer');
+      
+      // Create the main content HTML
+      const contentHTML = `
+        <div class="container">
+          <div class="card">
+            <a href="Enquiry/EnquiryFrontPage.html" onclick="return checkLinkAuth(event)">
+              <div class="card-icon">
+                <i class="fas fa-question"></i>
+              </div>
+              <div class="name">Enquiry Form</div>
+              <div class="description">Manage student inquiries and information requests</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="Admission/AdmFontPage.html" onclick="return checkLinkAuth(event)">
+              <div class="card-icon">
+                <i class="fas fa-user-graduate"></i>
+              </div>
+              <div class="name">Admission Process</div>
+              <div class="description">Handle new student admissions and registrations</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="Fees Details/feesfrontpage.html" onclick="return checkLinkAuth(event)">
+              <div class="card-icon">
+                <i class="fas fa-rupee-sign"></i>
+              </div>
+              <div class="name">Fees Details</div>
+              <div class="description">View and manage student fee payments</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="Teacher Staff Details/teacherstaffpage.html" onclick="return checkLinkAuth(event)">
+              <div class="card-icon">
+                <i class="fas fa-chalkboard-teacher"></i>
+              </div>
+              <div class="name">Teacher/Staff Details</div>
+              <div class="description">Access faculty and staff information</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="Income Expenses Details/miss_ie_frontpage.html" onclick="return checkLinkAuth(event)">
+              <div class="card-icon">
+                <i class="fas fa-money-bill-wave"></i>
+              </div>
+              <div class="name">Expenses/Income</div>
+              <div class="description">Track center finances and transactions</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="Student Attendance/attendance_fontpage.html" onclick="return checkLinkAuth(event)">
+              <div class="card-icon">
+                <i class="fas fa-clipboard-check"></i>
+              </div>
+              <div class="name">Attendance Details</div>
+              <div class="description">Record and monitor student attendance</div>
+            </a>
+          </div>
+
+          <div class="card">
+            <a href="Student Exam Records/MocktestFontPage.html" onclick="return checkLinkAuth(event)">
+              <div class="card-icon">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </div>
+              <div class="name">Student Test Record</div>
+              <div class="description">Add Student Test Record Here!!!</div>
+            </a>
+          </div>
+          
+          <div class="card">
+            <a href="Account/accountsummaryfrontpage.html" onclick="return checkLinkAuth(event)">
+              <div class="card-icon">
+                <i class="fas fa-file-invoice-dollar"></i>
+              </div>
+              <div class="name">Account Summary</div>
+              <div class="description">View financial summaries and reports</div>
+            </a>
+          </div>
+          
+          <div class="card logout">
+            <a href="#" onclick="logout(); return false;">
+              <div class="card-icon">
+                <i class="fas fa-sign-out-alt"></i>
+              </div>
+              <div class="name">Logout</div>
+              <div class="description">Securely exit the system</div>
+            </a>
+          </div>
+        </div>
+      `;
+      
+      // Insert the content
+      contentContainer.innerHTML = contentHTML;
+    }
+
+    // Function to check auth before navigating to any link
+    function checkLinkAuth(event) {
+      if (!checkAuthAndRedirect()) {
+        event.preventDefault();
+        showAccessBlockedMessage();
+        return false;
+      }
+      return true;
+    }
+
+    function showAccessBlockedMessage() {
+      const contentContainer = document.getElementById('contentContainer');
+      contentContainer.innerHTML = `
+        <div class="access-blocked">
+          <h3><i class="fas fa-exclamation-triangle"></i> Access Blocked</h3>
+          <p>Your session has expired or you are not authenticated.</p>
+          <p>You will be redirected to the login page shortly.</p>
+          <p>If not redirected, <a href="https://trendseducation.github.io/egyan/Branch/login.html" class="login-btn">click here to login</a></p>
+        </div>
+      `;
+      
+      // Redirect after 3 seconds
+      setTimeout(() => {
+        redirectToLogin();
+      }, 3000);
+    }
+
+    // Handle logout function
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        clearAuthentication();
+        window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
+      }
+    }
+
+    // Clear any cached pages when leaving
+    window.addEventListener('beforeunload', () => {
+      // Force re-authentication when returning
+      sessionStorage.setItem('lastAuthCheck', Date.now().toString());
+    });
+
+    // Add this to your existing JavaScript file too
+    // This prevents caching
+    if (window.history && window.history.pushState) {
+      window.history.pushState(null, null, window.location.href);
+      window.history.forward();
+      
+      window.onpopstate = function() {
+        window.history.pushState(null, null, window.location.href);
+        // Check authentication when back button is pressed
+        if (!checkAuthAndRedirect()) {
+          window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
+        }
+      };
+    }
   </script>
 </body>
 </html>
-
