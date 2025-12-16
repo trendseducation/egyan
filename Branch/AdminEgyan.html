@@ -56,6 +56,7 @@
       max-width: 1400px;
       margin: 0 auto;
       width: 100%;
+      position: relative;
     }
 
     .header-text {
@@ -72,29 +73,6 @@
     header p {
       font-size: 1rem;
       opacity: 0.9;
-    }
-
-    #authButton {
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    #authButton a {
-      color: white;
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      background-color: rgba(255, 255, 255, 0.2);
-      transition: var(--transition);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    #authButton a:hover {
-      background-color: rgba(255, 255, 255, 0.3);
     }
 
     /* Main Content */
@@ -173,8 +151,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.95);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 9999;
@@ -189,6 +168,13 @@
       width: 60px;
       height: 60px;
       animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    #spinner p {
+      color: #4361ee;
+      font-weight: 500;
+      margin-top: 15px;
     }
 
     @keyframes spin {
@@ -217,13 +203,6 @@
       .header-content {
         flex-direction: column;
         gap: 1rem;
-      }
-      #authButton {
-        position: relative;
-        right: auto;
-        top: auto;
-        transform: none;
-        margin-top: 1rem;
       }
     }
 
@@ -259,25 +238,33 @@
       color: var(--danger-color);
     }
 
-    /* Login message styling */
-    .login-message {
+    /* Redirect message styling */
+    .redirect-message {
       text-align: center;
-      padding: 2rem;
+      padding: 3rem 2rem;
       background: white;
       border-radius: 12px;
       box-shadow: var(--card-shadow);
-      margin: 2rem auto;
-      max-width: 500px;
+      max-width: 600px;
+      margin: 4rem auto;
+      animation: fadeIn 0.5s ease;
     }
 
-    .login-message h3 {
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .redirect-message h3 {
       color: var(--primary-color);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
     }
 
-    .login-message p {
+    .redirect-message p {
       color: #666;
       margin-bottom: 1.5rem;
+      font-size: 1.1rem;
     }
 
     .login-btn {
@@ -289,6 +276,7 @@
       border-radius: 8px;
       font-weight: 500;
       transition: var(--transition);
+      margin-top: 1rem;
     }
 
     .login-btn:hover {
@@ -296,173 +284,117 @@
       box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
     }
 
-    /* Block access message */
+    /* Access blocked message */
     .access-blocked {
       text-align: center;
-      padding: 3rem 1rem;
+      padding: 3rem 2rem;
       background: white;
       border-radius: 12px;
       box-shadow: var(--card-shadow);
-      margin: 2rem auto;
       max-width: 600px;
+      margin: 4rem auto;
     }
 
     .access-blocked h3 {
       color: var(--danger-color);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
     }
 
     .access-blocked p {
       color: #666;
       margin-bottom: 1.5rem;
     }
+
+    /* Auth button styling */
+    #authButton {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    #authButton a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    #authButton a:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+      #authButton {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin-top: 1rem;
+        display: inline-block;
+      }
+      .header-content {
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Loading Spinner -->
   <div id="spinner">
     <div class="spinner"></div>
+    <p>Checking authentication...</p>
   </div>
   
+  <!-- Header with Auth Button -->
   <header>
     <div class="header-content">
       <div class="header-text">
         <h2>E-Gyan Skill Development</h2>
         <p>Computer class Kamatghar</p>
       </div>
-      <!-- Auth button will be inserted here by JavaScript -->
+      <!-- Auth button will be auto-populated by auth-script.js -->
       <div id="authButton"></div>
     </div>
   </header>
   
+  <!-- Main Content Area -->
   <main id="mainContent">
-    <!-- Content will be loaded here if authenticated -->
-    <div id="contentContainer"></div>
+    <!-- Content will be dynamically loaded after authentication -->
+    <div id="contentContainer">
+      <!-- Default content shown during authentication check -->
+      <div class="redirect-message" style="display: none;">
+        <h3><i class="fas fa-shield-alt"></i> Authentication Check</h3>
+        <p>Verifying your credentials...</p>
+        <p>Please wait while we check your authentication status.</p>
+        <div class="spinner" style="width: 40px; height: 40px; margin: 20px auto;"></div>
+      </div>
+    </div>
   </main>
   
+  <!-- Footer -->
   <footer>
     <object id="footer-html" type="text/html" data="https://trendseducation.github.io/classmanagement/footer.html" style="width: 100%; height: 80px;"></object>
   </footer>
   
+  <!-- Custom JavaScript for this page -->
   <script>
-    // Prevent caching of this page
-    window.onpageshow = function(event) {
-      if (event.persisted) {
-        window.location.reload();
-      }
-    };
-
-    // Block back button navigation to this page without auth
-    history.pushState(null, null, location.href);
-    window.onpopstate = function(event) {
-      // When back button is clicked, check auth again
-      if (!checkAuthentication()) {
-        // If not authenticated, redirect to login
-        redirectToLogin();
-      } else {
-        // If authenticated, re-push state to prevent going back
-        history.pushState(null, null, location.href);
-      }
-    };
-
-    // Function to check authentication and redirect if not logged in
-    function checkAuthAndRedirect() {
-      const isLoggedIn = localStorage.getItem('isLoggedIn');
-      const loginTime = localStorage.getItem('loginTime');
-      const userRole = localStorage.getItem('userRole');
-      
-      if (!isLoggedIn || !loginTime || !userRole) {
-        redirectToLogin();
-        return false;
-      }
-      
-      // Check session expiration
-      const currentTime = new Date().getTime();
-      const sessionDuration = 120 * 60 * 60 * 1000; // 120 hours
-      
-      if (currentTime - parseInt(loginTime) > sessionDuration) {
-        clearAuthentication();
-        redirectToLogin();
-        return false;
-      }
-      
-      return true;
-    }
-
-    // Function to redirect to login page
-    function redirectToLogin() {
-      // Save current URL for redirect back after login
-      if (!window.location.href.includes('login.html')) {
-        sessionStorage.setItem('redirectAfterLogin', window.location.href);
-      }
-      
-      // Redirect to login page
-      window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
-    }
-
-    // Show spinner on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      console.log("DOM loaded, checking authentication...");
-      
-      // First, check authentication IMMEDIATELY
-      const isAuthenticated = checkAuthAndRedirect();
-      
-      if (isAuthenticated) {
-        // Update auth button
-        updateAuthButton();
-        
-        // Load the main content
-        loadMainContent();
-        
-        // Hide spinner
-        setTimeout(() => {
-          const spinner = document.getElementById('spinner');
-          spinner.style.opacity = '0';
-          setTimeout(() => {
-            spinner.style.display = 'none';
-          }, 300);
-        }, 500);
-      } else {
-        // If not authenticated, redirect will happen automatically
-        // Just hide spinner quickly
-        setTimeout(() => {
-          const spinner = document.getElementById('spinner');
-          spinner.style.opacity = '0';
-          setTimeout(() => {
-            spinner.style.display = 'none';
-          }, 300);
-        }, 1000);
-      }
-    });
-
-    // Monitor authentication status continuously
-    let lastAuthCheck = Date.now();
-    const AUTH_CHECK_INTERVAL = 30000; // Check every 30 seconds
-    
-    setInterval(() => {
-      const now = Date.now();
-      if (now - lastAuthCheck > AUTH_CHECK_INTERVAL) {
-        if (!checkAuthAndRedirect()) {
-          console.log("Session lost, redirecting...");
-        }
-        lastAuthCheck = now;
-      }
-    }, AUTH_CHECK_INTERVAL);
-
-    // Also check auth on page focus
-    window.addEventListener('focus', () => {
-      if (!checkAuthAndRedirect()) {
-        console.log("Session expired on focus, redirecting...");
-      }
-    });
-
-    function loadMainContent() {
+    // Function to load the dashboard content after authentication
+    function loadDashboardContent() {
       const contentContainer = document.getElementById('contentContainer');
       
-      // Create the main content HTML
-      const contentHTML = `
+      const dashboardHTML = `
         <div class="container">
           <div class="card">
-            <a href="Enquiry/EnquiryFrontPage.html" onclick="return checkLinkAuth(event)">
+            <a href="Enquiry/EnquiryFrontPage.html">
               <div class="card-icon">
                 <i class="fas fa-question"></i>
               </div>
@@ -472,7 +404,7 @@
           </div>
           
           <div class="card">
-            <a href="Admission/AdmFontPage.html" onclick="return checkLinkAuth(event)">
+            <a href="Admission/AdmFontPage.html">
               <div class="card-icon">
                 <i class="fas fa-user-graduate"></i>
               </div>
@@ -482,7 +414,7 @@
           </div>
           
           <div class="card">
-            <a href="Fees Details/feesfrontpage.html" onclick="return checkLinkAuth(event)">
+            <a href="Fees Details/feesfrontpage.html">
               <div class="card-icon">
                 <i class="fas fa-rupee-sign"></i>
               </div>
@@ -492,7 +424,7 @@
           </div>
           
           <div class="card">
-            <a href="Teacher Staff Details/teacherstaffpage.html" onclick="return checkLinkAuth(event)">
+            <a href="Teacher Staff Details/teacherstaffpage.html">
               <div class="card-icon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </div>
@@ -502,7 +434,7 @@
           </div>
           
           <div class="card">
-            <a href="Income Expenses Details/miss_ie_frontpage.html" onclick="return checkLinkAuth(event)">
+            <a href="Income Expenses Details/miss_ie_frontpage.html">
               <div class="card-icon">
                 <i class="fas fa-money-bill-wave"></i>
               </div>
@@ -512,7 +444,7 @@
           </div>
           
           <div class="card">
-            <a href="Student Attendance/attendance_fontpage.html" onclick="return checkLinkAuth(event)">
+            <a href="Student Attendance/attendance_fontpage.html">
               <div class="card-icon">
                 <i class="fas fa-clipboard-check"></i>
               </div>
@@ -522,7 +454,7 @@
           </div>
 
           <div class="card">
-            <a href="Student Exam Records/MocktestFontPage.html" onclick="return checkLinkAuth(event)">
+            <a href="Student Exam Records/MocktestFontPage.html">
               <div class="card-icon">
                 <i class="fa-solid fa-pen-to-square"></i>
               </div>
@@ -532,7 +464,7 @@
           </div>
           
           <div class="card">
-            <a href="Account/accountsummaryfrontpage.html" onclick="return checkLinkAuth(event)">
+            <a href="Account/accountsummaryfrontpage.html">
               <div class="card-icon">
                 <i class="fas fa-file-invoice-dollar"></i>
               </div>
@@ -542,7 +474,7 @@
           </div>
           
           <div class="card logout">
-            <a href="#" onclick="logout(); return false;">
+            <a href="#" onclick="AuthSystem.logoutUser(); return false;">
               <div class="card-icon">
                 <i class="fas fa-sign-out-alt"></i>
               </div>
@@ -553,65 +485,94 @@
         </div>
       `;
       
-      // Insert the content
-      contentContainer.innerHTML = contentHTML;
+      contentContainer.innerHTML = dashboardHTML;
+      
+      // Hide spinner with smooth transition
+      setTimeout(() => {
+        const spinner = document.getElementById('spinner');
+        if (spinner) {
+          spinner.style.opacity = '0';
+          setTimeout(() => {
+            spinner.style.display = 'none';
+          }, 300);
+        }
+      }, 500);
     }
-
-    // Function to check auth before navigating to any link
-    function checkLinkAuth(event) {
-      if (!checkAuthAndRedirect()) {
-        event.preventDefault();
-        showAccessBlockedMessage();
-        return false;
-      }
-      return true;
-    }
-
-    function showAccessBlockedMessage() {
+    
+    // Function to show login redirect message
+    function showLoginRedirect() {
       const contentContainer = document.getElementById('contentContainer');
       contentContainer.innerHTML = `
-        <div class="access-blocked">
-          <h3><i class="fas fa-exclamation-triangle"></i> Access Blocked</h3>
-          <p>Your session has expired or you are not authenticated.</p>
-          <p>You will be redirected to the login page shortly.</p>
-          <p>If not redirected, <a href="https://trendseducation.github.io/egyan/Branch/login.html" class="login-btn">click here to login</a></p>
+        <div class="redirect-message">
+          <h3><i class="fas fa-exclamation-circle"></i> Authentication Required</h3>
+          <p>You need to be logged in to access the EGyan Skill Development portal.</p>
+          <p>You will be automatically redirected to the login page.</p>
+          <div class="spinner" style="width: 40px; height: 40px; margin: 20px auto;"></div>
+          <p>If you are not redirected, please click the button below:</p>
+          <a href="https://trendseducation.github.io/egyan/Branch/login.html" class="login-btn">
+            <i class="fas fa-sign-in-alt"></i> Go to Login Page
+          </a>
         </div>
       `;
       
-      // Redirect after 3 seconds
+      // Hide spinner
       setTimeout(() => {
-        redirectToLogin();
-      }, 3000);
-    }
-
-    // Handle logout function
-    function logout() {
-      if (confirm('Are you sure you want to logout?')) {
-        clearAuthentication();
-        window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
-      }
-    }
-
-    // Clear any cached pages when leaving
-    window.addEventListener('beforeunload', () => {
-      // Force re-authentication when returning
-      sessionStorage.setItem('lastAuthCheck', Date.now().toString());
-    });
-
-    // Add this to your existing JavaScript file too
-    // This prevents caching
-    if (window.history && window.history.pushState) {
-      window.history.pushState(null, null, window.location.href);
-      window.history.forward();
-      
-      window.onpopstate = function() {
-        window.history.pushState(null, null, window.location.href);
-        // Check authentication when back button is pressed
-        if (!checkAuthAndRedirect()) {
-          window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
+        const spinner = document.getElementById('spinner');
+        if (spinner) {
+          spinner.style.opacity = '0';
+          setTimeout(() => {
+            spinner.style.display = 'none';
+          }, 300);
         }
-      };
+      }, 1000);
     }
+    
+    // Override the default behavior to load dashboard content when authenticated
+    document.addEventListener('DOMContentLoaded', function() {
+      // Wait a moment for the auth script to initialize
+      setTimeout(() => {
+        // Check if user is authenticated
+        if (localStorage.getItem('isLoggedIn') === 'true' && 
+            localStorage.getItem('loginTime') && 
+            localStorage.getItem('userRole')) {
+          
+          // Check session expiration
+          const currentTime = new Date().getTime();
+          const loginTime = parseInt(localStorage.getItem('loginTime'));
+          const sessionDuration = 120 * 60 * 60 * 1000; // 120 hours
+          
+          if (currentTime - loginTime > sessionDuration) {
+            // Session expired
+            AuthSystem.clearAuthentication();
+            showLoginRedirect();
+          } else {
+            // Session valid - load dashboard
+            loadDashboardContent();
+          }
+        } else {
+          // Not authenticated - show redirect message
+          showLoginRedirect();
+        }
+      }, 1000);
+    });
+    
+    // Add click handlers to all dashboard links for additional protection
+    document.addEventListener('click', function(event) {
+      const link = event.target.closest('a');
+      if (link && link.getAttribute('href') && 
+          !link.getAttribute('href').includes('login.html') &&
+          !link.getAttribute('href').startsWith('http') &&
+          link.getAttribute('href') !== '#') {
+        
+        // Check authentication before navigating
+        if (!AuthSystem.checkAuthentication()) {
+          event.preventDefault();
+          alert('Your session has expired. Please login again.');
+          window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
+          return false;
+        }
+      }
+    });
   </script>
 </body>
 </html>
