@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="E-Gyan Skill Development - Premier Computer Institute offering practical training in Tally, Excel, Basic Computer and more">
+    <title>E-Gyan Skill Development - Premier Computer Institute</title>
+	
+	<!-- Favicon link -->
+    <link rel="icon" href="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Egyan%20Logo%20NB.png" type="image/png">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" as="style">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Critical CSS (inlined) -->
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary-color: #f72585;
+            --secondary-dark: #e5177b;
+            --accent-color: #4cc9f0;
+            --dark-color: #14213d;
+            --darker-color: #0c162d;
+            --light-color: #f8f9fa;
+            --lighter-color: #ffffff;
+            --text-color: #2b2d42;
+            --text-light: #8d99ae;
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            --gradient-secondary: linear-gradient(135deg, var(--secondary-color), #b5179e);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+            --transition-fast: all 0.2s ease;
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+            --border-radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background-color: var(--lighter-color);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--dark-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-fast);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-xl {
+            padding: 120px 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            outline: none;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--lighter-color);
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-dark), #4895ef);
+            opacity: 0;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: var(--lighter-color);
+            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(247, 37, 133, 0.4);
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary-dark), #7209b7);
+            opacity: 0;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: var(--lighter-color);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title .subtitle {
+            display: inline-block;
+            color: var(--primary-color);
+            background: rgba(67, 97, 238, 0.1);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-10 {
+            margin-top: 10px;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mt-30 {
+            margin-top: 30px;
+        }
+
+        .mt-40 {
+            margin-top: 40px;
+        }
+
+        .mb-10 {
+            margin-bottom: 10px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .mb-30 {
+            margin-bottom: 30px;
+        }
+
+        .mb-40 {
+            margin-bottom: 40px;
+        }
+
+         /* Header Styles - Desktop Version */
+          header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1001;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            border-radius: 8px;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* DESKTOP NAVIGATION - SHOW BY DEFAULT */
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .desktop-nav-links {
+            display: flex;
+            gap: 25px;
+            margin-right: 20px;
+        }
+
+        .desktop-nav-links a {
+            font-weight: 600;
+            color: #14213d;
+            text-decoration: none;
+        }
+
+        .desktop-nav-cta .btn {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #4361ee, #4cc9f0);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* MOBILE ELEMENTS - HIDDEN BY DEFAULT */
+        .mobile-menu-btn,
+        #mobileNav,
+        .nav-overlay, .nav-links, .nav-cta, .mobile-menu-footer, .sidebarname {
+            display: none;
+        }
+
+
+        /* Mobile Menu Close Button */
+        .mobile-close-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .mobile-close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 800px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--lighter-color);
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-shape {
+            position: absolute;
+            width: 100%;
+            height: 100px;
+            bottom: 0;
+            left: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' fill='%23ffffff' opacity='.25'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' fill='%23ffffff' opacity='.5'/%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%23ffffff'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 2;
+        }
+
+        /* Features Section */
+        .features {
+            background-color: var(--lighter-color);
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, rgba(248, 249, 250, 1), rgba(248, 249, 250, 0));
+            z-index: 1;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-card {
+            background: var(--lighter-color);
+            padding: 40px 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+            border-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 50%;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            background: var(--gradient-primary);
+            color: var(--lighter-color);
+            transform: rotateY(180deg);
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+        }
+
+        /* Courses Section */
+        .courses {
+            background-color: #f8fafc;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .courses::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, rgba(248, 250, 252, 1), rgba(248, 250, 252, 0));
+            z-index: 1;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .course-card {
+            background: var(--lighter-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            z-index: 2;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .course-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary-color);
+            color: var(--lighter-color);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .course-img {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .course-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .course-card:hover .course-img img {
+            transform: scale(1.1);
+        }
+
+        .course-content {
+            padding: 25px;
+        }
+
+        .course-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        .course-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .course-duration {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .course-price {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.03), rgba(247, 37, 133, 0.03));
+            position: relative;
+        }
+
+        .testimonial-slider {
+            max-width: 900px;
+            margin: 50px auto 0;
+            position: relative;
+        }
+
+        .testimonial-slide {
+            background: var(--lighter-color);
+            padding: 50px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .testimonial-slide.active {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .testimonial-content {
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--text-color);
+            margin-bottom: 40px;
+            position: relative;
+            line-height: 1.8;
+        }
+
+        .testimonial-content::before,
+        .testimonial-content::after {
+            content: '"';
+            font-size: 4rem;
+            color: var(--primary-color);
+            opacity: 0.2;
+            position: absolute;
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .testimonial-content::before {
+            top: -20px;
+            left: -10px;
+        }
+
+        .testimonial-content::after {
+            bottom: -50px;
+            right: -10px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .author-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        .author-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .slider-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .slider-dot.active {
+            background: var(--gradient-primary);
+            transform: scale(1.2);
+        }
+
+        /* CTA Section */
+        .cta {
+            background: var(--gradient-primary);
+            color: var(--lighter-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .cta::after {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .cta .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--darker-color);
+            color: var(--lighter-color);
+            padding: 100px 0 0;
+            position: relative;
+        }
+
+        .footer-shape {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' fill='%2314213d' opacity='.25'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' fill='%2314213d' opacity='.5'/%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%2314213d'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .footer-col p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo-img {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .footer-logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--lighter-color);
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            opacity: 0.8;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+            color: var(--lighter-color);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .contact-info li {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-info i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-top: 3px;
+        }
+
+        .contact-info span {
+            display: block;
+            opacity: 0.8;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Animation Classes */
+        .animate-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+		
+		.animate-up h2, .mt-40 {
+		        text-align: center;
+		}
+
+        .animate-up.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-left.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .animate-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-right.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .delay-1 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.4s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.6s;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 1199px) {
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .section {
+                padding: 80px 0;
+            }
+
+            .section-xl {
+                padding: 100px 0;
+            }
+
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+
+            .course-single {
+                grid-template-columns: 1fr;
+            }
+
+            .course-sidebar {
+                order: -1;
+                margin-bottom: 50px;
+            }
+
+            .testimonial-slide {
+                padding: 40px 30px;
+            }
+			
+					.features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .feature-card {
+        padding: 30px 20px;
+    }
+    
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    
+    .feature-card h3 {
+        font-size: 1.2rem;
+    }
+        }
+
+        @media (max-width: 767px) {
+            /* Hide desktop nav */
+            .desktop-nav {
+                display: none;
+            }
+			#mobileNav,
+        .nav-overlay, .nav-links, .nav-cta, .mobile-menu-footer, .sidebarname {
+            display: flex;
+        }
+		
+		.features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .feature-card {
+        padding: 30px 20px;
+    }
+    
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    
+    .feature-card h3 {
+        font-size: 1.2rem;
+    }
+            
+            /* Show mobile button */
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: #14213d;
+                cursor: pointer;
+				margin-right: 20px;
+            }
+            
+            /* Mobile nav styles (keep your existing mobile styles) */
+            #mobileNav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 85%;
+                max-width: 320px;
+                height: 100vh;
+                background: linear-gradient(135deg, #2c3e50, #1a2533);
+                transition: all 0.5s ease;
+            }
+            
+            #mobileNav.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn:hover {
+                color: var(--primary-color);
+                transform: scale(1.1);
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 85%;
+                max-width: 320px;
+                height: 100vh;
+                background: linear-gradient(135deg, #2c3e50, #1a2533);
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+                z-index: 1001;
+                padding: 80px 25px 30px;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+                transform: translateX(-20px);
+                opacity: 0;
+                /* Hide scrollbar */
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE and Edge */
+            }
+
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            nav.active {
+                left: 0;
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            /* Navigation Links */
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                margin-bottom: 30px;
+                order: 1;
+            }
+
+            .nav-links li a {
+                padding: 15px 20px;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                color: rgba(255, 255, 255, 0.9);
+                font-weight: 500;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .nav-links li a::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 3px;
+                height: 100%;
+                background: var(--primary-color);
+                transform: scaleY(0);
+                transform-origin: bottom;
+                transition: transform 0.3s ease;
+            }
+
+            .nav-links li a:hover,
+            .nav-links li a.active {
+                background: rgba(255, 255, 255, 0.08);
+                color: white;
+                transform: translateX(5px);
+            }
+
+            .nav-links li a:hover::before,
+            .nav-links li a.active::before {
+                transform: scaleY(1);
+            }
+
+            .nav-links li a i {
+                margin-right: 15px;
+                font-size: 1.1rem;
+                width: 20px;
+                text-align: center;
+                color: var(--primary-color);
+            }
+
+            /* CTA Button */
+            .nav-cta {
+                order: 2;
+                margin: 25px 0;
+                padding: 25px 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-cta .btn {
+                width: 100%;
+                margin: 0;
+                background: var(--gradient-primary);
+                box-shadow: 0 5px 20px rgba(67, 97, 238, 0.4);
+                font-weight: 600;
+                letter-spacing: 0.5px;
+                padding: 16px;
+                border-radius: 8px;
+            }
+
+            /* Mobile Menu Footer */
+            .mobile-menu-footer {
+			display: block;
+                order: 3;
+                margin-top: auto;
+                padding-top: 20px;
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+            .mobile-menu-footer .contact-info {
+                margin-bottom: 20px;
+            }
+
+            .mobile-menu-footer .contact-info p {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            .mobile-menu-footer .contact-info i {
+                margin-right: 10px;
+                color: var(--primary-color);
+                font-size: 1rem;
+                width: 20px;
+                text-align: center;
+            }
+
+            .mobile-menu-footer .social-links {
+                justify-content: center;
+                margin: 20px 0;
+            }
+
+            .mobile-menu-footer .social-links a {
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                transition: all 0.3s ease;
+            }
+
+            .mobile-menu-footer .social-links a:hover {
+                background: var(--primary-color);
+                transform: translateY(-3px);
+            }
+
+            .mobile-menu-footer .copyright {
+                text-align: center;
+                font-size: 0.8rem;
+                opacity: 0.6;
+                margin-top: 20px;
+            }
+
+            /* Overlay */
+            .nav-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(5px);
+                z-index: 1000;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s ease;
+            }
+
+            .nav-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            /* Body no-scroll */
+            body.no-scroll {
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+            }
+
+            .sidebarname {
+                color: white;
+                margin-bottom: 30px;
+                margin-top: 0;
+                font-size: auto;
+                text-align: center;
+                padding-bottom: 15px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .hero {
+                min-height: 700px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-title .subtitle {
+                font-size: 12px;
+                padding: 5px 15px;
+            }
+
+            .features-grid,
+            .courses-grid,
+            .posts-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                padding: 30px 25px;
+            }
+
+            .testimonial-slide {
+                padding: 30px 20px;
+            }
+
+            .testimonial-content {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+
+            .author-img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .cta h2 {
+                font-size: 2rem;
+            }
+
+            .contact-container,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .map-container {
+                height: 350px;
+            }
+
+            .course-hero h1,
+            .blog-hero h1,
+            .contact-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .blog-title {
+                font-size: 2rem;
+            }
+
+            .blog-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .logo-text {
+                font-size: 1.1rem;
+            }
+
+            .logo-img {
+                width: 35px;
+                height: 35px;
+                font-size: 15px;
+				margin-left: 25px;
+            }
+					.features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .feature-card {
+        padding: 30px 20px;
+    }
+    
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    
+    .feature-card h3 {
+        font-size: 1.2rem;
+    }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+
+            .section {
+                padding: 70px 0;
+            }
+
+            .section-xl {
+                padding: 90px 0;
+            }
+
+            .feature-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+
+            .course-hero h1,
+            .blog-hero h1,
+            .contact-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .blog-title {
+                font-size: 1.7rem;
+            }
+
+            .blog-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .blog-content h3 {
+                font-size: 1.3rem;
+            }
+        }
+		/* Preloader styles
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--lighter-color);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(67, 97, 238, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+        } */
+		@keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader" aria-hidden="true"> 
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container header-container">
+            <div class="logo">
+  <div class="logo-img">
+    <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Egyan%20Logo%20NB.png" alt="EG Logo" />
+  </div>
+  <div class="logo-text">E-Gyan Skill Development</div>
+</div>
+            
+            <!-- Desktop Navigation -->
+            <div class="desktop-nav">
+                <ul class="desktop-nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="course.html">Course</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="desktop-nav-cta">
+                    <a href="contact.html" class="btn btn-primary">Enroll Now</a>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Mobile Navigation -->
+            <nav id="mainNav" aria-label="Main navigation">
+                <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close navigation menu">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3 class="sidebarname">E-Gyan Skill Development</h3>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="course.html"><i class="fas fa-graduation-cap"></i> Courses</a></li>
+                    <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="contact.html" class="btn btn-primary">Enroll Now</a>
+                </div>
+                <div class="mobile-menu-footer">
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone-alt"></i> +91 88 30 467548</p>
+                        <p><i class="fas fa-envelope"></i> egyanskilldevelopment@gmail.com</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <p class="copyright">© 2025 E-Gyan Skill Development</p>
+                </div>
+            </nav>
+            <div class="nav-overlay" id="navOverlay"></div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content animate-up">
+            <h1>Unlock Your Digital Potential with E-Gyan</h1>
+            <p>Master in-demand computer skills with our practical training programs and accelerate your career in the digital world.</p>
+            <div class="hero-btns">
+                <a href="course.html" class="btn btn-primary">Explore Courses</a>
+                <a href="contact.html" class="btn btn-secondary">Free Consultation</a>
+            </div>
+        </div>
+        <div class="hero-shape"></div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features section">
+        <div class="container">
+            <div class="section-title animate-up">
+                <span class="subtitle">Why Choose Us</span>
+                <h2>Your Pathway to Digital Excellence</h2>
+                <p>We provide industry-relevant computer education with hands-on training to ensure you gain practical skills for real-world success.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card animate-up delay-1">
+                    <div class="feature-icon" aria-hidden="true">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Practical Training</h3>
+                    <p>Hands-on experience with real-world projects and case studies to build your confidence and job-ready skills.</p>
+                </div>
+                <div class="feature-card animate-up delay-2">
+                    <div class="feature-icon" aria-hidden="true">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Expert Instructors</h3>
+                    <p>Learn from certified professionals with years of industry and teaching experience in their respective fields.</p>
+                </div>
+				<div class="feature-card animate-up delay-2">
+                    <div class="feature-icon" aria-hidden="true">
+                        <i class="fa fa-pencil-alt"></i>
+                    </div>
+                    <h3>Mock Test</h3>
+                    <p>We provide Test series for better performace as per course completions.</p>
+                </div>
+                <div class="feature-card animate-up delay-3">
+                    <div class="feature-icon" aria-hidden="true">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Career Support</h3>
+                    <p>Get career guidance, resume building, and placement assistance to help you land your dream job.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses section bg-light">
+        <div class="container">
+            <div class="section-title animate-up">
+                <span class="subtitle">Our Programs</span>
+                <h2>Popular Courses</h2>
+                <p>Browse our comprehensive range of computer courses designed for beginners to advanced learners.</p>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card animate-up delay-1">
+                    <div class="course-badge">Best Seller</div>
+                    <div class="course-img">
+                        <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Basic Computer Course">
+                    </div>
+                    <div class="course-content">
+                        <h3>Basic Computer Course</h3>
+                        <p>Master essential computer skills including typing, MS Office, practical knowledge, and internet usage.</p>
+                        <div class="course-meta">
+                            <span class="course-duration"><i class="far fa-clock" aria-hidden="true"></i> 2 - 3 Months</span>
+                            <span class="course-price">₹3,500</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card animate-up delay-2">
+                    <div class="course-img">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1511&q=80" alt="Tally with GST">
+                    </div>
+                    <div class="course-content">
+                        <h3>Tally with GST</h3>
+                        <p>Learn complete accounting with Tally including Prime GST features for business management.</p>
+                        <div class="course-meta">
+                            <span class="course-duration"><i class="far fa-clock" aria-hidden="true"></i> 3 Months</span>
+                            <span class="course-price">₹4,000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card animate-up delay-3">
+                    <div class="course-img">
+                        <img src="https://images.unsplash.com/photo-1610563166150-b34df4f3bcd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1376&q=80" alt="Advanced Excel">
+                    </div>
+                    <div class="course-content">
+                        <h3>Advanced Excel</h3>
+                        <p>Master Excel with advanced formulas, data analysis, pivot tables, and automation techniques.</p>
+                        <div class="course-meta">
+                            <span class="course-duration"><i class="far fa-clock" aria-hidden="true"></i> 2 - 3 Months</span>
+                            <span class="course-price">₹4,500</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-40 animate-up">
+                <a href="course.html" class="btn btn-primary">View All Courses</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials section">
+        <div class="container">
+            <div class="section-title animate-up">
+                <span class="subtitle">Success Stories</span>
+                <h2>What Our Students Say</h2>
+                <p>Hear from our successful students who transformed their careers with our practical training programs.</p>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-slide active">
+                    <div class="testimonial-content">
+                        <p>E-Gyan's Tally course completely changed my career path. The practical training helped me secure a job as an accountant immediately after completion. The instructors are knowledgeable and supportive, always willing to go the extra mile to ensure we understand the concepts thoroughly.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Girl%20User.png" alt="Khushi Pandey">
+                        </div>
+                        <div class="author-info">
+                            <h4>khushi Pandey</h4>
+                            <p>Tally Student, Placed at ABC Enterprises</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        <p>The Advanced Excel course at E-Gyan was exactly what I needed to advance in my career. The real-world examples and hands-on projects gave me the confidence to handle complex data analysis at work. I've since received a promotion thanks to the skills I learned here.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Boy%20User.png" alt="Akashy Verma">
+                        </div>
+                        <div class="author-info">
+                            <h4>Akashy Verma</h4>
+                            <p>Excel Student, Data Analyst at XYZ Corp</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        <p>As a complete beginner, I was nervous about learning computers. But the Basic Computer Course at E-Gyan made everything so simple and easy to understand. Now I can confidently use computers for my small business, manage accounts, and even help my children with their online classes.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Boy%20User.png" alt="Sainath Solanki">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sainath Solanki</h4>
+                            <p>Basic Computer Student, Successfull Student</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-dot active" data-slide="0" aria-label="Show testimonial 1"></button>
+                    <button class="slider-dot" data-slide="1" aria-label="Show testimonial 2"></button>
+                    <button class="slider-dot" data-slide="2" aria-label="Show testimonial 3"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta section-xl">
+        <div class="container">
+            <div class="animate-up">
+                <h2>Ready to Transform Your Career?</h2>
+                <p>Join hundreds of students who have successfully launched their careers with our practical computer courses. Limited seats available for the upcoming batch.</p>
+                <div class="mt-40">
+                    <a href="contact.html" class="btn btn-secondary">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-shape"></div>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col animate-up">
+                    <div class="footer-logo">
+                        <div class="logo-img">
+    <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Egyan%20Logo%20NB.png" alt="EG Logo" />
+  </div>
+                        <div class="footer-logo-text">E-Gyan Skill Development</div>
+                    </div>
+                    <p>Empowering individuals with practical computer skills for personal and professional growth since many years.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col animate-up delay-1">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Home</a></li>
+                        <li><a href="course.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Courses</a></li>
+                        <li><a href="gallery.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Gallery</a></li>
+                        <li><a href="blog.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Blog</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col animate-up delay-2">
+                    <h3>Courses</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Basic Computer</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Tally with GST</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Advanced Excel</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Website Development</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> AI Courses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col animate-up delay-3">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <div>
+                                <strong>Address</strong>
+                                <span>Ganesh Nagar, Bhaji Market, Near Telegu School, Kamatghar, Bhiwandi.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <span><a href="mailto:egyanskilldevelopment@gmail.com">egyanskilldevelopment@gmail.com</a></span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt" aria-hidden="true"></i>
+                            <div>
+                                <strong>Phone</strong>
+                                <span><a href="tel:+919876543210">+91 8830 467548</a></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 E-Gyan Skill Development. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: var(--secondary-color);" aria-hidden="true"></i> by E-Gyan Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced Mobile Menu Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+            const mainNav = document.getElementById('mainNav');
+            const navOverlay = document.getElementById('navOverlay');
+            const body = document.body;
+			
+			mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.add('active');
+            navOverlay.style.display = 'block';
+        });
+
+            // Function to toggle menu
+            function toggleMenu() {
+                mainNav.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+                body.classList.toggle('no-scroll');
+                
+                // Toggle aria-expanded attribute
+                const isExpanded = mainNav.classList.contains('active');
+                mobileMenuBtn.setAttribute('aria-expanded', isExpanded);
+            }
+
+            // Event listeners
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMenu);
+            }
+
+            if (mobileCloseBtn) {
+                mobileCloseBtn.addEventListener('click', toggleMenu);
+            }
+
+            if (navOverlay) {
+                navOverlay.addEventListener('click', toggleMenu);
+            }
+
+            // Close menu when clicking on links
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', toggleMenu);
+            });
+
+            // Prevent default behavior for # links
+            document.querySelectorAll('a[href="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                });
+            });
+            
+            // Close menu when pressing Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Testimonial Slider
+        const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+        const sliderDots = document.querySelectorAll('.slider-dot');
+        let currentSlide = 0;
+        let slideInterval;
+
+        function showSlide(index) {
+            // Hide all slides
+            testimonialSlides.forEach(slide => {
+                slide.classList.remove('active');
+                slide.style.opacity = 0;
+            });
+            
+            // Remove active class from all dots
+            sliderDots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show the selected slide
+            testimonialSlides[index].classList.add('active');
+            setTimeout(() => {
+                testimonialSlides[index].style.opacity = 1;
+            }, 10);
+            
+            // Add active class to the corresponding dot
+            sliderDots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % testimonialSlides.length;
+            showSlide(currentSlide);
+        }
+
+        // Start auto sliding
+        function startSlider() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        // Pause auto sliding when user interacts with dots
+        function pauseSlider() {
+            clearInterval(slideInterval);
+        }
+
+        // Initialize slider
+        showSlide(0);
+        startSlider();
+
+        // Add click event to dots
+        sliderDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const slideIndex = parseInt(dot.getAttribute('data-slide'));
+                showSlide(slideIndex);
+                pauseSlider();
+                setTimeout(startSlider, 10000); // Restart after 10 seconds
+            });
+            
+            // Add keyboard navigation for accessibility
+            dot.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const slideIndex = parseInt(dot.getAttribute('data-slide'));
+                    showSlide(slideIndex);
+                    pauseSlider();
+                    setTimeout(startSlider, 10000);
+                }
+            });
+        });
+
+        // Sticky header on scroll
+        const header = document.getElementById('header');
+        if (header) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // Scroll animation
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-up, .animate-left, .animate-right');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('animated');
+                }
+            });
+        }
+
+        // Run animation on load and scroll
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update URL without page jump
+                    if (history.pushState) {
+                        history.pushState(null, null, targetId);
+                    } else {
+                        location.hash = targetId;
+                    }
+                }
+            });
+        });
+
+        // Preloader
+        window.addEventListener('load', () => {
+            const preloader = document.querySelector('.preloader');
+            if (preloader) {
+                setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                    }, 500);
+                }, 500);
+            }
+        });
+
+        // Form validation for contact page
+        const contactForm = document.querySelector('.contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                let valid = true;
+                const inputs = this.querySelectorAll('input, textarea, select');
+                
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        input.style.borderColor = 'var(--secondary-color)';
+                        valid = false;
+                        
+                        // Add error message
+                        if (!input.nextElementSibling || !input.nextElementSibling.classList.contains('error-message')) {
+                            const errorMsg = document.createElement('span');
+                            errorMsg.className = 'error-message';
+                            errorMsg.textContent = 'This field is required';
+                            errorMsg.style.color = 'var(--secondary-color)';
+                            errorMsg.style.fontSize = '0.8rem';
+                            errorMsg.style.marginTop = '5px';
+                            errorMsg.style.display = 'block';
+                            input.parentNode.insertBefore(errorMsg, input.nextSibling);
+                        }
+                    } else {
+                        input.style.borderColor = '#ddd';
+                        // Remove error message if exists
+                        if (input.nextElementSibling && input.nextElementSibling.classList.contains('error-message')) {
+                            input.nextElementSibling.remove();
+                        }
+                    }
+                });
+                
+                if (!valid) {
+                    e.preventDefault();
+                    // Focus on first invalid field
+                    const firstInvalid = this.querySelector('input:invalid, textarea:invalid, select:invalid');
+                    if (firstInvalid) {
+                        firstInvalid.focus();
+                    }
+                }
+            });
+        }
+        
+        // Lazy loading for images
+        if ('loading' in HTMLImageElement.prototype) {
+            // Native lazy loading is supported
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            lazyImages.forEach(img => {
+                img.loading = 'lazy';
+            });
+        } else {
+            // Fallback for browsers that don't support native lazy loading
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            
+            const lazyLoad = function() {
+                lazyImages.forEach(img => {
+                    if (img.getAttribute('data-src') && img.getBoundingClientRect().top <= window.innerHeight + 100) {
+                        img.src = img.getAttribute('data-src');
+                        img.removeAttribute('data-src');
+                    }
+                });
+            };
+            
+            // Load images near the viewport on load
+            lazyLoad();
+            
+            // Then listen to scroll events
+            window.addEventListener('scroll', lazyLoad);
+            window.addEventListener('resize', lazyLoad);
+            window.addEventListener('orientationchange', lazyLoad);
+        }
+    </script>
+</body>
+</html>
+
