@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Gyan Expenses Deatils</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.4/lottie.min.js"></script>
+	<script src="https://trendseducation.github.io/classmanagement/loginscriptforindex.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h2 {
+            text-align: center;
+            padding: 20px;
+            background-color: #6200ea;
+            color: white;
+            margin: 0;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            background-color: #6200ea;
+            padding: 10px 0;
+        }
+        .tab {
+            flex: 1;
+            padding: 12px;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .tab:hover, .tab.active {
+            background-color: #3700b3;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+			width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .tab-content.active {
+            display: block;
+			
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            word-wrap: break-word;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #3700b3;
+        }
+        input, button {
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        .loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        flex-direction: column;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+		.form-container {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+		.page2 {
+			font-weight: bold;
+		}
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333333;
+            text-align: center;
+        }
+		.page3 {
+		    font-family: Arial, sans-serif;
+		    display: flex;
+		    justify-content: center;
+            align-items: center;
+			padding: 10px;
+		}
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        font-weight: 500;
+        color: #495057;
+        margin-bottom: 8px;
+      }
+      .form-control {
+        border-radius: 8px;
+		width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #ced4da;
+      }
+
+        .tab-content label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555555;
+        }
+
+        .tab-content input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .tab-content input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+		
+		.button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .editbtn, .deletebtn {
+		    display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .editbtn {
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+        }
+
+        .editbtn:hover {
+            background-color: #0056b3;
+        }
+
+        .deletebtn {
+            background-color: #d9534f;
+            color: #ffffff;
+            border: none;
+        }
+
+        .deletebtn:hover {
+            background-color: #c9302c;
+        }
+		<!... search Bar >
+		
+		.search-bar-container {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin: 10px 0;
+              width: 100%;
+    }
+
+    .search-bars {
+        width: 90%;
+        max-width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar:focus {
+        border-color: #6200ea;
+        outline: none;
+        box-shadow: 0px 4px 6px rgba(98, 0, 234, 0.2);
+    }
+		
+        @media (max-width: 768px) {
+            table {
+                font-size: 14px;
+                margin: 10px;
+            }
+            .tabs {
+                text-align: center;
+            }
+            .tab {
+                padding: 10px;
+            }
+			.search-bar {
+            width: 90%;
+            font-size: 14px;
+        }
+        }
+		
+    /* Loading Overlay */
+#loading {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1002; /* Ensure loading spinner is above the popup */
+}
+
+.loading-content {
+  text-align: center;
+  color: white;
+}
+
+#spinner {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #3498db; /* Blue */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#loadingPercentage {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/* Disabled Buttons */
+#popupDelete:disabled, #popupClose:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Popup Container */
+#popupContainer {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+#popupContent {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px; /* Increased size */
+  width: 90%; /* Responsive width */
+}
+
+#popupAnimation {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+#popupMessage {
+  margin: 15px 0;
+  font-size: 16px;
+}
+
+#popupButtons {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between buttons */
+}
+
+/* Popup Buttons */
+#popupDelete, #popupClose {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block; /* Ensure buttons are inline */
+}
+
+#popupDelete {
+  background: #ff4d4d; /* Red for delete button */
+  color: white;
+}
+
+#popupDelete:hover {
+  background: #cc0000;
+}
+
+#popupClose {
+  background: #007bff; /* Blue for close button */
+  color: white;
+}
+
+#popupClose:hover {
+  background: #0056b3;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  #popupContent {
+    padding: 15px;
+    max-width: 90%; /* Full width on small screens */
+  }
+
+  #popupMessage {
+    font-size: 14px;
+  }
+
+  #popupDelete, #popupClose {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
+    </style>
+</head>
+<body>
+    <h2>E-Gyan Miscellaneous Expenses Details</h2>
+    <div class="tabs">
+        <div class="tab active" data-tab="tableView">Expenses List</div>
+        <div class="tab" data-tab="detailsView">Expenses Details</div>
+        <div class="tab" data-tab="editView">Update Details</div>
+    </div>
+
+<!-- Loading Overlay -->
+<div id="loading">
+  <div class="loading-content">
+    <div id="spinner"></div>
+    <div id="loadingPercentage">0%</div>
+  </div>
+</div>
+			  
+    <div style= "display: flex; justify-content: center; align-items: center;">
+    <input
+        type="text"
+        id="searchInput"
+        class="search-bars"
+        placeholder="Search in Name"
+        oninput="searchTable()"
+    />
+</div>
+    <!-- Data Table View (Page 1) -->
+    <div id="tableView" class="tab-content active">
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Expenses Name</th>
+                    <th>Amount</th>
+                    <th>View More</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <!-- Details View (Page 2) -->
+    <div id="detailsView" class="tab-content">
+	<div class="page3">
+        <table>
+           <tr>
+                <td class="page2">ID</td>
+                <td id="detailsId"></td>
+            </tr>
+			<tr>
+                <td class="page2">Date</td>
+                <td id="detailsDate"></td>
+            </tr>
+            <tr>
+               <td class="page2">Expenses Name</td>
+                <td id="detailsExpName"></td>
+            </tr>
+			<tr>
+                <td class="page2">Mobile No</td>
+                <td id="detailsMobNo"></td>
+            </tr>
+			<tr>
+                <td class="page2">Receipt No</td>
+                <td id="detailsRecNo"></td>
+            </tr>
+             <tr>
+                <td class="page2">Payment Mode</td>
+                <td id="detailsPayMode"></td>
+            </tr>
+             <tr>
+                <td class="page2">Transaction No</td>
+                <td id="detailsTran"></td>
+            </tr>
+			<tr>
+                <td class="page2">Amount</td>
+                <td id="detailsAmt"></td>
+            </tr>
+			<tr>
+                <td class="page2">Note</td>
+                <td id="detailsNote"></td>
+            </tr>
+        </table></div>
+        <div class="action-buttons">
+		<div class="button-group">
+            <button id="editButton" class="editbtn">Edit</button>
+            <button id="deleteButton" class="deletebtn">Delete</button>
+        </div></div>
+    </div>
+
+    <!-- Edit View (Page 3) -->
+    <div id="editView" class="tab-content">
+	<div class="page3">
+	<div class="form-container">
+        <form id="editForm">
+            <label for="editDate">Date (MM/DD/YYYY)</label>
+            <input type="date" id="editDate">
+			<label for="editExp">Expenses Name</label>
+            <input type="text" id="editExp" title="Enter Expenses Name">
+			<label for="editMobNo">Mobile No</label>
+            <input type="text" id="editMobNo" pattern="^\d{10}$" title="Enter valid 10 digit number">
+			<label for="editRecNo">Receipt No</label>
+            <input type="text" id="editRecNo" title="Enter your Receipt No">
+            <label for="editPayMode">Payment Mode</label>
+            <select class= "page3" name="Payment_Mode" id="editPayMode" style= "width: 100%; padding: 12px; margin-bottom:7px;">
+              <option value="" disabled selected hidden>Select Payment Mode</option>
+              <option value="UPI">UPI</option>
+			  <option value="Bank Transfer">Bank Transfer</option>
+			   <option value="Cash">Cash</option>
+            </select>
+			<label for="editTran">Transaction No</label>
+            <input type="text" id="editTran" title="Enter Transaction No">
+			<label for="editAmt">Amount</label>
+			<input type="number" id="editAmt" title="Enter your Expenses Amount">
+			<label for="editNote">Note</label>
+            <input type="text" id="editNote" title="Enter a Note">
+			
+            <button type="submit" class="submit-btn">Update</button>
+        </form>
+    </div></div></div>
+	
+<!-- Popup Container -->
+<div id="popupContainer">
+  <div id="popupContent">
+    <div id="popupAnimation"></div>
+    <div id="popupMessage"></div>
+    <div id="popupButtons">
+      <button id="popupDelete">Delete</button>
+      <button id="popupClose">Close</button>
+    </div>
+  </div>
+</div>
+
+   <script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwD-29kpCjkWmA4G0GdHC1IXpbF7GaCpZb5NN-ufwiUO9y12QPIVRYdIHmFmeWUHEx9/exec";
+  const SPREADSHEET_ID = "1sM1xjoZ3XoDcNAJjL8c3JUT6T1-dc8lx7MTP_56dCkw";
+const sheetName = "Class_Expenses"; // Change this to any sheet name
+
+// Lottie Animations
+const successAnimation = "https://assets10.lottiefiles.com/packages/lf20_5tkzkblw.json"; // Replace with your Lottie URL
+const errorAnimation = "https://assets10.lottiefiles.com/packages/lf20_qp1q7mct.json"; // Replace with your Lottie URL
+const confirmAnimation = "https://assets10.lottiefiles.com/packages/lf20_5tkzkblw.json"; // Replace with your Lottie URL
+
+// Tab switching logic
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab).classList.add('active');
+  });
+});
+
+const loadingOverlay = document.getElementById("loading");
+let selectedRowData = null;
+
+// Show loading overlay
+function showLoading() {
+  const loadingOverlay = document.getElementById("loading");
+  loadingOverlay.style.display = "flex";
+  updateLoadingPercentage(0);
+  simulateLoading();
+}
+
+// Hide loading overlay
+function hideLoading() {
+  const loadingOverlay = document.getElementById("loading");
+  loadingOverlay.style.display = "none";
+}
+
+// Update loading percentage
+function updateLoadingPercentage(percentage) {
+  const percentageElement = document.getElementById("loadingPercentage");
+  percentageElement.textContent = `${percentage}%`;
+}
+
+// Simulate loading progress
+function simulateLoading() {
+  let percentage = 0;
+  const interval = setInterval(() => {
+    percentage += 10;
+    updateLoadingPercentage(percentage);
+    if (percentage >= 100) {
+      clearInterval(interval);
+    }
+  }, 200);
+}
+
+let currentAnimation = null; // Track the current Lottie animation
+
+// Show popup with Lottie animation and dynamic buttons
+function showPopup(animationUrl, message, showDeleteButton = false) {
+  const popupContainer = document.getElementById("popupContainer");
+  const popupAnimation = document.getElementById("popupAnimation");
+  const popupMessage = document.getElementById("popupMessage");
+  const popupDelete = document.getElementById("popupDelete");
+  const popupClose = document.getElementById("popupClose");
+
+  // Clear previous animation
+  if (currentAnimation) {
+    currentAnimation.destroy();
+  }
+
+  // Load new animation
+  currentAnimation = lottie.loadAnimation({
+    container: popupAnimation,
+    renderer: "svg",
+    loop: false,
+    autoplay: true,
+    path: animationUrl,
+  });
+
+  // Set message
+  popupMessage.textContent = message;
+
+  // Show/hide buttons based on context
+  if (showDeleteButton) {
+    popupDelete.style.display = "inline-block"; // Show Delete button
+  } else {
+    popupDelete.style.display = "none"; // Hide Delete button
+  }
+  popupClose.style.display = "inline-block"; // Always show Close button
+
+  // Display popup
+  popupContainer.style.display = "flex";
+}
+
+// Close popup
+document.getElementById("popupClose").addEventListener("click", () => {
+  document.getElementById("popupContainer").style.display = "none";
+});
+
+// Fetch data from Google Sheet
+async function fetchData() {
+  showLoading();
+  try {
+    const response = await fetch(`${scriptURL}?action=fetchData&sheetName=${sheetName}&spreadsheetId=${SPREADSHEET_ID}`);
+    const result = await response.json();
+    if (result.success) {
+      renderTable(result.data);
+    } else {
+      showPopup(errorAnimation, result.message);
+    }
+  } catch (error) {
+    showPopup(errorAnimation, "Error fetching data: " + error.message);
+  }
+  hideLoading();
+}
+
+// Render table data
+function renderTable(data) {
+  const tableBody = document.querySelector("#dataTable tbody");
+  tableBody.innerHTML = "";
+  data.slice(1).forEach((rowData, rowIndex) => {
+    const tableRow = document.createElement("tr");
+    tableRow.dataset.rowIndex = rowIndex + 2;
+    tableRow.innerHTML = `
+      <td>${rowIndex + 1}</td>
+      <td>${rowData[1]}</td>
+      <td>${rowData[6] || ''}</td>
+      <td>
+        <button onclick="viewDetails(${rowIndex + 2})">Get Details</button>
+      </td>
+    `;
+    tableBody.appendChild(tableRow);
+  });
+}
+
+// View details of a row
+function viewDetails(rowIndex) {
+  showTab('detailsView');
+  selectedRowData = rowIndex;
+  loadDetails(selectedRowData);
+}
+
+// Load details of a row
+async function loadDetails(rowIndex) {
+  showLoading();
+  try {
+    const response = await fetch(`${scriptURL}?action=fetchData&sheetName=${sheetName}&spreadsheetId=${SPREADSHEET_ID}`);
+    const result = await response.json();
+    const rowData = result.data[rowIndex - 1];
+    document.getElementById("detailsId").textContent = rowIndex - 1;
+                const rawDate = rowData[0];
+				const dateObject = new Date(rawDate);
+				const formattedDate = dateObject.toISOString().split("T")[0];
+				document.getElementById("detailsDate").textContent = formattedDate;
+				document.getElementById("detailsExpName").textContent = rowData[1];
+                document.getElementById("detailsMobNo").textContent = rowData[2];
+				document.getElementById("detailsRecNo").textContent = rowData[3];
+				document.getElementById("detailsPayMode").textContent = rowData[4];
+				document.getElementById("detailsTran").textContent = rowData[5];
+				document.getElementById("detailsAmt").textContent = rowData[6];
+                document.getElementById("detailsNote").textContent = rowData[7];
+  } catch (error) {
+    showPopup(errorAnimation, "Error loading details: " + error.message, false); // Show only Close button
+  }
+  hideLoading();
+}
+
+// Show a specific tab
+function showTab(tabId) {
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(tabContent => tabContent.classList.remove('active'));
+  document.querySelector(`.tab[data-tab=${tabId}]`).classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+// Edit button logic
+document.getElementById("editButton").addEventListener('click', () => {
+  showTab('editView');
+  loadEditForm(selectedRowData);
+});
+
+// Delete button logic
+document.getElementById("deleteButton").addEventListener('click', async () => {
+  showPopup(confirmAnimation, "Are you sure you want to delete this data?", true); // Show Delete and Close buttons
+
+  // Handle delete button click
+  document.getElementById("popupDelete").addEventListener("click", async () => {
+    const popupDelete = document.getElementById("popupDelete");
+    const popupClose = document.getElementById("popupClose");
+
+    // Disable delete and close buttons
+    popupDelete.disabled = true;
+    popupClose.disabled = true;
+
+    // Show loading spinner above the popup
+    showLoading();
+
+    try {
+      const response = await fetch(`${scriptURL}?action=fetchData&sheetName=${sheetName}&spreadsheetId=${SPREADSHEET_ID}`);
+      const result = await response.json();
+      showPopup(successAnimation, result.message, false); // Show only Close button
+      fetchData();
+      showTab('tableView');
+    } catch (error) {
+      showPopup(errorAnimation, "Error deleting row: " + error.message, false); // Show only Close button
+    } finally {
+      hideLoading();
+      document.getElementById("popupContainer").style.display = "none"; // Close popup after delete
+      popupDelete.disabled = false; // Re-enable delete button
+      popupClose.disabled = false; // Re-enable close button
+    }
+  });
+});
+
+// Load edit form with data
+function loadEditForm(rowIndex) {
+  showLoading();
+  fetch(`${scriptURL}?action=fetchData&sheetName=${sheetName}&spreadsheetId=${SPREADSHEET_ID}`)
+    .then(response => response.json())
+    .then(result => {
+      const rowData = result.data[rowIndex - 1];
+                    const rawDate = rowData[0];
+				    const dateObject = new Date(rawDate);
+				    const formattedDate = dateObject.toISOString().split("T")[0];
+					document.getElementById("editDate").value = formattedDate;
+                    document.getElementById("editExp").value = rowData[1];
+					document.getElementById("editMobNo").value = rowData[2];
+					document.getElementById("editRecNo").value = rowData[3];
+					document.getElementById("editPayMode").value = rowData[4];
+					document.getElementById("editTran").value = rowData[5];
+					document.getElementById("editAmt").value = rowData[6];
+                    document.getElementById("editNote").value = rowData[7];
+    })
+    .catch(error => showPopup(errorAnimation, "Error loading edit form: " + error.message))
+    .finally(() => hideLoading());
+}
+
+// Update button logic
+document.getElementById("editForm").addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const updatedData = {
+				date: document.getElementById("editDate").value,
+                name: document.getElementById("editExp").value,
+				mobile: document.getElementById("editMobNo").value,
+				receipt: document.getElementById("editRecNo").value,
+				payment: document.getElementById("editPayMode").value,
+				transaction: document.getElementById("editTran").value,
+                amount: document.getElementById("editAmt").value,
+                note: document.getElementById("editNote").value
+  };
+  const updates = [
+                { row: selectedRowData, col: 1, value: updatedData.date },
+                { row: selectedRowData, col: 2, value: updatedData.name },
+				{ row: selectedRowData, col: 3, value: updatedData.mobile },
+				{ row: selectedRowData, col: 4, value: updatedData.receipt },
+                { row: selectedRowData, col: 5, value: updatedData.payment },
+                { row: selectedRowData, col: 6, value: updatedData.transaction },
+				{ row: selectedRowData, col: 7, value: updatedData.amount },
+				{ row: selectedRowData, col: 8, value: updatedData.note }
+  ];
+  try {
+    showLoading();
+    const updatesParam = encodeURIComponent(JSON.stringify(updates));
+    const response = await fetch(`${scriptURL}?action=updateData&updates=${updatesParam}&sheetName=${sheetName}&spreadsheetId=${SPREADSHEET_ID}`);
+    const result = await response.json();
+    showPopup(successAnimation, result.message);
+    showTab('tableView');
+    fetchData();
+  } catch (error) {
+    showPopup(errorAnimation, "Error updating row: " + error.message);
+  }
+  hideLoading();
+});
+
+// Search table data
+function searchTable() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const table = document.getElementById("dataTable");
+  const rows = table.getElementsByTagName("tr");
+  let hasResults = false;
+
+  for (let i = 1; i < rows.length; i++) {
+    const cells = rows[i].getElementsByTagName("td");
+    let match = false;
+
+    for (let j = 0; j < cells.length; j++) {
+      if (cells[j].textContent.toLowerCase().includes(input)) {
+        match = true;
+        break;
+      }
+    }
+
+    if (match) {
+      rows[i].style.display = ""; // Show row
+      hasResults = true;
+    } else {
+      rows[i].style.display = "none"; // Hide row
+    }
+  }
+
+  // Show or hide "No results" message
+  const noResults = document.getElementById("noResults");
+  noResults.style.display = hasResults ? "none" : "block";
+}
+
+// Initial data load on page load
+window.onload = () => {
+  showLoading();
+  fetchData();
+};
+</script>
+</body>
+</html>

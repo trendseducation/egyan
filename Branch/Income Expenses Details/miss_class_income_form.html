@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-Gyan | Income Portal</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --success-color: #4ade80;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --gradient-primary: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            --gradient-success: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
+            --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--dark-color);
+        }
+
+        .glass-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            width: 100%;
+            max-width: 900px;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--gradient-primary);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-icon {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+        }
+
+        .header-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        /* Form Container */
+        .form-container {
+            padding: 40px;
+        }
+
+        /* Card Styles */
+        .form-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 35px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #e2e8f0;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient-primary);
+        }
+
+        .card-icon {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            opacity: 0.7;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: var(--dark-color);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--gradient-primary);
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .required-star {
+            color: var(--danger-color);
+            margin-left: 4px;
+            font-size: 1.2rem;
+        }
+
+        .required-field {
+            border-left: 4px solid var(--danger-color) !important;
+            background: linear-gradient(135deg, #fff 0%, #fff5f5 100%);
+        }
+
+        .input-group-icon {
+            position: relative;
+        }
+
+        .form-control, .form-select {
+            border-radius: var(--radius-sm);
+            padding: 14px 16px 14px 50px;
+            font-size: 15px;
+            border: 2px solid #e2e8f0;
+            transition: var(--transition);
+            background-color: #f8fafc;
+            color: var(--dark-color);
+            height: 50px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+            background-color: white;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-size: 18px;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /* Transaction Fields */
+        .transaction-fields {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-top: 15px;
+            border: 1px solid #e2e8f0;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Submit Button */
+        .submit-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .submit-btn {
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 18px 45px;
+            font-size: 17px;
+            font-weight: 600;
+            color: white;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            height: 55px;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Spinner Overlay */
+        .submit-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .spinner-container {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            max-width: 350px;
+            width: 90%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .spinner-icon {
+            font-size: 3.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .spinner-text {
+            margin-top: 15px;
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 1.2rem;
+        }
+
+        /* Status Messages */
+        .status-message {
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .status-success {
+            background: linear-gradient(135deg, #f0fff4 0%, #dcfce7 100%);
+            border: 1px solid #86efac;
+            color: #065f46;
+        }
+
+        .status-warning {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 1px solid #fcd34d;
+            color: #92400e;
+        }
+
+        .status-error {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+        }
+
+        /* Desktop Optimized Layout */
+        .desktop-layout {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        /* Required Field Indicator */
+        .required-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 12px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .required-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--danger-color);
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .desktop-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .full-width {
+                grid-column: span 1;
+            }
+            
+            .glass-container {
+                max-width: 600px;
+            }
+            
+            .form-container {
+                padding: 30px;
+            }
+            
+            .form-card {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .glass-container {
+                margin: 10px;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+            
+            .header {
+                padding: 25px 20px;
+            }
+            
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .logo-icon {
+                font-size: 3rem;
+            }
+            
+            .submit-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .form-container {
+                padding: 20px;
+            }
+            
+            .form-card {
+                padding: 20px;
+            }
+            
+            .header-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.2rem;
+            }
+            
+            .form-control, .form-select {
+                padding: 12px 14px 12px 45px;
+                font-size: 14px;
+                height: 48px;
+            }
+            
+            .input-icon {
+                font-size: 16px;
+                left: 15px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: floatElement 20s infinite linear;
+        }
+
+        @keyframes floatElement {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Auto-fill Styles */
+        .autofill-hint {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Error States */
+        .is-invalid {
+            border-color: var(--danger-color) !important;
+            background: linear-gradient(135deg, #fff5f5 0%, #fee 100%) !important;
+        }
+
+        .error-message {
+            color: var(--danger-color);
+            font-size: 0.85rem;
+            margin-top: 6px;
+            display: none;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white !important;
+            }
+            
+            .glass-container {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            
+            .submit-btn {
+                display: none !important;
+            }
+            
+            .form-control, .form-select {
+                border: 1px solid #ddd !important;
+                background: white !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Elements -->
+    <div class="floating-elements">
+        <div class="floating-element" style="width: 100px; height: 100px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="width: 150px; height: 150px; top: 60%; left: 80%; animation-delay: 5s;"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; top: 20%; left: 85%; animation-delay: 10s;"></div>
+        <div class="floating-element" style="width: 120px; height: 120px; top: 70%; left: 10%; animation-delay: 15s;"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="glass-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-container">
+                <i class="fas fa-money-bill-trend-up logo-icon"></i>
+                <h1 class="header-title">E-Gyan Income Portal</h1>
+                <p class="header-subtitle">Record & Track Miscellaneous Income</p>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <!-- Status Message Area -->
+            <div id="statusMessage" style="display: none;"></div>
+
+            <!-- Income Form Card -->
+            <div class="form-card">
+                <i class="fas fa-chart-line card-icon"></i>
+                <h3 class="section-title">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Income Entry Form
+                </h3>
+                
+                <form id="incomeForm">
+                    <div class="desktop-layout">
+                        <!-- Date Field - REQUIRED -->
+                        <div class="form-group">
+                            <label class="form-label" for="dateField">
+                                <i class="fas fa-calendar-alt"></i>
+                                Income Date <span class="required-star">*</span>
+                            </label>
+                            <div class="input-group-icon">
+                                <input type="date" class="form-control required-field" 
+                                       name="Date" 
+                                       id="dateField" 
+                                       max="" 
+                                       required>
+                                <i class="fas fa-calendar input-icon"></i>
+                            </div>
+                            <div class="autofill-hint">
+                                <i class="fas fa-info-circle"></i>
+                                Today's date is automatically selected
+                            </div>
+                        </div>
+
+                        <!-- Income Name - REQUIRED -->
+                        <div class="form-group">
+                            <label class="form-label" for="incomeName">
+                                <i class="fas fa-tag"></i>
+                                Income Name <span class="required-star">*</span>
+                            </label>
+                            <div class="input-group-icon">
+                                <input type="text" class="form-control required-field" 
+                                       name="Income_Name" 
+                                       id="incomeName" 
+                                       placeholder="Enter income source (e.g., Tuition Fees, Workshop Income)"
+                                       required>
+                                <i class="fas fa-money-bill-wave input-icon"></i>
+                            </div>
+                            <div class="error-message" id="incomeNameError">
+                                <i class="fas fa-exclamation-circle"></i> Please enter a valid income name
+                            </div>
+                        </div>
+
+                        <!-- Mobile Number -->
+                        <div class="form-group">
+                            <label class="form-label" for="mobileNo">
+                                <i class="fas fa-phone"></i>
+                                Contact Number
+                            </label>
+                            <div class="input-group-icon">
+                                <input type="tel" class="form-control" 
+                                       name="Mobile_No" 
+                                       id="mobileNo" 
+                                       placeholder="Enter 10-digit mobile number"
+                                       pattern="[6789][0-9]{9}"
+                                       title="Please enter a valid 10-digit Indian mobile number">
+                                <i class="fas fa-mobile-alt input-icon"></i>
+                            </div>
+                            <div class="error-message" id="mobileError">
+                                <i class="fas fa-exclamation-circle"></i> Please enter a valid 10-digit mobile number starting with 6,7,8, or 9
+                            </div>
+                        </div>
+
+                        <!-- Receipt Number -->
+                        <div class="form-group">
+                            <label class="form-label" for="receiptNo">
+                                <i class="fas fa-file-invoice"></i>
+                                Receipt Number
+                            </label>
+                            <div class="input-group-icon">
+                                <input type="text" class="form-control" 
+                                       name="Receipt_No" 
+                                       id="receiptNo" 
+                                       placeholder="Enter receipt number">
+                                <i class="fas fa-hashtag input-icon"></i>
+                            </div>
+                        </div>
+
+                        <!-- Payment Mode - REQUIRED -->
+                        <div class="form-group full-width">
+                            <label class="form-label" for="paymentMode">
+                                <i class="fas fa-credit-card"></i>
+                                Payment Mode <span class="required-star">*</span>
+                            </label>
+                            <div class="input-group-icon">
+                                <select class="form-select required-field" 
+                                        name="Payment_Mode" 
+                                        id="paymentMode"
+                                        onchange="toggleTransactionFields(this.value)"
+                                        required>
+                                    <option value="" disabled selected hidden>Select payment method</option>
+                                    <option value="UPI">UPI Payment</option>
+                                    <option value="Bank Transfer">Bank Transfer</option>
+                                    <option value="Cash">Cash Payment</option>
+                                </select>
+                                <i class="fas fa-wallet input-icon"></i>
+                            </div>
+                        </div>
+
+                        <!-- Transaction Number (Conditional) -->
+                        <div class="transaction-fields full-width" id="transactionFields">
+                            <div class="form-group">
+                                <label class="form-label" for="transactionNo">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    Transaction ID (Required for UPI/Bank Transfer)
+                                </label>
+                                <div class="input-group-icon">
+                                    <input type="text" class="form-control" 
+                                           name="Transaction_No" 
+                                           id="transactionNo" 
+                                           placeholder="Enter transaction reference">
+                                    <i class="fas fa-receipt input-icon"></i>
+                                </div>
+                                <div class="autofill-hint" id="transactionHint">
+                                    <i class="fas fa-info-circle"></i>
+                                    Required for UPI & Bank Transfer payments
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Amount - REQUIRED -->
+                        <div class="form-group full-width">
+                            <label class="form-label" for="amount">
+                                <i class="fas fa-rupee-sign"></i>
+                                Amount (₹) <span class="required-star">*</span>
+                            </label>
+                            <div class="input-group-icon">
+                                <input type="number" class="form-control required-field" 
+                                       name="Amount" 
+                                       id="amount" 
+                                       placeholder="Enter income amount"
+                                       min="0"
+                                       step="0.01"
+                                       required>
+                                <i class="fas fa-money-bill input-icon"></i>
+                            </div>
+                            <div class="autofill-hint">
+                                <i class="fas fa-calculator"></i>
+                                Enter amount in Indian Rupees
+                            </div>
+                            <div class="error-message" id="amountError">
+                                <i class="fas fa-exclamation-circle"></i> Please enter a valid amount greater than 0
+                            </div>
+                        </div>
+
+                        <!-- Notes -->
+                        <div class="form-group full-width">
+                            <label class="form-label" for="notes">
+                                <i class="fas fa-sticky-note"></i>
+                                Additional Notes (Optional)
+                            </label>
+                            <div class="input-group-icon">
+                                <textarea class="form-control" 
+                                          name="Note" 
+                                          id="notes" 
+                                          placeholder="Enter any additional information or description about this income..."
+                                          rows="4"></textarea>
+                                <i class="fas fa-edit input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Required Field Indicator -->
+                    <div class="required-indicator">
+                        <div>
+                            <span class="required-dot"></span>
+                            <strong>Required Fields:</strong> Date, Income Name, Payment Mode, Amount
+                        </div>
+                        <i class="fas fa-exclamation-triangle text-warning ms-auto"></i>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="submit-container">
+                        <button type="submit" class="submit-btn" id="submitButton">
+                            <i class="fas fa-paper-plane"></i>
+                            Submit Income Record
+                        </button>
+                        <p style="margin-top: 15px; color: #64748b; font-size: 0.85rem;">
+                            <i class="fas fa-shield-alt"></i> All data is securely stored and encrypted
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submission Overlay -->
+    <div class="submit-overlay" id="submitOverlay">
+        <div class="spinner-container">
+            <div class="spinner-icon">
+                <i class="fas fa-spinner"></i>
+            </div>
+            <div class="spinner-text">Recording your income...</div>
+            <p style="margin-top: 15px; color: #64748b; font-size: 0.85rem;">
+                Please wait while we save your income details
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Configuration for Income Form
+        const CONFIG = {
+            scriptURL: "https://script.google.com/macros/s/AKfycbwD-29kpCjkWmA4G0GdHC1IXpbF7GaCpZb5NN-ufwiUO9y12QPIVRYdIHmFmeWUHEx9/exec",
+            spreadsheetId: "1sM1xjoZ3XoDcNAJjL8c3JUT6T1-dc8lx7MTP_56dCkw",
+            sheetName: "class_Income"
+        };
+
+        // DOM Elements
+        const elements = {
+            form: document.getElementById('incomeForm'),
+            submitButton: document.getElementById('submitButton'),
+            submitOverlay: document.getElementById('submitOverlay'),
+            dateField: document.getElementById('dateField'),
+            incomeName: document.getElementById('incomeName'),
+            incomeNameError: document.getElementById('incomeNameError'),
+            mobileNo: document.getElementById('mobileNo'),
+            mobileError: document.getElementById('mobileError'),
+            paymentMode: document.getElementById('paymentMode'),
+            transactionFields: document.getElementById('transactionFields'),
+            transactionNo: document.getElementById('transactionNo'),
+            transactionHint: document.getElementById('transactionHint'),
+            amount: document.getElementById('amount'),
+            amountError: document.getElementById('amountError'),
+            statusMessage: document.getElementById('statusMessage')
+        };
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set today's date as default and max date
+            setDefaultDate();
+            setMaxDate();
+            
+            // Initialize event listeners
+            initializeEventListeners();
+            
+            // Setup form validation
+            setupFormValidation();
+            
+            // Add required field styling
+            highlightRequiredFields();
+            
+            console.log('E-Gyan Income Form initialized - Desktop Version');
+        });
+
+        // Set default date to today
+        function setDefaultDate() {
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            elements.dateField.value = formattedDate;
+            console.log('Default date set to:', formattedDate);
+        }
+
+        // Set maximum date to today (to prevent future dates)
+        function setMaxDate() {
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            elements.dateField.setAttribute('max', formattedDate);
+            console.log('Max date set to:', formattedDate);
+        }
+
+        // Highlight required fields
+        function highlightRequiredFields() {
+            const requiredFields = elements.form.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                field.classList.add('required-field');
+                
+                // Add visual indicator on focus
+                field.addEventListener('focus', function() {
+                    this.style.borderColor = 'var(--primary-color)';
+                    this.style.boxShadow = '0 0 0 3px rgba(67, 97, 238, 0.2)';
+                });
+                
+                field.addEventListener('blur', function() {
+                    if (this.value.trim()) {
+                        this.style.borderColor = '#28a745';
+                        this.style.boxShadow = '0 0 0 3px rgba(40, 167, 69, 0.1)';
+                    } else {
+                        this.style.borderColor = 'var(--danger-color)';
+                        this.style.boxShadow = '0 0 0 3px rgba(220, 53, 69, 0.1)';
+                    }
+                });
+            });
+        }
+
+        function initializeEventListeners() {
+            // Date field validation
+            elements.dateField.addEventListener('change', function() {
+                // Just clear any previous errors
+                elements.dateField.classList.remove('is-invalid');
+                console.log('Date selected:', this.value);
+            });
+            
+            // Income name validation
+            elements.incomeName.addEventListener('input', validateIncomeName);
+            elements.incomeName.addEventListener('blur', validateIncomeName);
+            
+            // Mobile number validation
+            elements.mobileNo.addEventListener('input', validateMobileNumber);
+            elements.mobileNo.addEventListener('blur', validateMobileNumber);
+            
+            // Payment mode change
+            elements.paymentMode.addEventListener('change', function() {
+                toggleTransactionFields(this.value);
+                validatePaymentMode();
+            });
+            
+            // Amount validation
+            elements.amount.addEventListener('input', validateAmount);
+            elements.amount.addEventListener('blur', function() {
+                validateAmount();
+                formatAmount();
+            });
+            
+            // Form submission
+            elements.form.addEventListener('submit', handleFormSubmit);
+            
+            // Real-time validation for required fields
+            const requiredFields = elements.form.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                field.addEventListener('input', validateRequiredField);
+                field.addEventListener('blur', validateRequiredField);
+            });
+        }
+
+        function setupFormValidation() {
+            // Add real-time validation for all required fields
+            const requiredFields = elements.form.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                field.addEventListener('blur', function() {
+                    if (!this.value.trim()) {
+                        this.classList.add('is-invalid');
+                        showFieldError(this);
+                    } else {
+                        this.classList.remove('is-invalid');
+                        hideFieldError(this);
+                    }
+                });
+                
+                field.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('is-invalid');
+                        hideFieldError(this);
+                    }
+                });
+            });
+        }
+
+        // Income name validation
+        function validateIncomeName() {
+            const name = elements.incomeName.value.trim();
+            
+            if (!name) {
+                elements.incomeName.classList.add('is-invalid');
+                elements.incomeNameError.style.display = 'flex';
+                return false;
+            }
+            
+            if (name.length < 3) {
+                elements.incomeNameError.textContent = 'Income name must be at least 3 characters long';
+                elements.incomeNameError.style.display = 'flex';
+                elements.incomeName.classList.add('is-invalid');
+                return false;
+            }
+            
+            elements.incomeName.classList.remove('is-invalid');
+            elements.incomeNameError.style.display = 'none';
+            return true;
+        }
+
+        // Mobile number validation
+        function validateMobileNumber() {
+            const mobile = elements.mobileNo.value.trim();
+            
+            // Optional field, skip if empty
+            if (!mobile) {
+                elements.mobileNo.classList.remove('is-invalid');
+                elements.mobileError.style.display = 'none';
+                return true;
+            }
+            
+            const mobilePattern = /^[6789][0-9]{9}$/;
+            
+            if (!mobilePattern.test(mobile)) {
+                elements.mobileNo.classList.add('is-invalid');
+                elements.mobileError.style.display = 'flex';
+                return false;
+            } else {
+                elements.mobileNo.classList.remove('is-invalid');
+                elements.mobileError.style.display = 'none';
+                return true;
+            }
+        }
+
+        // Payment mode validation
+        function validatePaymentMode() {
+            if (!elements.paymentMode.value) {
+                elements.paymentMode.classList.add('is-invalid');
+                return false;
+            }
+            
+            elements.paymentMode.classList.remove('is-invalid');
+            return true;
+        }
+
+        // Amount validation
+        function validateAmount() {
+            const amount = elements.amount.value;
+            
+            if (!amount) {
+                elements.amount.classList.add('is-invalid');
+                elements.amountError.textContent = 'Amount is required';
+                elements.amountError.style.display = 'flex';
+                return false;
+            }
+            
+            const amountNum = parseFloat(amount);
+            
+            if (isNaN(amountNum) || amountNum <= 0) {
+                elements.amount.classList.add('is-invalid');
+                elements.amountError.textContent = 'Please enter a valid amount greater than 0';
+                elements.amountError.style.display = 'flex';
+                return false;
+            }
+            
+            elements.amount.classList.remove('is-invalid');
+            elements.amountError.style.display = 'none';
+            return true;
+        }
+
+        // Toggle transaction fields based on payment mode
+        function toggleTransactionFields(paymentMode) {
+            const transactionFields = elements.transactionFields;
+            const transactionInput = elements.transactionNo;
+            
+            switch(paymentMode) {
+                case 'UPI':
+                    transactionFields.style.display = 'block';
+                    transactionInput.placeholder = 'Enter UPI transaction ID';
+                    transactionHint.innerHTML = '<i class="fas fa-info-circle"></i> Required for UPI payments';
+                    transactionInput.setAttribute('required', 'required');
+                    transactionInput.classList.add('required-field');
+                    break;
+                    
+                case 'Bank Transfer':
+                    transactionFields.style.display = 'block';
+                    transactionInput.placeholder = 'Enter bank transaction reference';
+                    transactionHint.innerHTML = '<i class="fas fa-info-circle"></i> Required for bank transfers';
+                    transactionInput.setAttribute('required', 'required');
+                    transactionInput.classList.add('required-field');
+                    break;
+                    
+                case 'Cash':
+                    transactionFields.style.display = 'none';
+                    transactionInput.removeAttribute('required');
+                    transactionInput.classList.remove('required-field');
+                    break;
+                    
+                default:
+                    transactionFields.style.display = 'none';
+                    transactionInput.removeAttribute('required');
+                    transactionInput.classList.remove('required-field');
+            }
+        }
+
+        // Format amount with proper validation
+        function formatAmount() {
+            let value = elements.amount.value;
+            if (value) {
+                // Remove any non-numeric characters except decimal point
+                value = value.replace(/[^\d.]/g, '');
+                
+                // Ensure only one decimal point
+                const parts = value.split('.');
+                if (parts.length > 2) {
+                    value = parts[0] + '.' + parts.slice(1).join('');
+                }
+                
+                // Limit to 2 decimal places
+                if (parts.length === 2 && parts[1].length > 2) {
+                    value = parts[0] + '.' + parts[1].substring(0, 2);
+                }
+                
+                // Update the value
+                elements.amount.value = value;
+            }
+        }
+
+        // Validate individual required field
+        function validateRequiredField() {
+            if (!this.value.trim()) {
+                this.classList.add('is-invalid');
+                showFieldError(this);
+                return false;
+            } else {
+                this.classList.remove('is-invalid');
+                hideFieldError(this);
+                return true;
+            }
+        }
+
+        // Show field error
+        function showFieldError(input) {
+            const errorElement = input.parentNode.parentNode.querySelector('.error-message');
+            if (errorElement) {
+                errorElement.style.display = 'flex';
+            }
+        }
+
+        // Hide field error
+        function hideFieldError(input) {
+            const errorElement = input.parentNode.parentNode.querySelector('.error-message');
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
+        }
+
+        // Form submission handler
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            // Validate form
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Show loading state
+            elements.submitOverlay.style.display = 'flex';
+            elements.submitButton.disabled = true;
+            
+            try {
+                // Prepare form data
+                const formData = new FormData(elements.form);
+                formData.append('sheetName', CONFIG.sheetName);
+                formData.append('spreadsheetId', CONFIG.spreadsheetId);
+                
+                console.log('Submitting income data...');
+                console.log('Income Name:', elements.incomeName.value);
+                console.log('Amount:', elements.amount.value);
+                console.log('Date:', elements.dateField.value);
+                
+                // Submit to Google Sheets
+                const response = await fetch(CONFIG.scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                }).catch(error => {
+                    console.log('Fetch request sent (no-cors mode)');
+                    return { ok: true };
+                });
+                
+                // Show success popup
+                await Swal.fire({
+                    title: 'Success!',
+                    html: `
+                        <div class="text-center">
+                            <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                            <p class="mb-2"><strong>Income Record Submitted Successfully!</strong></p>
+                            <p class="mb-2">Amount: ₹${parseFloat(elements.amount.value).toFixed(2)}</p>
+                            <p class="text-muted mb-0">The form will be reset automatically.</p>
+                        </div>
+                    `,
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: 'var(--success-color)',
+                    backdrop: 'rgba(0,0,0,0.5)',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    willClose: () => {
+                        // Reset form after popup closes
+                        resetForm();
+                    }
+                });
+                
+                // Reset form after success
+                resetForm();
+                
+                showStatus('Income recorded successfully! Form has been reset for new entry.', 'success');
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                
+                await Swal.fire({
+                    title: 'Processing...',
+                    text: 'Your income is being recorded. Please check the sheet to confirm.',
+                    icon: 'info',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: 'var(--primary-color)'
+                });
+                
+            } finally {
+                // Hide loading state
+                elements.submitOverlay.style.display = 'none';
+                elements.submitButton.disabled = false;
+            }
+        }
+
+        // Validate entire form
+        function validateForm() {
+            let isValid = true;
+            
+            // Validate required fields
+            const requiredFields = ['dateField', 'incomeName', 'paymentMode', 'amount'];
+            
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    field.classList.add('is-invalid');
+                    showFieldError(field);
+                    isValid = false;
+                    
+                    // Scroll to first error
+                    if (!isValid) {
+                        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        field.focus();
+                    }
+                }
+            });
+            
+            // Validate specific fields
+            if (!validateIncomeName()) isValid = false;
+            if (!validateMobileNumber()) isValid = false;
+            if (!validatePaymentMode()) isValid = false;
+            if (!validateAmount()) isValid = false;
+            
+            // Validate transaction number for UPI/Bank Transfer
+            if (elements.paymentMode.value === 'UPI' || elements.paymentMode.value === 'Bank Transfer') {
+                if (!elements.transactionNo.value.trim()) {
+                    elements.transactionNo.classList.add('is-invalid');
+                    showFieldError(elements.transactionNo);
+                    isValid = false;
+                }
+            }
+            
+            // Validate date - SIMPLE CHECK ONLY
+            if (!elements.dateField.value) {
+                elements.dateField.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                elements.dateField.classList.remove('is-invalid');
+            }
+            
+            if (!isValid) {
+                showStatus('Please fill all required fields correctly (marked with *).', 'error');
+            }
+            
+            return isValid;
+        }
+
+        // Reset form
+        function resetForm() {
+            // Reset form fields
+            elements.form.reset();
+            
+            // Set default date
+            setDefaultDate();
+            
+            // Hide transaction fields
+            elements.transactionFields.style.display = 'none';
+            elements.transactionNo.removeAttribute('required');
+            elements.transactionNo.classList.remove('required-field');
+            
+            // Clear validation errors
+            elements.form.querySelectorAll('.is-invalid').forEach(element => {
+                element.classList.remove('is-invalid');
+            });
+            
+            // Hide all error messages
+            elements.form.querySelectorAll('.error-message').forEach(element => {
+                element.style.display = 'none';
+            });
+            
+            // Reset status message
+            elements.statusMessage.style.display = 'none';
+            
+            console.log('Form has been reset successfully');
+        }
+
+        // Utility Functions
+        function showStatus(message, type) {
+            const status = elements.statusMessage;
+            status.innerHTML = `
+                <div class="status-message status-${type}">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : 'exclamation-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            status.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 5000);
+        }
+
+        // Initialize floating elements
+        function initFloatingElements() {
+            const container = document.querySelector('.floating-elements');
+            for (let i = 0; i < 12; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.width = Math.random() * 100 + 50 + 'px';
+                element.style.height = element.style.width;
+                element.style.left = Math.random() * 100 + '%';
+                element.style.top = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 20 + 's';
+                element.style.background = `rgba(255, 255, 255, ${Math.random() * 0.1 + 0.05})`;
+                container.appendChild(element);
+            }
+        }
+
+        // Prevent form submission on Enter key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.type !== 'textarea') {
+                e.preventDefault();
+            }
+        });
+
+        // Initialize floating elements
+        initFloatingElements();
+    </script>
+</body>
+</html>

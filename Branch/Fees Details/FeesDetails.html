@@ -1,0 +1,2915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Gyan Fees Details</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.4/lottie.min.js"></script>
+	<script src="auth.js"></script>
+	 <script src="installmentfunction.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h2 {
+            text-align: center;
+            padding: 20px;
+            background-color: #6200ea;
+            color: white;
+            margin: 0;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            background-color: #6200ea;
+            padding: 10px 0;
+        }
+        .tab {
+            flex: 1;
+            padding: 12px;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .tab:hover, .tab.active {
+            background-color: #3700b3;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+			width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .tab-content.active {
+            display: block;
+			
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            word-wrap: break-word;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #3700b3;
+        }
+        input, button {
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        .loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        flex-direction: column;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+		.form-container {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+		.page2 {
+			font-weight: bold;
+		}
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333333;
+            text-align: center;
+        }
+		.page3 {
+		    font-family: Arial, sans-serif;
+		    display: flex;
+		    justify-content: center;
+            align-items: center;
+			padding: 10px;
+		}
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        font-weight: 500;
+        color: #495057;
+        margin-bottom: 8px;
+      }
+      .form-control {
+        border-radius: 8px;
+		width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #ced4da;
+      }
+
+        .tab-content label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555555;
+        }
+
+        .tab-content input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .tab-content input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+		
+		.button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .editbtn, .deletebtn {
+		    display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .editbtn {
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+        }
+
+        .editbtn:hover {
+            background-color: #0056b3;
+        }
+
+        .deletebtn {
+            background-color: #d9534f;
+            color: #ffffff;
+            border: none;
+        }
+
+        .deletebtn:hover {
+            background-color: #c9302c;
+        }
+		<!... search Bar >
+		
+		.search-bar-container {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin: 10px 0;
+              width: 100%;
+    }
+
+    .search-bars {
+        width: 90%;
+        max-width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar:focus {
+        border-color: #6200ea;
+        outline: none;
+        box-shadow: 0px 4px 6px rgba(98, 0, 234, 0.2);
+    }
+		
+        @media (max-width: 768px) {
+            table {
+                font-size: 14px;
+                margin: 10px;
+            }
+            .tabs {
+                text-align: center;
+            }
+            .tab {
+                padding: 10px;
+            }
+			.search-bar {
+            width: 90%;
+            font-size: 14px;
+        }
+        }
+		
+    /* Loading Overlay */
+#loading {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1002; /* Ensure loading spinner is above the popup */
+}
+
+.loading-content {
+  text-align: center;
+  color: white;
+}
+
+#spinner {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #3498db; /* Blue */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#loadingPercentage {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/* Disabled Buttons */
+#popupDelete:disabled, #popupClose:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Popup Container */
+#popupContainer {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+#popupContent {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px; /* Increased size */
+  width: 90%; /* Responsive width */
+}
+
+#popupAnimation {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+#popupMessage {
+  margin: 15px 0;
+  font-size: 16px;
+}
+
+#popupButtons {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between buttons */
+}
+
+/* Popup Buttons */
+#popupDelete, #popupClose {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block; /* Ensure buttons are inline */
+}
+
+#popupDelete {
+  background: #ff4d4d; /* Red for delete button */
+  color: white;
+}
+
+#popupDelete:hover {
+  background: #cc0000;
+}
+
+#popupClose {
+  background: #007bff; /* Blue for close button */
+  color: white;
+}
+
+#popupClose:hover {
+  background: #0056b3;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  #popupContent {
+    padding: 15px;
+    max-width: 90%; /* Full width on small screens */
+  }
+
+  #popupMessage {
+    font-size: 14px;
+  }
+
+  #popupDelete, #popupClose {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
+<!... For Installment section CSS code>
+
+        .installment-header {
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #007bff;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            border-radius: 6px;
+            width: 100%;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            background-color: #f9f9f9;
+			border: 2px solid black;
+			box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        select, input[type="text"], input[type="number"], input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 0.95em;
+        }
+
+        select {
+            background-color: #fff;
+            color: #555;
+        }
+
+        input[type="text"], input[type="number"], input[type="date"] {
+            background-color: #fefefe;
+        }
+
+        .cancel-button {
+            display: block;
+            width: 90%;
+            margin: 10px auto;
+            padding: 12px 20px;
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .cancel-button:hover {
+            background-color: #e63939;
+        }
+
+        .installment-selector {
+            margin-bottom: 20px;
+        }
+
+        .installment-selector label {
+            font-size: 1em;
+            color: #333;
+        }     
+		
+        @media (max-width: 768px) {
+		    .containerers {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            label, select, input {
+                font-size: 0.85em;
+            }
+
+            .cancel-button {
+                font-size: 0.85em;
+            }
+        
+            table {
+                font-size: 14px;
+                margin: 10px;
+            }
+            .tabs {
+                text-align: center;
+            }
+            .tab {
+                padding: 10px;
+            }
+			.search-bar {
+            width: 90%;
+            font-size: 14px;
+        }
+		}
+		<!... For Gender CSS >
+		.form-containerg {
+                padding: 15px;
+            }
+
+            .form-containerg label {
+                font-size: 14px;
+            }
+
+            .form-containerg select {
+                font-size: 14px;
+                padding: 8px 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>E-Gyan Fees Details</h2>
+    <div class="tabs">
+        <div class="tab active" data-tab="tableView">Student Fees List</div>
+        <div class="tab" data-tab="detailsView">Student Fees Details</div>
+        <div class="tab" data-tab="editView">Edit Details</div>
+    </div>
+
+<!-- Loading Overlay -->
+<div id="loading">
+  <div class="loading-content">
+    <div id="spinner"></div>
+    <div id="loadingPercentage">0%</div>
+  </div>
+</div>
+			  
+    <div style= "display: flex; justify-content: center; align-items: center;">
+    <input
+        type="text"
+        id="searchInput"
+        class="search-bars"
+        placeholder="Search in Name"
+        oninput="searchTable()"
+    />
+</div>
+    <!-- Data Table View (Page 1) -->
+    <div id="tableView" class="tab-content active">
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student Name</th>
+                    <th>Balance Fees</th>
+					<th>Total Fees</th>
+                    <th>View More</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <!-- Details View (Page 2) -->
+    <div id="detailsView" class="tab-content">
+	<div class="page3">
+        <table>
+            <tr>
+                <td class="page2">ID</td>
+                <td id="detailsId"></td>
+            </tr>
+			<tr>
+               <td class="page2">Academic Year</td>
+                <td id="detailsAcademic"></td>
+            </tr>
+            <tr>
+               <td class="page2">Student Name</td>
+                <td id="detailsName"></td>
+            </tr>
+			<tr>
+               <td class="page2">Stream</td>
+                <td id="detailsStream"></td>
+            </tr>
+			</table></div>
+			<!-- Installment 1 -->
+			<h4 id="installmentHeader1" style="align-items: left; background-color: white; border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px; padding: 12px; text-align: center;"><span style="color: black;">Installment 1</span></h4>
+		<div class="page3">
+        <table>
+		    <tr id="rowExp1" class="hidden">
+               <td class="page2">Receipt No</td>
+                <td id="detailsRecNo1"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+               <td class="page2">Receipt Date</td>
+                <td id="detailsRec1"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Payment Method</td>
+                <td id="detailsPay1"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTran1"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTranBank1"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTranOther1"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Next Installmnt Date</td>
+                <td id="detailsNInsDate1"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Installment</td>
+                <td id="detailsIns1"></td>
+            </tr>
+			</table></div>
+			<!-- Installment 2 -->
+			<h4 id="installmentHeader2" style="align-items: left; background-color: white; border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px; padding: 12px; text-align: center;"><span style="color: black;">Installment 2</span></h4>
+			<div class="page3">
+        <table>
+		    <tr id="rowExp1" class="hidden">
+               <td class="page2">Receipt No</td>
+                <td id="detailsRecNo2"></td>
+            </tr>
+			<tr id="rowExp2" class="hidden">
+			<td class="page2">Receipt Date</td>
+                <td id="detailsRec2"></td>
+            </tr>
+			<tr id="rowExp2" class="hidden">
+                <td class="page2">Payment Method</td>
+                <td id="detailsPay2"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTran2"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTranBank2"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTranOther2"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Next Installmnt Date</td>
+                <td id="detailsNInsDate2"></td>
+            </tr>
+			<tr id="rowExp2" class="hidden">
+                <td class="page2">Installment</td>
+                <td id="detailsIns2"></td>
+            </tr>
+			 </table></div>
+			 <!-- Installment 3 -->
+			 <h4 id="installmentHeader3" style="align-items: left; background-color: white; border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px; padding: 12px; text-align: center;"><span style="color: black;">Istallment 3</span></h4>
+			<div class="page3">
+        <table>
+		    <tr id="rowExp1" class="hidden">
+               <td class="page2">Receipt No</td>
+                <td id="detailsRecNo3"></td>
+            </tr>
+			<tr id="rowExp3" class="hidden">
+			<td class="page2">Receipt Date</td>
+                <td id="detailsRec3"></td>
+            </tr>
+			<tr id="rowExp3" class="hidden">
+                <td class="page2">Payment Method</td>
+                <td id="detailsPay3"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTran3"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTranBank3"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTranOther3"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Next Installmnt Date</td>
+                <td id="detailsNInsDate3"></td>
+            </tr>
+			<tr id="rowExp3" class="hidden">
+                <td class="page2">Installment</td>
+                <td id="detailsIns3"></td>
+            </tr>
+			</table></div>
+			<!-- Installment 4 -->
+			<h4 id="installmentHeader4" style="align-items: left; background-color: white; border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px; padding: 12px; text-align: center;"><span style="color: black;">Installment 4</span></h4>
+			<div class="page3">
+        <table>
+		    <tr id="rowExp1" class="hidden">
+               <td class="page2">Receipt No</td>
+                <td id="detailsRecNo4"></td>
+            </tr>
+			<tr id="rowExp4" class="hidden">
+			<td class="page2">Receipt Date</td>
+                <td id="detailsRec4"></td>
+            </tr>
+			<tr id="rowExp4" class="hidden">
+                <td class="page2">Payment Method</td>
+                <td id="detailsPay4"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTran4"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTranBank4"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTranOther4"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Next Installmnt Date</td>
+                <td id="detailsNInsDate4"></td>
+            </tr>
+			<tr id="rowExp4" class="hidden">
+                <td class="page2">Installment</td>
+                <td id="detailsIns4"></td>
+            </tr>
+			</table></div>
+			<!-- Installment 5 -->
+<h4 id="installmentHeader5" style="align-items: left; background-color: white; border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px; padding: 12px; text-align: center;"><span style="color: black;">Installment 5</span></h4>
+			<div class="page3">
+        <table>
+		    <tr id="rowExp1" class="hidden">
+               <td class="page2">Receipt No</td>
+                <td id="detailsRecNo5"></td>
+            </tr>
+			<tr id="rowExp5" class="hidden">
+			<td class="page2">Receipt Date 5</td>
+                <td id="detailsRec5"></td>
+            </tr>
+			<tr id="rowExp5" class="hidden">
+                <td class="page2">Payment Method</td>
+                <td id="detailsPay5"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTran5"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTranBank5"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Transaction No</td>
+                <td id="detailsTranOther5"></td>
+            </tr>
+			<tr id="rowExp1" class="hidden">
+                <td class="page2">Next Installmnt Date</td>
+                <td id="detailsNInsDate5"></td>
+            </tr>
+			<tr id="rowExp5" class="hidden">
+                <td class="page2">Installment</td>
+                <td id="detailsIns5"></td>
+            </tr>
+			</table></div>
+			<div class="page3">
+        <table>
+			<tr>
+                <td class="page2">Total Fees Recieve</td>
+                <td id="detailsTFeesRec"></td>
+            </tr>
+			<tr>
+                <td class="page2">Balance Fees</td>
+                <td id="detailsBalFees"></td>
+            </tr>
+			<tr>
+                <td class="page2">Total Fees</td>
+                <td id="detailsTotalFees"></td>
+            </tr>
+			 <tr>
+                <td class="page2">Note</td>
+                <td id="detailsNote"></td>
+            </tr>
+        </table></div>
+        <div class="action-buttons">
+		<div class="button-group">
+            <button id="editButton" class="editbtn">Edit</button>
+            <button id="deleteButton" class="deletebtn">Delete</button>
+        </div></div>
+    </div>
+
+    <!-- Edit View (Page 3) -->
+    <div id="editView" class="tab-content">
+	<div class="page3">
+	<div class="form-container">
+        <form id="editForm" oninput="calculateValues()">
+            <label for="editName">Student Name<span style="color: red;"> *</span></label>
+            <input type="text" id="editName" required>
+			
+			<!-- Installment HTML code (Page 3) -->
+			<div class="containererspage33">
+        <div class="installment-selector">
+            <label for="installment-selector">Select Installment:</label>
+            <select id="installment-selector" onchange="showInstallmentDetails()">
+                <option value="">-- Select an Installment --</option>
+                <option value="1">Installment 1</option>
+                <option value="2">Installment 2</option>
+                <option value="3">Installment 3</option>
+                <option value="4">Installment 4</option>
+                <option value="5">Installment 5</option>
+            </select>
+        </div>
+
+        <div class="installment-header"></div>
+
+        <!-- Installments 1 -->
+        <div id="installment-1" class="form-section">
+            <label for="receipt-no-1">Receipt No:</label>
+            <input type="text" id="receipt-no-1" placeholder="Enter Receipt No">
+
+            <label for="receipt-date-1">Receipt Date:</label>
+            <input type="date" id="receipt-date-1" placeholder="Enter Receipt Date">
+
+            <label for="payment-mode-1">Payment Mode:</label>
+            <select id="payment-mode-1" onchange="showFields(1, this.value)">
+                <option value="">Select Payment Mode</option>
+                <option value="UPI">UPI</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Cash">Cash</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <div id="transaction-no-1" style="display: none;">
+                <label for="transaction-1">Transaction No:</label>
+                <input type="text" id="transaction-1" placeholder="Enter Transaction No">
+            </div>
+            
+			<div id="transaction-banks-1" style="display: none;">
+                <label for="transaction-bank-1">Transaction No:</label>
+                <input type="text" id="transaction-bank-1" placeholder="Enter Transaction No">
+            </div>
+
+            <div id="tell-me-1" style="display: none;">
+                <label for="transaction-tell-1">Tell Me:</label>
+                <input type="text" id="transaction-tell-1" placeholder="Enter Details">
+            </div>
+             
+			<label for="Next-Ins-date1">Next Installment Date</label>
+            <input type="date" id="Next-Ins-date1" placeholder="Enter Next Installment Date">
+			
+            <label for="amount-1">Amount:</label>
+            <input type="number" id="amount-1" placeholder="Enter Amount">
+
+            <button class="cancel-button" onclick="cancelSection(1)">Cancel</button>
+        </div>
+        <!-- Installments 2 -->
+		
+        <div id="installment-2" class="form-section">
+            <label for="receipt-no-2">Receipt No:</label>
+            <input type="text" id="receipt-no-2" placeholder="Enter Receipt No">
+
+            <label for="receipt-date-2">Receipt Date:</label>
+            <input type="date" id="receipt-date-2" placeholder="Enter Receipt Date">
+
+            <label for="payment-mode-2">Payment Mode:</label>
+            <select id="payment-mode-2" onchange="showFields(2, this.value)">
+                <option value="">Select Payment Mode</option>
+                <option value="UPI">UPI</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Cash">Cash</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <div id="transaction-no-2" style="display: none;">
+                <label for="transaction-2">Transaction No:</label>
+                <input type="text" id="transaction-2" placeholder="Enter Transaction No">
+            </div>
+			
+			<div id="transaction-banks-2" style="display: none;">
+                <label for="transaction-bank-2">Transaction No:</label>
+                <input type="text" id="transaction-bank-2" placeholder="Enter Transaction No">
+            </div>
+
+            <div id="tell-me-2" style="display: none;">
+                <label for="other-2">Tell Me:</label>
+                <input type="text" id="other-2" placeholder="Enter Details">
+            </div>
+			
+			<label for="Next-Ins-date2">Next Installment Date</label>
+            <input type="date" id="Next-Ins-date2" placeholder="Enter Next Installment Date">
+
+            <label for="amount-2">Amount:</label>
+            <input type="number" id="amount-2" placeholder="Enter Amount">
+
+            <button class="cancel-button" onclick="cancelSection(2)">Cancel</button>
+        </div>
+        <!-- Installments 3 -->
+		
+        <div id="installment-3" class="form-section">
+            <label for="receipt-no-3">Receipt No:</label>
+            <input type="text" id="receipt-no-3" placeholder="Enter Receipt No">
+
+            <label for="receipt-date-3">Receipt Date:</label>
+            <input type="date" id="receipt-date-3" placeholder="Enter Receipt Date">
+
+            <label for="payment-mode-3">Payment Mode:</label>
+            <select id="payment-mode-3" onchange="showFields(3, this.value)">
+                <option value="">Select Payment Mode</option>
+                <option value="UPI">UPI</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Cash">Cash</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <div id="transaction-no-3" style="display: none;">
+                <label for="transaction-3">Transaction No:</label>
+                <input type="text" id="transaction-3" placeholder="Enter Transaction No">
+            </div>
+			
+			<div id="transaction-banks-3" style="display: none;">
+                <label for="transaction-bank-3">Transaction No:</label>
+                <input type="text" id="transaction-bank-3" placeholder="Enter Transaction No">
+            </div>
+
+            <div id="tell-me-3" style="display: none;">
+                <label for="other-3">Tell Me:</label>
+                <input type="text" id="other-3" placeholder="Enter Details">
+            </div>
+			
+			<label for="Next-Ins-date3">Next Installment Date</label>
+            <input type="date" id="Next-Ins-date3" placeholder="Enter Next Installment Date">
+
+            <label for="amount-3">Amount:</label>
+            <input type="number" id="amount-3" placeholder="Enter Amount">
+
+            <button class="cancel-button" onclick="cancelSection(3)">Cancel</button>
+        </div>
+        <!-- Installments 4 -->
+		
+        <div id="installment-4" class="form-section">
+            <label for="receipt-no-4">Receipt No:</label>
+            <input type="text" id="receipt-no-4" placeholder="Enter Receipt No">
+
+            <label for="receipt-date-4">Receipt Date:</label>
+            <input type="date" id="receipt-date-4" placeholder="Enter Receipt Date">
+
+            <label for="payment-mode-4">Payment Mode:</label>
+            <select id="payment-mode-4" onchange="showFields(4, this.value)">
+                <option value="">Select Payment Mode</option>
+                <option value="UPI">UPI</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Cash">Cash</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <div id="transaction-no-4" style="display: none;">
+                <label for="transaction-4">Transaction No:</label>
+                <input type="text" id="transaction-4" placeholder="Enter Transaction No">
+            </div>
+			
+			<div id="transaction-banks-4" style="display: none;">
+                <label for="transaction-bank-4">Transaction No:</label>
+                <input type="text" id="transaction-bank-4" placeholder="Enter Transaction No">
+            </div>
+
+            <div id="tell-me-4" style="display: none;">
+                <label for="other-4">Tell Me:</label>
+                <input type="text" id="other-4" placeholder="Enter Details">
+            </div>
+			
+			<label for="Next-Ins-date4">Next Installment Date</label>
+            <input type="date" id="Next-Ins-date4" placeholder="Enter Next Installment Date">
+
+            <label for="amount-4">Amount:</label>
+            <input type="number" id="amount-4" placeholder="Enter Amount">
+
+            <button class="cancel-button" onclick="cancelSection(4)">Cancel</button>
+        </div>
+        <!-- Installments 5 -->
+		
+        <div id="installment-5" class="form-section">
+            <label for="receipt-no-5">Receipt No:</label>
+            <input type="text" id="receipt-no-5" placeholder="Enter Receipt No">
+
+            <label for="receipt-date-5">Receipt Date:</label>
+            <input type="date" id="receipt-date-5" placeholder="Enter Receipt Date">
+
+            <label for="payment-mode-5">Payment Mode:</label>
+            <select id="payment-mode-5" onchange="showFields(5, this.value)">
+                <option value="">Select Payment Mode</option>
+                <option value="UPI">UPI</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Cash">Cash</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <div id="transaction-no-5" style="display: none;">
+                <label for="transaction-5">Transaction No:</label>
+                <input type="text" id="transaction-5" placeholder="Enter Transaction No">
+            </div>
+			
+			<div id="transaction-banks-5" style="display: none;">
+                <label for="transaction-bank-5">Transaction No:</label>
+                <input type="text" id="transaction-bank-5" placeholder="Enter Transaction No">
+            </div>
+
+            <div id="tell-me-5" style="display: none;">
+                <label for="other-5">Tell Me:</label>
+                <input type="text" id="other-5" placeholder="Enter Details">
+            </div>
+			
+			<label for="Next-Ins-date5">Next Installment Date</label>
+            <input type="date" id="Next-Ins-date5" placeholder="Enter Next Installment Date">
+
+            <label for="amount-5">Amount:</label>
+            <input type="number" id="amount-5" placeholder="Enter Amount">
+
+            <button class="cancel-button" onclick="cancelSection(5)">Cancel</button>
+        </div>
+			           <label for="totalFeescollected">Total Fees Collected</label>
+                       <input type="number" id="totalFeescollected" readonly style="background-color: #ebe6e6;">
+					   <label for="balanceFeesAmount">Balance Fees Amount</label>
+                       <input type="number" id="balanceFeesAmount" readonly style="background-color: #ebe6e6">
+					   <label for="totalFees">Total Fees<span style="color:red;">*</span></label>
+                       <input type="number" id="totalFees" required>
+			<label for="editNote">Note</label>
+            <input type="text" id="editNote">
+			</div>
+            <button type="submit" class="submit-btn">Update</button>
+        </form>
+    </div></div></div>
+	
+<!-- Popup Container -->
+<div id="popupContainer">
+  <div id="popupContent">
+    <div id="popupAnimation"></div>
+    <div id="popupMessage"></div>
+    <div id="popupButtons">
+      <button id="popupDelete">Delete</button>
+      <button id="popupClose">Close</button>
+    </div>
+  </div>
+</div>
+   <script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwD-29kpCjkWmA4G0GdHC1IXpbF7GaCpZb5NN-ufwiUO9y12QPIVRYdIHmFmeWUHEx9/exec";
+  const SPREADSHEET_ID = '17W3uI55kaecrshN3k5Fsd7XjMtsJeQen5GiSiz4qZis';
+  const sheetName = "Computer";
+
+// Lottie Animations
+const successAnimation = "https://assets10.lottiefiles.com/packages/lf20_5tkzkblw.json"; // Replace with your Lottie URL
+const errorAnimation = "https://assets10.lottiefiles.com/packages/lf20_qp1q7mct.json"; // Replace with your Lottie URL
+const confirmAnimation = "https://assets10.lottiefiles.com/packages/lf20_5tkzkblw.json"; // Replace with your Lottie URL
+
+// Tab switching logic
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab).classList.add('active');
+  });
+});
+
+const loadingOverlay = document.getElementById("loading");
+let selectedRowData = null;
+
+// Show loading overlay
+function showLoading() {
+  const loadingOverlay = document.getElementById("loading");
+  loadingOverlay.style.display = "flex";
+  updateLoadingPercentage(0);
+  simulateLoading();
+}
+
+// Hide loading overlay
+function hideLoading() {
+  const loadingOverlay = document.getElementById("loading");
+  loadingOverlay.style.display = "none";
+}
+
+// Update loading percentage
+function updateLoadingPercentage(percentage) {
+  const percentageElement = document.getElementById("loadingPercentage");
+  percentageElement.textContent = `${percentage}%`;
+}
+
+// Simulate loading progress
+function simulateLoading() {
+  let percentage = 0;
+  const interval = setInterval(() => {
+    percentage += 10;
+    updateLoadingPercentage(percentage);
+    if (percentage >= 100) {
+      clearInterval(interval);
+    }
+  }, 200);
+}
+
+let currentAnimation = null; // Track the current Lottie animation
+
+// Show popup with Lottie animation and dynamic buttons
+function showPopup(animationUrl, message, showDeleteButton = false) {
+  const popupContainer = document.getElementById("popupContainer");
+  const popupAnimation = document.getElementById("popupAnimation");
+  const popupMessage = document.getElementById("popupMessage");
+  const popupDelete = document.getElementById("popupDelete");
+  const popupClose = document.getElementById("popupClose");
+
+  // Clear previous animation
+  if (currentAnimation) {
+    currentAnimation.destroy();
+  }
+
+  // Load new animation
+  currentAnimation = lottie.loadAnimation({
+    container: popupAnimation,
+    renderer: "svg",
+    loop: false,
+    autoplay: true,
+    path: animationUrl,
+  });
+
+  // Set message
+  popupMessage.textContent = message;
+
+  // Show/hide buttons based on context
+  if (showDeleteButton) {
+    popupDelete.style.display = "inline-block"; // Show Delete button
+  } else {
+    popupDelete.style.display = "none"; // Hide Delete button
+  }
+  popupClose.style.display = "inline-block"; // Always show Close button
+
+  // Display popup
+  popupContainer.style.display = "flex";
+}
+
+// Close popup
+document.getElementById("popupClose").addEventListener("click", () => {
+  document.getElementById("popupContainer").style.display = "none";
+});
+
+// Fetch data from Google Sheet
+async function fetchData() {
+  showLoading();
+  try {
+    const response = await fetch(`${scriptURL}?action=fetchData&sheetName=${sheetName}&spreadsheetId=${SPREADSHEET_ID}`);
+    const result = await response.json();
+    if (result.success) {
+      renderTable(result.data);
+    } else {
+      showPopup(errorAnimation, result.message);
+    }
+  } catch (error) {
+    showPopup(errorAnimation, "Error fetching data: " + error.message);
+  }
+  hideLoading();
+}
+
+// Render table data
+function renderTable(data) {
+  const tableBody = document.querySelector("#dataTable tbody");
+  tableBody.innerHTML = "";
+  data.slice(1).forEach((rowData, rowIndex) => {
+    const tableRow = document.createElement("tr");
+    tableRow.dataset.rowIndex = rowIndex + 2;
+    tableRow.innerHTML = `
+      <td>${rowIndex + 1}</td>
+      <td>${rowData[1]}</td>
+      <td>${rowData[29] || '0'}</td>
+	  <td>${rowData[30] || ''}</td>
+      <td>
+        <button onclick="viewDetails(${rowIndex + 2})">Get Details</button>
+      </td>
+    `;
+    tableBody.appendChild(tableRow);
+  });
+}
+
+// Edit button logic
+document.getElementById("editButton").addEventListener('click', () => {
+  showTab('editView');
+  loadEditForm(selectedRowData);
+});
+
+// View details of a row
+function viewDetails(rowIndex) {
+  showTab('detailsView');
+  selectedRowData = rowIndex;
+  loadDetails(selectedRowData);
+}
+
+// Load details of a row
+async function loadDetails(rowIndex) {
+  showLoading();
+  try {
+    const response = await fetch(`${scriptURL}?action=fetchData&sheetName=${sheetName}&spreadsheetId=${SPREADSHEET_ID}`);
+    const result = await response.json();
+    const rowData = result.data[rowIndex - 1];
+    document.getElementById("detailsId").textContent = rowIndex - 1;
+    document.getElementById("detailsAcademic").textContent = rowData[0];
+                document.getElementById("detailsName").textContent = rowData[1];
+				document.getElementById("detailsStream").textContent = rowData[2];
+				
+				// Istallment 1 Receipt No. 1 ---------------------------------------------------------------
+				
+				(() => {
+    // Get the element
+    const detailsRecNo1Element = document.getElementById("detailsRecNo1");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsRecNo1Element) {
+        // Check if rowData[3] exists and is not null or undefined
+        if (rowData[3] !== undefined && rowData[3] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[3].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsRecNo1Element.textContent = value;
+                detailsRecNo1Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsRecNo1Element.textContent = ""; // Clear any existing content
+                detailsRecNo1Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[3] is null or undefined
+            detailsRecNo1Element.textContent = ""; // Clear any existing content
+            detailsRecNo1Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsRecNo1' not found.");
+    }
+})();
+				
+				// Istallment 1 Receipt 1 with date format
+				
+				(() => {
+    const rawDates_Rece1 = rowData[4]; // Extract raw date from rowData[4]
+    const detailsRec1Element = document.getElementById("detailsRec1");
+    const installmentHeader1 = document.getElementById("installmentHeader1");
+
+    // Check if the raw date exists and is not empty
+    if (rawDates_Rece1 && rawDates_Rece1.trim() !== "") {
+        const dateObjects_Rece1 = new Date(rawDates_Rece1);
+
+        // Check if the date is valid
+        if (!isNaN(dateObjects_Rece1.getTime())) {
+            // Get local date parts (e.g., day, month, year)
+            const day = String(dateObjects_Rece1.getDate()).padStart(2, '0');
+            const month = String(dateObjects_Rece1.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+            const year = dateObjects_Rece1.getFullYear();
+
+            const formattedDates_Rece1 = `${day}-${month}-${year}`; // Format as DD-MM-YYYY
+            detailsRec1Element.textContent = formattedDates_Rece1; // Set the formatted date
+            detailsRec1Element.closest('tr').style.display = ""; // Show the row
+            installmentHeader1.style.display = ""; // Show the header
+        } else {
+            // Handle invalid dates
+            detailsRec1Element.textContent = ""; // Clear content
+            detailsRec1Element.closest('tr').style.display = "none"; // Hide the row
+            installmentHeader1.style.display = "none"; // Hide the header
+        }
+    } else {
+        // Handle empty or missing date values
+        detailsRec1Element.textContent = ""; // Clear content
+        detailsRec1Element.closest('tr').style.display = "none"; // Hide the row
+        installmentHeader1.style.display = "none"; // Hide the header
+    }
+})();
+
+
+				
+			   // Istallment 1 payment Method 1
+                 (() => {
+    // Get the element
+    const detailsPay1Element = document.getElementById("detailsPay1");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsPay1Element) {
+        // Check if rowData[5] exists and is not null or undefined
+        if (rowData[5] !== undefined && rowData[5] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[5].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsPay1Element.textContent = value;
+                detailsPay1Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsPay1Element.textContent = ""; // Clear any existing content
+                detailsPay1Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[5] is null or undefined
+            detailsPay1Element.textContent = ""; // Clear any existing content
+            detailsPay1Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsPay1' not found.");
+    }
+})();
+ 
+               // Istallment 1 Transaction 1 --- UPI
+                  (() => {
+    // Get the element
+    const detailsTran1Element = document.getElementById("detailsTran1");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTran1Element) {
+        // Check if rowData[6] exists and is not null or undefined
+        if (rowData[6] !== undefined && rowData[6] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[6].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTran1Element.textContent = value;
+                detailsTran1Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTran1Element.textContent = ""; // Clear any existing content
+                detailsTran1Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[6] is null or undefined
+            detailsTran1Element.textContent = ""; // Clear any existing content
+            detailsTran1Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTran1' not found.");
+    }
+})();
+
+                    // Istallment 1 Transaction 1 --- Bank Transfer
+                  (() => {
+    // Get the element
+    const detailsTranBank1Element = document.getElementById("detailsTranBank1");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTranBank1Element) {
+        // Check if rowData[37] exists and is not null or undefined
+        if (rowData[37] !== undefined && rowData[37] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[37].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTranBank1Element.textContent = value;
+                detailsTranBank1Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTranBank1Element.textContent = ""; // Clear any existing content
+                detailsTranBank1Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[6] is null or undefined
+            detailsTranBank1Element.textContent = ""; // Clear any existing content
+            detailsTranBank1Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTranBank1' not found.");
+    }
+})();
+
+                       // Istallment 1 Transaction 1 --- Other Mode
+                  (() => {
+    // Get the element
+    const detailsTranOther1Element = document.getElementById("detailsTranOther1");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTranOther1Element) {
+        // Check if rowData[38] exists and is not null or undefined
+        if (rowData[38] !== undefined && rowData[38] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[38].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTranOther1Element.textContent = value;
+                detailsTranOther1Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTranOther1Element.textContent = ""; // Clear any existing content
+                detailsTranOther1Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[6] is null or undefined
+            detailsTranOther1Element.textContent = ""; // Clear any existing content
+            detailsTranOther1Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTranOther1' not found.");
+    }
+})();
+
+                           // Istallment 1 Next Installment Date 1 with date format
+				
+				(() => {
+    const rawDates_NInsDate1 = rowData[33]; // Extract raw date from rowData[33]
+    const detailsNInsDate1Element = document.getElementById("detailsNInsDate1");
+
+    // Check if the raw date exists and is not empty
+    if (rawDates_NInsDate1 && rawDates_NInsDate1.trim() !== "") {
+        const dateObjects_NInsDate1 = new Date(rawDates_NInsDate1);
+
+        // Check if the date is valid
+        if (!isNaN(dateObjects_NInsDate1.getTime())) {
+            // Get local date parts (e.g., day, month, year)
+            const day = String(dateObjects_NInsDate1.getDate()).padStart(2, '0');
+            const month = String(dateObjects_NInsDate1.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+            const year = dateObjects_NInsDate1.getFullYear();
+
+            const formattedDates_NInsDate1 = `${day}-${month}-${year}`; // Format as DD-MM-YYYY
+            detailsNInsDate1Element.textContent = formattedDates_NInsDate1; // Set the formatted date
+            detailsNInsDate1Element.closest('tr').style.display = ""; // Show the row
+        } else {
+            // Handle invalid dates
+            detailsNInsDate1Element.textContent = ""; // Clear content
+            detailsNInsDate1Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        // Handle empty or missing date values
+        detailsNInsDate1Element.textContent = ""; // Clear content
+        detailsNInsDate1Element.closest('tr').style.display = "none"; // Hide the row
+    }
+})();
+			 
+			  // Istallment 1 Installment 1
+                  (() => {
+    // Get the element
+    const detailsIns1Element = document.getElementById("detailsIns1");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsIns1Element) {
+        // Check if rowData[7] exists and is not null or undefined
+        if (rowData[7] !== undefined && rowData[7] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[7].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsIns1Element.textContent = value;
+                detailsIns1Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsIns1Element.textContent = ""; // Clear any existing content
+                detailsIns1Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[7] is null or undefined
+            detailsIns1Element.textContent = ""; // Clear any existing content
+            detailsIns1Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsIns1' not found.");
+    }
+})(); 
+
+             // Istallment 2 Receipt No. 2 ---------------------------------------------------------
+				
+				(() => {
+    // Get the element
+    const detailsRecNo2Element = document.getElementById("detailsRecNo2");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsRecNo2Element) {
+        // Check if rowData[8] exists and is not null or undefined
+        if (rowData[8] !== undefined && rowData[8] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[8].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsRecNo2Element.textContent = value;
+                detailsRecNo2Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsRecNo2Element.textContent = ""; // Clear any existing content
+                detailsRecNo2Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[8] is null or undefined
+            detailsRecNo2Element.textContent = ""; // Clear any existing content
+            detailsRecNo2Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsRecNo2' not found.");
+    }
+})();      
+			  
+			  // Istallment 2 Receipt 2 with date format
+				
+				(() => {
+    const rawDates_Rece2 = rowData[9]; // Extract raw date from rowData[9]
+    const detailsRec2Element = document.getElementById("detailsRec2");
+    const installmentHeader2 = document.getElementById("installmentHeader2");
+
+    // Check if the raw date exists and is not empty
+    if (rawDates_Rece2 && rawDates_Rece2.trim() !== "") {
+        const dateObjects_Rece2 = new Date(rawDates_Rece2);
+
+        // Check if the date is valid
+        if (!isNaN(dateObjects_Rece2.getTime())) {
+            // Get local date parts (e.g., day, month, year)
+            const day = String(dateObjects_Rece2.getDate()).padStart(2, '0');
+            const month = String(dateObjects_Rece2.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+            const year = dateObjects_Rece2.getFullYear();
+
+            const formattedDates_Rece2 = `${day}-${month}-${year}`; // Format as DD-MM-YYYY
+            detailsRec2Element.textContent = formattedDates_Rece2; // Set the formatted date
+            detailsRec2Element.closest('tr').style.display = ""; // Show the row
+            installmentHeader2.style.display = ""; // Show the header
+        } else {
+            // Handle invalid dates
+            detailsRec2Element.textContent = ""; // Clear content
+            detailsRec2Element.closest('tr').style.display = "none"; // Hide the row
+            installmentHeader2.style.display = "none"; // Hide the header
+        }
+    } else {
+        // Handle empty or missing date values
+        detailsRec2Element.textContent = ""; // Clear content
+        detailsRec2Element.closest('tr').style.display = "none"; // Hide the row
+        installmentHeader2.style.display = "none"; // Hide the header
+    }
+})();
+
+			  // Istallment 2 Payment Method 2
+
+				(() => {
+    // Get the element
+    const detailsPay2Element = document.getElementById("detailsPay2");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsPay2Element) {
+        // Check if rowData[10] exists and is not null or undefined
+        if (rowData[10] !== undefined && rowData[10] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[10].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsPay2Element.textContent = value;
+                detailsPay2Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsPay2Element.textContent = ""; // Clear any existing content
+                detailsPay2Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[10] is null or undefined
+            detailsPay2Element.textContent = ""; // Clear any existing content
+            detailsPay2Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsPay2' not found.");
+    }
+})();
+
+            // Istallment 2 Transaction 2  ----- UPI Transfer
+                  (() => {
+    // Get the element
+    const detailsTran2Element = document.getElementById("detailsTran2");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTran2Element) {
+        // Check if rowData[11] exists and is not null or undefined
+        if (rowData[11] !== undefined && rowData[11] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[11].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTran2Element.textContent = value;
+                detailsTran2Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTran2Element.textContent = ""; // Clear any existing content
+                detailsTran2Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[11] is null or undefined
+            detailsTran2Element.textContent = ""; // Clear any existing content
+            detailsTran2Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTran2' not found.");
+    }
+})();
+
+                    // Istallment 2 Transaction 2 --- Bank Transfer
+                  (() => {
+    // Get the element
+    const detailsTranBank2Element = document.getElementById("detailsTranBank2");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTranBank2Element) {
+        // Check if rowData[39] exists and is not null or undefined
+        if (rowData[39] !== undefined && rowData[39] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[39].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTranBank2Element.textContent = value;
+                detailsTranBank2Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTranBank2Element.textContent = ""; // Clear any existing content
+                detailsTranBank2Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[6] is null or undefined
+            detailsTranBank2Element.textContent = ""; // Clear any existing content
+            detailsTranBank2Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTranBank2' not found.");
+    }
+})();
+
+                       // Istallment 2 Transaction 2 --- Other Mode
+                  (() => {
+    // Get the element
+    const detailsTranOther2Element = document.getElementById("detailsTranOther2");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTranOther2Element) {
+        // Check if rowData[40] exists and is not null or undefined
+        if (rowData[40] !== undefined && rowData[40] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[40].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTranOther2Element.textContent = value;
+                detailsTranOther2Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTranOther2Element.textContent = ""; // Clear any existing content
+                detailsTranOther2Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[6] is null or undefined
+            detailsTranOther2Element.textContent = ""; // Clear any existing content
+            detailsTranOther2Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTranOther2' not found.");
+    }
+})();
+
+           // Istallment 2 Next Installment Date 2 with date format
+				
+				(() => {
+    const rawDates_NInsDate2 = rowData[34]; // Extract raw date from rowData[34]
+    const detailsNInsDate2Element = document.getElementById("detailsNInsDate2");
+
+    // Check if the raw date exists and is not empty
+    if (rawDates_NInsDate2 && rawDates_NInsDate2.trim() !== "") {
+        const dateObjects_NInsDate2 = new Date(rawDates_NInsDate2);
+
+        // Check if the date is valid
+        if (!isNaN(dateObjects_NInsDate2.getTime())) {
+            // Get local date parts (e.g., day, month, year)
+            const day = String(dateObjects_NInsDate2.getDate()).padStart(2, '0');
+            const month = String(dateObjects_NInsDate2.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+            const year = dateObjects_NInsDate2.getFullYear();
+
+            const formattedDates_NInsDate2 = `${day}-${month}-${year}`; // Format as DD-MM-YYYY
+            detailsNInsDate2Element.textContent = formattedDates_NInsDate2; // Set the formatted date
+            detailsNInsDate2Element.closest('tr').style.display = ""; // Show the row
+        } else {
+            // Handle invalid dates
+            detailsNInsDate2Element.textContent = ""; // Clear content
+            detailsNInsDate2Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        // Handle empty or missing date values
+        detailsNInsDate2Element.textContent = ""; // Clear content
+        detailsNInsDate2Element.closest('tr').style.display = "none"; // Hide the row
+    }
+})();
+			 
+			  
+			  // Istallment 2 Installment 2
+				
+				 (() => {
+    // Get the element
+    const detailsIns2Element = document.getElementById("detailsIns2");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsIns2Element) {
+        // Check if rowData[12] exists and is not null or undefined
+        if (rowData[12] !== undefined && rowData[12] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[12].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsIns2Element.textContent = value;
+                detailsIns2Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsIns2Element.textContent = ""; // Clear any existing content
+                detailsIns2Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[12] is null or undefined
+            detailsIns2Element.textContent = ""; // Clear any existing content
+            detailsIns2Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsIns2' not found.");
+    }
+})();
+            // Istallment 3 Receipt No. 3 ---------------------------------------------------------
+				
+				(() => {
+    // Get the element
+    const detailsRecNo3Element = document.getElementById("detailsRecNo3");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsRecNo3Element) {
+        // Check if rowData[13] exists and is not null or undefined
+        if (rowData[13] !== undefined && rowData[13] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[13].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsRecNo3Element.textContent = value;
+                detailsRecNo3Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsRecNo3Element.textContent = ""; // Clear any existing content
+                detailsRecNo3Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[13] is null or undefined
+            detailsRecNo3Element.textContent = ""; // Clear any existing content
+            detailsRecNo3Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsRecNo3' not found.");
+    }
+})();     			
+			
+              // Installment 3 Receipt 3 with date
+			  
+			  (() => {
+    const rawDates_Rece3 = rowData[14]; // Extract raw date from rowData[14]
+    const detailsRec3Element = document.getElementById("detailsRec3");
+    const installmentHeader3 = document.getElementById("installmentHeader3");
+
+    // Check if the raw date exists and is not empty
+    if (rawDates_Rece3 && rawDates_Rece3.trim() !== "") {
+        const dateObjects_Rece3 = new Date(rawDates_Rece3);
+
+        // Check if the date is valid
+        if (!isNaN(dateObjects_Rece3.getTime())) {
+            // Get local date parts (e.g., day, month, year)
+            const day = String(dateObjects_Rece3.getDate()).padStart(2, '0');
+            const month = String(dateObjects_Rece3.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+            const year = dateObjects_Rece3.getFullYear();
+
+            const formattedDates_Rece3 = `${day}-${month}-${year}`; // Format as DD-MM-YYYY
+            detailsRec3Element.textContent = formattedDates_Rece3; // Set the formatted date
+            detailsRec3Element.closest('tr').style.display = ""; // Show the row
+            installmentHeader3.style.display = ""; // Show the header
+        } else {
+            // Handle invalid dates
+            detailsRec3Element.textContent = ""; // Clear content
+            detailsRec3Element.closest('tr').style.display = "none"; // Hide the row
+            installmentHeader3.style.display = "none"; // Hide the header
+        }
+    } else {
+        // Handle empty or missing date values
+        detailsRec3Element.textContent = ""; // Clear content
+        detailsRec3Element.closest('tr').style.display = "none"; // Hide the row
+        installmentHeader3.style.display = "none"; // Hide the header
+    }
+})();
+		
+              // Istallment 3 Payment Method 3
+			  
+			  (() => {
+    // Get the element
+    const detailsPay3Element = document.getElementById("detailsPay3");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsPay3Element) {
+        // Check if rowData[15] exists and is not null or undefined
+        if (rowData[15] !== undefined && rowData[15] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[15].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsPay3Element.textContent = value;
+                detailsPay3Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsPay3Element.textContent = ""; // Clear any existing content
+                detailsPay3Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[15] is null or undefined
+            detailsPay3Element.textContent = ""; // Clear any existing content
+            detailsPay3Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsPay3' not found.");
+    }
+})();
+
+                         // Istallment 3 Transaction 3
+                  (() => {
+    // Get the element
+    const detailsTran3Element = document.getElementById("detailsTran3");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTran3Element) {
+        // Check if rowData[16] exists and is not null or undefined
+        if (rowData[16] !== undefined && rowData[16] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[16].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTran3Element.textContent = value;
+                detailsTran3Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTran3Element.textContent = ""; // Clear any existing content
+                detailsTran3Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[16] is null or undefined
+            detailsTran3Element.textContent = ""; // Clear any existing content
+            detailsTran3Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTran3' not found.");
+    }
+})();
+
+
+                    // Istallment 3 Transaction 3 --- Bank Transfer
+                  (() => {
+    // Get the element
+    const detailsTranBank3Element = document.getElementById("detailsTranBank3");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTranBank3Element) {
+        // Check if rowData[41] exists and is not null or undefined
+        if (rowData[41] !== undefined && rowData[41] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[41].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTranBank3Element.textContent = value;
+                detailsTranBank3Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTranBank3Element.textContent = ""; // Clear any existing content
+                detailsTranBank3Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[6] is null or undefined
+            detailsTranBank3Element.textContent = ""; // Clear any existing content
+            detailsTranBank3Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTranBank3' not found.");
+    }
+})();
+
+                       // Istallment 3 Transaction 3 --- Other Mode
+                  (() => {
+    // Get the element
+    const detailsTranOther3Element = document.getElementById("detailsTranOther3");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTranOther3Element) {
+        // Check if rowData[42] exists and is not null or undefined
+        if (rowData[42] !== undefined && rowData[42] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[42].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTranOther3Element.textContent = value;
+                detailsTranOther3Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTranOther3Element.textContent = ""; // Clear any existing content
+                detailsTranOther3Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[6] is null or undefined
+            detailsTranOther3Element.textContent = ""; // Clear any existing content
+            detailsTranOther3Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTranOther3' not found.");
+    }
+})();
+
+      // Istallment 3 Next Installment Date 3 with date format
+				
+				(() => {
+    const rawDates_NInsDate3 = rowData[35]; // Extract raw date from rowData[35]
+    const detailsNInsDate3Element = document.getElementById("detailsNInsDate3");
+
+    // Check if the raw date exists and is not empty
+    if (rawDates_NInsDate3 && rawDates_NInsDate3.trim() !== "") {
+        const dateObjects_NInsDate3 = new Date(rawDates_NInsDate3);
+
+        // Check if the date is valid
+        if (!isNaN(dateObjects_NInsDate3.getTime())) {
+            // Get local date parts (e.g., day, month, year)
+            const day = String(dateObjects_NInsDate3.getDate()).padStart(2, '0');
+            const month = String(dateObjects_NInsDate3.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+            const year = dateObjects_NInsDate3.getFullYear();
+
+            const formattedDates_NInsDate3 = `${day}-${month}-${year}`; // Format as DD-MM-YYYY
+            detailsNInsDate3Element.textContent = formattedDates_NInsDate3; // Set the formatted date
+            detailsNInsDate3Element.closest('tr').style.display = ""; // Show the row
+        } else {
+            // Handle invalid dates
+            detailsNInsDate1Element.textContent = ""; // Clear content
+            detailsNInsDate1Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        // Handle empty or missing date values
+        detailsNInsDate3Element.textContent = ""; // Clear content
+        detailsNInsDate3Element.closest('tr').style.display = "none"; // Hide the row
+    }
+})();
+	  
+			   // Installment 3 Installment 3			
+			   
+			   (() => {
+    // Get the element
+    const detailsIns3Element = document.getElementById("detailsIns3");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsIns3Element) {
+        // Check if rowData[17] exists and is not null or undefined
+        if (rowData[17] !== undefined && rowData[17] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[17].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsIns3Element.textContent = value;
+                detailsIns3Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsIns3Element.textContent = ""; // Clear any existing content
+                detailsIns3Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[17] is null or undefined
+            detailsIns3Element.textContent = ""; // Clear any existing content
+            detailsIns3Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsIns3' not found.");
+    }
+})();
+
+              // Istallment 4 Receipt No. 4 ---------------------------------------------------------
+				
+				(() => {
+    // Get the element
+    const detailsRecNo4Element = document.getElementById("detailsRecNo4");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsRecNo4Element) {
+        // Check if rowData[18] exists and is not null or undefined
+        if (rowData[18] !== undefined && rowData[18] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[18].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsRecNo4Element.textContent = value;
+                detailsRecNo4Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsRecNo4Element.textContent = ""; // Clear any existing content
+                detailsRecNo4Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[18] is null or undefined
+            detailsRecNo4Element.textContent = ""; // Clear any existing content
+            detailsRecNo4Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsRecNo4' not found.");
+    }
+})(); 
+			   
+			  // Istallment 4 Receipt 4 with date Format
+				
+				(() => {
+    const rawDates_Rece4 = rowData[19]; // Extract raw date from rowData[19]
+    const detailsRec4Element = document.getElementById("detailsRec4");
+    const installmentHeader4 = document.getElementById("installmentHeader4");
+
+    // Check if the raw date exists and is not empty
+    if (rawDates_Rece4 && rawDates_Rece4.trim() !== "") {
+        const dateObjects_Rece4 = new Date(rawDates_Rece4);
+
+        // Check if the date is valid
+        if (!isNaN(dateObjects_Rece4.getTime())) {
+            // Get local date parts (e.g., day, month, year)
+            const day = String(dateObjects_Rece4.getDate()).padStart(2, '0');
+            const month = String(dateObjects_Rece4.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+            const year = dateObjects_Rece4.getFullYear();
+
+            const formattedDates_Rece4 = `${day}-${month}-${year}`; // Format as DD-MM-YYYY
+            detailsRec4Element.textContent = formattedDates_Rece4; // Set the formatted date
+            detailsRec4Element.closest('tr').style.display = ""; // Show the row
+            installmentHeader4.style.display = ""; // Show the header
+        } else {
+            // Handle invalid dates
+            detailsRec4Element.textContent = ""; // Clear content
+            detailsRec4Element.closest('tr').style.display = "none"; // Hide the row
+            installmentHeader4.style.display = "none"; // Hide the header
+        }
+    } else {
+        // Handle empty or missing date values
+        detailsRec4Element.textContent = ""; // Clear content
+        detailsRec4Element.closest('tr').style.display = "none"; // Hide the row
+        installmentHeader4.style.display = "none"; // Hide the header
+    }
+})();
+			  
+			  // Istallment 4 Payment Method 4
+				
+				(() => {
+    // Get the element
+    const detailsPay4Element = document.getElementById("detailsPay4");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsPay4Element) {
+        // Check if rowData[20] exists and is not null or undefined
+        if (rowData[20] !== undefined && rowData[20] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[20].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsPay4Element.textContent = value;
+                detailsPay4Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsPay4Element.textContent = ""; // Clear any existing content
+                detailsPay4Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[20] is null or undefined
+            detailsPay4Element.textContent = ""; // Clear any existing content
+            detailsPay4Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsPay4' not found.");
+    }
+})();
+
+              // Istallment 4 Transaction 4
+                  (() => {
+    // Get the element
+    const detailsTran4Element = document.getElementById("detailsTran4");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTran4Element) {
+        // Check if rowData[21] exists and is not null or undefined
+        if (rowData[21] !== undefined && rowData[21] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[21].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTran4Element.textContent = value;
+                detailsTran4Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTran4Element.textContent = ""; // Clear any existing content
+                detailsTran4Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[21] is null or undefined
+            detailsTran4Element.textContent = ""; // Clear any existing content
+            detailsTran4Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTran4' not found.");
+    }
+})();
+
+                    // Istallment 4 Transaction 4 --- Bank Transfer
+                  (() => {
+    // Get the element
+    const detailsTranBank4Element = document.getElementById("detailsTranBank4");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTranBank4Element) {
+        // Check if rowData[43] exists and is not null or undefined
+        if (rowData[43] !== undefined && rowData[43] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[43].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTranBank4Element.textContent = value;
+                detailsTranBank4Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTranBank4Element.textContent = ""; // Clear any existing content
+                detailsTranBank4Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[6] is null or undefined
+            detailsTranBank4Element.textContent = ""; // Clear any existing content
+            detailsTranBank4Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTranBank4' not found.");
+    }
+})();
+
+                       // Istallment 4 Transaction 4 --- Other Mode
+                  (() => {
+    // Get the element
+    const detailsTranOther4Element = document.getElementById("detailsTranOther4");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTranOther4Element) {
+        // Check if rowData[44] exists and is not null or undefined
+        if (rowData[44] !== undefined && rowData[44] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[44].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTranOther4Element.textContent = value;
+                detailsTranOther4Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTranOther4Element.textContent = ""; // Clear any existing content
+                detailsTranOther4Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[6] is null or undefined
+            detailsTranOther4Element.textContent = ""; // Clear any existing content
+            detailsTranOther4Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTranOther4' not found.");
+    }
+})();
+
+            // Istallment 4 Next Installment Date 4 with date format
+				
+				(() => {
+    const rawDates_NInsDate4 = rowData[36]; // Extract raw date from rowData[36]
+    const detailsNInsDate4Element = document.getElementById("detailsNInsDate4");
+
+    // Check if the raw date exists and is not empty
+    if (rawDates_NInsDate4 && rawDates_NInsDate4.trim() !== "") {
+        const dateObjects_NInsDate4 = new Date(rawDates_NInsDate4);
+
+        // Check if the date is valid
+        if (!isNaN(dateObjects_NInsDate4.getTime())) {
+            // Get local date parts (e.g., day, month, year)
+            const day = String(dateObjects_NInsDate4.getDate()).padStart(2, '0');
+            const month = String(dateObjects_NInsDate4.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+            const year = dateObjects_NInsDate4.getFullYear();
+
+            const formattedDates_NInsDate4 = `${day}-${month}-${year}`; // Format as DD-MM-YYYY
+            detailsNInsDate4Element.textContent = formattedDates_NInsDate4; // Set the formatted date
+            detailsNInsDate4Element.closest('tr').style.display = ""; // Show the row
+        } else {
+            // Handle invalid dates
+            detailsNInsDate4Element.textContent = ""; // Clear content
+            detailsNInsDate4Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        // Handle empty or missing date values
+        detailsNInsDate4Element.textContent = ""; // Clear content
+        detailsNInsDate4Element.closest('tr').style.display = "none"; // Hide the row
+    }
+})();
+			   
+			 // Installment 4 Installment 4			
+			   
+			   (() => {
+    // Get the element
+    const detailsIns4Element = document.getElementById("detailsIns4");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsIns4Element) {
+        // Check if rowData[22] exists and is not null or undefined
+        if (rowData[22] !== undefined && rowData[22] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[22].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsIns4Element.textContent = value;
+                detailsIns4Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsIns4Element.textContent = ""; // Clear any existing content
+                detailsIns4Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[22] is null or undefined
+            detailsIns4Element.textContent = ""; // Clear any existing content
+            detailsIns4Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsIns4' not found.");
+    }
+})();
+
+              // Istallment 5 Receipt No. 5 ---------------------------------------------------------
+				
+				(() => {
+    // Get the element
+    const detailsRecNo5Element = document.getElementById("detailsRecNo5");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsRecNo5Element) {
+        // Check if rowData[23] exists and is not null or undefined
+        if (rowData[23] !== undefined && rowData[23] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[23].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsRecNo5Element.textContent = value;
+                detailsRecNo5Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsRecNo5Element.textContent = ""; // Clear any existing content
+                detailsRecNo5Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[23] is null or undefined
+            detailsRecNo5Element.textContent = ""; // Clear any existing content
+            detailsRecNo5Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsRecNo5' not found.");
+    }
+})();
+ 
+			  // Istallment 5 Receipt 5 with date format
+				
+				(() => {
+    const rawDates_Rece5 = rowData[24]; // Extract raw date from rowData[24]
+    const detailsRec5Element = document.getElementById("detailsRec5");
+    const installmentHeader5 = document.getElementById("installmentHeader5");
+
+    // Check if the raw date exists and is not empty
+    if (rawDates_Rece5 && rawDates_Rece5.trim() !== "") {
+        const dateObjects_Rece5 = new Date(rawDates_Rece5);
+
+        // Check if the date is valid
+        if (!isNaN(dateObjects_Rece5.getTime())) {
+            // Get local date parts (e.g., day, month, year)
+            const day = String(dateObjects_Rece5.getDate()).padStart(2, '0');
+            const month = String(dateObjects_Rece5.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+            const year = dateObjects_Rece5.getFullYear();
+
+            const formattedDates_Rece5 = `${day}-${month}-${year}`; // Format as DD-MM-YYYY
+            detailsRec5Element.textContent = formattedDates_Rece5; // Set the formatted date
+            detailsRec5Element.closest('tr').style.display = ""; // Show the row
+            installmentHeader5.style.display = ""; // Show the header
+        } else {
+            // Handle invalid dates
+            detailsRec5Element.textContent = ""; // Clear content
+            detailsRec5Element.closest('tr').style.display = "none"; // Hide the row
+            installmentHeader5.style.display = "none"; // Hide the header
+        }
+    } else {
+        // Handle empty or missing date values
+        detailsRec5Element.textContent = ""; // Clear content
+        detailsRec5Element.closest('tr').style.display = "none"; // Hide the row
+        installmentHeader5.style.display = "none"; // Hide the header
+    }
+})();
+			  
+			  // Istallment 5 Payment Method 5
+				
+				(() => {
+    // Get the element
+    const detailsPay5Element = document.getElementById("detailsPay5");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsPay5Element) {
+        // Check if rowData[25] exists and is not null or undefined
+        if (rowData[25] !== undefined && rowData[25] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[25].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsPay5Element.textContent = value;
+                detailsPay5Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsPay5Element.textContent = ""; // Clear any existing content
+                detailsPay5Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[25] is null or undefined
+            detailsPay5Element.textContent = ""; // Clear any existing content
+            detailsPay5Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsPay5' not found.");
+    }
+})();
+            
+            // Istallment 5 Transaction 5
+                  (() => {
+    // Get the element
+    const detailsTran5Element = document.getElementById("detailsTran5");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTran5Element) {
+        // Check if rowData[26] exists and is not null or undefined
+        if (rowData[26] !== undefined && rowData[26] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[26].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTran5Element.textContent = value;
+                detailsTran5Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTran5Element.textContent = ""; // Clear any existing content
+                detailsTran5Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[26] is null or undefined
+            detailsTran5Element.textContent = ""; // Clear any existing content
+            detailsTran5Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTran5' not found.");
+    }
+})();	
+
+                    // Istallment 5 Transaction 5 --- Bank Transfer
+                  (() => {
+    // Get the element
+    const detailsTranBank5Element = document.getElementById("detailsTranBank5");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTranBank5Element) {
+        // Check if rowData[45] exists and is not null or undefined
+        if (rowData[45] !== undefined && rowData[45] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[45].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTranBank5Element.textContent = value;
+                detailsTranBank5Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTranBank5Element.textContent = ""; // Clear any existing content
+                detailsTranBank5Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[6] is null or undefined
+            detailsTranBank5Element.textContent = ""; // Clear any existing content
+            detailsTranBank5Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTranBank5' not found.");
+    }
+})();
+
+                       // Istallment 5 Transaction 5 --- Other Mode
+                  (() => {
+    // Get the element
+    const detailsTranOther5Element = document.getElementById("detailsTranOther5");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsTranOther5Element) {
+        // Check if rowData[46] exists and is not null or undefined
+        if (rowData[46] !== undefined && rowData[46] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[46].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsTranOther5Element.textContent = value;
+                detailsTranOther5Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsTranOther5Element.textContent = ""; // Clear any existing content
+                detailsTranOther5Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[6] is null or undefined
+            detailsTranOther5Element.textContent = ""; // Clear any existing content
+            detailsTranOther5Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsTranOther5' not found.");
+    }
+})();		
+		      
+			  // Istallment 5 Next Installment Date 5 with date format
+				
+				(() => {
+    const rawDates_NInsDate5 = rowData[36]; // Extract raw date from rowData[36]
+    const detailsNInsDate5Element = document.getElementById("detailsNInsDate5");
+
+    // Check if the raw date exists and is not empty
+    if (rawDates_NInsDate5 && rawDates_NInsDate5.trim() !== "") {
+        const dateObjects_NInsDate5 = new Date(rawDates_NInsDate5);
+
+        // Check if the date is valid
+        if (!isNaN(dateObjects_NInsDate5.getTime())) {
+            // Get local date parts (e.g., day, month, year)
+            const day = String(dateObjects_NInsDate5.getDate()).padStart(2, '0');
+            const month = String(dateObjects_NInsDate5.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+            const year = dateObjects_NInsDate5.getFullYear();
+
+            const formattedDates_NInsDate5 = `${day}-${month}-${year}`; // Format as DD-MM-YYYY
+            detailsNInsDate5Element.textContent = formattedDates_NInsDate5; // Set the formatted date
+            detailsNInsDate5Element.closest('tr').style.display = ""; // Show the row
+        } else {
+            // Handle invalid dates
+            detailsNInsDate5Element.textContent = ""; // Clear content
+            detailsNInsDate5Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        // Handle empty or missing date values
+        detailsNInsDate5Element.textContent = ""; // Clear content
+        detailsNInsDate5Element.closest('tr').style.display = "none"; // Hide the row
+    }
+})();
+			  
+			  // Istallment 5 Installment 5
+				
+				(() => {
+    // Get the element
+    const detailsIns5Element = document.getElementById("detailsIns5");
+
+    // Check if the element exists to avoid runtime errors
+    if (detailsIns5Element) {
+        // Check if rowData[27] exists and is not null or undefined
+        if (rowData[27] !== undefined && rowData[27] !== null) {
+            // Convert the value to a string and trim it
+            const value = rowData[27].toString().trim();
+
+            // Check if the trimmed value is not empty
+            if (value !== "") {
+                // Set the content and make the row visible
+                detailsIns5Element.textContent = value;
+                detailsIns5Element.closest('tr').style.display = ""; // Show the row
+            } else {
+                // Clear the content and hide the row if the value is empty
+                detailsIns5Element.textContent = ""; // Clear any existing content
+                detailsIns5Element.closest('tr').style.display = "none"; // Hide the row
+            }
+        } else {
+            // Clear the content and hide the row if rowData[27] is null or undefined
+            detailsIns5Element.textContent = ""; // Clear any existing content
+            detailsIns5Element.closest('tr').style.display = "none"; // Hide the row
+        }
+    } else {
+        console.error("Element with ID 'detailsIns5' not found.");
+    }
+})();
+
+
+				document.getElementById("detailsTFeesRec").textContent = rowData[28];
+				document.getElementById("detailsBalFees").textContent = rowData[29];
+				document.getElementById("detailsTotalFees").textContent = rowData[30];
+				document.getElementById("detailsNote").textContent = rowData[31];
+  } catch (error) {
+    showPopup(errorAnimation, "Error loading details: " + error.message, false); // Show only Close button
+  }
+  hideLoading();
+}
+
+// Show a specific tab
+function showTab(tabId) {
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(tabContent => tabContent.classList.remove('active'));
+  document.querySelector(`.tab[data-tab=${tabId}]`).classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+// Delete button logic
+document.getElementById("deleteButton").addEventListener('click', async () => {
+  showPopup(confirmAnimation, "Are you sure you want to delete this data?", true); // Show Delete and Close buttons
+
+  // Handle delete button click
+  document.getElementById("popupDelete").addEventListener("click", async () => {
+    const popupDelete = document.getElementById("popupDelete");
+    const popupClose = document.getElementById("popupClose");
+
+    // Disable delete and close buttons
+    popupDelete.disabled = true;
+    popupClose.disabled = true;
+
+    // Show loading spinner above the popup
+    showLoading();
+
+    try {
+      const response = await fetch(`${scriptURL}?action=deleteRow&row=${selectedRowData}&sheetName=${sheetName}&spreadsheetId=${SPREADSHEET_ID}`);
+      const result = await response.json();
+      showPopup(successAnimation, result.message, false); // Show only Close button
+      fetchData();
+      showTab('tableView');
+    } catch (error) {
+      showPopup(errorAnimation, "Error deleting row: " + error.message, false); // Show only Close button
+    } finally {
+      hideLoading();
+      document.getElementById("popupContainer").style.display = "none"; // Close popup after delete
+      popupDelete.disabled = false; // Re-enable delete button
+      popupClose.disabled = false; // Re-enable close button
+    }
+  });
+});
+
+// Load edit form with data
+function loadEditForm(rowIndex) {
+  showLoading();
+  fetch(`${scriptURL}?action=fetchData&sheetName=${sheetName}&spreadsheetId=${SPREADSHEET_ID}`)
+    .then(response => response.json())
+    .then(result => {
+      const rowData = result.data[rowIndex - 1];
+	  if (!rowData) {
+                                   alert("Row data not found!");
+                                   return;
+                               }
+
+            // Safely set element values
+                               const setValue = (id, value) => {
+                                   const element = document.getElementById(id);
+                                   if (element) {
+                                       element.value = value || ""; // Set empty string if value is null/undefined
+                                   } else {
+                                       console.warn(`Element with ID "${id}" not found.`);
+                                   }
+                               };
+
+                               setValue("editName", rowData[1]);
+                               setValue("editStream", rowData[2]);
+							   
+			// Installment 1
+                               setValue("receipt-no-1", rowData[3]);
+                               setValue("receipt-date-1", parseAndFormatDate(rowData[4]));
+                               setValue("payment-mode-1", rowData[5]);
+                               setValue("transaction-1", rowData[6]);
+                               setValue("transaction-bank-1", rowData[37]);
+                               setValue("transaction-tell-1", rowData[38]);
+                               setValue("Next-Ins-date1", parseAndFormatDate(rowData[33]));
+                               setValue("amount-1", rowData[7]);
+            // Installment 2
+                               setValue("receipt-no-2", rowData[8]);
+                               setValue("receipt-date-2", parseAndFormatDate(rowData[9]));
+                               setValue("payment-mode-2", rowData[10]);
+                               setValue("transaction-2", rowData[11]);
+                               setValue("transaction-bank-2", rowData[39]);
+                               setValue("transaction-tell-2", rowData[40]);
+                               setValue("Next-Ins-date2", parseAndFormatDate(rowData[34]));
+                               setValue("amount-2", rowData[12]);
+            // Installment 3
+			                   setValue("receipt-no-3", rowData[13]);
+                               setValue("receipt-date-3", parseAndFormatDate(rowData[14]));
+                               setValue("payment-mode-3", rowData[15]);
+                               setValue("transaction-3", rowData[16]);
+                               setValue("transaction-bank-3", rowData[41]);
+                               setValue("transaction-tell-3", rowData[42]);
+                               setValue("Next-Ins-date3", parseAndFormatDate(rowData[35]));
+                               setValue("amount-3", rowData[17]);			
+			// Installment 4
+			                   setValue("receipt-no-4", rowData[18]);
+                               setValue("receipt-date-4", parseAndFormatDate(rowData[19]));
+                               setValue("payment-mode-4", rowData[20]);
+                               setValue("transaction-4", rowData[21]);
+                               setValue("transaction-bank-4", rowData[43]);
+                               setValue("transaction-tell-4", rowData[44]);
+                               setValue("Next-Ins-date4", parseAndFormatDate(rowData[36]));
+                               setValue("amount-4", rowData[22]);			
+			// Installment 5
+			                   setValue("receipt-no-5", rowData[23]);
+                               setValue("receipt-date-5", parseAndFormatDate(rowData[24]));
+                               setValue("payment-mode-5", rowData[25]);
+                               setValue("transaction-5", rowData[26]);
+                               setValue("transaction-bank-5", rowData[45]);
+                               setValue("transaction-tell-5", rowData[46]);
+                               setValue("Next-Ins-date5", parseAndFormatDate(rowData[36]));
+                               setValue("amount-5", rowData[27]);	
+			//Other 
+                               setValue("totalFeescollected", rowData[28]);
+							   setValue("balanceFeesAmount", rowData[29]);
+							   setValue("totalFees", rowData[30]);
+							   setValue("editNote", rowData[31]);
+
+            // Helper function to parse and format date
+                               function parseAndFormatDate(rawDate) {
+                                   if (!rawDate) return "";
+                                   try {
+                                       const dateObject = new Date(rawDate);
+                                       if (isNaN(dateObject)) throw new Error("Invalid date");
+									    // Subtract one day
+                                       dateObject.setDate(dateObject.getDate() + 1);
+                                       return dateObject.toISOString().split("T")[0];
+                                   } catch (error) {
+                                       console.warn(`Invalid date format: ${rawDate}`);
+                                       return "";
+                                   }
+                               }
+      
+    })
+    .catch(error => showPopup(errorAnimation, "Error loading edit form: " + error.message))
+    .finally(() => hideLoading());
+}
+
+// Update button logic
+document.getElementById("editForm").addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const updatedData = {};
+
+    // Debugging: Check if elements exist
+                          console.log(document.getElementById("editName"));
+                          console.log(document.getElementById("editStream"));
+
+    // Collect updated form data and ensure each element exists
+                          updatedData.name = document.getElementById("editName") ? document.getElementById("editName").value : "";
+                          updatedData.stream = document.getElementById("editStream") ? document.getElementById("editStream").value : "";
+
+    // Installment 1
+                          updatedData.receipt1 = document.getElementById("receipt-no-1") ? document.getElementById("receipt-no-1").value : "";
+                          updatedData.receiptdate1 = document.getElementById("receipt-date-1") ? document.getElementById("receipt-date-1").value : "";
+                          updatedData.payment1 = document.getElementById("payment-mode-1") ? document.getElementById("payment-mode-1").value : "";
+                          updatedData.transaction1 = document.getElementById("transaction-1") ? document.getElementById("transaction-1").value : "";
+                          updatedData.transactiontell1 = document.getElementById("transaction-tell-1") ? document.getElementById("transaction-tell-1").value : "";
+                          updatedData.transactionbank1 = document.getElementById("transaction-bank-1") ? document.getElementById("transaction-bank-1").value : "";
+                          updatedData.nextinsdate1 = document.getElementById("Next-Ins-date1") ? document.getElementById("Next-Ins-date1").value : "";
+                          updatedData.amount1 = document.getElementById("amount-1") ? document.getElementById("amount-1").value : "";
+    
+	//Installment 2
+	                      updatedData.receipt2 = document.getElementById("receipt-no-2") ? document.getElementById("receipt-no-2").value : "";
+                          updatedData.receiptdate2 = document.getElementById("receipt-date-2") ? document.getElementById("receipt-date-2").value : "";
+                          updatedData.payment2 = document.getElementById("payment-mode-2") ? document.getElementById("payment-mode-2").value : "";
+                          updatedData.transaction2 = document.getElementById("transaction-2") ? document.getElementById("transaction-2").value : "";
+                          updatedData.transactiontell2 = document.getElementById("transaction-tell-2") ? document.getElementById("transaction-tell-2").value : "";
+                          updatedData.transactionbank2 = document.getElementById("transaction-bank-2") ? document.getElementById("transaction-bank-2").value : "";
+                          updatedData.nextinsdate2 = document.getElementById("Next-Ins-date2") ? document.getElementById("Next-Ins-date2").value : "";
+                          updatedData.amount2 = document.getElementById("amount-2") ? document.getElementById("amount-2").value : "";
+	
+	//Installment 3
+	                      updatedData.receipt3 = document.getElementById("receipt-no-3") ? document.getElementById("receipt-no-3").value : "";
+                          updatedData.receiptdate3 = document.getElementById("receipt-date-3") ? document.getElementById("receipt-date-3").value : "";
+                          updatedData.payment3 = document.getElementById("payment-mode-3") ? document.getElementById("payment-mode-3").value : "";
+                          updatedData.transaction3 = document.getElementById("transaction-3") ? document.getElementById("transaction-3").value : "";
+                          updatedData.transactiontell3 = document.getElementById("transaction-tell-3") ? document.getElementById("transaction-tell-3").value : "";
+                          updatedData.transactionbank3 = document.getElementById("transaction-bank-3") ? document.getElementById("transaction-bank-3").value : "";
+                          updatedData.nextinsdate3 = document.getElementById("Next-Ins-date3") ? document.getElementById("Next-Ins-date3").value : "";
+                          updatedData.amount3 = document.getElementById("amount-3") ? document.getElementById("amount-3").value : "";
+						  
+	//Installment 4
+	                      updatedData.receipt4 = document.getElementById("receipt-no-4") ? document.getElementById("receipt-no-4").value : "";
+                          updatedData.receiptdate4 = document.getElementById("receipt-date-4") ? document.getElementById("receipt-date-4").value : "";
+                          updatedData.payment4 = document.getElementById("payment-mode-4") ? document.getElementById("payment-mode-4").value : "";
+                          updatedData.transaction4 = document.getElementById("transaction-4") ? document.getElementById("transaction-4").value : "";
+                          updatedData.transactiontell4 = document.getElementById("transaction-tell-4") ? document.getElementById("transaction-tell-4").value : "";
+                          updatedData.transactionbank4 = document.getElementById("transaction-bank-4") ? document.getElementById("transaction-bank-4").value : "";
+                          updatedData.nextinsdate4 = document.getElementById("Next-Ins-date4") ? document.getElementById("Next-Ins-date4").value : "";
+                          updatedData.amount4 = document.getElementById("amount-4") ? document.getElementById("amount-4").value : "";					  
+
+	//Installment 5
+	                      updatedData.receipt5 = document.getElementById("receipt-no-5") ? document.getElementById("receipt-no-5").value : "";
+                          updatedData.receiptdate5 = document.getElementById("receipt-date-5") ? document.getElementById("receipt-date-5").value : "";
+                          updatedData.payment5 = document.getElementById("payment-mode-5") ? document.getElementById("payment-mode-5").value : "";
+                          updatedData.transaction5 = document.getElementById("transaction-5") ? document.getElementById("transaction-5").value : "";
+                          updatedData.transactiontell5 = document.getElementById("transaction-tell-5") ? document.getElementById("transaction-tell-5").value : "";
+                          updatedData.transactionbank5 = document.getElementById("transaction-bank-5") ? document.getElementById("transaction-bank-5").value : "";
+                          updatedData.nextinsdate5 = document.getElementById("Next-Ins-date5") ? document.getElementById("Next-Ins-date5").value : "";
+                          updatedData.amount5 = document.getElementById("amount-5") ? document.getElementById("amount-5").value : "";
+	//Other
+                          updatedData.totalFeescollected = document.getElementById("totalFeescollected") ? document.getElementById("totalFeescollected").value : "";
+						  updatedData.balanceFeesAmount = document.getElementById("balanceFeesAmount") ? document.getElementById("balanceFeesAmount").value : "";
+						  updatedData.totalFees = document.getElementById("totalFees") ? document.getElementById("totalFees").value : "";
+						  updatedData.note = document.getElementById("editNote") ? document.getElementById("editNote").value : "";
+                      
+                          console.log(updatedData); // Debugging the updated data
+  
+  // Continue with update logic
+                        const updates = [
+                            { row: selectedRowData, col: 2, value: updatedData.name },
+                            { row: selectedRowData, col: 3, value: updatedData.stream },
+			//Installment 1
+                            { row: selectedRowData, col: 4, value: updatedData.receipt1 },
+                            { row: selectedRowData, col: 5, value: updatedData.receiptdate1 },
+                            { row: selectedRowData, col: 6, value: updatedData.payment1 },
+                            { row: selectedRowData, col: 7, value: updatedData.transaction1 },
+		                	{ row: selectedRowData, col: 38, value: updatedData.transactionbank1 },
+		                	{ row: selectedRowData, col: 39, value: updatedData.transactiontell1 },
+		                	{ row: selectedRowData, col: 34, value: updatedData.nextinsdate1 },
+		                	{ row: selectedRowData, col: 8, value: updatedData.amount1 },			
+			//Installment 2
+			                { row: selectedRowData, col: 9, value: updatedData.receipt2 },
+                            { row: selectedRowData, col: 10, value: updatedData.receiptdate2 },
+                            { row: selectedRowData, col: 11, value: updatedData.payment2 },
+                            { row: selectedRowData, col: 12, value: updatedData.transaction2 },
+		                	{ row: selectedRowData, col: 40, value: updatedData.transactionbank2 },
+		                	{ row: selectedRowData, col: 41, value: updatedData.transactiontell2 },
+		                	{ row: selectedRowData, col: 35, value: updatedData.nextinsdate2 },
+		                	{ row: selectedRowData, col: 13, value: updatedData.amount2 },			
+            //Installment 3
+                            { row: selectedRowData, col: 14, value: updatedData.receipt3 },
+                            { row: selectedRowData, col: 15, value: updatedData.receiptdate3 },
+                            { row: selectedRowData, col: 16, value: updatedData.payment3 },
+                            { row: selectedRowData, col: 17, value: updatedData.transaction3 },
+		                	{ row: selectedRowData, col: 42, value: updatedData.transactionbank3 },
+		                	{ row: selectedRowData, col: 43, value: updatedData.transactiontell3 },
+		                	{ row: selectedRowData, col: 36, value: updatedData.nextinsdate3 },
+		                	{ row: selectedRowData, col: 18, value: updatedData.amount3 },
+			//Installment 4
+                            { row: selectedRowData, col: 19, value: updatedData.receipt4 },
+                            { row: selectedRowData, col: 20, value: updatedData.receiptdate4 },
+                            { row: selectedRowData, col: 21, value: updatedData.payment4 },
+                            { row: selectedRowData, col: 22, value: updatedData.transaction4 },
+		                	{ row: selectedRowData, col: 44, value: updatedData.transactionbank4 },
+		                	{ row: selectedRowData, col: 45, value: updatedData.transactiontell4 },
+		                	{ row: selectedRowData, col: 37, value: updatedData.nextinsdate4 },
+		                	{ row: selectedRowData, col: 23, value: updatedData.amount4 },
+			//Installment 5
+                            { row: selectedRowData, col: 24, value: updatedData.receipt5 },
+                            { row: selectedRowData, col: 25, value: updatedData.receiptdate5 },
+                            { row: selectedRowData, col: 26, value: updatedData.payment5 },
+                            { row: selectedRowData, col: 27, value: updatedData.transaction5 },
+		                	{ row: selectedRowData, col: 46, value: updatedData.transactionbank5 },
+		                	{ row: selectedRowData, col: 47, value: updatedData.transactiontell5 },
+		                	{ row: selectedRowData, col: 37, value: updatedData.nextinsdate5 },
+		                	{ row: selectedRowData, col: 28, value: updatedData.amount5 },
+			//Other
+                            { row: selectedRowData, col: 29, value: updatedData.totalFeescollected },
+							{ row: selectedRowData, col: 30, value: updatedData.balanceFeesAmount },
+							{ row: selectedRowData, col: 31, value: updatedData.totalFees },
+							{ row: selectedRowData, col: 32, value: updatedData.note }
+                        ];
+      try {
+    showLoading();
+    const updatesParam = encodeURIComponent(JSON.stringify(updates));
+    const response = await fetch(`${scriptURL}?action=updateData&updates=${updatesParam}&sheetName=${sheetName}&spreadsheetId=${SPREADSHEET_ID}`);
+    const result = await response.json();
+    showPopup(successAnimation, result.message);
+    showTab('tableView');
+    fetchData();
+  } catch (error) {
+    showPopup(errorAnimation, "Error updating row: " + error.message);
+  }
+  hideLoading();
+});
+
+// Search table data
+function searchTable() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const table = document.getElementById("dataTable");
+  const rows = table.getElementsByTagName("tr");
+  let hasResults = false;
+
+  for (let i = 1; i < rows.length; i++) {
+    const cells = rows[i].getElementsByTagName("td");
+    let match = false;
+
+    for (let j = 0; j < cells.length; j++) {
+      if (cells[j].textContent.toLowerCase().includes(input)) {
+        match = true;
+        break;
+      }
+    }
+
+    if (match) {
+      rows[i].style.display = ""; // Show row
+      hasResults = true;
+    } else {
+      rows[i].style.display = "none"; // Hide row
+    }
+  }
+
+  // Show or hide "No results" message
+  const noResults = document.getElementById("noResults");
+  noResults.style.display = hasResults ? "none" : "block";
+}
+
+// Edit Experience Function ----------------------------------------------------------------
+
+// Function to toggle visibility of experience fields dynamically
+function toggleExperienceFields() {
+    const totalFields = 4; // Total number of experience fields
+
+    for (let i = 1; i <= totalFields; i++) {
+        const currentField = document.getElementById(`editExp${i}`);
+        const nextFieldDiv = document.getElementById(`exp${i + 1}`);
+
+        if (!currentField) {
+            console.error(`Field editExp${i} not found.`);
+            continue;
+        }
+
+        // Check if the current field has content
+        if (currentField.value.trim() !== '') {
+            // Show the current field (useful if hidden initially)
+            currentField.closest('div').style.display = 'block';
+
+            // Show the next field if it exists
+            if (nextFieldDiv) {
+                nextFieldDiv.style.display = 'block';
+            }
+        } else {
+            // Hide all subsequent fields if the current one is empty
+            for (let j = i + 1; j <= totalFields; j++) {
+                const fieldDiv = document.getElementById(`exp${j}`);
+                if (fieldDiv) {
+                    fieldDiv.style.display = 'none';
+                    const input = fieldDiv.querySelector('input');
+                    if (input) {
+                        input.value = ''; // Clear the value of the hidden input
+                    }
+                }
+            }
+            break; // Stop further checks once an empty field is found
+        }
+    }
+}        
+			 // Amount automatic Calculation Function
+	
+	             function calculateValues() {
+            const amount1 = parseFloat(document.getElementById('amount-1').value) || 0;
+            const amount2 = parseFloat(document.getElementById('amount-2').value) || 0;
+            const amount3 = parseFloat(document.getElementById('amount-3').value) || 0;
+			const amount4 = parseFloat(document.getElementById('amount-4').value) || 0;
+			const amount5 = parseFloat(document.getElementById('amount-5').value) || 0;
+			const totalFees = parseFloat(document.getElementById('totalFees').value) || 0;
+
+            const totalFeescollected = amount1 + amount2 + amount3 + amount4 + amount5;
+            const balanceFeesAmount = totalFees - totalFeescollected;
+
+            document.getElementById('totalFeescollected').value = totalFeescollected.toFixed(2);
+            document.getElementById('balanceFeesAmount').value = balanceFeesAmount.toFixed(2);
+        }
+
+// Initial data load on page load
+window.onload = () => {
+  showLoading();
+  fetchData();
+};
+</script>
+</body>
+</html>

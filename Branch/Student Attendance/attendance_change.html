@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Attendance Management</title>
+  <script src="auth.js"> </script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --success-color: #4cc9f0;
+      --danger-color: #f72585;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --text-color: #2b2d42;
+      --border-radius: 12px;
+      --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      width: 95%;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+    }
+
+    h2 {
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 1.8rem;
+    }
+
+    .spinner {
+      display: inline-block;
+      border: 3px solid rgba(0, 0, 0, 0.1);
+      border-top: 3px solid var(--primary-color);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .hidden { 
+      display: none !important; 
+    }
+
+    /* Date Section */
+    .date-day {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--border-radius);
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+    }
+
+    .date-day i {
+      font-size: 1.3rem;
+    }
+
+    /* Table Styles */
+    .table-container {
+      overflow-x: auto;
+      margin: 25px 0;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    th {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f8f9fa;
+    }
+
+    tr:hover {
+      background-color: #f1f3f5;
+    }
+
+    /* Form Elements */
+    select {
+      padding: 10px 15px;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+      background-color: white;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+      max-width: 150px;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 15px;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+
+    /* Buttons */
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 6px rgba(67, 97, 238, 0.2);
+    }
+
+    button:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button i {
+      font-size: 0.9rem;
+    }
+
+    .update-btn {
+      background-color: var(--success-color);
+      padding: 8px 15px;
+    }
+
+    .update-btn:hover {
+      background-color: #3aa8d8;
+    }
+
+    .dashboard-btn {
+      background-color: var(--danger-color);
+    }
+
+    .dashboard-btn:hover {
+      background-color: #e5177e;
+    }
+
+    /* Total Section */
+    .total-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 25px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .total-attendance {
+      background-color: #f8f9fa;
+      padding: 12px 20px;
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .total-attendance i {
+      color: var(--primary-color);
+      font-size: 1.2rem;
+    }
+
+    /* Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 25px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      text-align: center;
+      width: 90%;
+      max-width: 350px;
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -55%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    .popup.success { 
+      border-top: 4px solid var(--success-color);
+    }
+
+    .popup.error { 
+      border-top: 4px solid var(--danger-color);
+    }
+
+    .popup p {
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    .popup button {
+      width: 100%;
+    }
+
+    /* Loading Container */
+    #loadingContainer {
+      text-align: center;
+      padding: 40px;
+    }
+
+    #loadingContainer h2 {
+      margin-bottom: 20px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px 15px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      th, td {
+        padding: 12px 8px;
+        font-size: 0.9rem;
+      }
+
+      select {
+        padding: 8px 12px;
+        max-width: 120px;
+      }
+
+      button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+
+      .date-day {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: 98%;
+        padding: 15px 10px;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+
+      th {
+        font-size: 0.75rem;
+        padding: 10px 5px;
+      }
+
+      td {
+        font-size: 0.85rem;
+        padding: 10px 5px;
+      }
+
+      select {
+        max-width: 100px;
+        font-size: 0.85rem;
+        padding: 6px 10px;
+      }
+
+      button {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+
+      .total-section {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .dashboard-btn {
+        width: 100%;
+      }
+    }
+
+    /* Animation for table rows */
+    @keyframes fadeInRow {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #attendanceTable tr {
+      animation: fadeInRow 0.4s ease forwards;
+      opacity: 0;
+    }
+
+    #attendanceTable tr:nth-child(1) { animation-delay: 0.1s; }
+    #attendanceTable tr:nth-child(2) { animation-delay: 0.2s; }
+    #attendanceTable tr:nth-child(3) { animation-delay: 0.3s; }
+    #attendanceTable tr:nth-child(4) { animation-delay: 0.4s; }
+    #attendanceTable tr:nth-child(5) { animation-delay: 0.5s; }
+    #attendanceTable tr:nth-child(6) { animation-delay: 0.6s; }
+    #attendanceTable tr:nth-child(7) { animation-delay: 0.7s; }
+    #attendanceTable tr:nth-child(8) { animation-delay: 0.8s; }
+    #attendanceTable tr:nth-child(9) { animation-delay: 0.9s; }
+    #attendanceTable tr:nth-child(10) { animation-delay: 1.0s; }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="loadingContainer">
+    <h2>Loading Attendance Data</h2>
+    <div class="spinner"></div>
+  </div>
+
+  <div class="container hidden" id="attendanceContainer">
+    <h2><i class="fas fa-clipboard-list"></i> Attendance Management</h2>
+    <div class="date-day" id="dateDay">
+      <i class="fas fa-calendar-alt"></i>
+      <span id="dateText"></span>
+    </div>
+    
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th><i class="fas fa-id-card"></i> Roll No</th>
+            <th><i class="fas fa-user"></i> Student Name</th>
+            <th><i class="fas fa-check-circle"></i> Status</th>
+            <th><i class="fas fa-edit"></i> Action</th>
+          </tr>
+        </thead>
+        <tbody id="attendanceTable"></tbody>
+      </table>
+    </div>
+    
+    <div class="total-section">
+      <div class="total-attendance">
+        <i class="fas fa-chart-pie"></i>
+        <span id="totalAttendance"></span>
+      </div>
+      <button class="dashboard-btn" onclick="gotodashboard()">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+      </button>
+    </div>
+  </div>
+
+  <div class="popup" id="popupMessage">
+    <p id="popupText"></p>
+    <button onclick="closePopup()"><i class="fas fa-check"></i> OK</button>
+  </div>
+
+  <script>
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbxC0iAOSHhbFuKqHl5WgXmYwtyMnhyU0L8MWUP3gIZOZkr_vfPuZjtqIKUgMkzT-fuf/exec";
+
+    // Function to set the spreadsheet details
+    function setSpreadsheetDetails(spreadsheetId, sheetName) {
+      fetch(scriptUrl + "?action=setSpreadsheetDetails&spreadsheetId=" + encodeURIComponent(spreadsheetId) + "&sheetName=" + encodeURIComponent(sheetName))
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            console.error("Error setting spreadsheet details:", data.error);
+          } else {
+            console.log("Spreadsheet details set successfully");
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
+    }
+
+    function getFormattedDate() {
+      const date = new Date();
+      const options = { day: 'numeric', month: 'short', year: 'numeric', weekday: 'long' };
+      return date.toLocaleDateString('en-GB', options);
+    }
+
+    function displayDateAndDay() {
+      const dateDayElement = document.getElementById('dateText');
+      dateDayElement.textContent = getFormattedDate();
+    }
+
+    function calculateTotals() {
+      const rows = document.querySelectorAll("#attendanceTable tr");
+      let presentCount = 0, absentCount = 0;
+
+      rows.forEach(row => {
+        const attendance = row.querySelector("select").value;
+        if (attendance === "Present") presentCount++;
+        else if (attendance === "Absent") absentCount++;
+      });
+
+      const totalElement = document.getElementById("totalAttendance");
+      totalElement.innerHTML = `Total: <span style="color: #4cc9f0;">Present - ${presentCount}</span>, <span style="color: #f72585;">Absent - ${absentCount}</span>`;
+    }
+
+    async function loadAttendance() {
+      try {
+        // Set Spreadsheet ID and Sheet Name -------------------------------------------------------------------------------------------
+        const spreadsheetId = "1cNXqipcvpED1kf2cF7A4UBR5zhrYsjzH8A3e7MpZi48";
+        
+        // Get the current spreadsheet name from localStorage with fallback
+        const sheetName = localStorage.getItem('currentSheetName') // || "April_25"; // Default to April_25 if not found
+        
+        // Set the spreadsheet details
+        setSpreadsheetDetails(spreadsheetId, sheetName);
+
+        let response = await fetch(scriptUrl + "?action=checkTodayDate");
+        let data = await response.json();
+        
+        if (data.dateExists) {
+          fetchAttendance(data.todayDate);
+        } else {
+          document.getElementById("loadingContainer").innerHTML = `
+            <h2>Initializing System</h2>
+            <p>Please wait while we set up your attendance sheet...</p>
+            <div class="spinner"></div>
+          `;
+          setTimeout(() => { location.reload(); }, 2000); // Refresh after 2 seconds
+        }
+      } catch (error) {
+        showPopup("Error loading data. Please try again, the page will refresh automatically.", "error");
+        setTimeout(() => { location.reload(); }, 2000); // Refresh after 2 seconds
+      }
+    }
+    
+    async function fetchAttendance(todayDate) {
+      try {
+        let response = await fetch(scriptUrl + "?action=fetchAttendance&todayDate=" + todayDate);
+        let data = await response.json();
+        
+        let tableContent = "";
+        data.attendanceData.forEach((row, index) => {
+          tableContent += `<tr>
+            <td>${row.rollNo}</td>
+            <td>${row.name}</td>
+            <td>
+              <select id="attendance-${row.rollNo}" class="attendance-select">
+                <option value="Present" ${row.attendance === "Present" ? "selected" : ""}>Present</option>
+                <option value="Absent" ${row.attendance === "Absent" ? "selected" : ""}>Absent</option>
+              </select>
+            </td>
+            <td>
+              <button class="update-btn" onclick="updateAttendance('${row.rollNo}', '${todayDate}', this)">
+                <i class="fas fa-sync-alt"></i> Update
+              </button>
+              <div class="spinner hidden" id="spinner-${row.rollNo}"></div>
+            </td>
+          </tr>`;
+        });
+        document.getElementById("attendanceTable").innerHTML = tableContent;
+        document.getElementById("loadingContainer").classList.add("hidden");
+        document.getElementById("attendanceContainer").classList.remove("hidden");
+        displayDateAndDay();
+        calculateTotals();
+        
+        // Add event listeners to selects for instant visual feedback
+        document.querySelectorAll('.attendance-select').forEach(select => {
+          select.addEventListener('change', function() {
+            const row = this.closest('tr');
+            if (this.value === "Present") {
+              row.style.backgroundColor = "rgba(76, 201, 240, 0.1)";
+            } else {
+              row.style.backgroundColor = "rgba(247, 37, 133, 0.1)";
+            }
+            calculateTotals();
+          });
+        });
+      } catch (error) {
+        showPopup("Error fetching data. Please try again.", "error");
+        setTimeout(() => { location.reload(); }, 5000); // Refresh after 5 seconds
+      }
+    }
+    
+    async function updateAttendance(rollNo, todayDate, button) {
+      let attendance = document.getElementById(`attendance-${rollNo}`).value;
+      let spinner = document.getElementById(`spinner-${rollNo}`);
+      button.classList.add("hidden");
+      spinner.classList.remove("hidden");
+      
+      try {
+        let response = await fetch(scriptUrl + `?action=updateAttendance&rollNo=${rollNo}&todayDate=${todayDate}&attendance=${attendance}`);
+        let data = await response.json();
+        showPopup(data.message, "success");
+      } catch (error) {
+        showPopup("Error updating attendance.", "error");
+      } finally {
+        button.classList.remove("hidden");
+        spinner.classList.add("hidden");
+        calculateTotals();
+      }
+    }
+
+    function showPopup(message, type) {
+      let popup = document.getElementById("popupMessage");
+      popup.className = "popup " + type;
+      document.getElementById("popupText").innerHTML = message;
+      popup.style.display = "block";
+    }
+    
+    function closePopup() {
+      document.getElementById("popupMessage").style.display = "none";
+    }
+	
+    function gotodashboard() {
+      window.location.href = "attrendence_dashboard.html";
+    }
+    
+    window.onload = loadAttendance;
+  </script>
+
+</body>
+</html>

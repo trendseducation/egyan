@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Question Creator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-light: #e6e9ff;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --accent-light: #e1f0ff;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --dark-light: #495057;
+            --success-color: #4bb543;
+            --success-light: #e6f7e5;
+            --error-color: #ff3333;
+            --error-light: #ffebeb;
+            --warning-color: #ff9800;
+            --border-radius: 12px;
+            --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9faff;
+            color: var(--dark-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            display: none; /* Initially hidden */
+            flex: 1;
+            width: 95%;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .question-info-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            color: var(--dark-light);
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .question-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-light);
+            padding: 0.75rem 1.25rem;
+            border-radius: 50px;
+            box-shadow: 0 2px 8px rgba(67, 97, 238, 0.1);
+        }
+
+        .question-info-item i {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .question-info-container {
+                gap: 1rem;
+                font-size: 1rem;
+            }
+            
+            .question-info-item {
+                padding: 0.6rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .question-info-container {
+                flex-direction: column;
+                gap: 0.75rem;
+                align-items: center;
+            }
+            
+            .question-info-item {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+            color: var(--dark-color);
+            font-size: 1.05rem;
+        }
+
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: #fff;
+        }
+
+        input[type="text"]:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-box {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--accent-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .option-box:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-color);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            transition: var(--transition);
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-block {
+            display: flex;
+            width: 100%;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Spinner */
+        .spinner {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Alert */
+        .alert {
+            padding: 1.25rem 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            display: none;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .alert-success {
+            background-color: var(--success-light);
+            color: var(--success-color);
+            border-left: 4px solid var(--success-color);
+        }
+
+        .alert-error {
+            background-color: var(--error-light);
+            color: var(--error-color);
+            border-left: 4px solid var(--error-color);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .header-icon {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(5px);
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            width: 95%;
+            max-width: 500px;
+            box-shadow: var(--box-shadow);
+            animation: popupFadeIn 0.3s ease-out;
+            position: relative;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .popup-close:hover {
+            color: var(--primary-color);
+            transform: rotate(90deg);
+        }
+
+        @keyframes popupFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .popup-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .proceed-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Success Popup Styles */
+        .success-popup {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            color: var(--success-color);
+            margin-bottom: 2rem;
+            animation: bounce 0.6s;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-25px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .success-message {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--dark-color);
+            line-height: 1.7;
+        }
+
+        .success-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .success-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.05rem;
+        }
+        
+        .success-buttons2 {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+        
+        .success-buttons2 button {
+            flex: 1;
+            min-width: 0;
+            padding: 0.9rem;
+        }
+
+        .btn-add-more {
+            background-color: var(--accent-color);
+        }
+
+        .btn-change-course {
+            background-color: var(--dark-light);
+        }
+
+        .btn-dashboard {
+            background-color: var(--success-color);
+        }
+
+        .course-dropdown {
+            display: none;
+            margin-top: 2rem;
+            animation: fadeIn 0.4s ease-out;
+            background: var(--light-color);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Confirmation Popup */
+        .confirmation-popup {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .confirmation-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .confirmation-message {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--dark-color);
+            line-height: 1.7;
+        }
+
+        .confirmation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .confirmation-buttons .btn {
+            min-width: 120px;
+        }
+
+        /* Floating action button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.3);
+            cursor: pointer;
+            z-index: 100;
+            transition: var(--transition);
+            display: none;
+        }
+
+        .fab:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
+        }
+
+        /* Input validation */
+        input:invalid, textarea:invalid {
+            border-color: var(--error-color);
+        }
+
+        input:valid, textarea:valid {
+            border-color: #ddd;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 0.5rem;
+            color: var(--dark-light);
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark-color);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 0.5rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Character counter */
+        .char-counter {
+            font-size: 0.85rem;
+            color: var(--dark-light);
+            text-align: right;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .confirmation-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .confirmation-buttons .btn {
+                width: 100%;
+            }
+            
+            .popup-content {
+                padding: 1.5rem;
+            }
+            
+            .success-icon, .confirmation-icon {
+                font-size: 3.5rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating action button -->
+    <div class="fab" id="fabButton" title="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Initial Selection Popup -->
+    <div class="popup-overlay" id="selectionPopup">
+        <div class="popup-content">
+            <button class="popup-close" id="closeSelectionPopup"><i class="fas fa-times"></i></button>
+            <h2 class="popup-title">Select Course and Mock Test</h2>
+            
+            <div class="form-group">
+                <label for="courseSelect">Course <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Select the course for which you want to add questions</span></span></label>
+                <select id="courseSelect" class="form-control" required>
+                    <option value="">-- Select Course --</option>
+                    <option value="Basic">Basic</option>
+                    <option value="Tally">Tally</option>
+                    <option value="Advance Excel">Advance Excel</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="mockTestSelect">Mock Test <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Select the mock test number for this course</span></span></label>
+                <select id="mockTestSelect" class="form-control" required>
+                    <option value="">-- Select Mock Test --</option>
+                    <option value="Mock Test 1">Mock Test 1</option>
+                    <option value="Mock Test 2">Mock Test 2</option>
+                    <option value="Mock Test 3">Mock Test 3</option>
+                    <option value="Mock Test 4">Mock Test 4</option>
+                    <option value="Mock Test 5">Mock Test 5</option>
+                </select>
+            </div>
+            
+            <button class="btn proceed-btn" id="proceedBtn" disabled>
+                <i class="fas fa-arrow-right"></i> Proceed
+            </button>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div class="popup-overlay" id="successPopup">
+        <div class="popup-content">
+            <div class="success-popup">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 class="popup-title">Question Submitted!</h2>
+                <p class="success-message">Your question has been successfully added to the quiz database. What would you like to do next?</p>
+                
+                <div class="course-dropdown" id="courseDropdown">
+                    <div class="form-group">
+                        <label for="newCourseSelect">Select New Course:</label>
+                        <select id="newCourseSelect" class="form-control">
+                            <option value="">-- Select Course --</option>
+                            <option value="Basic">Basic</option>
+                            <option value="Tally">Tally</option>
+                            <option value="Advance Excel">Advance Excel</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newMockTestSelect">Select New Mock Test:</label>
+                        <select id="newMockTestSelect" class="form-control">
+                            <option value="">-- Select Mock Test --</option>
+                            <option value="Mock Test 1">Mock Test 1</option>
+                            <option value="Mock Test 2">Mock Test 2</option>
+                            <option value="Mock Test 3">Mock Test 3</option>
+                            <option value="Mock Test 4">Mock Test 4</option>
+                            <option value="Mock Test 5">Mock Test 5</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn btn-block" id="confirmChangeBtn">
+                        <i class="fas fa-check"></i> Confirm Change
+                    </button>
+                </div>
+                
+                <div class="success-buttons">
+                    <button class="btn success-btn btn-add-more" id="addMoreBtn">
+                        <i class="fas fa-plus"></i> Add More Questions
+                    </button>
+                    <button class="btn success-btn btn-change-course" id="changeCourseBtn">
+                        <i class="fas fa-exchange-alt"></i> Change Course
+                    </button>
+                    <button class="btn success-btn btn-dashboard" id="dashboardBtn">
+                        <i class="fas fa-tachometer-alt"></i> Back to Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Popup -->
+    <div class="popup-overlay" id="confirmationPopup">
+        <div class="popup-content">
+            <div class="confirmation-popup">
+                <div class="confirmation-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h2 class="popup-title">Confirm Course Change</h2>
+                <p class="confirmation-message">Are you sure you want to change the course? All unsaved data will be lost.</p>
+                
+                <div class="confirmation-buttons">
+                    <button class="btn btn-change-course" id="confirmChangeBtn2">
+                        <i class="fas fa-check"></i> Yes, Change
+                    </button>
+                    <button class="btn btn-add-more" id="cancelChangeBtn">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="quizContainer">
+        <div class="header">
+            <div class="header-icon">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <h1>Add New Quiz Question</h1>
+            <div class="question-info-container">
+                <div class="question-info-item" id="courseInfo">
+                    <i class="fas fa-book-open"></i>
+                    <span>Course: <strong id="courseName">--</strong></span>
+                </div>
+                <div class="question-info-item" id="mockTestInfo">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>Mock Test: <strong id="mockTestName">--</strong></span>
+                </div>
+                <div class="question-info-item" id="questionCountInfo">
+                    <i class="fas fa-list-ol"></i>
+                    <span>Question: <strong id="questionCount">Loading...</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="alert" class="alert"></div>
+
+        <form id="quizForm">
+            <div class="form-group">
+                <label for="question">Question <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Enter the quiz question (must end with a question mark)</span></span></label>
+                <textarea id="question" name="question" required></textarea>
+                <div class="char-counter"><span id="questionCounter">0</span>/500 characters</div>
+            </div>
+
+            <div class="options-container">
+                <div class="option-box">
+                    <div class="form-group">
+                        <label for="option1">Option 1 <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">First answer choice</span></span></label>
+                        <input type="text" id="option1" name="option1" required>
+                        <div class="char-counter"><span id="option1Counter">0</span>/200 characters</div>
+                    </div>
+                </div>
+
+                <div class="option-box">
+                    <div class="form-group">
+                        <label for="option2">Option 2 <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Second answer choice</span></span></label>
+                        <input type="text" id="option2" name="option2" required>
+                        <div class="char-counter"><span id="option2Counter">0</span>/200 characters</div>
+                    </div>
+                </div>
+
+                <div class="option-box">
+                    <div class="form-group">
+                        <label for="option3">Option 3 <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Third answer choice</span></span></label>
+                        <input type="text" id="option3" name="option3" required>
+                        <div class="char-counter"><span id="option3Counter">0</span>/200 characters</div>
+                    </div>
+                </div>
+
+                <div class="option-box">
+                    <div class="form-group">
+                        <label for="option4">Option 4 <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Fourth answer choice</span></span></label>
+                        <input type="text" id="option4" name="option4" required>
+                        <div class="char-counter"><span id="option4Counter">0</span>/200 characters</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="correctAnswer">Correct Answer <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Enter the option number (1-4) that is correct</span></span></label>
+                <input type="text" id="correctAnswer" name="correctAnswer" pattern="[1-4]" title="Please enter a number between 1 and 4" required>
+            </div>
+
+            <div class="btn-container">
+                <button type="submit" class="btn btn-block" id="submitBtn">
+                    <span id="btnText"><i class="fas fa-paper-plane"></i> Submit Question</span>
+                    <div id="spinner" class="spinner"></div>
+                </button>
+            </div>
+            <div class="success-buttons2">
+                <button class="btn success-btn btn-change-course" id="changeCourseBtn2">
+                    <i class="fas fa-exchange-alt"></i> Change Course
+                </button>
+                <button class="btn success-btn btn-dashboard" id="dashboardBtn2">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const config = {
+            spreadsheetId: "1JU1HVdKiHYksiP2XZM-UOPMKnX_8VMs4bpOef3KV8Oc",
+            sheetName: "",
+            scriptUrl: "https://script.google.com/macros/s/AKfycbyt-STZDqggV-k7bkdEp7uMUzoPf65_tVhy1H2E9R_2I4Qkepfwl0o4PhYnGaE3NTvPVg/exec"
+        };
+
+        // DOM Elements
+        const selectionPopup = document.getElementById('selectionPopup');
+        const quizContainer = document.getElementById('quizContainer');
+        const proceedBtn = document.getElementById('proceedBtn');
+        const courseSelect = document.getElementById('courseSelect');
+        const mockTestSelect = document.getElementById('mockTestSelect');
+        const courseName = document.getElementById('courseName');
+        const mockTestName = document.getElementById('mockTestName');
+        const questionCount = document.getElementById('questionCount');
+        const successPopup = document.getElementById('successPopup');
+        const addMoreBtn = document.getElementById('addMoreBtn');
+        const changeCourseBtn = document.getElementById('changeCourseBtn');
+        const changeCourseBtn2 = document.getElementById('changeCourseBtn2');
+        const dashboardBtn = document.getElementById('dashboardBtn');
+        const dashboardBtn2 = document.getElementById('dashboardBtn2');
+        const courseDropdown = document.getElementById('courseDropdown');
+        const newCourseSelect = document.getElementById('newCourseSelect');
+        const newMockTestSelect = document.getElementById('newMockTestSelect');
+        const confirmChangeBtn = document.getElementById('confirmChangeBtn');
+        const confirmationPopup = document.getElementById('confirmationPopup');
+        const confirmChangeBtn2 = document.getElementById('confirmChangeBtn2');
+        const cancelChangeBtn = document.getElementById('cancelChangeBtn');
+        const closeSelectionPopup = document.getElementById('closeSelectionPopup');
+        const fabButton = document.getElementById('fabButton');
+        
+        // Character counters
+        const questionCounter = document.getElementById('questionCounter');
+        const option1Counter = document.getElementById('option1Counter');
+        const option2Counter = document.getElementById('option2Counter');
+        const option3Counter = document.getElementById('option3Counter');
+        const option4Counter = document.getElementById('option4Counter');
+
+        // Show initial selection popup
+        selectionPopup.style.display = 'flex';
+
+        // Function to check if both dropdowns have valid selections
+        function validateSelections() {
+            const isCourseSelected = courseSelect.value !== "";
+            const isMockTestSelected = mockTestSelect.value !== "";
+            proceedBtn.disabled = !(isCourseSelected && isMockTestSelected);
+        }
+
+        // Event listeners for dropdown changes
+        courseSelect.addEventListener('change', validateSelections);
+        mockTestSelect.addEventListener('change', validateSelections);
+        
+        // Close popup handler
+        closeSelectionPopup.addEventListener('click', function() {
+            hidePopup(selectionPopup);
+        });
+
+        // Function to get spreadsheet name based on selections
+        function getSpreadsheetName(course, mockTest) {
+            const mockTestNumber = mockTest.match(/\d+/)?.[0] || '1';
+            if (course === "Basic") return `Basic_MockTest_${mockTestNumber}`;
+            if (course === "Tally") return `Tally_MockTest_${mockTestNumber}`;
+            if (course === "Advance Excel") return `AdvExcel_MockTest_${mockTestNumber}`;
+            return "Basic_MockTest_1";
+        }
+
+        // Function to format text - capitalize first letter
+        function capitalizeFirstLetter(text) {
+            if (!text) return text;
+            return text.charAt(0).toUpperCase() + text.slice(1);
+        }
+
+        // Function to ensure question ends with a question mark
+        function ensureQuestionMark(text) {
+            if (!text) return text;
+            text = text.trim();
+            if (text.length > 0 && !text.endsWith('?')) {
+                return text + '?';
+            }
+            return text;
+        }
+
+        // Function to format question text
+        function formatQuestion(text) {
+            text = ensureQuestionMark(text);
+            return capitalizeFirstLetter(text);
+        }
+
+        // Function to format options
+        function formatOption(text) {
+            return capitalizeFirstLetter(text);
+        }
+
+        // Function to fetch question count
+        async function fetchQuestionCount() {
+            try {
+                questionCount.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+                const response = await fetch(`${config.scriptUrl}?action=getCount&spreadsheetId=${encodeURIComponent(config.spreadsheetId)}&sheetName=${encodeURIComponent(config.sheetName)}`);
+                const data = await response.json();
+                questionCount.innerHTML = data.count;
+            } catch (error) {
+                console.error('Error fetching question count:', error);
+                questionCount.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error';
+            }
+        }
+
+        // Function to show popup with animation
+        function showPopup(popup) {
+            popup.style.display = 'flex';
+            const content = popup.querySelector('.popup-content');
+            content.style.animation = 'popupFadeIn 0.3s ease-out';
+        }
+
+        // Function to hide popup
+        function hidePopup(popup) {
+            popup.style.display = 'none';
+        }
+
+        // Proceed button click handler
+        proceedBtn.addEventListener('click', function() {
+            const selectedCourse = courseSelect.value;
+            const selectedMockTest = mockTestSelect.value;
+            
+            // Set the spreadsheet name based on selections
+            config.sheetName = getSpreadsheetName(selectedCourse, selectedMockTest);
+            
+            // Update the selected course info display
+            courseName.textContent = selectedCourse;
+            mockTestName.textContent = selectedMockTest;
+            
+            // Hide popup and show quiz container
+            hidePopup(selectionPopup);
+            quizContainer.style.display = 'block';
+            
+            // Initialize quiz
+            fetchQuestionCount();
+        });
+
+        // Character counter functions
+        function setupCharacterCounter(textareaId, counterId, maxLength) {
+            const textarea = document.getElementById(textareaId);
+            const counter = document.getElementById(counterId);
+            
+            textarea.addEventListener('input', function() {
+                const length = this.value.length;
+                counter.textContent = length;
+                
+                if (length > maxLength * 0.9) {
+                    counter.style.color = 'var(--error-color)';
+                } else {
+                    counter.style.color = 'var(--dark-light)';
+                }
+            });
+        }
+        
+        function setupInputCounter(inputId, counterId, maxLength) {
+            const input = document.getElementById(inputId);
+            const counter = document.getElementById(counterId);
+            
+            input.addEventListener('input', function() {
+                const length = this.value.length;
+                counter.textContent = length;
+                
+                if (length > maxLength * 0.9) {
+                    counter.style.color = 'var(--error-color)';
+                } else {
+                    counter.style.color = 'var(--dark-light)';
+                }
+            });
+        }
+        
+        // Initialize character counters
+        setupCharacterCounter('question', 'questionCounter', 500);
+        setupInputCounter('option1', 'option1Counter', 200);
+        setupInputCounter('option2', 'option2Counter', 200);
+        setupInputCounter('option3', 'option3Counter', 200);
+        setupInputCounter('option4', 'option4Counter', 200);
+
+        // Quiz form submission
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Format inputs before submission
+            const questionInput = document.getElementById('question');
+            questionInput.value = formatQuestion(questionInput.value);
+            
+            const option1Input = document.getElementById('option1');
+            option1Input.value = formatOption(option1Input.value);
+            
+            const option2Input = document.getElementById('option2');
+            option2Input.value = formatOption(option2Input.value);
+            
+            const option3Input = document.getElementById('option3');
+            option3Input.value = formatOption(option3Input.value);
+            
+            const option4Input = document.getElementById('option4');
+            option4Input.value = formatOption(option4Input.value);
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('spinner');
+            const alertBox = document.getElementById('alert');
+            
+            // Show loading spinner
+            submitBtn.disabled = true;
+            btnText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            spinner.style.display = 'inline-block';
+            alertBox.style.display = 'none';
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            // Add configuration to the data
+            data.spreadsheetId = config.spreadsheetId;
+            data.sheetName = config.sheetName;
+            
+            // Send data to Google Sheets
+            fetch(config.scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                // Show success popup
+                showPopup(successPopup);
+                // Reset form
+                this.reset();
+                // Reset character counters
+                questionCounter.textContent = '0';
+                option1Counter.textContent = '0';
+                option2Counter.textContent = '0';
+                option3Counter.textContent = '0';
+                option4Counter.textContent = '0';
+                // Refresh question count
+                fetchQuestionCount();
+            })
+            .catch(error => {
+                showAlert('Error submitting question. Please try again.', 'error');
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                // Hide loading spinner
+                submitBtn.disabled = false;
+                btnText.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Question';
+                spinner.style.display = 'none';
+            });
+        });
+        
+        function showAlert(message, type) {
+            const alertBox = document.getElementById('alert');
+            alertBox.textContent = message;
+            alertBox.className = `alert alert-${type}`;
+            alertBox.style.display = 'block';
+            
+            // Hide alert after 5 seconds
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 5000);
+        }
+
+        // Add More button click handler
+        addMoreBtn.addEventListener('click', function() {
+            hidePopup(successPopup);
+            courseDropdown.style.display = 'none';
+        });
+
+        // Change Course button click handler
+        changeCourseBtn.addEventListener('click', function() {
+            courseDropdown.style.display = 'block';
+            // Scroll to the dropdown
+            courseDropdown.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Change Course button 2 click handler
+        changeCourseBtn2.addEventListener('click', function() {
+            showPopup(confirmationPopup);
+        });
+
+        // Confirm Change button click handler (from success popup)
+        confirmChangeBtn.addEventListener('click', function() {
+            if (newCourseSelect.value && newMockTestSelect.value) {
+                const selectedCourse = newCourseSelect.value;
+                const selectedMockTest = newMockTestSelect.value;
+                
+                // Set the spreadsheet name based on selections
+                config.sheetName = getSpreadsheetName(selectedCourse, selectedMockTest);
+                
+                // Update the selected course info display
+                courseName.textContent = selectedCourse;
+                mockTestName.textContent = selectedMockTest;
+                
+                // Hide popups and show quiz container
+                hidePopup(successPopup);
+                courseDropdown.style.display = 'none';
+                quizContainer.style.display = 'block';
+                
+                // Refresh question count
+                fetchQuestionCount();
+                
+                // Reset dropdowns
+                newCourseSelect.value = '';
+                newMockTestSelect.value = '';
+            }
+        });
+
+        // Confirm Change button click handler (from confirmation popup)
+        confirmChangeBtn2.addEventListener('click', function() {
+            hidePopup(confirmationPopup);
+            showPopup(selectionPopup);
+            quizContainer.style.display = 'none';
+        });
+
+        // Cancel Change button click handler
+        cancelChangeBtn.addEventListener('click', function() {
+            hidePopup(confirmationPopup);
+        });
+
+        // Dashboard button click handler
+        dashboardBtn.addEventListener('click', function() {
+            window.location.href = 'MocktestFontPage.html';
+        });
+        
+        // Dashboard button 2 click handler
+        dashboardBtn2.addEventListener('click', function() {
+            window.location.href = 'MocktestFontPage.html';
+        });
+        
+        // Floating Action Button (FAB) functionality
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                fabButton.style.display = 'flex';
+            } else {
+                fabButton.style.display = 'none';
+            }
+        });
+        
+        fabButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Show FAB when quiz container is visible
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'style') {
+                    if (quizContainer.style.display === 'block') {
+                        fabButton.style.display = 'flex';
+                    } else {
+                        fabButton.style.display = 'none';
+                    }
+                }
+            });
+        });
+        
+        observer.observe(quizContainer, {
+            attributes: true
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-Gyan | Fees Collection Portal</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+	<script src="https://trendseducation.github.io/classmanagement/loginscriptforindex.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --success-color: #4ade80;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --gradient-primary: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            --gradient-success: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
+            --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            --gradient-accent: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--dark-color);
+        }
+
+        .glass-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            width: 100%;
+            max-width: 800px;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--gradient-primary);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-icon {
+            font-size: 4rem;
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+        }
+
+        .header-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        /* Form Container */
+        .form-container {
+            padding: 40px;
+        }
+
+        /* Card Styles */
+        .form-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #e2e8f0;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient-primary);
+        }
+
+        .card-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            opacity: 0.7;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: var(--dark-color);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--gradient-primary);
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .required-star {
+            color: var(--danger-color);
+            margin-left: 2px;
+        }
+
+        .input-group-icon {
+            position: relative;
+        }
+
+        .form-control, .form-select {
+            border-radius: var(--radius-sm);
+            padding: 14px 16px 14px 50px;
+            font-size: 15px;
+            border: 2px solid #e2e8f0;
+            transition: var(--transition);
+            background-color: #f8fafc;
+            color: var(--dark-color);
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+            background-color: white;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-size: 18px;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /* Student Selector */
+        .student-selector {
+            cursor: pointer;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 2px dashed #cbd5e0;
+            border-radius: var(--radius-sm);
+            padding: 18px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .student-selector:hover {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+            transform: translateY(-2px);
+        }
+
+        .student-selector.selected {
+            background: linear-gradient(135deg, #f0fff4 0%, #dcfce7 100%);
+            border-color: var(--success-color);
+            border-style: solid;
+        }
+
+        .student-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .student-placeholder i {
+            font-size: 1.2rem;
+        }
+
+        .student-selected {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        .student-selected i {
+            color: var(--success-color);
+            font-size: 1.2rem;
+        }
+
+        /* Installment Styles */
+        .installment-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .installment-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-color);
+        }
+
+        .installment-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .installment-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 1.1rem;
+        }
+
+        .installment-badge {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .remove-installment {
+            background: var(--gradient-danger);
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remove-installment:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Summary Card */
+        .summary-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            margin-top: 20px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #cbd5e0;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--dark-color);
+        }
+
+        .summary-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .summary-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Submit Button */
+        .submit-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .submit-btn {
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 18px 40px;
+            font-size: 17px;
+            font-weight: 600;
+            color: white;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Update Button */
+        .update-btn {
+            background: var(--gradient-warning);
+            border: none;
+            border-radius: var(--radius-sm);
+            padding: 12px 25px;
+            font-size: 15px;
+            font-weight: 600;
+            color: white;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .update-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            color: white;
+        }
+
+        /* Spinner Overlay */
+        .submit-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .spinner-container {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            max-width: 350px;
+            width: 90%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .spinner-icon {
+            font-size: 4rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .spinner-text {
+            margin-top: 20px;
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 1.2rem;
+        }
+
+        /* Student Popup */
+        .student-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .student-popup-content {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            animation: slideUp 0.3s ease;
+        }
+
+        .popup-header {
+            background: var(--gradient-primary);
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .popup-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .popup-close {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .popup-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .search-container {
+            padding: 20px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            border: 2px solid #e2e8f0;
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            transition: var(--transition);
+            background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%234361ee' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E") no-repeat 20px center;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+            outline: none;
+        }
+
+        .student-list-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .student-item {
+            padding: 16px 20px;
+            margin: 8px;
+            background: #f8fafc;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .student-item:hover {
+            background: #eef2ff;
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .student-item i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .student-name {
+            flex: 1;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        /* Status Messages */
+        .status-message {
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .status-success {
+            background: linear-gradient(135deg, #f0fff4 0%, #dcfce7 100%);
+            border: 1px solid #86efac;
+            color: #065f46;
+        }
+
+        .status-warning {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 1px solid #fcd34d;
+            color: #92400e;
+        }
+
+        .status-error {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+        }
+
+        /* Installment Selector */
+        .installment-selector-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .installment-option {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: var(--radius-sm);
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .installment-option:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .installment-option.selected {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .glass-container {
+                margin: 10px;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+            
+            .header {
+                padding: 25px 20px;
+            }
+            
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .logo-icon {
+                font-size: 3rem;
+            }
+            
+            .installment-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .submit-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .form-container {
+                padding: 20px;
+            }
+            
+            .form-card {
+                padding: 20px;
+            }
+            
+            .header-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: floatElement 20s infinite linear;
+        }
+
+        @keyframes floatElement {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white !important;
+            }
+            
+            .glass-container {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            
+            .submit-btn, .remove-installment, .popup-close {
+                display: none !important;
+            }
+            
+            .form-control, .form-select {
+                border: 1px solid #ddd !important;
+                background: white !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Elements -->
+    <div class="floating-elements">
+        <div class="floating-element" style="width: 100px; height: 100px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="width: 150px; height: 150px; top: 60%; left: 80%; animation-delay: 5s;"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; top: 20%; left: 85%; animation-delay: 10s;"></div>
+        <div class="floating-element" style="width: 120px; height: 120px; top: 70%; left: 10%; animation-delay: 15s;"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="glass-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-container">
+                <i class="fas fa-money-check-alt logo-icon"></i>
+                <h1 class="header-title">E-Gyan Fees Collection</h1>
+                <p class="header-subtitle">Secure & Efficient Fee Management System</p>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <!-- Status Message Area -->
+            <div id="statusMessage" style="display: none;"></div>
+
+            <!-- Academic Information Card -->
+            <div class="form-card">
+                <i class="fas fa-calendar-alt card-icon"></i>
+                <h3 class="section-title">
+                    <i class="fas fa-school"></i>
+                    Academic Information
+                </h3>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-label" for="academicYear">
+                                <i class="fas fa-graduation-cap"></i>
+                                Academic Year <span class="required-star">*</span>
+                            </label>
+                            <div class="input-group-icon">
+                                <select class="form-select" name="Academic_Year" id="academicYear" required>
+                                    <option value="">Select Academic Year</option>
+                                    <option value="2025-26" selected>2025-26</option>
+                                    <option value="2026-27">2026-27</option>
+                                </select>
+                                <i class="fas fa-calendar input-icon"></i>
+                            </div>
+                            <small class="text-muted mt-2 d-block">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Current academic year is automatically selected
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Selection Card -->
+            <div class="form-card">
+                <i class="fas fa-user-graduate card-icon"></i>
+                <h3 class="section-title">
+                    <i class="fas fa-user-circle"></i>
+                    Student Information
+                </h3>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-user-tag"></i>
+                        Select Student <span class="required-star">*</span>
+                    </label>
+                    <div class="student-selector" id="studentSelector" onclick="openStudentPopup()">
+                        <div class="student-placeholder" id="studentPlaceholder">
+                            <i class="fas fa-search"></i>
+                            Click to search and select student
+                        </div>
+                        <div class="student-selected" id="studentSelected" style="display: none;">
+                            <i class="fas fa-check-circle"></i>
+                            <span id="selectedStudentName"></span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="Name_of_Student" id="selectedStudent" required>
+                    <div class="error-message" id="studentError" style="display: none; color: var(--danger-color); margin-top: 8px;">
+                        <i class="fas fa-exclamation-circle"></i> Please select a student
+                    </div>
+                </div>
+            </div>
+
+            <!-- Installment Selection Card -->
+            <div class="form-card">
+                <i class="fas fa-credit-card card-icon"></i>
+                <h3 class="section-title">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    Installment Management
+                </h3>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-layer-group"></i>
+                        Add Installment
+                    </label>
+                    <div class="installment-selector-container">
+                        <div class="installment-option" onclick="addInstallment(1)">
+                            <i class="fas fa-1"></i> Installment 1
+                        </div>
+                        <div class="installment-option" onclick="addInstallment(2)">
+                            <i class="fas fa-2"></i> Installment 2
+                        </div>
+                        <div class="installment-option" onclick="addInstallment(3)">
+                            <i class="fas fa-3"></i> Installment 3
+                        </div>
+                        <div class="installment-option" onclick="addInstallment(4)">
+                            <i class="fas fa-4"></i> Installment 4
+                        </div>
+                        <div class="installment-option" onclick="addInstallment(5)">
+                            <i class="fas fa-5"></i> Installment 5
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Installments Container -->
+                <div id="installmentsContainer"></div>
+            </div>
+
+            <!-- Summary Card -->
+            <div class="summary-card">
+                <h3 class="section-title" style="border: none; padding: 0; margin-bottom: 20px;">
+                    <i class="fas fa-calculator"></i>
+                    Fee Summary
+                </h3>
+                
+                <div class="summary-item">
+                    <div class="summary-label">
+                        <i class="fas fa-receipt"></i>
+                        Total Course Fees:
+                    </div>
+                    <div class="summary-value" id="totalFeesDisplay">₹ 0.00</div>
+                </div>
+                
+                <div class="summary-item">
+                    <div class="summary-label">
+                        <i class="fas fa-money-bill-wave"></i>
+                        Total Amount Paid:
+                    </div>
+                    <div class="summary-value" id="totalPaidDisplay">₹ 0.00</div>
+                </div>
+                
+                <div class="summary-item">
+                    <div class="summary-label">
+                        <i class="fas fa-balance-scale"></i>
+                        Balance Amount:
+                    </div>
+                    <div class="summary-value" id="balanceDisplay">₹ 0.00</div>
+                </div>
+                
+                <div class="summary-item">
+                    <div class="summary-label">
+                        <i class="fas fa-percentage"></i>
+                        Payment Progress:
+                    </div>
+                    <div class="summary-value">
+                        <div class="progress" style="height: 8px; width: 150px; background: #e2e8f0; border-radius: 4px;">
+                            <div id="paymentProgress" style="height: 100%; width: 0%; background: var(--gradient-primary); border-radius: 4px;"></div>
+                        </div>
+                        <span id="progressPercentage" style="font-size: 0.9rem; color: #4a5568;">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Information Card -->
+            <div class="form-card">
+                <i class="fas fa-sticky-note card-icon"></i>
+                <h3 class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    Additional Information
+                </h3>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label" for="totalFeesInput">
+                                <i class="fas fa-tag"></i>
+                                Total Course Fees <span class="required-star">*</span>
+                            </label>
+                            <div class="input-group-icon">
+                                <input type="number" class="form-control" 
+                                       id="totalFeesInput" 
+                                       name="Total_fees"
+                                       placeholder="Enter total fees"
+                                       min="0"
+                                       step="0.01"
+                                       required>
+                                <i class="fas fa-rupee-sign input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label" for="noteInput">
+                                <i class="fas fa-comment-alt"></i>
+                                Additional Notes
+                            </label>
+                            <div class="input-group-icon">
+                                <input type="text" class="form-control" 
+                                       id="noteInput" 
+                                       name="Note"
+                                       placeholder="Any special instructions or notes">
+                                <i class="fas fa-edit input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="submit-container">
+                <button type="button" class="submit-btn" id="submitButton" onclick="submitForm()">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit Fee Payment
+                </button>
+                <p style="margin-top: 15px; color: #64748b; font-size: 0.9rem;">
+                    <i class="fas fa-shield-alt"></i> Your data is securely encrypted and stored
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Selection Popup -->
+    <div class="student-popup" id="studentPopup">
+        <div class="student-popup-content">
+            <div class="popup-header">
+                <h3 class="popup-title">
+                    <i class="fas fa-users"></i>
+                    Select Student
+                </h3>
+                <button class="popup-close" onclick="closeStudentPopup()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" 
+                       id="studentSearch" 
+                       placeholder="Search student by name..."
+                       onkeyup="filterStudents()">
+            </div>
+            
+            <div class="student-list-container" id="studentListContainer">
+                <div class="text-center p-5" id="studentListLoading">
+                    <div class="spinner-icon">
+                        <i class="fas fa-spinner"></i>
+                    </div>
+                    <p class="spinner-text">Loading student list...</p>
+                </div>
+                <div id="studentList" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submission Overlay -->
+    <div class="submit-overlay" id="submitOverlay">
+        <div class="spinner-container">
+            <div class="spinner-icon">
+                <i class="fas fa-spinner"></i>
+            </div>
+            <div class="spinner-text">Processing your payment...</div>
+            <p style="margin-top: 15px; color: #64748b; font-size: 0.9rem;">
+                Please wait while we save your data securely
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Configuration
+        const CONFIG = {
+            scriptURL: "https://script.google.com/macros/s/AKfycbwD-29kpCjkWmA4G0GdHC1IXpbF7GaCpZb5NN-ufwiUO9y12QPIVRYdIHmFmeWUHEx9/exec",
+            feesSpreadsheetId: '17W3uI55kaecrshN3k5Fsd7XjMtsJeQen5GiSiz4qZis',
+            feesSheetName: "Computer",
+            admissionSpreadsheetId: '1rDjeUVYtneVzA6d8-VwyoZ8B8w1MHDxG-vlgN3O2c-0',
+            admissionSheetName: "Computer"
+        };
+
+        // Application State
+        const AppState = {
+            selectedStudent: null,
+            activeInstallments: new Set(),
+            studentsList: [],
+            currentInstallmentId: 0
+        };
+
+        // DOM Elements
+        const elements = {
+            studentSelector: document.getElementById('studentSelector'),
+            studentPlaceholder: document.getElementById('studentPlaceholder'),
+            studentSelected: document.getElementById('studentSelected'),
+            selectedStudentName: document.getElementById('selectedStudentName'),
+            selectedStudent: document.getElementById('selectedStudent'),
+            studentError: document.getElementById('studentError'),
+            studentPopup: document.getElementById('studentPopup'),
+            studentList: document.getElementById('studentList'),
+            studentListLoading: document.getElementById('studentListLoading'),
+            studentSearch: document.getElementById('studentSearch'),
+            studentListContainer: document.getElementById('studentListContainer'),
+            installmentsContainer: document.getElementById('installmentsContainer'),
+            totalFeesInput: document.getElementById('totalFeesInput'),
+            totalFeesDisplay: document.getElementById('totalFeesDisplay'),
+            totalPaidDisplay: document.getElementById('totalPaidDisplay'),
+            balanceDisplay: document.getElementById('balanceDisplay'),
+            paymentProgress: document.getElementById('paymentProgress'),
+            progressPercentage: document.getElementById('progressPercentage'),
+            submitButton: document.getElementById('submitButton'),
+            submitOverlay: document.getElementById('submitOverlay'),
+            statusMessage: document.getElementById('statusMessage'),
+            academicYear: document.getElementById('academicYear')
+        };
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current academic year
+            setCurrentAcademicYear();
+            
+            initializeEventListeners();
+            setupFormValidation();
+            
+            // Add event listener for total fees input
+            elements.totalFeesInput.addEventListener('input', updateSummary);
+            
+            console.log('E-Gyan Fees Collection System initialized');
+        });
+
+        // Feature 1: Set Current Academic Year Automatically
+        function setCurrentAcademicYear() {
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
+            const currentMonth = currentDate.getMonth(); // 0 = Jan, 11 = Dec
+            
+            // Determine academic year based on month
+            // Typically academic year runs from April to March
+            let academicYear;
+            if (currentMonth >= 3) { // April (3) to December
+                academicYear = `${currentYear}-${(currentYear + 1).toString().slice(-2)}`;
+            } else { // January to March
+                academicYear = `${currentYear - 1}-${currentYear.toString().slice(-2)}`;
+            }
+            
+            // Set the value in dropdown
+            elements.academicYear.value = academicYear;
+            
+            // If the year doesn't exist in options, add it
+            const optionExists = Array.from(elements.academicYear.options).some(
+                option => option.value === academicYear
+            );
+            
+            if (!optionExists) {
+                const option = document.createElement('option');
+                option.value = academicYear;
+                option.textContent = academicYear;
+                option.selected = true;
+                elements.academicYear.appendChild(option);
+            }
+            
+            console.log(`Current academic year set to: ${academicYear}`);
+        }
+
+        function initializeEventListeners() {
+            // Auto-calculate on any amount change
+            document.addEventListener('input', function(e) {
+                if (e.target.name && e.target.name.includes('Instalment_')) {
+                    updateSummary();
+                }
+            });
+        }
+
+        function setupFormValidation() {
+            // Add real-time validation for all required fields
+            const requiredFields = document.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                field.addEventListener('blur', function() {
+                    if (!this.value.trim()) {
+                        this.classList.add('is-invalid');
+                    } else {
+                        this.classList.remove('is-invalid');
+                    }
+                });
+            });
+        }
+
+        // Student Popup Functions
+        async function openStudentPopup() {
+            // Check if student is already selected
+            if (AppState.selectedStudent) {
+                showStatus('Student already selected. Clear selection to choose another.', 'warning');
+                return;
+            }
+            
+            elements.studentPopup.style.display = 'flex';
+            
+            if (AppState.studentsList.length === 0) {
+                await loadStudentsList();
+            } else {
+                displayStudentsList(AppState.studentsList);
+            }
+        }
+
+        function closeStudentPopup() {
+            elements.studentPopup.style.display = 'none';
+            elements.studentSearch.value = '';
+            filterStudents();
+        }
+
+        async function loadStudentsList() {
+            try {
+                elements.studentList.style.display = 'none';
+                elements.studentListLoading.style.display = 'block';
+                
+                const url = `${CONFIG.scriptURL}?action=getColumnBData&spreadsheetId=${CONFIG.admissionSpreadsheetId}&sheetName=${CONFIG.admissionSheetName}`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (Array.isArray(data)) {
+                    // Filter and deduplicate student names
+                    AppState.studentsList = data
+                        .filter(name => name && name.trim() !== '')
+                        .map(name => name.trim())
+                        .filter((name, index, self) => self.indexOf(name) === index);
+                    
+                    displayStudentsList(AppState.studentsList);
+                    showStatus('Student list loaded successfully!', 'success');
+                } else {
+                    throw new Error(data.error || 'Invalid data format');
+                }
+            } catch (error) {
+                console.error('Error loading students:', error);
+                showStatus('Failed to load student list. Please try again.', 'error');
+            } finally {
+                elements.studentListLoading.style.display = 'none';
+            }
+        }
+
+        function displayStudentsList(students) {
+            const listContainer = elements.studentList;
+            listContainer.innerHTML = '';
+            
+            if (students.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="text-center p-5">
+                        <i class="fas fa-users-slash fa-3x" style="color: #94a3b8;"></i>
+                        <p style="margin-top: 15px; color: #64748b;">No students found</p>
+                    </div>
+                `;
+            } else {
+                students.forEach(student => {
+                    const item = document.createElement('div');
+                    item.className = 'student-item';
+                    item.innerHTML = `
+                        <i class="fas fa-user-graduate"></i>
+                        <span class="student-name">${student}</span>
+                        <i class="fas fa-chevron-right" style="color: #94a3b8;"></i>
+                    `;
+                    // Feature 2: Immediate popup close on click
+                    item.onclick = () => {
+                        // Close popup immediately
+                        closeStudentPopup();
+                        // Then process student selection
+                        processStudentSelection(student);
+                    };
+                    listContainer.appendChild(item);
+                });
+            }
+            
+            listContainer.style.display = 'block';
+        }
+
+        function filterStudents() {
+            const searchTerm = elements.studentSearch.value.toLowerCase();
+            const filteredStudents = AppState.studentsList.filter(student =>
+                student.toLowerCase().includes(searchTerm)
+            );
+            displayStudentsList(filteredStudents);
+        }
+
+        async function processStudentSelection(studentName) {
+            try {
+                // Show loading state in student selector
+                elements.studentPlaceholder.innerHTML = `
+                    <span class="loading"></span>
+                    Verifying ${studentName}...
+                `;
+                
+                // Feature 2: Check if student already exists in Google Sheet
+                const studentExists = await checkStudentExists(studentName);
+                
+                if (studentExists) {
+                    // Feature 2: Show custom popup with update button
+                    await Swal.fire({
+                        title: 'Student Already Exists!',
+                        html: `
+                            <div class="text-center">
+                                <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+                                <p class="mb-3">The student <strong>"${studentName}"</strong> already has fee records.</p>
+                                <p class="text-muted">Please update the existing fee details instead of creating a new entry.</p>
+                            </div>
+                        `,
+                        showCancelButton: false,
+                        confirmButtonText: 'Update Existing Record',
+                        confirmButtonColor: 'var(--warning-color)',
+                        showDenyButton: true,
+                        denyButtonText: 'Cancel',
+                        backdrop: 'rgba(0,0,0,0.5)'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to FeesDetails.html
+                            window.location.href = 'FeesDetails.html';
+                        } else {
+                            resetStudentSelection();
+                        }
+                    });
+                    return;
+                }
+                
+                // If student doesn't exist, proceed with selection
+                AppState.selectedStudent = studentName;
+                elements.selectedStudent.value = studentName;
+                elements.selectedStudentName.textContent = studentName;
+                elements.studentPlaceholder.style.display = 'none';
+                elements.studentSelected.style.display = 'flex';
+                elements.studentSelector.classList.add('selected');
+                elements.studentError.style.display = 'none';
+                
+                showStatus(`Student "${studentName}" selected successfully!`, 'success');
+                
+            } catch (error) {
+                console.error('Error selecting student:', error);
+                showStatus('Failed to verify student. Please try again.', 'error');
+                resetStudentSelection();
+            }
+        }
+
+        function resetStudentSelection() {
+            AppState.selectedStudent = null;
+            elements.selectedStudent.value = '';
+            elements.studentPlaceholder.innerHTML = `
+                <i class="fas fa-search"></i>
+                Click to search and select student
+            `;
+            elements.studentPlaceholder.style.display = 'flex';
+            elements.studentSelected.style.display = 'none';
+            elements.studentSelector.classList.remove('selected');
+        }
+
+        async function checkStudentExists(studentName) {
+            try {
+                const url = `${CONFIG.scriptURL}?action=getRecords&spreadsheetId=${CONFIG.feesSpreadsheetId}&sheetName=${CONFIG.feesSheetName}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data && data.records) {
+                    return data.records.some(record =>
+                        record.Name_of_Student && 
+                        record.Name_of_Student.toLowerCase() === studentName.toLowerCase()
+                    );
+                }
+                return false;
+            } catch (error) {
+                console.error('Error checking student:', error);
+                return false;
+            }
+        }
+
+        // Installment Management Functions
+        function addInstallment(number) {
+            if (AppState.activeInstallments.has(number)) {
+                showStatus(`Installment ${number} is already added!`, 'warning');
+                return;
+            }
+            
+            AppState.activeInstallments.add(number);
+            AppState.currentInstallmentId++;
+            
+            const installmentHTML = createInstallmentHTML(number);
+            elements.installmentsContainer.insertAdjacentHTML('beforeend', installmentHTML);
+            
+            // Scroll to the new installment
+            const newInstallment = document.getElementById(`installment-${number}`);
+            newInstallment.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Update selector styling
+            updateInstallmentSelector(number, true);
+            
+            showStatus(`Installment ${number} added successfully!`, 'success');
+            updateSummary();
+        }
+
+        function createInstallmentHTML(number) {
+            const prefix = number === 1 ? 'I' : 
+                          number === 2 ? 'II' : 
+                          number === 3 ? 'III' : 
+                          number === 4 ? 'IV' : 'V';
+            
+            // Use correct field names
+            const receiptFieldName = number === 1 ? 'Receipt_No_1' :
+                                   number === 2 ? 'Reciept_No_II' :
+                                   number === 3 ? 'Receipt_No_III' :
+                                   number === 4 ? 'Receipt_No_IV' :
+                                   'Receipt_No_V';
+            
+            const receiptDateField = number === 1 ? 'Receipt_Date_I' :
+                                   number === 2 ? 'Receipt_Date_II' :
+                                   number === 3 ? 'Receipt_Date_III' :
+                                   number === 4 ? 'Receipt_Date_IV' :
+                                   'Receipt_Date_V';
+            
+            const paymentMethodField = number === 1 ? 'Payment_Method_I' :
+                                     number === 2 ? 'Payment_Method_II' :
+                                     number === 3 ? 'Payment_Method_III' :
+                                     number === 4 ? 'Payment_Method_IV' :
+                                     'Payment_Method_V';
+            
+            const transactionIdField = number === 1 ? 'Transaction_ID_I' :
+                                     number === 2 ? 'Transaction_ID_II' :
+                                     number === 3 ? 'Transaction_ID_III' :
+                                     number === 4 ? 'Transaction_ID_IV' :
+                                     'Transaction_ID_V';
+            
+            const bankTransField = number === 1 ? 'Bank_Trans_No_1' :
+                                 number === 2 ? 'Bank_Trans_No_2' :
+                                 number === 3 ? 'Bank_Trans_No_3' :
+                                 number === 4 ? 'Bank_Trans_No_4' :
+                                 'Bank_Trans_No_5';
+            
+            const otherTransField = number === 1 ? 'Other_Trans_No_1' :
+                                  number === 2 ? 'Other_Trans_No_2' :
+                                  number === 3 ? 'Other_Trans_No_3' :
+                                  number === 4 ? 'Other_Trans_No_4' :
+                                  'Other_Trans_No_5';
+            
+            const installmentField = number === 1 ? 'Instalment_I' :
+                                   number === 2 ? 'Instalment_II' :
+                                   number === 3 ? 'Instalment_III' :
+                                   number === 4 ? 'Instalment_IV' :
+                                   'Instalment_V';
+            
+            const nextDateField = number === 1 ? 'Next_Installment_Date_2' :
+                                number === 2 ? 'Next_Installment_Date_3' :
+                                number === 3 ? 'Next_Installment_Date_4' :
+                                number === 4 ? 'Next_Installment_Date_5' :
+                                null;
+            
+            // Set default date to today
+            const today = new Date().toISOString().split('T')[0];
+            
+            return `
+                <div class="installment-card" id="installment-${number}">
+                    <div class="installment-header">
+                        <div class="installment-title">
+                            <i class="fas fa-file-invoice"></i>
+                            Installment ${number}
+                            <span class="installment-badge">IN-${prefix}</span>
+                        </div>
+                        <button type="button" class="remove-installment" onclick="removeInstallment(${number})">
+                            <i class="fas fa-trash"></i>
+                            Remove
+                        </button>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-receipt"></i>
+                                    Receipt No <span class="required-star">*</span>
+                                </label>
+                                <div class="input-group-icon">
+                                    <input type="text" class="form-control" 
+                                           name="${receiptFieldName}"
+                                           placeholder="Enter receipt number"
+                                           required>
+                                    <i class="fas fa-hashtag input-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-calendar-check"></i>
+                                    Receipt Date <span class="required-star">*</span>
+                                </label>
+                                <div class="input-group-icon">
+                                    <input type="date" class="form-control" 
+                                           name="${receiptDateField}"
+                                           value="${today}"
+                                           required>
+                                    <i class="fas fa-calendar input-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-credit-card"></i>
+                                    Payment Mode <span class="required-star">*</span>
+                                </label>
+                                <div class="input-group-icon">
+                                    <select class="form-select" 
+                                            name="${paymentMethodField}"
+                                            onchange="toggleTransactionFields(${number}, this.value)"
+                                            required>
+                                        <option value="" disabled selected hidden>Select payment mode</option>
+                                        <option value="UPI">UPI Payment</option>
+                                        <option value="Bank Transfer">Bank Transfer</option>
+                                        <option value="Cash">Cash</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <i class="fas fa-wallet input-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    Amount (₹) <span class="required-star">*</span>
+                                </label>
+                                <div class="input-group-icon">
+                                    <input type="number" class="form-control" 
+                                           name="${installmentField}"
+                                           placeholder="Enter amount"
+                                           min="0"
+                                           step="0.01"
+                                           required
+                                           oninput="updateSummary()">
+                                    <i class="fas fa-rupee-sign input-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Transaction Fields -->
+                    <div id="transactionFields-${number}"></div>
+                    
+                    ${nextDateField ? `
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-calendar-plus"></i>
+                            Next Installment Date
+                        </label>
+                        <div class="input-group-icon">
+                            <input type="date" class="form-control" 
+                                   name="${nextDateField}">
+                            <i class="fas fa-calendar input-icon"></i>
+                        </div>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function toggleTransactionFields(installmentNumber, paymentMode) {
+            const container = document.getElementById(`transactionFields-${installmentNumber}`);
+            
+            let transactionIdField, bankTransField, otherTransField;
+            
+            switch(installmentNumber) {
+                case 1:
+                    transactionIdField = 'Transaction_ID_I';
+                    bankTransField = 'Bank_Trans_No_1';
+                    otherTransField = 'Other_Trans_No_1';
+                    break;
+                case 2:
+                    transactionIdField = 'Transaction_ID_II';
+                    bankTransField = 'Bank_Trans_No_2';
+                    otherTransField = 'Other_Trans_No_2';
+                    break;
+                case 3:
+                    transactionIdField = 'Transaction_ID_III';
+                    bankTransField = 'Bank_Trans_No_3';
+                    otherTransField = 'Other_Trans_No_3';
+                    break;
+                case 4:
+                    transactionIdField = 'Transaction_ID_IV';
+                    bankTransField = 'Bank_Trans_No_4';
+                    otherTransField = 'Other_Trans_No_4';
+                    break;
+                case 5:
+                    transactionIdField = 'Transaction_ID_V';
+                    bankTransField = 'Bank_Trans_No_5';
+                    otherTransField = 'Other_Trans_No_5';
+                    break;
+            }
+            
+            let html = '';
+            
+            switch(paymentMode) {
+                case 'UPI':
+                    html = `
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-qrcode"></i>
+                                Transaction ID
+                            </label>
+                            <div class="input-group-icon">
+                                <input type="text" class="form-control" 
+                                       name="${transactionIdField}"
+                                       placeholder="Enter UPI transaction ID">
+                                <i class="fas fa-receipt input-icon"></i>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'Bank Transfer':
+                    html = `
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-university"></i>
+                                        Bank Transaction No
+                                    </label>
+                                    <div class="input-group-icon">
+                                        <input type="text" class="form-control" 
+                                               name="${bankTransField}"
+                                               placeholder="Enter bank transaction number">
+                                        <i class="fas fa-receipt input-icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'Other':
+                    html = `
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-info-circle"></i>
+                                Transaction Details
+                            </label>
+                            <div class="input-group-icon">
+                                <input type="text" class="form-control" 
+                                       name="${otherTransField}"
+                                       placeholder="Enter transaction details">
+                                <i class="fas fa-edit input-icon"></i>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        function removeInstallment(number) {
+            const installmentElement = document.getElementById(`installment-${number}`);
+            if (installmentElement) {
+                installmentElement.remove();
+                AppState.activeInstallments.delete(number);
+                updateInstallmentSelector(number, false);
+                updateSummary();
+                showStatus(`Installment ${number} removed successfully!`, 'success');
+            }
+        }
+
+        function updateInstallmentSelector(number, selected) {
+            const selector = document.querySelector(`.installment-option:nth-child(${number})`);
+            if (selector) {
+                if (selected) {
+                    selector.classList.add('selected');
+                } else {
+                    selector.classList.remove('selected');
+                }
+            }
+        }
+
+        // Summary Calculation
+        function updateSummary() {
+            let totalPaid = 0;
+            
+            // Calculate total from all active installments
+            AppState.activeInstallments.forEach(number => {
+                let installmentField;
+                switch(number) {
+                    case 1: installmentField = 'Instalment_I'; break;
+                    case 2: installmentField = 'Instalment_II'; break;
+                    case 3: installmentField = 'Instalment_III'; break;
+                    case 4: installmentField = 'Instalment_IV'; break;
+                    case 5: installmentField = 'Instalment_V'; break;
+                }
+                
+                const amountInput = document.querySelector(`input[name="${installmentField}"]`);
+                if (amountInput && amountInput.value) {
+                    totalPaid += parseFloat(amountInput.value) || 0;
+                }
+            });
+            
+            // Get total fees
+            const totalFees = parseFloat(elements.totalFeesInput.value) || 0;
+            const balance = totalFees - totalPaid;
+            const progressPercentage = totalFees > 0 ? (totalPaid / totalFees) * 100 : 0;
+            
+            // Update display
+            elements.totalFeesDisplay.textContent = `₹ ${totalFees.toFixed(2)}`;
+            elements.totalPaidDisplay.textContent = `₹ ${totalPaid.toFixed(2)}`;
+            elements.balanceDisplay.textContent = `₹ ${balance.toFixed(2)}`;
+            elements.paymentProgress.style.width = `${Math.min(progressPercentage, 100)}%`;
+            elements.progressPercentage.textContent = `${progressPercentage.toFixed(1)}%`;
+            
+            // Color code balance
+            if (balance > 0) {
+                elements.balanceDisplay.style.color = 'var(--danger-color)';
+            } else if (balance < 0) {
+                elements.balanceDisplay.style.color = 'var(--warning-color)';
+            } else {
+                elements.balanceDisplay.style.color = 'var(--success-color)';
+            }
+        }
+
+        // Feature 3: Form Submission with Success Popup and Auto Reset
+        async function submitForm() {
+            // Validate form
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Show loading state
+            elements.submitOverlay.style.display = 'flex';
+            elements.submitButton.disabled = true;
+            
+            try {
+                // Calculate totals for hidden fields
+                updateSummary();
+                const totalPaid = parseFloat(elements.totalPaidDisplay.textContent.replace('₹ ', '')) || 0;
+                const balance = parseFloat(elements.balanceDisplay.textContent.replace('₹ ', '')) || 0;
+                
+                // Prepare form data
+                const formData = new FormData();
+                
+                // Add form fields
+                formData.append('Academic_Year', elements.academicYear.value);
+                formData.append('Name_of_Student', elements.selectedStudent.value);
+                formData.append('Total_fees', elements.totalFeesInput.value);
+                formData.append('Total_Receive_Fees', totalPaid.toString());
+                formData.append('Bal_Fees', balance.toString());
+                
+                // Add note if exists
+                const noteInput = document.querySelector('[name="Note"]');
+                if (noteInput && noteInput.value) {
+                    formData.append('Note', noteInput.value);
+                }
+                
+                // Add installment data
+                AppState.activeInstallments.forEach(number => {
+                    // Add all fields for this installment
+                    const installmentFields = [
+                        number === 1 ? 'Receipt_No_1' : 
+                        number === 2 ? 'Reciept_No_II' : 
+                        number === 3 ? 'Receipt_No_III' : 
+                        number === 4 ? 'Receipt_No_IV' : 'Receipt_No_V',
+                        
+                        number === 1 ? 'Receipt_Date_I' :
+                        number === 2 ? 'Receipt_Date_II' :
+                        number === 3 ? 'Receipt_Date_III' :
+                        number === 4 ? 'Receipt_Date_IV' : 'Receipt_Date_V',
+                        
+                        number === 1 ? 'Payment_Method_I' :
+                        number === 2 ? 'Payment_Method_II' :
+                        number === 3 ? 'Payment_Method_III' :
+                        number === 4 ? 'Payment_Method_IV' : 'Payment_Method_V',
+                        
+                        number === 1 ? 'Instalment_I' :
+                        number === 2 ? 'Instalment_II' :
+                        number === 3 ? 'Instalment_III' :
+                        number === 4 ? 'Instalment_IV' : 'Instalment_V'
+                    ];
+                    
+                    // Add next installment date for installments 1-4
+                    if (number < 5) {
+                        const nextDateField = `Next_Installment_Date_${number + 1}`;
+                        installmentFields.push(nextDateField);
+                    }
+                    
+                    // Add transaction fields based on payment mode
+                    const paymentMode = document.querySelector(`select[name="${number === 1 ? 'Payment_Method_I' : 
+                        number === 2 ? 'Payment_Method_II' : 
+                        number === 3 ? 'Payment_Method_III' : 
+                        number === 4 ? 'Payment_Method_IV' : 'Payment_Method_V'}"]`);
+                    
+                    if (paymentMode && paymentMode.value) {
+                        switch(paymentMode.value) {
+                            case 'UPI':
+                                installmentFields.push(number === 1 ? 'Transaction_ID_I' : 
+                                                    number === 2 ? 'Transaction_ID_II' : 
+                                                    number === 3 ? 'Transaction_ID_III' : 
+                                                    number === 4 ? 'Transaction_ID_IV' : 'Transaction_ID_V');
+                                break;
+                            case 'Bank Transfer':
+                                installmentFields.push(number === 1 ? 'Bank_Trans_No_1' : 
+                                                    number === 2 ? 'Bank_Trans_No_2' : 
+                                                    number === 3 ? 'Bank_Trans_No_3' : 
+                                                    number === 4 ? 'Bank_Trans_No_4' : 'Bank_Trans_No_5');
+                                break;
+                            case 'Other':
+                                installmentFields.push(number === 1 ? 'Other_Trans_No_1' : 
+                                                    number === 2 ? 'Other_Trans_No_2' : 
+                                                    number === 3 ? 'Other_Trans_No_3' : 
+                                                    number === 4 ? 'Other_Trans_No_4' : 'Other_Trans_No_5');
+                                break;
+                        }
+                    }
+                    
+                    // Add all fields to formData
+                    installmentFields.forEach(fieldName => {
+                        const field = document.querySelector(`[name="${fieldName}"]`);
+                        if (field && field.value) {
+                            formData.append(fieldName, field.value);
+                        }
+                    });
+                });
+                
+                // Add metadata
+                formData.append('sheetName', CONFIG.feesSheetName);
+                formData.append('spreadsheetId', CONFIG.feesSpreadsheetId);
+                
+                console.log('Submitting form data...');
+                
+                // Submit to Google Sheets
+                const response = await fetch(CONFIG.scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                }).catch(error => {
+                    console.log('Fetch request sent (no-cors mode)');
+                    return { ok: true };
+                });
+                
+                // Feature 3: Show success popup
+                await Swal.fire({
+                    title: 'Success!',
+                    html: `
+                        <div class="text-center">
+                            <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                            <p class="mb-2"><strong>Fee Payment Form Submitted Successfully!</strong></p>
+                            <p class="text-muted mb-0">The form will be reset automatically.</p>
+                        </div>
+                    `,
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: 'var(--success-color)',
+                    backdrop: 'rgba(0,0,0,0.5)',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    willClose: () => {
+                        // Feature 3: Reset form after popup closes
+                        resetForm();
+                    }
+                });
+                
+                // Feature 3: Reset form after success
+                resetForm();
+                
+                showStatus('Payment recorded successfully! Form has been reset for new entry.', 'success');
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                
+                await Swal.fire({
+                    title: 'Processing...',
+                    text: 'Your payment is being processed. Please check the sheet to confirm.',
+                    icon: 'info',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: 'var(--primary-color)'
+                });
+                
+            } finally {
+                // Hide loading state
+                elements.submitOverlay.style.display = 'none';
+                elements.submitButton.disabled = false;
+            }
+        }
+
+        function validateForm() {
+            let isValid = true;
+            
+            // Check student selection
+            if (!AppState.selectedStudent) {
+                elements.studentError.style.display = 'block';
+                elements.studentSelector.style.borderColor = 'var(--danger-color)';
+                isValid = false;
+            }
+            
+            // Check academic year
+            if (!elements.academicYear.value) {
+                elements.academicYear.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            // Check total fees
+            if (!elements.totalFeesInput.value || parseFloat(elements.totalFeesInput.value) <= 0) {
+                elements.totalFeesInput.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            // Check if at least one installment is added
+            if (AppState.activeInstallments.size === 0) {
+                showStatus('Please add at least one installment.', 'error');
+                isValid = false;
+            }
+            
+            // Validate all required fields in active installments
+            AppState.activeInstallments.forEach(number => {
+                const installmentElement = document.getElementById(`installment-${number}`);
+                const requiredFields = installmentElement.querySelectorAll('[required]');
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        field.classList.add('is-invalid');
+                        isValid = false;
+                    }
+                });
+            });
+            
+            if (!isValid) {
+                showStatus('Please fill all required fields marked with *.', 'error');
+            }
+            
+            return isValid;
+        }
+
+        function resetForm() {
+            // Reset form fields
+            document.querySelectorAll('.form-control').forEach(input => {
+                if (input.type !== 'button' && input.type !== 'submit') {
+                    input.value = '';
+                }
+            });
+            
+            // Keep academic year selected
+            setCurrentAcademicYear();
+            
+            // Reset student selection
+            resetStudentSelection();
+            
+            // Remove all installment sections
+            AppState.activeInstallments.forEach(number => {
+                const element = document.getElementById(`installment-${number}`);
+                if (element) {
+                    element.remove();
+                }
+            });
+            AppState.activeInstallments.clear();
+            
+            // Reset summary
+            updateSummary();
+            
+            // Reset all installment selectors
+            document.querySelectorAll('.installment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Reset status message
+            elements.statusMessage.style.display = 'none';
+            
+            console.log('Form has been reset successfully');
+        }
+
+        // Utility Functions
+        function showStatus(message, type) {
+            const status = elements.statusMessage;
+            status.innerHTML = `
+                <div class="status-message status-${type}">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : 'exclamation-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            status.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 5000);
+        }
+
+        // Prevent form submission on Enter key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.type !== 'textarea') {
+                e.preventDefault();
+            }
+        });
+
+        // Initialize floating elements
+        function initFloatingElements() {
+            const container = document.querySelector('.floating-elements');
+            for (let i = 0; i < 15; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.width = Math.random() * 100 + 50 + 'px';
+                element.style.height = element.style.width;
+                element.style.left = Math.random() * 100 + '%';
+                element.style.top = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 20 + 's';
+                element.style.background = `rgba(255, 255, 255, ${Math.random() * 0.1 + 0.05})`;
+                container.appendChild(element);
+            }
+        }
+
+        // Initialize floating elements
+        initFloatingElements();
+    </script>
+</body>
+</html>

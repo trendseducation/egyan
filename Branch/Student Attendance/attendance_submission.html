@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Attendance Submission</title>
+  <script src="auth.js"> </script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- SweetAlert2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #5e72e4;
+      --primary-hover: #4a5ecd;
+      --secondary-color: #f7fafc;
+      --text-color: #2d3748;
+      --light-gray: #edf2f7;
+      --medium-gray: #e2e8f0;
+      --dark-gray: #a0aec0;
+      --success-color: #48bb78;
+      --danger-color: #f56565;
+      --border-radius: 12px;
+      --box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --transition: all 0.3s ease;
+    }
+
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 0;
+      padding: 20px;
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: var(--border-radius);
+      padding: 30px;
+      max-width: 900px;
+      margin: 20px auto;
+      box-shadow: var(--box-shadow);
+      width: 100%;
+    }
+
+    /* Header Styles */
+    .header-container {
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .header-title {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+      position: relative;
+      display: inline-block;
+    }
+
+    .header-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--primary-color);
+      border-radius: 3px;
+    }
+
+    .status-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .status-item {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .status-present {
+      color: var(--success-color);
+    }
+
+    .status-absent {
+      color: var(--danger-color);
+    }
+
+    .header-date {
+      display: flex;
+      gap: 15px;
+      font-size: 16px;
+      color: var(--dark-gray);
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .header-date span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Table Styles */
+    .table-container {
+      overflow-x: auto;
+      border-radius: var(--border-radius);
+      margin-top: 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: white;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      vertical-align: middle;
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    th {
+      background: var(--primary-color);
+      color: white;
+      font-weight: 500;
+      position: sticky;
+      top: 0;
+    }
+
+    tbody tr {
+      background: white;
+      transition: var(--transition);
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--secondary-color);
+    }
+
+    tbody tr:hover {
+      background: var(--light-gray);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    td.checkbox-cell {
+      text-align: center;
+    }
+
+    /* Custom Checkbox Styles */
+    .checkbox-container {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+    }
+
+    .checkbox-container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 24px;
+      width: 24px;
+      background-color: white;
+      border: 2px solid var(--medium-gray);
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+
+    .checkbox-container:hover .checkmark {
+      border-color: var(--primary-color);
+    }
+
+    .checkbox-container input:checked ~ .checkmark {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    .checkbox-container input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    .checkbox-container .checkmark:after {
+      left: 8px;
+      top: 4px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    /* Select All Checkbox */
+    .select-all-container {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 8px;
+    }
+
+    .select-all-label {
+      margin-left: 8px;
+      font-weight: 400;
+      font-size: 14px;
+    }
+
+    /* Button Styles */
+    .button-container {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    button {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+      max-width: 300px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background: var(--dark-gray);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Spinner Styles */
+    .spinner {
+      display: none;
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-top: 4px solid var(--primary-color);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 30px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Floating Action Button for Mobile */
+    .fab {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      z-index: 100;
+      transition: var(--transition);
+      display: none;
+    }
+
+    .fab:hover {
+      background: var(--primary-hover);
+      transform: translateY(-3px);
+    }
+
+    .fab i {
+      font-size: 24px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+        margin: 10px auto;
+      }
+
+      .header-title {
+        font-size: 24px;
+      }
+
+      th, td {
+        padding: 12px 10px;
+        font-size: 14px;
+      }
+
+      .status-item {
+        font-size: 13px;
+      }
+
+      .header-date {
+        font-size: 14px;
+        gap: 10px;
+      }
+
+      button {
+        padding: 14px 20px;
+        font-size: 15px;
+      }
+
+      .fab {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      .container {
+        padding: 15px;
+      }
+
+      .header-title {
+        font-size: 22px;
+      }
+
+      th, td {
+        padding: 10px 8px;
+        font-size: 13px;
+      }
+
+      .status-indicator {
+        gap: 10px;
+      }
+
+      .header-date {
+        font-size: 13px;
+      }
+
+      .checkmark {
+        height: 20px;
+        width: 20px;
+      }
+
+      .checkbox-container .checkmark:after {
+        left: 6px;
+        top: 2px;
+        width: 5px;
+        height: 10px;
+      }
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    tbody tr {
+      animation: fadeIn 0.3s ease forwards;
+      opacity: 0;
+    }
+
+    tbody tr:nth-child(1) { animation-delay: 0.1s; }
+    tbody tr:nth-child(2) { animation-delay: 0.2s; }
+    tbody tr:nth-child(3) { animation-delay: 0.3s; }
+    tbody tr:nth-child(4) { animation-delay: 0.4s; }
+    tbody tr:nth-child(5) { animation-delay: 0.5s; }
+    tbody tr:nth-child(6) { animation-delay: 0.6s; }
+    tbody tr:nth-child(7) { animation-delay: 0.7s; }
+    tbody tr:nth-child(8) { animation-delay: 0.8s; }
+    tbody tr:nth-child(9) { animation-delay: 0.9s; }
+    tbody tr:nth-child(10) { animation-delay: 1.0s; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header Section -->
+    <div class="header-container">
+      <div class="header-title">Today's Attendance</div>
+      <div class="status-indicator">
+        <div class="status-item status-present">
+          <i class="fas fa-check-circle"></i> Present
+        </div>
+        <div class="status-item status-absent">
+          <i class="far fa-circle"></i> Absent
+        </div>
+      </div>
+      <div class="header-date">
+        <span><i class="far fa-calendar-alt"></i> <span id="todayDate"></span></span>
+        <span><i class="far fa-clock"></i> <span id="todayDay"></span></span>
+      </div>
+    </div>
+    
+    <div class="spinner" id="spinner"></div>
+    <div class="table-container">
+      <table id="attendanceTable">
+        <thead>
+          <tr>
+            <th>Roll No</th>
+            <th>Student Name</th>
+            <th>
+              Attendance
+              <div class="select-all-container">
+                <label class="checkbox-container">
+                  <input type="checkbox" id="selectAll" class="select-all" title="Select/Deselect All">
+                  <span class="checkmark"></span>
+                </label>
+                <span class="select-all-label">All</span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Student rows will be populated automatically -->
+        </tbody>
+      </table>
+    </div>
+    <div class="button-container">
+      <button id="submitBtn" onclick="submitAttendance()">
+        <i class="fas fa-paper-plane"></i> Submit Attendance
+      </button>
+    </div>
+  </div>
+  
+<!-- Floating Action Button for Mobile 
+  <div class="fab" onclick="submitAttendance()">
+    <i class="fas fa-paper-plane"></i>
+  </div>  -->
+  
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbxAhT3MEX1Xg0gaiLFgO9NHDJ2Cs9YVWzlO8PQSd2fPSGq519GbhcPAfTTOxdfjCL1IdA/exec"; // Replace with your deployed Apps Script URL
+
+    // Function to set the spreadsheet details
+    function setSpreadsheetDetails(spreadsheetId, sheetName) {
+      fetch(scriptUrl + "?action=setSpreadsheetDetails&spreadsheetId=" + encodeURIComponent(spreadsheetId) + "&sheetName=" + encodeURIComponent(sheetName))
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            console.error("Error setting spreadsheet details:", data.error);
+          } else {
+            console.log("Spreadsheet details set successfully");
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
+    }
+
+    // Utility functions using SweetAlert2 for popup messages and spinner control
+    function showSpinner() {
+      document.getElementById("spinner").style.display = "block";
+    }
+    function hideSpinner() {
+      document.getElementById("spinner").style.display = "none";
+    }
+    function showPopup(message, icon = 'info') {
+      Swal.fire({
+        icon: icon,
+        text: message,
+        confirmButtonColor: '#5e72e4'
+      });
+    }
+
+    // Format a date as "dd MMM yyyy"
+    function formatDate(date) {
+      const day = ("0" + date.getDate()).slice(-2);
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const month = monthNames[date.getMonth()];
+      const year = date.getFullYear();
+      return `${day} ${month} ${year}`;
+    }
+    
+    // Get day name from date
+    function getDayName(date) {
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      return days[date.getDay()];
+    }
+    
+    // Set the header with today's date and day inline
+    function setHeaderDate() {
+      const today = new Date();
+      document.getElementById("todayDate").textContent = formatDate(today);
+      document.getElementById("todayDay").textContent = getDayName(today);
+    }
+    
+    // Load students from the server and populate the table
+    function loadStudents() {
+      showSpinner();
+      fetch(scriptUrl + "?action=getStudentList")
+        .then(response => response.json())
+        .then(data => {
+          hideSpinner();
+          if (data.error) {
+            showPopup("Error: " + data.error, "error");
+            return;
+          }
+          populateTable(data.students);
+        })
+        .catch(error => {
+          hideSpinner();
+          showPopup("Error fetching student data: " + error, "error");
+          console.error("Fetch error:", error);
+        });
+    }
+    
+    // Populate the student table.
+    // Each row will include a checkbox with class "attendance-checkbox"
+    // and a data-roll attribute set to the student's roll number.
+    function populateTable(students) {
+      const tbody = document.getElementById("attendanceTable").querySelector("tbody");
+      tbody.innerHTML = "";
+      students.forEach(student => {
+        const tr = document.createElement("tr");
+
+        const tdRoll = document.createElement("td");
+        tdRoll.textContent = student.roll;
+        tr.appendChild(tdRoll);
+
+        const tdName = document.createElement("td");
+        tdName.textContent = student.name;
+        tr.appendChild(tdName);
+
+        const tdCheckbox = document.createElement("td");
+        tdCheckbox.className = "checkbox-cell";
+        const checkboxContainer = document.createElement("label");
+        checkboxContainer.className = "checkbox-container";
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "attendance-checkbox";
+        checkbox.dataset.roll = student.roll;
+        checkbox.checked = false;
+        const checkmark = document.createElement("span");
+        checkmark.className = "checkmark";
+        checkboxContainer.appendChild(checkbox);
+        checkboxContainer.appendChild(checkmark);
+        tdCheckbox.appendChild(checkboxContainer);
+        tr.appendChild(tdCheckbox);
+
+        tbody.appendChild(tr);
+      });
+    }
+    
+    // Handle "Select All" checkbox functionality.
+    document.getElementById("selectAll").addEventListener("change", function() {
+      const allCheckboxes = document.querySelectorAll(".attendance-checkbox");
+      allCheckboxes.forEach(cb => {
+        cb.checked = this.checked;
+        // Trigger change event to update the UI
+        cb.dispatchEvent(new Event('change'));
+      });
+    });
+    
+    // Submit attendance data.
+    function submitAttendance() {
+      // Disable the submit button to prevent multiple clicks
+      const submitBtn = document.getElementById("submitBtn");
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+      // Show SweetAlert2 loading spinner
+      Swal.fire({
+        title: 'Submitting Attendance...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      // Collect attendance data
+      const checkboxes = document.querySelectorAll(".attendance-checkbox");
+      const attendanceData = [];
+      
+      checkboxes.forEach(checkbox => {
+        attendanceData.push({
+          rollNo: checkbox.dataset.roll,
+          status: checkbox.checked ? "Present" : "Absent"
+        });
+      });
+
+      // Send attendance data to the server
+      fetch(scriptUrl + "?action=submitAttendance", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `attendance=${encodeURIComponent(JSON.stringify(attendanceData))}`
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Close the loading spinner
+        Swal.close();
+
+        if (data.error) {
+          // Show error message if submission fails
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: data.error,
+            confirmButtonColor: '#5e72e4'
+          });
+        } else {
+          // Show success message and redirect
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Attendance submitted successfully!',
+            showConfirmButton: false,
+            timer: 2000,
+            background: 'white',
+            backdrop: `
+              rgba(0,0,0,0.5)
+              url("/images/nyan-cat.gif")
+              left top
+              no-repeat
+            `
+          }).then(() => {
+            window.location.href = "attrendence_dashboard.html";
+          });
+        }
+      })
+      .catch(error => {
+        // Close the loading spinner
+        Swal.close();
+
+        // Show error message if there's a network or server error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to submit attendance. Please try again.',
+          confirmButtonColor: '#5e72e4'
+        });
+      })
+      .finally(() => {
+        // Re-enable the submit button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Attendance';
+      });
+    }
+    
+    // Initial setup on page load.
+    window.onload = function() {
+      // Get the current spreadsheet name from localStorage
+      const currentSheetName = localStorage.getItem('currentSheetName') // || "April_25"; // Fallback to default
+      
+      // Set Spreadsheet ID and Sheet Name
+      const spreadsheetId = "1cNXqipcvpED1kf2cF7A4UBR5zhrYsjzH8A3e7MpZi48";
+      const sheetName = currentSheetName; // Use the same sheet name from storage
+      
+      setSpreadsheetDetails(spreadsheetId, sheetName);
+      setHeaderDate();
+      loadStudents();
+
+      // Add animation to container on load
+      document.querySelector('.container').style.animation = 'fadeIn 0.5s ease forwards';
+    }
+  </script>
+</body>
+</html>
