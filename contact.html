@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact E-Gyan Skill Development - Premier Computer Institute offering practical training in Tally, Excel, Basic Computer and more">
+    <title>Contact Us - E-Gyan Skill Development</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" as="style">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        /* ===== BASE STYLES ===== */
+        :root {
+            /* Color Variables */
+            --primary-color: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary-color: #f72585;
+            --secondary-dark: #e5177b;
+            --accent-color: #4cc9f0;
+            --dark-color: #14213d;
+            --darker-color: #0c162d;
+            --light-color: #f8f9fa;
+            --lighter-color: #ffffff;
+            --text-color: #2b2d42;
+            --text-light: #8d99ae;
+            
+            /* Gradient Variables */
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            --gradient-secondary: linear-gradient(135deg, var(--secondary-color), #b5179e);
+            
+            /* Form Specific Variables */
+            --primary-gradient-start: #6a11cb;
+            --primary-gradient-end: #2575fc;
+            --input-border-color: #ced4da;
+            --input-focus-shadow: rgba(0, 123, 255, 0.25);
+            --input-focus-border: #007bff;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --icon-color: #6a11cb;
+            
+            /* Shadow Variables */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+            
+            /* Transition Variables */
+            --transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+            --transition-fast: all 0.2s ease;
+            
+            /* Border Radius Variables */
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+            --border-radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background-color: var(--lighter-color);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--dark-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-fast);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-xl {
+            padding: 120px 0;
+        }
+
+        /* ===== COMPONENT STYLES ===== */
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1001;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .logo-img img {
+            width: 100%;
+            height: auto;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Desktop Navigation */
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .desktop-nav-links {
+            display: flex;
+            gap: 25px;
+            margin-right: 20px;
+        }
+
+        .desktop-nav-links a {
+            font-weight: 600;
+            color: var(--dark-color);
+            transition: var(--transition-fast);
+        }
+
+        .desktop-nav-links a:hover,
+        .desktop-nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .mobile-menu-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-close-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .mobile-close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        /* Main Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100vh;
+            background: linear-gradient(135deg, #2c3e50, #1a2533);
+            box-shadow: var(--shadow-xl);
+            z-index: 1001;
+            padding: 80px 25px 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        nav.active {
+            left: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 30px;
+        }
+
+        .nav-links li a {
+            padding: 15px 20px;
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links li a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--primary-color);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: var(--transition);
+        }
+
+        .nav-links li a:hover,
+        .nav-links li a.active {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .nav-links li a:hover::before,
+        .nav-links li a.active::before {
+            transform: scaleY(1);
+        }
+
+        .nav-links li a i {
+            margin-right: 15px;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        /* Overlay */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            outline: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--lighter-color);
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-dark), #4895ef);
+            opacity: 0;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: var(--lighter-color);
+            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(247, 37, 133, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: var(--lighter-color);
+        }
+
+        /* Contact Page Specific Styles */
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .contact-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-gradient-start);
+            margin-bottom: 1rem;
+        }
+
+        .contact-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            flex: 1;
+            padding: 5px;
+			margin-top: 0px;
+        }
+		
+		.contact-info2 {
+            flex: 1;
+             min-width: 300px;
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+        }
+
+        .contact-form-container {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .form-container {
+            width: 100%;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            background: var(--card-bg);
+            transition: var(--transition);
+        }
+
+        .form-container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+            color: var(--primary-gradient-start);
+            margin-right: 1rem;
+            margin-top: 0.25rem;
+        }
+
+        .info-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .info-content a, 
+        .info-content p {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .info-content a:hover {
+            color: var(--primary-gradient-start);
+        }
+
+        .form-title {
+            color: var(--primary-gradient-start);
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .form-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
+            border-radius: 3px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--text-color);
+            font-size: 1rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .form-control {
+            border-radius: var(--border-radius-sm);
+            padding: 12px 15px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            border: 1px solid var(--input-border-color);
+            width: 100%;
+        }
+
+        .position-relative {
+            position: relative;
+        }
+
+        .position-relative input,
+        .position-relative textarea {
+            padding-left: 48px !important;
+        }
+
+        .position-relative select {
+            padding-left: 48px !important;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%232575fc" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>') !important;
+            background-repeat: no-repeat !important;
+            background-position: right 15px center !important;
+            background-size: 20px !important;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem var(--input-focus-shadow);
+            border-color: var(--input-focus-border);
+            outline: none;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--icon-color);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        .btn-contact {
+            background: linear-gradient(135deg, var(--primary-gradient-start), var(--primary-gradient-end));
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 14px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            letter-spacing: 0.5px;
+            width: 100%;
+            color: white;
+        }
+
+        .btn-contact:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            background: linear-gradient(135deg, #7b20e0, #3685ff);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            margin-top: 1rem;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+            color: var(--dark-color);
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-gradient-start);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Submit Overlay */
+        .submit-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .submit-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .spinner-container {
+            text-align: center;
+            padding: 35px 40px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 350px;
+            width: 100%;
+        }
+
+        .spinner-border {
+            width: 4rem;
+            height: 4rem;
+            border-width: 0.4em;
+            border-color: var(--primary-gradient-start);
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .spinner-text {
+            font-weight: 600;
+            color: var(--primary-gradient-start);
+            font-size: 1.2rem;
+        }
+		
+		/* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 800px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.9), rgba(76, 201, 240, 0.9));
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--lighter-color);
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+        }
+        .hero h1 {
+            font-size: 3.8rem;
+            margin-bottom: 20px;
+			color: white;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-shape {
+            position: absolute;
+            width: 100%;
+            height: 100px;
+            bottom: 0;
+            left: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' fill='%23ffffff' opacity='.25'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' fill='%23ffffff' opacity='.5'/%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%23ffffff'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 2;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--darker-color);
+            color: var(--lighter-color);
+            padding: 100px 0 0;
+            position: relative;
+        }
+
+        .footer-shape {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' fill='%2314213d' opacity='.25'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' fill='%2314213d' opacity='.5'/%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%2314213d'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+			Color: white;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .footer-col p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo-img {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--border-radius-sm);
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .footer-logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--lighter-color);
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            opacity: 0.8;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .footer-social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .footer-social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+            color: var(--lighter-color);
+        }
+
+        .footer-social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-contact-info li {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .footer-contact-info i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-top: 3px;
+        }
+
+        .footer-contact-info span {
+            display: block;
+            opacity: 0.8;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Preloader
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--lighter-color);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(67, 97, 238, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+        } */
+
+        /* Animations */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 991px) {
+            .section {
+                padding: 80px 0;
+            }
+
+            .section-xl {
+                padding: 100px 0;
+            }
+        }
+
+        @media (max-width: 767px) {
+            /* Mobile Navigation */
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .desktop-nav {
+                display: none;
+            }
+
+            /* Contact Page Adjustments */
+            .contact-content {
+                flex-direction: column;
+            }
+            
+            .contact-header h1 {
+                font-size: 2rem;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+			body {
+                padding: 15px;
+            }
+            
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            
+            .lightbox-prev {
+                left: 10px;
+            }
+            
+            .lightbox-next {
+                right: 10px;
+            }
+
+            /* Hide desktop nav */
+            .desktop-nav {
+                display: none;
+            }
+            #mobileNav,
+        .nav-overlay, .nav-links, .nav-cta, .mobile-menu-footer, .sidebarname {
+            display: flex;
+        }
+            
+            /* Show mobile button */
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: #14213d;
+                cursor: pointer;
+                margin-right: 20px;
+            }
+            
+            /* Mobile nav styles (keep your existing mobile styles) */
+            #mobileNav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 85%;
+                max-width: 320px;
+                height: 100vh;
+                background: linear-gradient(135deg, #2c3e50, #1a2533);
+                transition: all 0.5s ease;
+            }
+            
+            #mobileNav.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn:hover {
+                color: var(--primary-color);
+                transform: scale(1.1);
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 85%;
+                max-width: 320px;
+                height: 100vh;
+                background: linear-gradient(135deg, #2c3e50, #1a2533);
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+                z-index: 1001;
+                padding: 80px 25px 30px;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+                transform: translateX(-20px);
+                opacity: 0;
+                /* Hide scrollbar */
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE and Edge */
+            }
+
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            nav.active {
+                left: 0;
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            /* Navigation Links */
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                margin-bottom: 30px;
+                order: 1;
+            }
+
+            .nav-links li a {
+                padding: 15px 20px;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                color: rgba(255, 255, 255, 0.9);
+                font-weight: 500;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .nav-links li a::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 3px;
+                height: 100%;
+                background: var(--primary-color);
+                transform: scaleY(0);
+                transform-origin: bottom;
+                transition: transform 0.3s ease;
+            }
+
+            .nav-links li a:hover,
+            .nav-links li a.active {
+                background: rgba(255, 255, 255, 0.08);
+                color: white;
+                transform: translateX(5px);
+            }
+
+            .nav-links li a:hover::before,
+            .nav-links li a.active::before {
+                transform: scaleY(1);
+            }
+
+            .nav-links li a i {
+                margin-right: 15px;
+                font-size: 1.1rem;
+                width: 20px;
+                text-align: center;
+                color: var(--primary-color);
+            }
+
+            /* CTA Button */
+            .nav-cta {
+                order: 2;
+                margin: 25px 0;
+                padding: 25px 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-cta .btn {
+                width: 100%;
+                margin: 0;
+                background: var(--gradient-primary);
+                box-shadow: 0 5px 20px rgba(67, 97, 238, 0.4);
+                font-weight: 600;
+                letter-spacing: 0.5px;
+                padding: 16px;
+                border-radius: 8px;
+            }
+
+            /* Mobile Menu Footer */
+            .mobile-menu-footer {
+                display: block;
+                order: 3;
+                margin-top: auto;
+                padding-top: 20px;
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+            .mobile-menu-footer .contact-info {
+                margin-bottom: 20px;
+            }
+
+            .mobile-menu-footer .contact-info p {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            .mobile-menu-footer .contact-info i {
+                margin-right: 10px;
+                color: var(--primary-color);
+                font-size: 1rem;
+                width: 20px;
+                text-align: center;
+            }
+
+            .mobile-menu-footer .social-links {
+                justify-content: center;
+                margin: 20px 0;
+            }
+
+            .mobile-menu-footer .social-links a {
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                transition: all 0.3s ease;
+            }
+
+            .mobile-menu-footer .social-links a:hover {
+                background: var(--primary-color);
+                transform: translateY(-3px);
+            }
+
+            .mobile-menu-footer .copyright {
+                text-align: center;
+                font-size: 0.8rem;
+                opacity: 0.6;
+                margin-top: 20px;
+            }
+
+            /* Overlay */
+            .nav-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(5px);
+                z-index: 1000;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s ease;
+            }
+
+            .nav-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            /* Body no-scroll */
+            body.no-scroll {
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+            }
+
+            .sidebarname {
+                color: white;
+                margin-bottom: 30px;
+                margin-top: 0;
+                font-size: auto;
+                text-align: center;
+                padding-bottom: 15px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .hero {
+                min-height: 700px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-title .subtitle {
+                font-size: 12px;
+                padding: 5px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            body {
+                padding: 15px;
+            }
+            
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            
+            .lightbox-prev {
+                left: 10px;
+            }
+            
+            .lightbox-next {
+                right: 10px;
+            }
+
+            .logo-text {
+                font-size: 1.3rem;
+            }
+
+            .logo-img {
+                width: 35px;
+                height: 35px;
+                font-size: 15px;
+                margin-left: 25px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+
+            .section {
+                padding: 70px 0;
+            }
+
+            .section-xl {
+                padding: 90px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader" aria-hidden="true"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-img">
+                    <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Egyan%20Logo%20NB.png" alt="EG Logo" />
+                </div>
+                <div class="logo-text">E-Gyan Skill Development</div>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <div class="desktop-nav">
+                <ul class="desktop-nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="course.html">Course</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav id="mobileNav" aria-label="Mobile navigation">
+        <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close navigation menu">
+            <i class="fas fa-times"></i>
+        </button>
+        <h3 class="sidebarname">E-Gyan Skill Development</h3>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="course.html"><i class="fas fa-graduation-cap"></i> Courses</a></li>
+            <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        <div class="mobile-menu-footer">
+            <div class="contact-info">
+                <p><i class="fas fa-phone-alt"></i> +91 88 30 467548</p>
+                <p><i class="fas fa-envelope"></i> egyanskilldevelopment@gmail.com</p>
+            </div>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p class="copyright">© 2025 E-Gyan Skill Development</p>
+        </div>
+    </nav>
+    <div class="nav-overlay" id="navOverlay"></div>
+	
+	<!-- Hero Section -->
+    <section class="hero" style="background-image: url('https://egyanskilldevelopment.github.io/egyan/Egyan%20Skill%20Development/Image/contactpageimage.png'); background-size: cover; background-position: center;">
+        <div class="hero-content animate-up">
+            <h1>Contact Us</h1>
+<p>We’d love to hear from you! Reach out to us for admissions, inquiries, or any assistance related to our institute and programs.</p>
+
+        </div>
+        <div class="hero-shape"></div>
+    </section>
+
+    <!-- Contact Page Content -->
+    <main class="section" style="padding-top: 150px;">
+        <div class="contact-container">
+            <div class="contact-header">
+                <h1>Get in Touch</h1>
+                <p>Have questions or want to learn more about our programs? Reach out to us - we're happy to help!</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info2">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Our Address</h3>
+                            <p>E-Gyan Skill Development, Ganesh Nagar, Bhaji Market, Near Telegu School, Kamatghar, Bhiwandi.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Email Us</h3>
+                            <a href="mailto:egyanskilldevelopment@gmail.com">egyanskilldevelopment@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Call/WhatsApp</h3>
+                            <a href="tel:+918830467548">+91 8830467548</a>
+                            <span> | </span>
+                            <a href="https://wa.me/918830467548" target="_blank">WhatsApp</a>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Working Hours</h3>
+                            <p>Monday - Saturday: 9:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <div class="form-container">
+                        <h4 class="form-title">Show your Interest</h4>
+                        <form id="submitForm">
+                            <div class="form-group">
+                                <label for="firstName">First Name:</label>
+                                <div class="position-relative">
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        name="First Name"
+                                        id="firstName"
+                                        placeholder="Enter First Name"
+                                        required
+                                    />
+                                    <i class="fas fa-user input-icon"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastName">Last Name:</label>
+                                <div class="position-relative">
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        name="Last Name"
+                                        id="lastName"
+                                        placeholder="Enter Last Name"
+                                        required
+                                    />
+                                    <i class="fas fa-user-alt input-icon"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="emailId">Email ID:</label>
+                                <div class="position-relative">
+                                    <input
+                                        class="form-control"
+                                        type="email" 
+                                        name="Email ID"
+                                        id="emailId"
+                                        placeholder="Enter Email ID"
+                                        required
+                                    />
+                                    <i class="fas fa-envelope input-icon"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="mobileNo">Mobile Number:</label>
+                                <div class="position-relative">
+                                    <input
+                                        class="form-control"
+                                        type="tel"
+                                        name="Contact No"
+                                        id="mobileNo"
+                                        placeholder="Enter Mobile Number"
+                                        pattern="^\d{10}$"
+                                        title="Please enter a valid 10-digit phone number"
+                                        required
+                                    />
+                                    <i class="fas fa-phone-alt input-icon"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="interestDropdown">Interested In:</label>
+                                <div class="position-relative">
+                                    <select class="form-control" name="Interested In" id="interestDropdown" required>
+                                        <option value="">Choose...</option>
+                                        <option value="Basic (CCC, MSCIT)">Basic (CCC, MSCIT)</option>
+                                        <option value="Tally (Prime GST)">Tally (Prime GST)</option>
+                                        <option value="Advance Excel">Advance Excel</option>
+                                        <option value="Basic + Tally">Basic + Tally</option>
+                                        <option value="Basic + Advance Excel">Basic + Advance Excel</option>
+                                        <option value="Tally + Advance Excel">Tally + Advance Excel</option>
+                                        <option value="Basic + Tally + Advance Excel">Basic + Tally + Advance Excel</option>
+                                        <option value="Blog Website (Without Coding)">Blog Website (Without Coding)</option>
+                                        <option value="Personal Website (Without Coding)">Personal Website (Without Coding)</option>
+                                        <option value="Professional website (Without Coding)">Professional website (Without Coding)</option>
+                                        <option value="Ecommerce Website (Without Coding)">Ecommerce Website (Without Coding)</option>
+                                        <option value="Blog + Personal + Professional + Ecommerce (Without Coding)">Blog + Personal + Professional + Ecommerce (Without Coding)</option>
+                                    </select>
+                                    <i class="fas fa-hand-holding-heart input-icon"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="commentNote">Any Comment:</label>
+                                <div class="position-relative">
+                                    <textarea
+                                        class="form-control"
+                                        name="Any Note"
+                                        id="commentNote"
+                                        rows="3" 
+                                        placeholder="Enter Comment (Optional)"
+                                    ></textarea>
+                                    <i class="fas fa-comment-dots input-icon" style="top: 20px; transform: translateY(0);"></i>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-contact">
+                                <i class="fas fa-paper-plane"></i> Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <iframe src="https://maps.google.com/maps?q=E-Gyan%20Skill%20Development%2C%20Ganesh%20Nagar%2C%20Bhaji%20Market%2C%20Near%20Telegu%20School%2C%20Kamatghar%2C%20Bhiwandi&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </main>
+
+    <!-- Submit Overlay -->
+    <div class="submit-overlay" id="submitOverlay">
+        <div class="spinner-container">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-text">Submitting your request...</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-shape"></div>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <div class="footer-logo-img">
+                            <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Egyan%20Logo%20NB.png" alt="EG Logo" />
+                        </div>
+                        <div class="footer-logo-text">E-Gyan Skill Development</div>
+                    </div>
+                    <p>Empowering individuals with practical computer skills for personal and professional growth since many years.</p>
+                    <div class="footer-social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="course.html"><i class="fas fa-chevron-right"></i> Courses</a></li>
+                        <li><a href="gallery.html"><i class="fas fa-chevron-right"></i> Gallery</a></li>
+                        <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Courses</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Basic Computer</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Tally with GST</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Advanced Excel</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Website Development</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> AI Courses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Address</strong>
+                                <span>Ganesh Nagar, Bhaji Market, Near Telegu School, Kamatghar, Bhiwandi.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <span><a href="mailto:egyanskilldevelopment@gmail.com">egyanskilldevelopment@gmail.com</a></span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <strong>Phone</strong>
+                                <span><a href="tel:+918830467548">+91 8830 467548</a></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 E-Gyan Skill Development. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: var(--secondary-color);"></i> by E-Gyan Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Mobile Menu Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+            const mobileNav = document.getElementById('mobileNav');
+            const navOverlay = document.getElementById('navOverlay');
+            const body = document.body;
+            
+            function toggleMenu() {
+                mobileNav.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+                body.classList.toggle('no-scroll');
+                
+                // Update aria-expanded attribute
+                const isExpanded = mobileNav.classList.contains('active');
+                mobileMenuBtn.setAttribute('aria-expanded', isExpanded);
+            }
+
+            // Event listeners
+            mobileMenuBtn.addEventListener('click', toggleMenu);
+            mobileCloseBtn.addEventListener('click', toggleMenu);
+            navOverlay.addEventListener('click', toggleMenu);
+
+            // Close menu when clicking on links
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', toggleMenu);
+            });
+
+            // Sticky header on scroll
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Preloader
+            window.addEventListener('load', () => {
+                const preloader = document.querySelector('.preloader');
+                setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                    }, 500);
+                }, 500);
+            });
+
+            // Form submission
+            const scriptURL = "https://script.google.com/macros/s/AKfycbzHwRnjIEbhEojjqvBQ5njUIg0b05Qte2Dpwkl6SV-9zBsXuKw0vQhj7dckkXSqSqr3/exec";
+            const spreadsheetId = "1_0GhO4WBSe8NvnoKWWiRaMKd2KxlF01z48m3UZeU2VI";
+            const sheetName = "Contact_Form";
+            const form = document.getElementById("submitForm");
+            const submitOverlay = document.getElementById("submitOverlay");
+            const submitButton = form.querySelector("button[type='submit']");
+
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                // Show loading overlay
+                submitOverlay.classList.add("show");
+                submitButton.disabled = true;
+
+                const formData = new FormData(form);
+                formData.append("sheetName", sheetName);
+                formData.append("spreadsheetId", spreadsheetId);
+
+                try {
+                    const response = await fetch(scriptURL, { 
+                        method: "POST", 
+                        body: formData 
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    // Success message
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Submitted Successfully!',
+                        text: 'Thank you for showing your interest. We will get back to you soon!',
+                        showConfirmButton: false,
+                        timer: 2500,
+                        timerProgressBar: true,
+                        didClose: () => {
+                            form.reset();
+                        }
+                    });
+                } catch (error) {
+                    console.error("Submission error:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong. Please try again!',
+                        footer: 'If the problem persists, please contact support.'
+                    });
+                } finally {
+                    // Hide loading overlay
+                    submitOverlay.classList.remove("show");
+                    submitButton.disabled = false;
+                }
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="E-Gyan Skill Development - Premier Computer Institute offering practical training in Tally, Excel, Basic Computer and more">
+    <title>E-Gyan Blog - Latest Tech Insights</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" as="style">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary-color: #f72585;
+            --secondary-dark: #e5177b;
+            --accent-color: #4cc9f0;
+            --dark-color: #14213d;
+            --darker-color: #0c162d;
+            --light-color: #f8f9fa;
+            --lighter-color: #ffffff;
+            --text-color: #2b2d42;
+            --text-light: #8d99ae;
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            --gradient-secondary: linear-gradient(135deg, var(--secondary-color), #b5179e);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+            --transition-fast: all 0.2s ease;
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+            --border-radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background-color: var(--lighter-color);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--dark-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-fast);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-xl {
+            padding: 120px 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            outline: none;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--lighter-color);
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-dark), #4895ef);
+            opacity: 0;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: var(--lighter-color);
+            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(247, 37, 133, 0.4);
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary-dark), #7209b7);
+            opacity: 0;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: var(--lighter-color);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title .subtitle {
+            display: inline-block;
+            color: var(--primary-color);
+            background: rgba(67, 97, 238, 0.1);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-10 {
+            margin-top: 10px;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mt-30 {
+            margin-top: 30px;
+        }
+
+        .mt-40 {
+            margin-top: 40px;
+        }
+
+        .mb-10 {
+            margin-bottom: 10px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .mb-30 {
+            margin-bottom: 30px;
+        }
+
+        .mb-40 {
+            margin-bottom: 40px;
+        }
+
+        /* Header Styles - Desktop Version */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1001;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* DESKTOP NAVIGATION - SHOW BY DEFAULT */
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .desktop-nav-links {
+            display: flex;
+            gap: 25px;
+            margin-right: 20px;
+        }
+
+        .desktop-nav-links a {
+            font-weight: 600;
+            color: #14213d;
+            text-decoration: none;
+        }
+
+        .desktop-nav-cta .btn {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #4361ee, #4cc9f0);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* MOBILE ELEMENTS - HIDDEN BY DEFAULT */
+        .mobile-menu-btn,
+        #mobileNav,
+        .nav-overlay, .nav-links, .nav-cta, .mobile-menu-footer, .sidebarname {
+            display: none;
+        }
+
+        /* Mobile Menu Close Button */
+        .mobile-close-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .mobile-close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 800px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.9), rgba(76, 201, 240, 0.9));
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--lighter-color);
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+    color: black;
+    font-size: 3.8rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.8); /* Dim white background */
+    padding: 10px 20px; /* Optional: adds spacing inside the background */
+    border-radius: 10px; /* Optional: softens the edges */
+    display: inline-block; /* Makes background wrap the text only */
+}
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-shape {
+            position: absolute;
+            width: 100%;
+            height: 100px;
+            bottom: 0;
+            left: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' fill='%23ffffff' opacity='.25'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' fill='%23ffffff' opacity='.5'/%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%23ffffff'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 2;
+        }
+
+        /* Blog Section Styles */
+        .blog-section {
+            padding: 100px 0;
+            background-color: #f8fafc;
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .blog-card:hover .blog-image {
+            opacity: 0.9;
+        }
+
+        .blog-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .blog-excerpt {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .read-more {
+            margin-top: auto;
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .read-more i {
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+
+        .blog-card:hover .read-more i {
+            transform: translateX(3px);
+        }
+
+        /* Blog Detail */
+        .blog-detail {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .detail-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .detail-content {
+            padding: 30px;
+        }
+
+        .detail-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .detail-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .meta-item i {
+            margin-right: 5px;
+            color: var(--accent-color);
+        }
+
+        .detail-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--dark-color);
+            margin-bottom: 30px;
+        }
+
+        .detail-text p {
+            margin-bottom: 15px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateX(-3px);
+        }
+
+        .back-button i {
+            margin-right: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--darker-color);
+            color: var(--lighter-color);
+            padding: 100px 0 0;
+            position: relative;
+        }
+
+        .footer-shape {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' fill='%2314213d' opacity='.25'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' fill='%2314213d' opacity='.5'/%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%2314213d'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .footer-col p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo-img {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .footer-logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--lighter-color);
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            opacity: 0.8;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+            color: var(--lighter-color);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .contact-info li {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-info i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-top: 3px;
+        }
+
+        .contact-info span {
+            display: block;
+            opacity: 0.8;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Animation Classes */
+        .animate-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-up.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-left.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .animate-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-right.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .delay-1 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.4s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.6s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1199px) {
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .blog-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .detail-image {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .section {
+                padding: 80px 0;
+            }
+
+            .section-xl {
+                padding: 100px 0;
+            }
+
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Hide desktop nav */
+            .desktop-nav {
+                display: none;
+            }
+            
+            /* Show mobile button */
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: #14213d;
+                cursor: pointer;
+                margin-right: 20px;
+            }
+            
+            /* Mobile nav styles */
+            #mobileNav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 85%;
+                max-width: 320px;
+                height: 100vh;
+                background: linear-gradient(135deg, #2c3e50, #1a2533);
+                transition: all 0.5s ease;
+            }
+            
+            #mobileNav.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn:hover {
+                color: var(--primary-color);
+                transform: scale(1.1);
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 85%;
+                max-width: 320px;
+                height: 100vh;
+                background: linear-gradient(135deg, #2c3e50, #1a2533);
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+                z-index: 1001;
+                padding: 80px 25px 30px;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+                transform: translateX(-20px);
+                opacity: 0;
+                /* Hide scrollbar */
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE and Edge */
+            }
+
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            nav.active {
+                left: 0;
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            /* Navigation Links */
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                margin-bottom: 30px;
+                order: 1;
+            }
+
+            .nav-links li a {
+                padding: 15px 20px;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                color: rgba(255, 255, 255, 0.9);
+                font-weight: 500;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .nav-links li a::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 3px;
+                height: 100%;
+                background: var(--primary-color);
+                transform: scaleY(0);
+                transform-origin: bottom;
+                transition: transform 0.3s ease;
+            }
+
+            .nav-links li a:hover,
+            .nav-links li a.active {
+                background: rgba(255, 255, 255, 0.08);
+                color: white;
+                transform: translateX(5px);
+            }
+
+            .nav-links li a:hover::before,
+            .nav-links li a.active::before {
+                transform: scaleY(1);
+            }
+
+            .nav-links li a i {
+                margin-right: 15px;
+                font-size: 1.1rem;
+                width: 20px;
+                text-align: center;
+                color: var(--primary-color);
+            }
+
+            /* CTA Button */
+            .nav-cta {
+                order: 2;
+				display: block;
+                margin: 25px 0;
+                padding: 25px 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-cta .btn {
+                width: 100%;
+                margin: 0;
+                background: var(--gradient-primary);
+                box-shadow: 0 5px 20px rgba(67, 97, 238, 0.4);
+                font-weight: 600;
+                letter-spacing: 0.5px;
+                padding: 16px;
+                border-radius: 8px;
+            }
+
+            /* Mobile Menu Footer */
+            .mobile-menu-footer {
+                display: block;
+                order: 3;
+                margin-top: auto;
+                padding-top: 20px;
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+            .mobile-menu-footer .contact-info {
+                margin-bottom: 20px;
+            }
+
+            .mobile-menu-footer .contact-info p {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            .mobile-menu-footer .contact-info i {
+                margin-right: 10px;
+                color: var(--primary-color);
+                font-size: 1rem;
+                width: 20px;
+                text-align: center;
+            }
+
+            .mobile-menu-footer .social-links {
+                justify-content: center;
+                margin: 20px 0;
+            }
+
+            .mobile-menu-footer .social-links a {
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                transition: all 0.3s ease;
+            }
+
+            .mobile-menu-footer .social-links a:hover {
+                background: var(--primary-color);
+                transform: translateY(-3px);
+            }
+
+            .mobile-menu-footer .copyright {
+                text-align: center;
+                font-size: 0.8rem;
+                opacity: 0.6;
+                margin-top: 20px;
+            }
+
+            /* Overlay */
+            .nav-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(5px);
+                z-index: 1000;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s ease;
+            }
+
+            .nav-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            /* Body no-scroll */
+            body.no-scroll {
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+            }
+
+            .sidebarname {
+			    display: block;
+                color: white;
+                margin-bottom: 30px;
+                margin-top: 0;
+                font-size: auto;
+                text-align: center;
+                padding-bottom: 15px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .detail-image {
+                height: 300px;
+            }
+            
+            .detail-content {
+                padding: 20px;
+            }
+            
+            .detail-title {
+                font-size: 1.7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-image {
+                height: 220px;
+            }
+            
+            .detail-image {
+                height: 250px;
+            }
+            
+            .detail-title {
+                font-size: 1.5rem;
+            }
+            
+            .detail-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .meta-item {
+                margin-bottom: 10px;
+            }
+            
+            .logo-text {
+                font-size: 1.3rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+
+            .section {
+                padding: 70px 0;
+            }
+
+            .section-xl {
+                padding: 90px 0;
+            }
+        }
+        
+        /* Preloader styles
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--lighter-color);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(67, 97, 238, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+        } */
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Animation for blog content */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader" aria-hidden="true"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-img">
+                    <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Egyan%20Logo%20NB.png" alt="EG Logo" />
+                </div>
+                <div class="logo-text">E-Gyan Skill Development</div>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <div class="desktop-nav">
+                <ul class="desktop-nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="course.html">Course</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="desktop-nav-cta">
+                    <a href="contact.html" class="btn btn-primary">Enroll Now</a>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Mobile Navigation -->
+            <nav id="mainNav" aria-label="Main navigation">
+                <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close navigation menu">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3 class="sidebarname">E-Gyan Skill Development</h3>
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="course.html"><i class="fas fa-graduation-cap"></i> Courses</a></li>
+                    <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="blog.html" class="active"><i class="fas fa-blog"></i> Blog</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="contact.html" class="btn btn-primary">Enroll Now</a>
+                </div>
+                <div class="mobile-menu-footer">
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone-alt"></i> +91 88 30 467548</p>
+                        <p><i class="fas fa-envelope"></i> egyanskilldevelopment@gmail.com</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <p class="copyright">© 2025 E-Gyan Skill Development</p>
+                </div>
+            </nav>
+            <div class="nav-overlay" id="navOverlay"></div>
+        </div>
+    </header>
+
+    <!-- Blog Hero Section -->
+    <section class="hero" style="background-image: url('https://egyanskilldevelopment.github.io/egyan/Egyan%20Skill%20Development/Image/blog%20image.png'); background-size: cover; background-position: center;">
+        <div class="hero-content animate-up">
+            <h1>Our Blog</h1>
+            <p>Latest insights, tutorials and news about technology and digital skills</p>
+        </div>
+        <div class="hero-shape"></div>
+    </section>
+
+    <!-- Blog Content Section -->
+    <section class="blog-section">
+        <div class="container">
+            <!-- Page 1: Blog Grid -->
+            <div class="blog-grid" id="blogGrid">
+                <!-- Blog cards will be inserted here by JavaScript -->
+            </div>
+
+            <!-- Page 2: Blog Detail (hidden by default) -->
+            <div class="blog-detail" id="blogDetail">
+                <img class="detail-image" id="detailImage" src="" alt="Blog Image">
+                <div class="detail-content">
+                    <h1 class="detail-title" id="detailTitle"></h1>
+                    <div class="detail-meta">
+                        <div class="meta-item"><i class="far fa-calendar-alt"></i> <span id="detailDate"></span></div>
+                        <div class="meta-item"><i class="far fa-clock"></i> <span id="readTime"></span> read</div>
+                        <div class="meta-item"><i class="far fa-eye"></i> <span id="viewCount"></span> views</div>
+                    </div>
+                    <div class="detail-text" id="detailText"></div>
+                    <a href="#" class="back-button" id="backButton"><i class="fas fa-arrow-left"></i> Back to Blogs</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-shape"></div>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col animate-up">
+                    <div class="footer-logo">
+                        <div class="footer-logo-img">
+                            <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Egyan%20Logo%20NB.png" alt="EG Logo" />
+                        </div>
+                        <div class="footer-logo-text">E-Gyan Skill Development</div>
+                    </div>
+                    <p>Empowering individuals with practical computer skills for personal and professional growth since many years.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col animate-up delay-1">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Home</a></li>
+                        <li><a href="course.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Courses</a></li>
+                        <li><a href="gallery.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Gallery</a></li>
+                        <li><a href="blog.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Blog</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col animate-up delay-2">
+                    <h3>Courses</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Basic Computer</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Tally with GST</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Advanced Excel</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Website Development</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> AI Courses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col animate-up delay-3">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <div>
+                                <strong>Address</strong>
+                                <span>Ganesh Nagar, Bhaji Market, Near Telegu School, Kamatghar, Bhiwandi.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <span><a href="mailto:egyanskilldevelopment@gmail.com">egyanskilldevelopment@gmail.com</a></span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt" aria-hidden="true"></i>
+                            <div>
+                                <strong>Phone</strong>
+                                <span><a href="tel:+919876543210">+91 8830 467548</a></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 E-Gyan Skill Development. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: var(--secondary-color);" aria-hidden="true"></i> by E-Gyan Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // DOM elements
+    const blogGrid = document.getElementById('blogGrid');
+    const blogDetail = document.getElementById('blogDetail');
+    const detailImage = document.getElementById('detailImage');
+    const detailTitle = document.getElementById('detailTitle');
+    const detailDate = document.getElementById('detailDate');
+    const readTime = document.getElementById('readTime');
+    const viewCount = document.getElementById('viewCount');
+    const detailText = document.getElementById('detailText');
+    const backButton = document.getElementById('backButton');
+
+    // Load blog data from localStorage
+    function loadBlogData() {
+        const savedBlogs = localStorage.getItem('eGyanBlogs');
+        if (savedBlogs) {
+            return JSON.parse(savedBlogs);
+        } else {
+            // Return default sample data if no blogs exist in localStorage
+            return [
+                {
+    id: 1,
+    title: "What is Internet?",
+    image: "https://egyanskilldevelopment.github.io/egyan/Egyan%20Skill%20Development/Image/whatisinternet.png",
+    excerpt: "The Internet is a vast, global system of interconnected computer networks that allows devices all over the world to communicate and share information. Think of it as a 'network of networks.'",
+    date: "June 30, 2025",
+    readTime: "8 min",
+    views: "5.5K",
+    content: ` <h2>What is Internet?</h2>
+    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Global Internet Network">
+    <p class="image-caption">The Internet is a vast, interconnected web of networks spanning the globe.</p>
+    <p>The Internet is a vast, global system of interconnected computer networks that allows devices all over the world to communicate and share information. Think of it as a "network of networks."</p>
+
+    <h2>What is it, simply put?</h2>
+    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Devices Connected to the Internet">
+    <p class="image-caption">Billions of devices connect to the Internet every day.</p>
+    <ul>
+        <li>It's a giant network that links billions of computers, smartphones, servers, and other electronic devices.</li>
+        <li>It allows us to access nearly any information, communicate with anyone, and use a wide range of services like websites, email, social media, streaming media, and online applications.</li>
+    </ul>
+
+    <h2>How does it work?</h2>
+    <ul>
+        <li><b>Network of Networks:</b> The Internet isn't a single entity. It's a collection of many smaller networks (like your home Wi-Fi network, a company's internal network, or a university's network) all connected together.</li>
+        <li><b>Data in Packets:</b> When you send information (like an email, a webpage request, or a video stream), it's broken down into small chunks called "packets." These packets are like small envelopes containing a piece of the data, along with information about where they came from and where they're going.</li>
+        
+        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Data Packets Traveling Through the Internet">
+        <p class="image-caption">Data travels in small chunks called packets.</p>
+        
+        <li><b>Routers and Switches:</b> These packets travel through a series of specialized devices called routers and switches.
+            <ul>
+                <li><b>Switches</b> connect devices within a single network.</li>
+                <li><b>Routers</b> are like traffic cops that direct packets between different networks, helping them find the most efficient path to their destination.</li>
+            </ul>
+        </li>
+        
+        <img src="https://images.unsplash.com/photo-1592919505780-f78a915b4f25?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Router and Switch Devices">
+        <p class="image-caption">Routers help guide data across the Internet.</p>
+        
+        <li><b>IP Addresses:</b> Every device connected to the Internet has a unique numerical address called an IP (Internet Protocol) address. This is how routers know where to send the packets. Think of it like a street address for your computer.</li>
+        <li><b>Domain Names and DNS:</b> Since remembering long IP addresses is hard for humans, we use human-friendly domain names (like "google.com"). The <b>Domain Name System (DNS)</b> acts like a phonebook, translating these domain names into their corresponding IP addresses so your computer can find the right server.</li>
+        <li><b>Protocols (TCP/IP):</b> The Internet operates on a set of rules and standards called protocols. The most fundamental ones are <b>TCP (Transmission Control Protocol)</b> and <b>IP (Internet Protocol)</b>.
+            <ul>
+                <li><b>IP</b> handles the addressing and routing of packets.</li>
+                <li><b>TCP</b> ensures that all the packets arrive at their destination correctly and in the right order, and if any are missing, it requests them again.</li>
+            </ul>
+        </li>
+        <li><b>Internet Service Providers (ISPs):</b> These are companies (like your home internet provider) that give you access to the Internet. They connect your local network to the larger Internet infrastructure.</li>
+        <li><b>Physical Infrastructure:</b> The data travels through a vast physical infrastructure, including:
+            <ul>
+                <li><b>Fiber optic cables:</b> High-speed cables, often laid underground or even under oceans, that carry data as light pulses.</li>
+                <li><b>Copper wires:</b> Traditional telephone lines.</li>
+                <li><b>Wireless connections:</b> Technologies like Wi-Fi and cellular networks that use radio waves.</li>
+                <li><b>Servers:</b> Powerful computers that store websites, files, and other content, and respond to requests from client devices.</li>
+            </ul>
+        </li>
+    </ul>
+    
+    <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Undersea Fiber Optic Cables">
+    <p class="image-caption">Undersea cables carry Internet traffic across continents.</p>
+
+    <h2>Key Concepts:</h2>
+    <ul>
+        <li><b>World Wide Web (WWW):</b> Often confused with the Internet, the WWW is a <em>service</em> that runs <em>on</em> the Internet. It's a system of interconnected documents (web pages) and other web resources, accessed via web browsers using protocols like HTTP. The Internet is the infrastructure, while the Web is a collection of content and applications that use that infrastructure.</li>
+        <li><b>Clients and Servers:</b> Your device (computer, phone) is typically a <b>client</b> that requests information, and other computers (like those hosting websites) are <b>servers</b> that provide that information.</li>
+    </ul>
+    
+    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Client-Server Model">
+    <p class="image-caption">Clients request data, and servers respond.</p>
+
+    <p>In essence, the Internet is a sophisticated global communication system that allows for the rapid and reliable exchange of information across vast distances, fundamentally changing how we interact, learn, and do business.</p>
+    
+    <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Internet Connecting the World">
+    <p class="image-caption">The Internet bridges distances, making the world more connected than ever.</p>
+    `
+},
+                {
+                    id: 2,
+                    title: "Web Development with JavaScript",
+                    image: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+                    excerpt: "Master the language of the web and build interactive websites with JavaScript frameworks.",
+                    date: "June 18, 2023",
+                    readTime: "7 min",
+                    views: "1.8K",
+                    content: `<p>JavaScript is the backbone of modern web development, enabling interactive and dynamic user experiences. This course will take you from JavaScript basics to advanced concepts used in professional development.</p>
+                    <p>We'll start with fundamental concepts like variables, functions, and DOM manipulation. Then we'll explore modern JavaScript features like ES6 syntax, promises, async/await, and modules.</p>`
+                }
+            ];
+        }
+    }
+
+    // Render blog cards
+    function renderBlogCards() {
+        const blogData = loadBlogData();
+        blogGrid.innerHTML = '';
+        
+        // Only show published blogs
+        const publishedBlogs = blogData.filter(blog => blog.status === 'published' || blog.status === undefined);
+        
+        publishedBlogs.forEach(blog => {
+            const card = document.createElement('div');
+            card.className = 'blog-card fade-in';
+            card.innerHTML = `
+                <img class="blog-image" src="${blog.image}" alt="${blog.title}">
+                <div class="blog-content">
+                    <h3 class="blog-title">${blog.title}</h3>
+                    <p class="blog-excerpt">${blog.excerpt}</p>
+                    <span class="read-more">Read more <i class="fas fa-arrow-right"></i></span>
+                </div>
+            `;
+            card.addEventListener('click', () => showBlogDetail(blog.id));
+            blogGrid.appendChild(card);
+        });
+    }
+
+    // Show blog detail
+    function showBlogDetail(id) {
+        const blogData = loadBlogData();
+        const blog = blogData.find(b => b.id === id);
+        if (!blog) return;
+
+        // Update detail page content
+        detailImage.src = blog.image;
+        detailImage.alt = blog.title;
+        detailTitle.textContent = blog.title;
+        detailDate.textContent = blog.date;
+        readTime.textContent = blog.readTime;
+        viewCount.textContent = blog.views;
+        detailText.innerHTML = blog.content;
+
+        // Show detail page and hide grid
+        blogGrid.style.display = 'none';
+        blogDetail.style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    // Back button event
+    backButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        blogDetail.style.display = 'none';
+        blogGrid.style.display = 'grid';
+    });
+
+    // Mobile Menu Functionality
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+    const mainNav = document.getElementById('mainNav');
+    const navOverlay = document.getElementById('navOverlay');
+    const body = document.body;
+    
+    // Function to toggle menu
+    function toggleMenu() {
+        mainNav.classList.toggle('active');
+        navOverlay.classList.toggle('active');
+        body.classList.toggle('no-scroll');
+        
+        // Toggle aria-expanded attribute
+        const isExpanded = mainNav.classList.contains('active');
+        mobileMenuBtn.setAttribute('aria-expanded', isExpanded);
+    }
+
+    // Event listeners
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+    }
+
+    if (mobileCloseBtn) {
+        mobileCloseBtn.addEventListener('click', toggleMenu);
+    }
+
+    if (navOverlay) {
+        navOverlay.addEventListener('click', toggleMenu);
+    }
+
+    // Close menu when clicking on links
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', toggleMenu);
+    });
+
+    // Sticky header on scroll
+    const header = document.getElementById('header');
+    if (header) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    }
+
+    // Scroll animation
+    function animateOnScroll() {
+        const elements = document.querySelectorAll('.animate-up, .animate-left, .animate-right');
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.2;
+            
+            if (elementPosition < screenPosition) {
+                element.classList.add('animated');
+            }
+        });
+    }
+
+    // Run animation on load and scroll
+    window.addEventListener('load', animateOnScroll);
+    window.addEventListener('scroll', animateOnScroll);
+
+    // Preloader
+    window.addEventListener('load', () => {
+        const preloader = document.querySelector('.preloader');
+        if (preloader) {
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            }, 500);
+        }
+    });
+
+    // Initial render
+    document.addEventListener('DOMContentLoaded', () => {
+        renderBlogCards();
+    });
+</script>
+</body>
+
+</html>

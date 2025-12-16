@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="E-Gyan Skill Development - Premier Computer Institute Gallery showcasing our facilities and student activities">
+    <title>E-Gyan Skill Development - Gallery</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" as="style">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary-color: #f72585;
+            --secondary-dark: #e5177b;
+            --accent-color: #4cc9f0;
+            --dark-color: #14213d;
+            --darker-color: #0c162d;
+            --light-color: #f8f9fa;
+            --lighter-color: #ffffff;
+            --text-color: #2b2d42;
+            --text-light: #8d99ae;
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            --gradient-secondary: linear-gradient(135deg, var(--secondary-color), #b5179e);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+            --transition-fast: all 0.2s ease;
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+            --border-radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background-color: var(--lighter-color);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--dark-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-fast);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-xl {
+            padding: 120px 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            outline: none;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--lighter-color);
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-dark), #4895ef);
+            opacity: 0;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: var(--lighter-color);
+            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(247, 37, 133, 0.4);
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary-dark), #7209b7);
+            opacity: 0;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: var(--lighter-color);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title .subtitle {
+            display: inline-block;
+            color: var(--primary-color);
+            background: rgba(67, 97, 238, 0.1);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-10 {
+            margin-top: 10px;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mt-30 {
+            margin-top: 30px;
+        }
+
+        .mt-40 {
+            margin-top: 40px;
+        }
+
+        .mb-10 {
+            margin-bottom: 10px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .mb-30 {
+            margin-bottom: 30px;
+        }
+
+        .mb-40 {
+            margin-bottom: 40px;
+        }
+
+        /* Header Styles - Desktop Version */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1001;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* DESKTOP NAVIGATION - SHOW BY DEFAULT */
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .desktop-nav-links {
+            display: flex;
+            gap: 25px;
+            margin-right: 20px;
+        }
+
+        .desktop-nav-links a {
+            font-weight: 600;
+            color: #14213d;
+            text-decoration: none;
+        }
+
+        .desktop-nav-cta .btn {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #4361ee, #4cc9f0);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* MOBILE ELEMENTS - HIDDEN BY DEFAULT */
+        .mobile-menu-btn,
+        #mobileNav,
+        .nav-overlay, .nav-links, .nav-cta, .mobile-menu-footer, .sidebarname {
+            display: none;
+        }
+
+        /* Mobile Menu Close Button */
+        .mobile-close-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .mobile-close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 800px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.9), rgba(76, 201, 240, 0.9));
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--lighter-color);
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+        }
+        .hero h1 {
+            font-size: 3.8rem;
+            margin-bottom: 20px;
+			color: white;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-shape {
+            position: absolute;
+            width: 100%;
+            height: 100px;
+            bottom: 0;
+            left: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' fill='%23ffffff' opacity='.25'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' fill='%23ffffff' opacity='.5'/%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%23ffffff'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 2;
+        }
+
+        /* Gallery Styles */
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            aspect-ratio: 4/3;
+            background-color: white;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 20px 15px 10px;
+            transform: translateY(100%);
+            transition: var(--transition);
+            opacity: 0;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .gallery-caption h3 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+			color: white;
+        }
+
+        .gallery-caption p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Lightbox styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .lightbox-caption {
+            color: white;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1.2rem;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent-color);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .lightbox-nav:hover {
+            background: var(--primary-color);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        /* Loading animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gallery-item {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+        .gallery-item:nth-child(7) { animation-delay: 0.7s; }
+        .gallery-item:nth-child(8) { animation-delay: 0.8s; }
+        .gallery-item:nth-child(9) { animation-delay: 0.9s; }
+        .gallery-item:nth-child(10) { animation-delay: 1s; }
+
+        /* Footer */
+        footer {
+            background-color: var(--darker-color);
+            color: var(--lighter-color);
+            padding: 100px 0 0;
+            position: relative;
+        }
+
+        .footer-shape {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' fill='%2314213d' opacity='.25'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' fill='%2314213d' opacity='.5'/%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%2314213d'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .footer-col p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo-img {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .footer-logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--lighter-color);
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            opacity: 0.8;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+            color: var(--lighter-color);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .contact-info li {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-info i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-top: 3px;
+        }
+
+        .contact-info span {
+            display: block;
+            opacity: 0.8;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Animation Classes */
+        .animate-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .animate-up h2, .animate-up p, .mt-40 {
+                text-align: center;
+        }
+
+        .animate-up.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-left.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .animate-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-right.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .delay-1 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.4s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.6s;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 1199px) {
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .gallery {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 991px) {
+            .section {
+                padding: 80px 0;
+            }
+
+            .section-xl {
+                padding: 100px 0;
+            }
+
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .gallery-title {
+                font-size: 2rem;
+            }
+            
+            body {
+                padding: 15px;
+            }
+            
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            
+            .lightbox-prev {
+                left: 10px;
+            }
+            
+            .lightbox-next {
+                right: 10px;
+            }
+
+            /* Hide desktop nav */
+            .desktop-nav {
+                display: none;
+            }
+            #mobileNav,
+        .nav-overlay, .nav-links, .nav-cta, .mobile-menu-footer, .sidebarname {
+            display: flex;
+        }
+            
+            /* Show mobile button */
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: #14213d;
+                cursor: pointer;
+                margin-right: 20px;
+            }
+            
+            /* Mobile nav styles (keep your existing mobile styles) */
+            #mobileNav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 85%;
+                max-width: 320px;
+                height: 100vh;
+                background: linear-gradient(135deg, #2c3e50, #1a2533);
+                transition: all 0.5s ease;
+            }
+            
+            #mobileNav.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn:hover {
+                color: var(--primary-color);
+                transform: scale(1.1);
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 85%;
+                max-width: 320px;
+                height: 100vh;
+                background: linear-gradient(135deg, #2c3e50, #1a2533);
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+                z-index: 1001;
+                padding: 80px 25px 30px;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+                transform: translateX(-20px);
+                opacity: 0;
+                /* Hide scrollbar */
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE and Edge */
+            }
+
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            nav.active {
+                left: 0;
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            /* Navigation Links */
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                margin-bottom: 30px;
+                order: 1;
+            }
+
+            .nav-links li a {
+                padding: 15px 20px;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                color: rgba(255, 255, 255, 0.9);
+                font-weight: 500;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .nav-links li a::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 3px;
+                height: 100%;
+                background: var(--primary-color);
+                transform: scaleY(0);
+                transform-origin: bottom;
+                transition: transform 0.3s ease;
+            }
+
+            .nav-links li a:hover,
+            .nav-links li a.active {
+                background: rgba(255, 255, 255, 0.08);
+                color: white;
+                transform: translateX(5px);
+            }
+
+            .nav-links li a:hover::before,
+            .nav-links li a.active::before {
+                transform: scaleY(1);
+            }
+
+            .nav-links li a i {
+                margin-right: 15px;
+                font-size: 1.1rem;
+                width: 20px;
+                text-align: center;
+                color: var(--primary-color);
+            }
+
+            /* CTA Button */
+            .nav-cta {
+                order: 2;
+                margin: 25px 0;
+                padding: 25px 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-cta .btn {
+                width: 100%;
+                margin: 0;
+                background: var(--gradient-primary);
+                box-shadow: 0 5px 20px rgba(67, 97, 238, 0.4);
+                font-weight: 600;
+                letter-spacing: 0.5px;
+                padding: 16px;
+                border-radius: 8px;
+            }
+
+            /* Mobile Menu Footer */
+            .mobile-menu-footer {
+                display: block;
+                order: 3;
+                margin-top: auto;
+                padding-top: 20px;
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+            .mobile-menu-footer .contact-info {
+                margin-bottom: 20px;
+            }
+
+            .mobile-menu-footer .contact-info p {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            .mobile-menu-footer .contact-info i {
+                margin-right: 10px;
+                color: var(--primary-color);
+                font-size: 1rem;
+                width: 20px;
+                text-align: center;
+            }
+
+            .mobile-menu-footer .social-links {
+                justify-content: center;
+                margin: 20px 0;
+            }
+
+            .mobile-menu-footer .social-links a {
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                transition: all 0.3s ease;
+            }
+
+            .mobile-menu-footer .social-links a:hover {
+                background: var(--primary-color);
+                transform: translateY(-3px);
+            }
+
+            .mobile-menu-footer .copyright {
+                text-align: center;
+                font-size: 0.8rem;
+                opacity: 0.6;
+                margin-top: 20px;
+            }
+
+            /* Overlay */
+            .nav-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(5px);
+                z-index: 1000;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s ease;
+            }
+
+            .nav-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            /* Body no-scroll */
+            body.no-scroll {
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+            }
+
+            .sidebarname {
+                color: white;
+                margin-bottom: 30px;
+                margin-top: 0;
+                font-size: auto;
+                text-align: center;
+                padding-bottom: 15px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .hero {
+                min-height: 700px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-title .subtitle {
+                font-size: 12px;
+                padding: 5px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            body {
+                padding: 15px;
+            }
+            
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            
+            .lightbox-prev {
+                left: 10px;
+            }
+            
+            .lightbox-next {
+                right: 10px;
+            }
+
+            .logo-text {
+                font-size: 1.3rem;
+            }
+
+            .logo-img {
+                width: 35px;
+                height: 35px;
+                font-size: 15px;
+                margin-left: 25px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+
+            .section {
+                padding: 70px 0;
+            }
+
+            .section-xl {
+                padding: 90px 0;
+            }
+        }
+        
+        /* Preloader styles
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--lighter-color);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(67, 97, 238, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+        } */
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader" aria-hidden="true"> 
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-img">
+                    <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Egyan%20Logo%20NB.png" alt="EG Logo" />
+                </div>
+                <div class="logo-text">E-Gyan Skill Development</div>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <div class="desktop-nav">
+                <ul class="desktop-nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="course.html">Course</a></li>
+                    <li><a href="gallery.html" class="active">Gallery</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="desktop-nav-cta">
+                    <a href="contact.html" class="btn btn-primary">Enroll Now</a>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Mobile Navigation -->
+            <nav id="mainNav" aria-label="Main navigation">
+                <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close navigation menu">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3 class="sidebarname">E-Gyan Skill Development</h3>
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="course.html"><i class="fas fa-graduation-cap"></i> Courses</a></li>
+                    <li><a href="gallery.html" class="active"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="contact.html" class="btn btn-primary">Enroll Now</a>
+                </div>
+                <div class="mobile-menu-footer">
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone-alt"></i> +91 88 30 467548</p>
+                        <p><i class="fas fa-envelope"></i> egyanskilldevelopment@gmail.com</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <p class="copyright">© 2025 E-Gyan Skill Development</p>
+                </div>
+            </nav>
+            <div class="nav-overlay" id="navOverlay"></div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" style="background-image: url('https://egyanskilldevelopment.github.io/egyan/Egyan%20Skill%20Development/Image/computerinstitutefontpage.png'); background-size: cover; background-position: center;">
+        <div class="hero-content animate-up">
+            <h1>Our Institute Gallery</h1>
+            <p>Explore our state-of-the-art facilities, student activities, and learning environment</p>
+        </div>
+        <div class="hero-shape"></div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title animate-up">
+                <span class="subtitle">Visual Journey</span>
+                <h2>Explore Our Computer Institute</h2>
+                <p>Take a look at our modern facilities, student projects, and learning environment</p>
+            </div>
+            
+            <div class="gallery-container">
+                <div class="gallery">
+                    <!-- Gallery Item 1 -->
+                    <div class="gallery-item" onclick="openLightbox(1)">
+                        <img src="https://egyanskilldevelopment.github.io/egyan/Egyan%20Skill%20Development/Image/Photo9.jpg" alt="Modern Computer Lab" class="gallery-image">
+                        <div class="gallery-caption">
+                            <h3>Modern Computer Lab</h3>
+                            <p>Front door to enter in Egyan Computer Institute</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Gallery Item 2 -->
+                    <div class="gallery-item" onclick="openLightbox(2)">
+                        <img src="https://egyanskilldevelopment.github.io/egyan/Egyan%20Skill%20Development/Image/Photo8.jpg" alt="Programming Class" class="gallery-image">
+                        <div class="gallery-caption">
+                            <h3>Class room 1</h3>
+                            <p>Students learning Courses</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Gallery Item 3 -->
+                    <div class="gallery-item" onclick="openLightbox(3)">
+                        <img src="https://egyanskilldevelopment.github.io/egyan/Egyan%20Skill%20Development/Image/Photo7.jpg" alt="Web Design Workshop" class="gallery-image">
+                        <div class="gallery-caption">
+                            <h3>Class room 2</h3>
+                            <p>Students learning Courses</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Gallery Item 4 -->
+                    <div class="gallery-item" onclick="openLightbox(4)">
+                        <img src="https://egyanskilldevelopment.github.io/egyan/Egyan%20Skill%20Development/Image/Photo6.jpg" alt="Robotics Course" class="gallery-image">
+                        <div class="gallery-caption">
+                            <h3>Class room 3</h3>
+                            <p>Students learning Courses</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Gallery Item 5 -->
+                    <div class="gallery-item" onclick="openLightbox(5)">
+                        <img src="https://egyanskilldevelopment.github.io/egyan/Egyan%20Skill%20Development/Image/Photo1.jpg" alt="Networking Lab" class="gallery-image">
+                        <div class="gallery-caption">
+                            <h3>Class room 4</h3>
+                            <p>Students learning Courses</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Gallery Item 6 -->
+                    <div class="gallery-item" onclick="openLightbox(6)">
+                        <img src="https://egyanskilldevelopment.github.io/egyan/Egyan%20Skill%20Development/Image/Photo4.jpg" alt="Cyber Security" class="gallery-image">
+                        <div class="gallery-caption">
+                            <h3>AI Generated Image 1</h3>
+                            <p>E-Gyan Skill Development</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Gallery Item 7 -->
+                    <div class="gallery-item" onclick="openLightbox(7)">
+                        <img src="https://egyanskilldevelopment.github.io/egyan/Egyan%20Skill%20Development/Image/Photo3.jpg" alt="Data Science" class="gallery-image">
+                        <div class="gallery-caption">
+                            <h3>AI Generated Image 2</h3>
+                            <p>E-Gyan Skill Development</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Gallery Item 8 -->
+                    <div class="gallery-item" onclick="openLightbox(8)">
+                        <img src="https://egyanskilldevelopment.github.io/egyan/Egyan%20Skill%20Development/Image/Photo2.jpg" alt="Graphic Design" class="gallery-image">
+                        <div class="gallery-caption">
+                            <h3>AI Generated Image 3</h3>
+                            <p>E-Gyan Skill Development</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Gallery Item 9 -->
+                    <div class="gallery-item" onclick="openLightbox(9)">
+                        <img src="https://egyanskilldevelopment.github.io/egyan/Egyan%20Skill%20Development/Image/Photo5.jpg" alt="Student Projects" class="gallery-image">
+                        <div class="gallery-caption">
+                            <h3>AI Generated Image 4</h3>
+                            <p>E-Gyan Skill Development</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta section-xl">
+        <div class="container">
+            <div class="animate-up">
+                <h2>Ready to Join Our Institute?</h2>
+                <p>Explore our courses and start your journey in the world of technology today.</p>
+                <div class="mt-40">
+                    <a href="contact.html" class="btn btn-secondary">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-shape"></div>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col animate-up">
+                    <div class="footer-logo">
+                        <div class="footer-logo-img">
+                            <img src="https://trendseducation.github.io/classmanagement/Student%20Details%202025-26/Icon/Image/Egyan%20Logo%20NB.png" alt="EG Logo" />
+                        </div>
+                        <div class="footer-logo-text">E-Gyan Skill Development</div>
+                    </div>
+                    <p>Empowering individuals with practical computer skills for personal and professional growth since many years.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col animate-up delay-1">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Home</a></li>
+                        <li><a href="course.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Courses</a></li>
+                        <li><a href="gallery.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Gallery</a></li>
+                        <li><a href="blog.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Blog</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right" aria-hidden="true"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col animate-up delay-2">
+                    <h3>Courses</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Basic Computer</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Tally with GST</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Advanced Excel</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Website Development</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> AI Courses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col animate-up delay-3">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <div>
+                                <strong>Address</strong>
+                                <span>Ganesh Nagar, Bhaji Market, Near Telegu School, Kamatghar, Bhiwandi.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <span><a href="mailto:egyanskilldevelopment@gmail.com">egyanskilldevelopment@gmail.com</a></span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt" aria-hidden="true"></i>
+                            <div>
+                                <strong>Phone</strong>
+                                <span><a href="tel:+919876543210">+91 8830 467548</a></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 E-Gyan Skill Development. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: var(--secondary-color);" aria-hidden="true"></i> by E-Gyan Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <button class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">&#10094;</button>
+        <div class="lightbox-content">
+            <img id="lightbox-image" class="lightbox-image" src="" alt="">
+            <div id="lightbox-caption" class="lightbox-caption"></div>
+        </div>
+        <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">&#10095;</button>
+    </div>
+
+    <script>
+        // Enhanced Mobile Menu Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+            const mainNav = document.getElementById('mainNav');
+            const navOverlay = document.getElementById('navOverlay');
+            const body = document.body;
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileNav.classList.add('active');
+                navOverlay.style.display = 'block';
+            });
+
+            // Function to toggle menu
+            function toggleMenu() {
+                mainNav.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+                body.classList.toggle('no-scroll');
+                
+                // Toggle aria-expanded attribute
+                const isExpanded = mainNav.classList.contains('active');
+                mobileMenuBtn.setAttribute('aria-expanded', isExpanded);
+            }
+
+            // Event listeners
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMenu);
+            }
+
+            if (mobileCloseBtn) {
+                mobileCloseBtn.addEventListener('click', toggleMenu);
+            }
+
+            if (navOverlay) {
+                navOverlay.addEventListener('click', toggleMenu);
+            }
+
+            // Close menu when clicking on links
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', toggleMenu);
+            });
+
+            // Prevent default behavior for # links
+            document.querySelectorAll('a[href="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                });
+            });
+            
+            // Close menu when pressing Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Lightbox functionality
+        let currentImageIndex = 1;
+        const totalImages = 10;
+        
+        function openLightbox(index) {
+            currentImageIndex = index;
+            updateLightbox();
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function changeImage(step) {
+            currentImageIndex += step;
+            if (currentImageIndex > totalImages) currentImageIndex = 1;
+            if (currentImageIndex < 1) currentImageIndex = totalImages;
+            updateLightbox();
+        }
+        
+        function updateLightbox() {
+            const item = document.querySelector(`.gallery-item:nth-child(${currentImageIndex})`);
+            const imgSrc = item.querySelector('.gallery-image').src;
+            const caption = item.querySelector('.gallery-caption').innerHTML;
+            
+            document.getElementById('lightbox-image').src = imgSrc;
+            document.getElementById('lightbox-caption').innerHTML = caption;
+        }
+        
+        // Close lightbox when clicking outside the image
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('lightbox').classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                } else if (e.key === 'ArrowLeft') {
+                    changeImage(-1);
+                } else if (e.key === 'ArrowRight') {
+                    changeImage(1);
+                }
+            }
+        });
+
+        // Sticky header on scroll
+        const header = document.getElementById('header');
+        if (header) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // Scroll animation
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-up, .animate-left, .animate-right');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('animated');
+                }
+            });
+        }
+
+        // Run animation on load and scroll
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update URL without page jump
+                    if (history.pushState) {
+                        history.pushState(null, null, targetId);
+                    } else {
+                        location.hash = targetId;
+                    }
+                }
+            });
+        });
+
+        // Preloader
+        window.addEventListener('load', () => {
+            const preloader = document.querySelector('.preloader');
+            if (preloader) {
+                setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                    }, 500);
+                }, 500);
+            }
+        });
+    </script>
+</body>
+
+</html>
