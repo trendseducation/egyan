@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Shortcuts Reference</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #f94144;
+        }
+        
+        body {
+            background-color: #f5f7ff;
+            color: var(--dark);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+        
+        .search-box {
+            max-width: 600px;
+            margin: 25px auto 0;
+            position: relative;
+        }
+        
+        #searchInput {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 1.2rem;
+        }
+        
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            background: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .category-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .shortcut-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .shortcut-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            padding: 20px 25px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .card-header i {
+            font-size: 1.8rem;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .shortcut-item:last-child {
+            border-bottom: none;
+        }
+        
+        .shortcut-description {
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .shortcut-keys {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .key {
+            background: #f1f3f9;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: var(--dark);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+        
+        .plus {
+            margin: 0 5px;
+            font-weight: bold;
+            color: var(--gray);
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            grid-column: 1 / -1;
+            color: var(--gray);
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
+            color: var(--gray);
+        }
+        
+        .ai-section {
+            background: linear-gradient(135deg, #f5f7ff, #e3e9ff);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            border-left: 5px solid var(--accent);
+        }
+        
+        .ai-section h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .ai-section h3 i {
+            color: var(--accent);
+        }
+        
+        .ai-tip {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Category colors */
+        .basic-computer { background: linear-gradient(135deg, var(--primary), #4895ef); }
+        .windows { background: linear-gradient(135deg, #00b4d8, #0077b6); }
+        .ms-office { background: linear-gradient(135deg, #f8961e, #e85d04); }
+        .internet { background: linear-gradient(135deg, #38b000, #2d6a4f); }
+        .ai-recommended { background: linear-gradient(135deg, var(--accent), #b5179e); }
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .shortcuts-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .categories {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 10px;
+            }
+            
+            .category-btn {
+                white-space: nowrap;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card-body {
+                padding: 20px;
+            }
+            
+            .shortcut-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .shortcut-keys {
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-keyboard"></i> Keyboard Shortcuts Master</h1>
+            <p class="subtitle">Boost your productivity with these essential keyboard shortcuts for Basic Computer, Windows, MS Office, Internet, and AI-recommended workflows</p>
+            
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search for a shortcut or action...">
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="categories">
+            <button class="category-btn active" data-category="all">All Shortcuts</button>
+            <button class="category-btn" data-category="basic">Basic Computer</button>
+            <button class="category-btn" data-category="windows">Windows</button>
+            <button class="category-btn" data-category="office">MS Office</button>
+            <button class="category-btn" data-category="internet">Internet</button>
+            <button class="category-btn" data-category="ai">AI Recommended</button>
+        </div>
+        
+        <div class="shortcuts-grid" id="shortcutsContainer">
+            <!-- Shortcuts will be dynamically inserted here -->
+        </div>
+        
+        <div class="ai-section">
+            <h3><i class="fas fa-robot"></i> AI Productivity Insights</h3>
+            <p>Based on analysis of workflow patterns, here are the most impactful shortcuts that can save you significant time:</p>
+            
+            <div class="ai-tip">
+                <h4><i class="fas fa-lightbulb"></i> Pro Tip: Master These First</h4>
+                <p>Focus on learning <strong>Ctrl+C/Ctrl+V</strong> (copy/paste), <strong>Ctrl+Z</strong> (undo), and <strong>Ctrl+F</strong> (find) as they're universally applicable across almost all applications and can save you hundreds of clicks per day.</p>
+            </div>
+            
+            <div class="ai-tip">
+                <h4><i class="fas fa-chart-line"></i> Efficiency Analysis</h4>
+                <p>Using <strong>Alt+Tab</strong> to switch between applications instead of reaching for your mouse can save you approximately 2 seconds per switch. For someone who switches 50 times a day, that's nearly 10 hours saved per year!</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Shortcuts Reference • Updated June 2023 • Use shortcuts to work smarter, not harder</p>
+            <p><i class="fas fa-mobile-alt"></i> Fully responsive design - Use on any device</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Shortcuts data organized by category
+        const shortcutsData = {
+            "basic": {
+                title: "Basic Computer",
+                icon: "fas fa-desktop",
+                colorClass: "basic-computer",
+                shortcuts: [
+                    { description: "Copy selected item", keys: ["Ctrl", "C"] },
+                    { description: "Cut selected item", keys: ["Ctrl", "X"] },
+                    { description: "Paste copied/cut item", keys: ["Ctrl", "V"] },
+                    { description: "Undo last action", keys: ["Ctrl", "Z"] },
+                    { description: "Redo last action", keys: ["Ctrl", "Y"] },
+                    { description: "Select all items", keys: ["Ctrl", "A"] },
+                    { description: "Find in document/page", keys: ["Ctrl", "F"] },
+                    { description: "Save current document", keys: ["Ctrl", "S"] },
+                    { description: "Print current document", keys: ["Ctrl", "P"] },
+                    { description: "Open new window/tab", keys: ["Ctrl", "N"] },
+                    { description: "Close current window/tab", keys: ["Ctrl", "W"] },
+                    { description: "Refresh current page", keys: ["Ctrl", "R"] }
+                ]
+            },
+            "windows": {
+                title: "Windows OS",
+                icon: "fab fa-windows",
+                colorClass: "windows",
+                shortcuts: [
+                    { description: "Open Start Menu", keys: ["Win"] },
+                    { description: "Lock your computer", keys: ["Win", "L"] },
+                    { description: "Open File Explorer", keys: ["Win", "E"] },
+                    { description: "Open Run dialog", keys: ["Win", "R"] },
+                    { description: "Open Settings", keys: ["Win", "I"] },
+                    { description: "Open Action Center", keys: ["Win", "A"] },
+                    { description: "Open Search", keys: ["Win", "S"] },
+                    { description: "Minimize all windows", keys: ["Win", "M"] },
+                    { description: "Restore minimized windows", keys: ["Win", "Shift", "M"] },
+                    { description: "Switch between open apps", keys: ["Alt", "Tab"] },
+                    { description: "Open Task View", keys: ["Win", "Tab"] },
+                    { description: "Take screenshot", keys: ["Win", "PrtScn"] },
+                    { description: "Open Emoji panel", keys: ["Win", "."] },
+                    { description: "Virtual Desktops: New", keys: ["Win", "Ctrl", "D"] },
+                    { description: "Virtual Desktops: Close", keys: ["Win", "Ctrl", "F4"] },
+                    { description: "Virtual Desktops: Switch", keys: ["Win", "Ctrl", "Left/Right"] }
+                ]
+            },
+            "office": {
+                title: "MS Office",
+                icon: "fas fa-file-alt",
+                colorClass: "ms-office",
+                shortcuts: [
+                    { description: "Bold text", keys: ["Ctrl", "B"] },
+                    { description: "Italicize text", keys: ["Ctrl", "I"] },
+                    { description: "Underline text", keys: ["Ctrl", "U"] },
+                    { description: "Center align text", keys: ["Ctrl", "E"] },
+                    { description: "Left align text", keys: ["Ctrl", "L"] },
+                    { description: "Right align text", keys: ["Ctrl", "R"] },
+                    { description: "Insert hyperlink", keys: ["Ctrl", "K"] },
+                    { description: "Check spelling", keys: ["F7"] },
+                    { description: "Go to", keys: ["Ctrl", "G"] },
+                    { description: "Repeat last action", keys: ["F4"] },
+                    { description: "Insert new slide (PPT)", keys: ["Ctrl", "M"] },
+                    { description: "New workbook (Excel)", keys: ["Ctrl", "N"] },
+                    { description: "Insert table (Word)", keys: ["Ctrl", "T"] },
+                    { description: "Format painter", keys: ["Ctrl", "Shift", "C"] },
+                    { description: "Insert comment", keys: ["Ctrl", "Alt", "M"] }
+                ]
+            },
+            "internet": {
+                title: "Internet & Browsers",
+                icon: "fas fa-globe",
+                colorClass: "internet",
+                shortcuts: [
+                    { description: "Open new tab", keys: ["Ctrl", "T"] },
+                    { description: "Reopen closed tab", keys: ["Ctrl", "Shift", "T"] },
+                    { description: "Switch to next tab", keys: ["Ctrl", "Tab"] },
+                    { description: "Switch to previous tab", keys: ["Ctrl", "Shift", "Tab"] },
+                    { description: "Go to address bar", keys: ["Ctrl", "L"] },
+                    { description: "Bookmark current page", keys: ["Ctrl", "D"] },
+                    { description: "Open bookmarks", keys: ["Ctrl", "Shift", "B"] },
+                    { description: "Open history", keys: ["Ctrl", "H"] },
+                    { description: "Open downloads", keys: ["Ctrl", "J"] },
+                    { description: "Zoom in", keys: ["Ctrl", "+"] },
+                    { description: "Zoom out", keys: ["Ctrl", "-"] },
+                    { description: "Reset zoom", keys: ["Ctrl", "0"] },
+                    { description: "Toggle full screen", keys: ["F11"] },
+                    { description: "Force refresh (bypass cache)", keys: ["Ctrl", "Shift", "R"] },
+                    { description: "Open developer tools", keys: ["F12"] }
+                ]
+            },
+            "ai": {
+                title: "AI Recommended",
+                icon: "fas fa-robot",
+                colorClass: "ai-recommended",
+                shortcuts: [
+                    { description: "Quick screenshot (Win+Shift+S)", keys: ["Win", "Shift", "S"] },
+                    { description: "Voice typing in docs", keys: ["Win", "H"] },
+                    { description: "Clipboard history (Win+V)", keys: ["Win", "V"] },
+                    { description: "Text expander (PhraseExpress)", keys: ["Ctrl", "Alt", "T"] },
+                    { description: "Snap windows left/right", keys: ["Win", "Left/Right"] },
+                    { description: "Snap windows to corners", keys: ["Win", "Left/Right", "↑/↓"] },
+                    { description: "Task manager", keys: ["Ctrl", "Shift", "Esc"] },
+                    { description: "Rename selected file", keys: ["F2"] },
+                    { description: "Create new folder", keys: ["Ctrl", "Shift", "N"] },
+                    { description: "Cycle through notifications", keys: ["Win", "N"] },
+                    { description: "Split screen equally (PowerToys)", keys: ["Win", "Ctrl", "Alt", "T"] },
+                    { description: "Always on top (PowerToys)", keys: ["Win", "Ctrl", "T"] }
+                ]
+            }
+        };
+        
+        // DOM elements
+        const shortcutsContainer = document.getElementById('shortcutsContainer');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const searchInput = document.getElementById('searchInput');
+        
+        // Initialize the page with all shortcuts
+        function renderShortcuts(category = 'all', searchTerm = '') {
+            shortcutsContainer.innerHTML = '';
+            
+            let categoriesToShow = [];
+            
+            if (category === 'all') {
+                categoriesToShow = Object.keys(shortcutsData);
+            } else {
+                categoriesToShow = [category];
+            }
+            
+            let hasResults = false;
+            
+            categoriesToShow.forEach(catKey => {
+                const categoryData = shortcutsData[catKey];
+                let filteredShortcuts = categoryData.shortcuts;
+                
+                // Apply search filter if search term exists
+                if (searchTerm) {
+                    filteredShortcuts = categoryData.shortcuts.filter(item => 
+                        item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        item.keys.join(' ').toLowerCase().includes(searchTerm.toLowerCase())
+                    );
+                }
+                
+                // Only show category if it has results after filtering
+                if (filteredShortcuts.length > 0) {
+                    hasResults = true;
+                    
+                    // Create category card
+                    const card = document.createElement('div');
+                    card.className = 'shortcut-card';
+                    
+                    card.innerHTML = `
+                        <div class="card-header ${categoryData.colorClass}">
+                            <i class="${categoryData.icon}"></i>
+                            <h2>${categoryData.title}</h2>
+                        </div>
+                        <div class="card-body">
+                            ${filteredShortcuts.map(item => `
+                                <div class="shortcut-item">
+                                    <div class="shortcut-description">${item.description}</div>
+                                    <div class="shortcut-keys">
+                                        ${item.keys.map((key, index) => `
+                                            <span class="key">${key}</span>
+                                            ${index < item.keys.length - 1 ? '<span class="plus">+</span>' : ''}
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    
+                    shortcutsContainer.appendChild(card);
+                }
+            });
+            
+            // Show message if no results found
+            if (!hasResults) {
+                shortcutsContainer.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search fa-3x" style="margin-bottom: 15px;"></i>
+                        <h3>No shortcuts found</h3>
+                        <p>Try a different search term or select another category</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Event listeners for category buttons
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Render shortcuts for selected category
+                const category = button.getAttribute('data-category');
+                renderShortcuts(category, searchInput.value);
+            });
+        });
+        
+        // Event listener for search input
+        searchInput.addEventListener('input', () => {
+            const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
+            renderShortcuts(activeCategory, searchInput.value);
+        });
+        
+        // Initialize with all shortcuts
+        renderShortcuts();
+        
+        // Add keyboard shortcut hints
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+F to focus search
+            if (e.ctrlKey && e.key === 'f') {
+                e.preventDefault();
+                searchInput.focus();
+                searchInput.select();
+            }
+            
+            // Esc to clear search
+            if (e.key === 'Escape' && document.activeElement === searchInput) {
+                searchInput.value = '';
+                renderShortcuts('all', '');
+            }
+        });
+    </script>
+</body>
+</html>
