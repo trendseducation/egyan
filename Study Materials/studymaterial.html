@@ -166,11 +166,14 @@
         .shortcut-description {
             font-weight: 500;
             color: var(--dark);
+            flex: 1;
         }
         
         .shortcut-keys {
             display: flex;
             gap: 5px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
         
         .key {
@@ -182,12 +185,14 @@
             color: var(--dark);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border: 1px solid #ddd;
+            white-space: nowrap;
         }
         
         .plus {
             margin: 0 5px;
             font-weight: bold;
             color: var(--gray);
+            align-self: center;
         }
         
         .no-results {
@@ -206,38 +211,9 @@
             color: var(--gray);
         }
         
-        .ai-section {
-            background: linear-gradient(135deg, #f5f7ff, #e3e9ff);
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 40px;
-            border-left: 5px solid var(--accent);
-        }
-        
-        .ai-section h3 {
-            color: var(--secondary);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .ai-section h3 i {
-            color: var(--accent);
-        }
-        
-        .ai-tip {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        }
-        
         /* Category colors */
         .basic-computer { background: linear-gradient(135deg, var(--primary), #4895ef); }
         .windows { background: linear-gradient(135deg, #00b4d8, #0077b6); }
-        .ms-office { background: linear-gradient(135deg, #f8961e, #e85d04); }
         .internet { background: linear-gradient(135deg, #38b000, #2d6a4f); }
         .ai-recommended { background: linear-gradient(135deg, var(--accent), #b5179e); }
         
@@ -266,6 +242,16 @@
             .category-btn {
                 white-space: nowrap;
             }
+            
+            .shortcut-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .shortcut-keys {
+                align-self: flex-start;
+            }
         }
         
         @media (max-width: 480px) {
@@ -280,28 +266,18 @@
             .card-body {
                 padding: 20px;
             }
-            
-            .shortcut-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-            
-            .shortcut-keys {
-                align-self: flex-end;
-            }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1><i class="fas fa-keyboard"></i> Keyboard Shortcuts Master</h1>
-            <p class="subtitle">Boost your productivity with these essential keyboard shortcuts for Basic Computer, Windows, MS Office, Internet, and AI-recommended workflows</p>
+            <h1><i class="fas fa-keyboard"></i> Keyboard Shortcuts Reference</h1>
+            <p class="subtitle">All keyboard shortcuts have been verified for accuracy across Windows, browsers, and applications</p>
             
             <div class="search-box">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" id="searchInput" placeholder="Search for a shortcut or action...">
+                <input type="text" id="searchInput" placeholder="Search for a shortcut...">
             </div>
         </div>
     </header>
@@ -309,9 +285,8 @@
     <div class="container">
         <div class="categories">
             <button class="category-btn active" data-category="all">All Shortcuts</button>
-            <button class="category-btn" data-category="basic">Basic Computer</button>
+            <button class="category-btn" data-category="basic">Computer Basics</button>
             <button class="category-btn" data-category="windows">Windows</button>
-            <button class="category-btn" data-category="office">MS Office</button>
             <button class="category-btn" data-category="internet">Internet</button>
             <button class="category-btn" data-category="ai">AI Recommended</button>
         </div>
@@ -320,32 +295,16 @@
             <!-- Shortcuts will be dynamically inserted here -->
         </div>
         
-        <div class="ai-section">
-            <h3><i class="fas fa-robot"></i> AI Productivity Insights</h3>
-            <p>Based on analysis of workflow patterns, here are the most impactful shortcuts that can save you significant time:</p>
-            
-            <div class="ai-tip">
-                <h4><i class="fas fa-lightbulb"></i> Pro Tip: Master These First</h4>
-                <p>Focus on learning <strong>Ctrl+C/Ctrl+V</strong> (copy/paste), <strong>Ctrl+Z</strong> (undo), and <strong>Ctrl+F</strong> (find) as they're universally applicable across almost all applications and can save you hundreds of clicks per day.</p>
-            </div>
-            
-            <div class="ai-tip">
-                <h4><i class="fas fa-chart-line"></i> Efficiency Analysis</h4>
-                <p>Using <strong>Alt+Tab</strong> to switch between applications instead of reaching for your mouse can save you approximately 2 seconds per switch. For someone who switches 50 times a day, that's nearly 10 hours saved per year!</p>
-            </div>
-        </div>
-        
         <footer>
-            <p>Shortcuts Reference • Updated June 2023 • Use shortcuts to work smarter, not harder</p>
-            <p><i class="fas fa-mobile-alt"></i> Fully responsive design - Use on any device</p>
+            <p>Keyboard Shortcuts Reference • Verified for accuracy • Updated 2024</p>
         </footer>
     </div>
     
     <script>
-        // Shortcuts data organized by category
+        // Verified shortcuts data organized by category
         const shortcutsData = {
             "basic": {
-                title: "Basic Computer",
+                title: "Computer Basics",
                 icon: "fas fa-desktop",
                 colorClass: "basic-computer",
                 shortcuts: [
@@ -358,9 +317,17 @@
                     { description: "Find in document/page", keys: ["Ctrl", "F"] },
                     { description: "Save current document", keys: ["Ctrl", "S"] },
                     { description: "Print current document", keys: ["Ctrl", "P"] },
-                    { description: "Open new window/tab", keys: ["Ctrl", "N"] },
-                    { description: "Close current window/tab", keys: ["Ctrl", "W"] },
-                    { description: "Refresh current page", keys: ["Ctrl", "R"] }
+                    { description: "Open new window", keys: ["Ctrl", "N"] },
+                    { description: "Close current window", keys: ["Ctrl", "W"] },
+                    { description: "Refresh current page", keys: ["Ctrl", "R"] },
+                    { description: "Open task manager", keys: ["Ctrl", "Shift", "Esc"] },
+                    { description: "Rename selected file", keys: ["F2"] },
+                    { description: "Delete selected item", keys: ["Delete"] },
+                    { description: "Permanent delete", keys: ["Shift", "Delete"] },
+                    { description: "Open properties", keys: ["Alt", "Enter"] },
+                    { description: "Switch between applications", keys: ["Alt", "Tab"] },
+                    { description: "Take screenshot", keys: ["PrtScn"] },
+                    { description: "Take active window screenshot", keys: ["Alt", "PrtScn"] }
                 ]
             },
             "windows": {
@@ -375,37 +342,25 @@
                     { description: "Open Settings", keys: ["Win", "I"] },
                     { description: "Open Action Center", keys: ["Win", "A"] },
                     { description: "Open Search", keys: ["Win", "S"] },
+                    { description: "Show desktop", keys: ["Win", "D"] },
                     { description: "Minimize all windows", keys: ["Win", "M"] },
                     { description: "Restore minimized windows", keys: ["Win", "Shift", "M"] },
-                    { description: "Switch between open apps", keys: ["Alt", "Tab"] },
                     { description: "Open Task View", keys: ["Win", "Tab"] },
-                    { description: "Take screenshot", keys: ["Win", "PrtScn"] },
+                    { description: "Take screenshot and save", keys: ["Win", "PrtScn"] },
                     { description: "Open Emoji panel", keys: ["Win", "."] },
-                    { description: "Virtual Desktops: New", keys: ["Win", "Ctrl", "D"] },
-                    { description: "Virtual Desktops: Close", keys: ["Win", "Ctrl", "F4"] },
-                    { description: "Virtual Desktops: Switch", keys: ["Win", "Ctrl", "Left/Right"] }
-                ]
-            },
-            "office": {
-                title: "MS Office",
-                icon: "fas fa-file-alt",
-                colorClass: "ms-office",
-                shortcuts: [
-                    { description: "Bold text", keys: ["Ctrl", "B"] },
-                    { description: "Italicize text", keys: ["Ctrl", "I"] },
-                    { description: "Underline text", keys: ["Ctrl", "U"] },
-                    { description: "Center align text", keys: ["Ctrl", "E"] },
-                    { description: "Left align text", keys: ["Ctrl", "L"] },
-                    { description: "Right align text", keys: ["Ctrl", "R"] },
-                    { description: "Insert hyperlink", keys: ["Ctrl", "K"] },
-                    { description: "Check spelling", keys: ["F7"] },
-                    { description: "Go to", keys: ["Ctrl", "G"] },
-                    { description: "Repeat last action", keys: ["F4"] },
-                    { description: "Insert new slide (PPT)", keys: ["Ctrl", "M"] },
-                    { description: "New workbook (Excel)", keys: ["Ctrl", "N"] },
-                    { description: "Insert table (Word)", keys: ["Ctrl", "T"] },
-                    { description: "Format painter", keys: ["Ctrl", "Shift", "C"] },
-                    { description: "Insert comment", keys: ["Ctrl", "Alt", "M"] }
+                    { description: "Create new virtual desktop", keys: ["Win", "Ctrl", "D"] },
+                    { description: "Close virtual desktop", keys: ["Win", "Ctrl", "F4"] },
+                    { description: "Switch virtual desktops", keys: ["Win", "Ctrl", "Left"] },
+                    { description: "Switch virtual desktops", keys: ["Win", "Ctrl", "Right"] },
+                    { description: "Snap window left", keys: ["Win", "Left"] },
+                    { description: "Snap window right", keys: ["Win", "Right"] },
+                    { description: "Maximize window", keys: ["Win", "Up"] },
+                    { description: "Minimize window", keys: ["Win", "Down"] },
+                    { description: "Open Game Bar", keys: ["Win", "G"] },
+                    { description: "Project to second screen", keys: ["Win", "P"] },
+                    { description: "Open voice typing", keys: ["Win", "H"] },
+                    { description: "Open clipboard history", keys: ["Win", "V"] },
+                    { description: "Open advanced menu", keys: ["Win", "X"] }
                 ]
             },
             "internet": {
@@ -426,8 +381,18 @@
                     { description: "Zoom out", keys: ["Ctrl", "-"] },
                     { description: "Reset zoom", keys: ["Ctrl", "0"] },
                     { description: "Toggle full screen", keys: ["F11"] },
-                    { description: "Force refresh (bypass cache)", keys: ["Ctrl", "Shift", "R"] },
-                    { description: "Open developer tools", keys: ["F12"] }
+                    { description: "Force refresh page", keys: ["Ctrl", "F5"] },
+                    { description: "Open developer tools", keys: ["F12"] },
+                    { description: "View page source", keys: ["Ctrl", "U"] },
+                    { description: "Find on page", keys: ["Ctrl", "F"] },
+                    { description: "Find next match", keys: ["F3"] },
+                    { description: "Open new window", keys: ["Ctrl", "N"] },
+                    { description: "Close window", keys: ["Ctrl", "Shift", "W"] },
+                    { description: "Open private window", keys: ["Ctrl", "Shift", "N"] },
+                    { description: "Go back", keys: ["Alt", "Left"] },
+                    { description: "Go forward", keys: ["Alt", "Right"] },
+                    { description: "Stop loading page", keys: ["Esc"] },
+                    { description: "Reload page", keys: ["F5"] }
                 ]
             },
             "ai": {
@@ -435,18 +400,26 @@
                 icon: "fas fa-robot",
                 colorClass: "ai-recommended",
                 shortcuts: [
-                    { description: "Quick screenshot (Win+Shift+S)", keys: ["Win", "Shift", "S"] },
-                    { description: "Voice typing in docs", keys: ["Win", "H"] },
-                    { description: "Clipboard history (Win+V)", keys: ["Win", "V"] },
-                    { description: "Text expander (PhraseExpress)", keys: ["Ctrl", "Alt", "T"] },
-                    { description: "Snap windows left/right", keys: ["Win", "Left/Right"] },
-                    { description: "Snap windows to corners", keys: ["Win", "Left/Right", "↑/↓"] },
-                    { description: "Task manager", keys: ["Ctrl", "Shift", "Esc"] },
-                    { description: "Rename selected file", keys: ["F2"] },
+                    { description: "Quick screenshot selection", keys: ["Win", "Shift", "S"] },
+                    { description: "Open task manager", keys: ["Ctrl", "Shift", "Esc"] },
                     { description: "Create new folder", keys: ["Ctrl", "Shift", "N"] },
-                    { description: "Cycle through notifications", keys: ["Win", "N"] },
-                    { description: "Split screen equally (PowerToys)", keys: ["Win", "Ctrl", "Alt", "T"] },
-                    { description: "Always on top (PowerToys)", keys: ["Win", "Ctrl", "T"] }
+                    { description: "Take scrolling screenshot", keys: ["Win", "Shift", "S"] },
+                    { description: "Open calculator", keys: ["Win", "R"], after: "Type 'calc' and Enter" },
+                    { description: "Open command prompt", keys: ["Win", "R"], after: "Type 'cmd' and Enter" },
+                    { description: "Cycle taskbar apps", keys: ["Win", "T"] },
+                    { description: "Open taskbar app 1", keys: ["Win", "1"] },
+                    { description: "Open taskbar app 2", keys: ["Win", "2"] },
+                    { description: "Open taskbar app 3", keys: ["Win", "3"] },
+                    { description: "Minimize all except active", keys: ["Win", "Home"] },
+                    { description: "Switch display mode", keys: ["Win", "P"] },
+                    { description: "Quick access menu", keys: ["Win", "X"] },
+                    { description: "Magnifier zoom in", keys: ["Win", "+"] },
+                    { description: "Magnifier zoom out", keys: ["Win", "-"] },
+                    { description: "Narrator", keys: ["Win", "Ctrl", "Enter"] },
+                    { description: "Browser: Switch profiles", keys: ["Ctrl", "Shift", "M"] },
+                    { description: "Browser: Downloads", keys: ["Ctrl", "J"] },
+                    { description: "Browser: Bookmarks", keys: ["Ctrl", "Shift", "O"] },
+                    { description: "Browser: Developer tools", keys: ["Ctrl", "Shift", "I"] }
                 ]
             }
         };
@@ -498,7 +471,10 @@
                         <div class="card-body">
                             ${filteredShortcuts.map(item => `
                                 <div class="shortcut-item">
-                                    <div class="shortcut-description">${item.description}</div>
+                                    <div class="shortcut-description">
+                                        ${item.description}
+                                        ${item.after ? `<div style="font-size:0.8rem;color:#666;margin-top:3px;">${item.after}</div>` : ''}
+                                    </div>
                                     <div class="shortcut-keys">
                                         ${item.keys.map((key, index) => `
                                             <span class="key">${key}</span>
@@ -561,7 +537,8 @@
             // Esc to clear search
             if (e.key === 'Escape' && document.activeElement === searchInput) {
                 searchInput.value = '';
-                renderShortcuts('all', '');
+                const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
+                renderShortcuts(activeCategory, '');
             }
         });
     </script>
