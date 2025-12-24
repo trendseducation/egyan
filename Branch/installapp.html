@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ujjwal Academy - Study Material App</title>
+  <title>E-Gyan Skill Development - Study Material App</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -719,7 +719,7 @@
       <div class="tab-content">
         <div class="content active" id="description">
           <h2>Comprehensive Study Materials for Academic Excellence</h2>
-          <p>Ujjwal Academy provides meticulously curated study resources designed to help students excel in their academic pursuits. Our app brings everything you need for successful learning right to your fingertips.</p>
+          <p>E-Gyan Skill Development provides meticulously curated study resources designed to help students excel in their academic pursuits. Our app brings everything you need for successful learning right to your fingertips.</p>
           
           <div class="features-grid">
             <div class="feature">
@@ -968,12 +968,12 @@
       }));
 	  
 	  // Replace this with your actual app store link
-      const appInstallLink = "https://trendseducation.github.io/ujjwalacademy/Document/Ujjwal_AcademyV5.1.apk";
+      const appInstallLink = "https://trendseducation.github.io/egyan/App/Egyan%20Skill%20Development.apk";
 
   document.getElementById("install-button").addEventListener("click", () => {
     const link = document.createElement("a");
     link.href = appInstallLink;
-    link.download = "Ujjwal_AcademyV5.1.apk"; // suggest download instead of opening
+    link.download = "Egyan%20Skill%20Development.apk"; // suggest download instead of opening
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -1148,9 +1148,9 @@
             if (data && data.success) {
               const downloads = data.downloads || data.download_count || 0;
               document.getElementById('download-count').textContent = `${downloads >= 1000 ? (downloads/1000).toFixed(0)+'K+' : downloads+'+'} Downloads`;
-              showMessage('Success','Thank you for installing Ujjwal Academy App! Your download will begin shortly.');
-            } else showMessage('Info','Thank you for installing Ujjwal Academy App!');
-          }).catch(err => { console.error('download error', err); showMessage('Info','Thank you for installing Ujjwal Academy App!'); });
+              showMessage('Success','Thank you for installing E-Gyan Skill Development App! Your download will begin shortly.');
+            } else showMessage('Info','Thank you for installing E-Gyan Skill Development App!');
+          }).catch(err => { console.error('download error', err); showMessage('Info','Thank you for installing E-Gyan Skill Development App!'); });
       }
 
       function showMessage(title, content) {
@@ -1176,14 +1176,14 @@
 	  document.getElementById("shareApp").addEventListener("click", function(e) {
     e.preventDefault();
 
-    const shareMessage = `Download this app which includes Notes, Digest, Question Paper, Important Question and more.\n\nhttps://trendseducation.github.io/ujjwalacademy/installapp.html`;
+    const shareMessage = `Download this app which includes Notes, Digest, Question Paper, Important Question and more.\n\nhttps://trendseducation.github.io/egyan/Branch/installapp.html`;
 
     if (navigator.share) {
       // ✅ Native mobile share option
       navigator.share({
-        title: "Ujjwal Academy App",
+        title: "E-Gyan Skill Development App",
         text: shareMessage,
-        url: "https://trendseducation.github.io/ujjwalacademy/installapp.html"
+        url: "https://trendseducation.github.io/egyan/Branch/installapp.html"
       }).catch((err) => {
         console.log("Sharing failed:", err);
       });
@@ -1199,7 +1199,3 @@
 
 </body>
 </html>
-
-
-
-
