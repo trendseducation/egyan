@@ -6,7 +6,6 @@
   <title>EGyan Skill Development</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://trendseducation.github.io/egyan/Branch/loginscriptforindex.js"></script>
   <style>
     :root {
       --primary-color: #4361ee;
@@ -345,6 +344,110 @@
         flex-direction: column;
       }
     }
+
+    /* Logout Confirmation Popup Styles */
+    .logout-confirm-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      backdrop-filter: blur(3px);
+    }
+
+    .logout-confirm-popup {
+      background: white;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 450px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      animation: popupFadeIn 0.3s ease;
+    }
+
+    @keyframes popupFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .logout-confirm-icon {
+      width: 70px;
+      height: 70px;
+      background: var(--warning-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 30px;
+    }
+
+    .logout-confirm-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 10px;
+    }
+
+    .logout-confirm-message {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .logout-confirm-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .logout-confirm-btn {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      min-width: 120px;
+    }
+
+    .logout-confirm-btn.cancel {
+      background: #f0f0f0;
+      color: #666;
+    }
+
+    .logout-confirm-btn.cancel:hover {
+      background: #e0e0e0;
+      transform: translateY(-2px);
+    }
+
+    .logout-confirm-btn.confirm {
+      background: linear-gradient(135deg, var(--danger-color), #d32f2f);
+      color: white;
+      box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+    }
+
+    .logout-confirm-btn.confirm:hover {
+      background: linear-gradient(135deg, #d32f2f, var(--danger-color));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(244, 67, 54, 0.4);
+    }
   </style>
 </head>
 <body>
@@ -354,6 +457,30 @@
     <p>Checking authentication...</p>
   </div>
   
+  <!-- Logout Confirmation Popup -->
+  <div id="logoutConfirmOverlay" class="logout-confirm-overlay">
+    <div class="logout-confirm-popup">
+      <div class="logout-confirm-icon">
+        <i class="fas fa-sign-out-alt"></i>
+      </div>
+      <h3 class="logout-confirm-title">Confirm Logout</h3>
+      <p class="logout-confirm-message">
+        Are you sure you want to logout from your account?
+      </p>
+      <p style="font-size: 14px; color: #888; margin-bottom: 25px;">
+        You will need to login again to access the system.
+      </p>
+      <div class="logout-confirm-buttons">
+        <button class="logout-confirm-btn cancel" onclick="closeLogoutConfirm()">
+          <i class="fas fa-times"></i> Cancel
+        </button>
+        <button class="logout-confirm-btn confirm" onclick="performLogout()">
+          <i class="fas fa-check"></i> Logout
+        </button>
+      </div>
+    </div>
+  </div>
+  
   <!-- Header with Auth Button -->
   <header>
     <div class="header-content">
@@ -361,7 +488,7 @@
         <h2>E-Gyan Skill Development</h2>
         <p>Computer class Kamatghar</p>
       </div>
-      <!-- Auth button will be auto-populated by auth-script.js -->
+      <!-- Auth button will be populated by JavaScript -->
       <div id="authButton"></div>
     </div>
   </header>
@@ -387,6 +514,100 @@
   
   <!-- Custom JavaScript for this page -->
   <script>
+    // Custom authentication system for this page
+    const AuthSystem = {
+      // Check authentication status
+      checkAuthentication: function() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        const loginTime = localStorage.getItem('loginTime');
+        const userRole = localStorage.getItem('userRole');
+        const userData = localStorage.getItem('userData');
+        
+        if (isLoggedIn === 'true' && loginTime && userRole && userData) {
+          const currentTime = new Date().getTime();
+          const sessionDuration = 120 * 60 * 60 * 1000; // 120 hours (5 days)
+          
+          // Check if session is still valid
+          if (currentTime - parseInt(loginTime) < sessionDuration) {
+            return true;
+          } else {
+            // Session expired, clear storage
+            this.clearAuthentication();
+            return false;
+          }
+        }
+        return false;
+      },
+      
+      // Clear authentication data
+      clearAuthentication: function() {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('loginTime');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('userData');
+        sessionStorage.removeItem('isLoggedIn');
+        sessionStorage.removeItem('userRole');
+        sessionStorage.removeItem('userName');
+        sessionStorage.removeItem('redirectAfterLogin');
+      },
+      
+      // Show logout confirmation popup
+      showLogoutConfirm: function() {
+        const overlay = document.getElementById('logoutConfirmOverlay');
+        if (overlay) {
+          overlay.style.display = 'flex';
+          document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+      },
+      
+      // Close logout confirmation popup
+      closeLogoutConfirm: function() {
+        const overlay = document.getElementById('logoutConfirmOverlay');
+        if (overlay) {
+          overlay.style.display = 'none';
+          document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+      },
+      
+      // Perform logout after confirmation
+      performLogout: function() {
+        this.clearAuthentication();
+        this.closeLogoutConfirm();
+        
+        // Show logout success message (optional)
+        setTimeout(() => {
+          window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
+        }, 500);
+      },
+      
+      // Update auth button in header
+      updateAuthButton: function() {
+        const authButton = document.getElementById('authButton');
+        if (!authButton) return;
+        
+        if (this.checkAuthentication()) {
+          const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+          const userName = userData.name || 'User';
+          const userRole = localStorage.getItem('userRole') || '';
+          
+          authButton.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 0.9rem;">Welcome, ${userName}</span>
+              <a href="#" onclick="AuthSystem.showLogoutConfirm(); return false;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          `;
+        } else {
+          authButton.innerHTML = `
+            <a href="https://trendseducation.github.io/egyan/Branch/login.html">
+              <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+          `;
+        }
+      }
+    };
+    
     // Function to load the dashboard content after authentication
     function loadDashboardContent() {
       const contentContainer = document.getElementById('contentContainer');
@@ -414,7 +635,7 @@
           </div>
           
           <div class="card">
-            <a href="Fees Details/FeesFrontPage.html">
+            <a href="Fees Details/feesfrontpage.html">
               <div class="card-icon">
                 <i class="fas fa-rupee-sign"></i>
               </div>
@@ -474,7 +695,7 @@
           </div>
           
           <div class="card logout">
-            <a href="#" onclick="AuthSystem.logoutUser(); return false;">
+            <a href="#" onclick="AuthSystem.showLogoutConfirm(); return false;">
               <div class="card-icon">
                 <i class="fas fa-sign-out-alt"></i>
               </div>
@@ -525,55 +746,99 @@
           }, 300);
         }
       }, 1000);
+      
+      // Redirect to login page after 3 seconds
+      setTimeout(() => {
+        window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
+      }, 3000);
     }
     
-    // Override the default behavior to load dashboard content when authenticated
-    document.addEventListener('DOMContentLoaded', function() {
-      // Wait a moment for the auth script to initialize
-      setTimeout(() => {
-        // Check if user is authenticated
-        if (localStorage.getItem('isLoggedIn') === 'true' && 
-            localStorage.getItem('loginTime') && 
-            localStorage.getItem('userRole')) {
-          
-          // Check session expiration
-          const currentTime = new Date().getTime();
-          const loginTime = parseInt(localStorage.getItem('loginTime'));
-          const sessionDuration = 120 * 60 * 60 * 1000; // 120 hours
-          
-          if (currentTime - loginTime > sessionDuration) {
-            // Session expired
-            AuthSystem.clearAuthentication();
-            showLoginRedirect();
-          } else {
-            // Session valid - load dashboard
-            loadDashboardContent();
-          }
-        } else {
-          // Not authenticated - show redirect message
-          showLoginRedirect();
-        }
-      }, 1000);
-    });
-    
-    // Add click handlers to all dashboard links for additional protection
+    // Close logout confirm popup when clicking outside
     document.addEventListener('click', function(event) {
-      const link = event.target.closest('a');
-      if (link && link.getAttribute('href') && 
-          !link.getAttribute('href').includes('login.html') &&
-          !link.getAttribute('href').startsWith('http') &&
-          link.getAttribute('href') !== '#') {
-        
-        // Check authentication before navigating
-        if (!AuthSystem.checkAuthentication()) {
-          event.preventDefault();
-          alert('Your session has expired. Please login again.');
-          window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
-          return false;
+      const overlay = document.getElementById('logoutConfirmOverlay');
+      if (overlay && overlay.style.display === 'flex') {
+        if (event.target === overlay) {
+          AuthSystem.closeLogoutConfirm();
         }
       }
     });
+    
+    // Close logout confirm popup with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        const overlay = document.getElementById('logoutConfirmOverlay');
+        if (overlay && overlay.style.display === 'flex') {
+          AuthSystem.closeLogoutConfirm();
+        }
+      }
+    });
+    
+    // Main initialization function
+    function initPage() {
+      // Check authentication status
+      if (AuthSystem.checkAuthentication()) {
+        // User is authenticated - load dashboard
+        loadDashboardContent();
+        AuthSystem.updateAuthButton();
+        
+        // Store current page as redirect URL for login page
+        sessionStorage.setItem('redirectAfterLogin', window.location.href);
+      } else {
+        // User is not authenticated - show redirect message
+        showLoginRedirect();
+        AuthSystem.updateAuthButton();
+      }
+    }
+    
+    // Initialize page when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Start initialization
+      initPage();
+      
+      // Add click handlers to all dashboard links for additional protection
+      document.addEventListener('click', function(event) {
+        const link = event.target.closest('a');
+        if (link && link.getAttribute('href') && 
+            !link.getAttribute('href').includes('login.html') &&
+            !link.getAttribute('href').startsWith('http') &&
+            link.getAttribute('href') !== '#') {
+          
+          // Check authentication before navigating
+          if (!AuthSystem.checkAuthentication()) {
+            event.preventDefault();
+            alert('Your session has expired. Please login again.');
+            window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
+            return false;
+          }
+          
+          // Store the destination URL as redirect URL for login page
+          const href = link.getAttribute('href');
+          if (href && !href.startsWith('http') && href !== '#') {
+            sessionStorage.setItem('redirectAfterLogin', window.location.origin + '/' + href);
+          }
+        }
+      });
+      
+      // Add periodic authentication check (every 5 minutes)
+      setInterval(() => {
+        if (!AuthSystem.checkAuthentication()) {
+          alert('Your session has expired. Please login again.');
+          window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
+        }
+      }, 5 * 60 * 1000); // 5 minutes
+    });
+    
+    // Make AuthSystem globally available
+    window.AuthSystem = AuthSystem;
+    
+    // Make functions globally available for onclick attributes
+    window.closeLogoutConfirm = function() {
+      AuthSystem.closeLogoutConfirm();
+    };
+    
+    window.performLogout = function() {
+      AuthSystem.performLogout();
+    };
   </script>
 </body>
 </html>
-
