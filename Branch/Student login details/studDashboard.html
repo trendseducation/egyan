@@ -55,6 +55,57 @@
             padding-bottom: 70px; /* Space for bottom nav */
         }
 
+        /* Authentication Check Overlay */
+        #authCheckOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+        }
+
+        .auth-check-content {
+            text-align: center;
+            max-width: 500px;
+            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(67, 97, 238, 0.2);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .auth-check-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .auth-check-content p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
         /* Card Styles (for both desktop and mobile) */
         .card {
             background: white;
@@ -341,9 +392,108 @@
             z-index: 10;
         }
 
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        /* Logout Confirmation Popup */
+        #logoutConfirmOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1200;
+            backdrop-filter: blur(3px);
+        }
+
+        .logout-confirm-popup {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 450px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            animation: logoutPopupFadeIn 0.3s ease;
+        }
+
+        @keyframes logoutPopupFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .logout-confirm-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--warning-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 30px;
+        }
+
+        .logout-confirm-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+
+        .logout-confirm-message {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .logout-confirm-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .logout-confirm-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 120px;
+        }
+
+        .logout-confirm-btn.cancel {
+            background: #f0f0f0;
+            color: #666;
+        }
+
+        .logout-confirm-btn.cancel:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .logout-confirm-btn.confirm {
+            background: linear-gradient(135deg, var(--danger-color), #d32f2f);
+            color: white;
+            box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+        }
+
+        .logout-confirm-btn.confirm:hover {
+            background: linear-gradient(135deg, #d32f2f, var(--danger-color));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(244, 67, 54, 0.4);
         }
 
         /* Error Popup */
@@ -412,8 +562,8 @@
             transform: translateY(-2px);
         }
 
-        /* Duplicate Name Popup */
-        #duplicateNamePopup {
+        /* Duplicate Email Popup */
+        #duplicateEmailPopup {
             display: none;
             position: fixed;
             top: 0;
@@ -476,6 +626,11 @@
             .summary-grid {
                 grid-template-columns: 1fr 1fr;
             }
+            
+            .auth-check-content {
+                padding: 30px 20px;
+                margin: 20px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -501,12 +656,55 @@
             .nav-item i {
                 font-size: 1.2rem;
             }
+            
+            .logout-confirm-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .logout-confirm-btn {
+                width: 100%;
+                min-width: auto;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Authentication Check Overlay -->
+    <div id="authCheckOverlay">
+        <div class="auth-check-content">
+            <div class="auth-spinner"></div>
+            <h3>Checking Authentication</h3>
+            <p>Verifying your login status...</p>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Popup -->
+    <div id="logoutConfirmOverlay">
+        <div class="logout-confirm-popup">
+            <div class="logout-confirm-icon">
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+            <h3 class="logout-confirm-title">Confirm Logout</h3>
+            <p class="logout-confirm-message">
+                Are you sure you want to logout from your account?
+            </p>
+            <p style="font-size: 14px; color: #888; margin-bottom: 25px;">
+                You will need to login again to access the system.
+            </p>
+            <div class="logout-confirm-buttons">
+                <button class="logout-confirm-btn cancel" onclick="closeLogoutConfirm()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="logout-confirm-btn confirm" onclick="performLogout()">
+                    <i class="fas fa-check"></i> Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Desktop Version -->
-    <div class="desktop-container">
+    <div class="desktop-container" style="display: none;">
         <!-- Personal Information Card -->
         <div class="card" id="infoBox">
             <div class="card-header">
@@ -602,7 +800,7 @@
                     <button class="btn btn-primary" onclick="redirectToStudyMaterial()">
                         <i class="fas fa-book-open"></i> Study Material
                     </button>
-                    <button class="btn btn-danger" onclick="handleLogout()">
+                    <button class="btn btn-danger" onclick="showLogoutConfirm()">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </button>
                 </div>
@@ -611,7 +809,7 @@
     </div>
 
     <!-- Mobile Version -->
-    <div class="mobile-container">
+    <div class="mobile-container" style="display: none;">
         <!-- Profile Section (default view) -->
         <div class="card" id="infoBoxMobile">
             <div class="card-header">
@@ -638,7 +836,7 @@
                     <button class="btn btn-primary" onclick="redirectToStudyMaterial()">
                         <i class="fas fa-book-open"></i> Study Material
                     </button>
-                    <button class="btn btn-danger" onclick="logout()">
+                    <button class="btn btn-danger" onclick="showLogoutConfirm()">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </button>
                 </div>
@@ -692,7 +890,7 @@
     </div>
 
     <!-- Mobile Bottom Navigation -->
-    <div class="bottom-nav">
+    <div class="bottom-nav" style="display: none;">
         <a href="#" class="nav-item active" onclick="showMobileSection('profile'); return false;">
             <i class="fas fa-user"></i>
             <span>Profile</span>
@@ -750,21 +948,110 @@
             "11th_Com", "12th_Com", "11th_Sci", "12th_Sci"
         ];
 
-        // Store the home page URL with email
-        const homePageUrl = "studDashboard.html?email=" + encodeURIComponent(studentEmail);
-
-        // Handle back button functionality
-        window.addEventListener('popstate', function(event) {
-            if (window.location.href.indexOf(homePageUrl) === -1) {
-                window.location.href = homePageUrl;
-                window.history.pushState(null, null, homePageUrl);
-            } else {
-                window.history.pushState(null, null, homePageUrl);
+        // Authentication System
+        const AuthSystem = {
+            // Check authentication status
+            checkAuthentication: function() {
+                const isLoggedIn = localStorage.getItem('isLoggedIn');
+                const loginTime = localStorage.getItem('loginTime');
+                const userRole = localStorage.getItem('userRole');
+                const userData = localStorage.getItem('userData');
+                
+                if (isLoggedIn === 'true' && loginTime && userRole && userData) {
+                    const currentTime = new Date().getTime();
+                    const sessionDuration = 24 * 60 * 60 * 1000; // 24 hours
+                    
+                    // Check if session is still valid
+                    if (currentTime - parseInt(loginTime) < sessionDuration) {
+                        return true;
+                    } else {
+                        // Session expired, clear storage
+                        this.clearAuthentication();
+                        return false;
+                    }
+                }
+                return false;
+            },
+            
+            // Clear authentication data
+            clearAuthentication: function() {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('loginTime');
+                localStorage.removeItem('userRole');
+                localStorage.removeItem('userData');
+                sessionStorage.clear();
+            },
+            
+            // Redirect to login page
+            redirectToLogin: function() {
+                // Store current page as redirect URL
+                sessionStorage.setItem('redirectAfterLogin', window.location.href);
+                
+                // Redirect to login page
+                setTimeout(() => {
+                    window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
+                }, 1000);
             }
-        });
+        };
 
-        // Initialize history state
-        window.history.pushState(null, null, window.location.href);
+        // Show main content after authentication check
+        function showMainContent() {
+            const authOverlay = document.getElementById('authCheckOverlay');
+            const desktopContainer = document.querySelector('.desktop-container');
+            const mobileContainer = document.querySelector('.mobile-container');
+            const bottomNav = document.querySelector('.bottom-nav');
+            
+            // Hide auth overlay
+            if (authOverlay) {
+                authOverlay.style.display = 'none';
+            }
+            
+            // Show appropriate content based on screen size
+            if (window.innerWidth > 768) {
+                if (desktopContainer) desktopContainer.style.display = 'flex';
+            } else {
+                if (mobileContainer) mobileContainer.style.display = 'block';
+                if (bottomNav) bottomNav.style.display = 'flex';
+            }
+            
+            // Load student data
+            loadStudentData();
+            
+            // Set up mobile navigation if in mobile view
+            if (window.innerWidth <= 768) {
+                showMobileSection('profile');
+            }
+        }
+
+        // Logout Confirmation Functions
+        function showLogoutConfirm() {
+            const overlay = document.getElementById('logoutConfirmOverlay');
+            if (overlay) {
+                overlay.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeLogoutConfirm() {
+            const overlay = document.getElementById('logoutConfirmOverlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function performLogout() {
+            // Clear all authentication data
+            AuthSystem.clearAuthentication();
+            
+            // Close the confirmation popup
+            closeLogoutConfirm();
+            
+            // Redirect to login page
+            setTimeout(() => {
+                window.location.href = "https://trendseducation.github.io/egyan/Branch/login.html";
+            }, 300);
+        }
 
         // Show error popup with custom message
         function showErrorPopup(message) {
@@ -814,32 +1101,32 @@
         }
 
         // Redirect to Attendance
-function redirectToAttendance() {
-    // Get the student name from the displayed data
-    const studentNameElement = document.getElementById("studentName") || document.getElementById("studentNameMobile");
-    const studentName = studentNameElement ? studentNameElement.textContent : null;
-    
-    if (studentName && studentName !== "N/A") {
-        window.location.href = `studAttendance.html?studentName=${encodeURIComponent(studentName)}`;
-    } else {
-        showErrorPopup("Student name not found. Please login again.");
-    }
-    return false;
-}
+        function redirectToAttendance() {
+            // Get the student name from the displayed data
+            const studentNameElement = document.getElementById("studentName") || document.getElementById("studentNameMobile");
+            const studentName = studentNameElement ? studentNameElement.textContent : null;
+            
+            if (studentName && studentName !== "N/A") {
+                window.location.href = `studAttendance.html?studentName=${encodeURIComponent(studentName)}`;
+            } else {
+                showErrorPopup("Student name not found. Please login again.");
+            }
+            return false;
+        }
 
-// Redirect to Test Records
-function redirectToTest() {
-    // Get the student name from the displayed data
-    const studentNameElement = document.getElementById("studentName") || document.getElementById("studentNameMobile");
-    const studentName = studentNameElement ? studentNameElement.textContent : null;
-    
-    if (studentName && studentName !== "N/A") {
-        window.location.href = `studTestRecord.html?studentName=${encodeURIComponent(studentName)}`;
-    } else {
-        showErrorPopup("Student name not found. Please login again.");
-    }
-    return false;
-}
+        // Redirect to Test Records
+        function redirectToTest() {
+            // Get the student name from the displayed data
+            const studentNameElement = document.getElementById("studentName") || document.getElementById("studentNameMobile");
+            const studentName = studentNameElement ? studentNameElement.textContent : null;
+            
+            if (studentName && studentName !== "N/A") {
+                window.location.href = `studTestRecord.html?studentName=${encodeURIComponent(studentName)}`;
+            } else {
+                showErrorPopup("Student name not found. Please login again.");
+            }
+            return false;
+        }
 
         // Redirect to Study Material
         function redirectToStudyMaterial() {
@@ -851,200 +1138,131 @@ function redirectToTest() {
             return false;
         }
 
-        function handleLogout() {
-            // Set flag to prevent auto-login on the login page
-            sessionStorage.setItem('justLoggedOut', 'true');
-            
-            // Clear any remembered credentials if needed
-            const roles = ['admin', 'student', 'teacher', 'staff'];
-            roles.forEach(role => {
-                localStorage.removeItem(`remembered_${role}`);
-            });
-
-            // Redirect to login page
-            window.location.href = "https://trendseducation.github.io/egyan/Branch/login.html";
-        }
-
-       // Search for student by email in admission sheets
-async function searchStudentByEmail(email) {
-    if (!email) {
-        throw new Error("No email provided");
-    }
-
-    console.log("DEBUG - Searching for email:", email);
-
-    const searchPromises = admissionSheets.map((sheetName, index) => {
-        // Use 'email' parameter instead of 'studentEmail'
-        const url = `${scriptUrl}?action=searchByEmail&email=${encodeURIComponent(email)}&sheetId=${admissionSheetId}&sheetName=${sheetName}`;
-        console.log("DEBUG - Fetching from:", url);
-        
-        return fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+        // Close logout confirm popup when clicking outside or pressing Escape
+        document.addEventListener('click', function(event) {
+            const overlay = document.getElementById('logoutConfirmOverlay');
+            if (overlay && overlay.style.display === 'flex') {
+                if (event.target === overlay) {
+                    closeLogoutConfirm();
                 }
-                return response.json();
-            })
-            .then(data => {
-                console.log("DEBUG - Response from", sheetName, ":", data);
-                if (data.status === "success" && data.message && data.message.studentDetails) {
-                    return {
-                        studentDetails: data.message.studentDetails,
-                        sheetName: sheetName,
-                        feesSheetName: feesSheets[index]
-                    };
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const overlay = document.getElementById('logoutConfirmOverlay');
+                if (overlay && overlay.style.display === 'flex') {
+                    closeLogoutConfirm();
                 }
-                return null;
-            })
-            .catch(error => {
-                console.error(`Error searching in ${sheetName}:`, error);
-                return null;
-            });
-    });
-
-    const results = await Promise.all(searchPromises);
-    const validResults = results.filter(result => result !== null);
-    
-    console.log("DEBUG - Valid results:", validResults);
-    
-    if (validResults.length === 0) {
-        throw new Error("No student found with the provided email ID: " + email);
-    }
-    
-    if (validResults.length > 1) {
-        throw new Error("Duplicate email found in multiple sheets");
-    }
-    
-    return validResults[0];
-}
-
-        // Load fees data using student name from admission details
-        async function loadFeesData(studentName, feesSheetName) {
-            if (!studentName || !feesSheetName) {
-                throw new Error("Student name or fees sheet name not provided");
             }
-
-            const response = await fetch(`${scriptUrl}?action=getFeesByStudentName&studentName=${encodeURIComponent(studentName)}&sheetId=${feesSheetId}&sheetName=${feesSheetName}`);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            
-            if (data.status !== "success") {
-                throw new Error(data.message || "Failed to load fees data");
-            }
-            
-            return data.feesDetails;
-        }
+        });
 
         // Load data for both desktop and mobile
-async function loadStudentData() {
-    if (!studentEmail) {
-        showErrorPopup("No email ID provided. Please access this page through the proper login process.");
-        return;
-    }
+        async function loadStudentData() {
+            if (!studentEmail) {
+                showErrorPopup("No email ID provided. Please access this page through the proper login process.");
+                return;
+            }
 
-    // Show spinners for both desktop and mobile
-    const spinners = [
-        "spinner", "feesSpinner", 
-        "spinnerMobile", "feesSpinnerMobile"
-    ];
-    spinners.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.display = "block";
-    });
+            // Show spinners for both desktop and mobile
+            const spinners = [
+                "spinner", "feesSpinner", 
+                "spinnerMobile", "feesSpinnerMobile"
+            ];
+            spinners.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = "block";
+            });
 
-    try {
-        // Use the new complete data approach that gets both student details and fees in one call
-        const searchPromises = admissionSheets.map((sheetName, index) => {
-            const url = `${scriptUrl}?action=getCompleteStudentData&email=${encodeURIComponent(studentEmail)}&sheetId=${admissionSheetId}&sheetName=${sheetName}&feesSheetId=${feesSheetId}&feesSheetName=${feesSheets[index]}`;
-            console.log("Fetching complete data from:", url);
-            
-            return fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log("Response from", sheetName, ":", data);
-                    if (data.status === "success" && data.message.studentDetails) {
-                        return {
-                            studentDetails: data.message.studentDetails,
-                            feesDetails: data.message.feesDetails,
-                            sheetName: sheetName,
-                            feesSheetName: feesSheets[index]
-                        };
-                    }
-                    return null;
-                })
-                .catch(error => {
-                    console.error(`Error in ${sheetName}:`, error);
-                    return null;
+            try {
+                // Use the new complete data approach that gets both student details and fees in one call
+                const searchPromises = admissionSheets.map((sheetName, index) => {
+                    const url = `${scriptUrl}?action=getCompleteStudentData&email=${encodeURIComponent(studentEmail)}&sheetId=${admissionSheetId}&sheetName=${sheetName}&feesSheetId=${feesSheetId}&feesSheetName=${feesSheets[index]}`;
+                    console.log("Fetching complete data from:", url);
+                    
+                    return fetch(url)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log("Response from", sheetName, ":", data);
+                            if (data.status === "success" && data.message.studentDetails) {
+                                return {
+                                    studentDetails: data.message.studentDetails,
+                                    feesDetails: data.message.feesDetails,
+                                    sheetName: sheetName,
+                                    feesSheetName: feesSheets[index]
+                                };
+                            }
+                            return null;
+                        })
+                        .catch(error => {
+                            console.error(`Error in ${sheetName}:`, error);
+                            return null;
+                        });
                 });
-        });
 
-        const results = await Promise.all(searchPromises);
-        const validResults = results.filter(result => result !== null);
-        
-        console.log("Valid results:", validResults);
-        
-        if (validResults.length === 0) {
-            throw new Error("No student found with the provided email ID: " + studentEmail);
+                const results = await Promise.all(searchPromises);
+                const validResults = results.filter(result => result !== null);
+                
+                console.log("Valid results:", validResults);
+                
+                if (validResults.length === 0) {
+                    throw new Error("No student found with the provided email ID: " + studentEmail);
+                }
+                
+                if (validResults.length > 1) {
+                    throw new Error("Duplicate email found in multiple sheets");
+                }
+
+                const result = validResults[0];
+                const studentDetails = result.studentDetails;
+                const feesDetails = result.feesDetails;
+
+                // Update personal information
+                const updateIfExists = (id, value) => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = value || "N/A";
+                };
+
+                // Update desktop version
+                updateIfExists("academicYear", studentDetails.academicYear);
+                updateIfExists("studentName", studentDetails.studentName);
+                updateIfExists("course", studentDetails.course);
+
+                // Update mobile version
+                updateIfExists("academicYearMobile", studentDetails.academicYear);
+                updateIfExists("studentNameMobile", studentDetails.studentName);
+                updateIfExists("courseMobile", studentDetails.course);
+
+                // Update fees if available
+                if (feesDetails) {
+                    updateFeesDisplay(feesDetails);
+                } else {
+                    console.log("No fees details found for student:", studentDetails.studentName);
+                    showErrorPopup("Fees details not available for " + studentDetails.studentName);
+                }
+
+                // Hide all spinners
+                spinners.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = "none";
+                });
+
+            } catch (error) {
+                // Hide all spinners
+                spinners.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = "none";
+                });
+                
+                showErrorPopup(`Error: ${error.message}. Please try again later or contact support.`);
+                console.error("Error loading student data:", error);
+            }
         }
-        
-        if (validResults.length > 1) {
-            throw new Error("Duplicate email found in multiple sheets");
-        }
-
-        const result = validResults[0];
-        const studentDetails = result.studentDetails;
-        const feesDetails = result.feesDetails;
-
-        // Update personal information
-        const updateIfExists = (id, value) => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = value || "N/A";
-        };
-
-        // Update desktop version
-        updateIfExists("academicYear", studentDetails.academicYear);
-        updateIfExists("studentName", studentDetails.studentName);
-        updateIfExists("course", studentDetails.course);
-
-        // Update mobile version
-        updateIfExists("academicYearMobile", studentDetails.academicYear);
-        updateIfExists("studentNameMobile", studentDetails.studentName);
-        updateIfExists("courseMobile", studentDetails.course);
-
-        // Update fees if available
-        if (feesDetails) {
-            updateFeesDisplay(feesDetails);
-        } else {
-            console.log("No fees details found for student:", studentDetails.studentName);
-            showErrorPopup("Fees details not available for " + studentDetails.studentName);
-        }
-
-        // Hide all spinners
-        spinners.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.style.display = "none";
-        });
-
-    } catch (error) {
-        // Hide all spinners
-        spinners.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.style.display = "none";
-        });
-        
-        showErrorPopup(`Error: ${error.message}. Please try again later or contact support.`);
-        console.error("Error loading student data:", error);
-    }
-}
 
         // Update fees display
         function updateFeesDisplay(feesDetails) {
@@ -1168,14 +1386,37 @@ async function loadStudentData() {
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
-            loadStudentData();
-            
-            // Set up mobile navigation if in mobile view
-            if (window.innerWidth <= 768) {
-                showMobileSection('profile');
+            // First check authentication
+            if (!AuthSystem.checkAuthentication()) {
+                // Not logged in - redirect to login page
+                console.log("User not authenticated, redirecting to login...");
+                
+                // Update auth overlay message
+                const authContent = document.querySelector('.auth-check-content p');
+                if (authContent) {
+                    authContent.textContent = "You are not logged in. Redirecting to login page...";
+                }
+                
+                // Redirect after 2 seconds
+                setTimeout(() => {
+                    AuthSystem.redirectToLogin();
+                }, 2000);
+            } else {
+                // User is authenticated - show main content
+                console.log("User authenticated, showing dashboard...");
+                
+                // Update auth overlay message
+                const authContent = document.querySelector('.auth-check-content p');
+                if (authContent) {
+                    authContent.textContent = "Authentication successful! Loading dashboard...";
+                }
+                
+                // Show main content after a short delay
+                setTimeout(() => {
+                    showMainContent();
+                }, 500);
             }
         });
     </script>
 </body>
 </html>
-
