@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MS Office Keyboard Shortcuts Master</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --excel: #217346;
+            --word: #2b579a;
+            --powerpoint: #d24726;
+            --outlook: #0072c6;
+            --access: #a4373a;
+            --onenote: #80397b;
+            --teams: #6355a8;
+            --common: #737373;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --accent: #ff6b6b;
+            --productivity: #4cc9f0;
+        }
+        
+        body {
+            background-color: #f5f7ff;
+            color: var(--dark);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            background: linear-gradient(135deg, #2b579a, #0072c6);
+            color: white;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+        
+        .search-box {
+            max-width: 600px;
+            margin: 25px auto 0;
+            position: relative;
+        }
+        
+        #searchInput {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 1.2rem;
+        }
+        
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            background: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .category-btn.active {
+            background: var(--word);
+            color: white;
+        }
+        
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .shortcut-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .shortcut-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            padding: 20px 25px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .card-header i {
+            font-size: 1.8rem;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .shortcut-item:last-child {
+            border-bottom: none;
+        }
+        
+        .shortcut-description {
+            font-weight: 500;
+            color: var(--dark);
+            flex: 1;
+        }
+        
+        .shortcut-keys {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .key {
+            background: #f1f3f9;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: var(--dark);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+        
+        .plus {
+            margin: 0 5px;
+            font-weight: bold;
+            color: var(--gray);
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            grid-column: 1 / -1;
+            color: var(--gray);
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
+            color: var(--gray);
+        }
+        
+        .ai-section {
+            background: linear-gradient(135deg, #f5f7ff, #e3e9ff);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            border-left: 5px solid var(--accent);
+        }
+        
+        .ai-section h3 {
+            color: #2b579a;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .ai-section h3 i {
+            color: var(--accent);
+        }
+        
+        .ai-tip {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Application-specific colors */
+        .ms-word { background: linear-gradient(135deg, var(--word), #2b579a); }
+        .ms-excel { background: linear-gradient(135deg, var(--excel), #217346); }
+        .ms-powerpoint { background: linear-gradient(135deg, var(--powerpoint), #d24726); }
+        .ms-outlook { background: linear-gradient(135deg, var(--outlook), #0072c6); }
+        .ms-access { background: linear-gradient(135deg, var(--access), #a4373a); }
+        .ms-onenote { background: linear-gradient(135deg, var(--onenote), #80397b); }
+        .ms-teams { background: linear-gradient(135deg, var(--teams), #6355a8); }
+        .common-shortcuts { background: linear-gradient(135deg, var(--common), #737373); }
+        .productivity { background: linear-gradient(135deg, var(--productivity), #4cc9f0); }
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .shortcuts-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .categories {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 10px;
+            }
+            
+            .category-btn {
+                white-space: nowrap;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card-body {
+                padding: 20px;
+            }
+            
+            .shortcut-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .shortcut-keys {
+                align-self: flex-end;
+            }
+        }
+        
+        .app-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .app-badge {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-keyboard"></i> MS Office Shortcuts Master</h1>
+            <p class="subtitle">Boost your productivity with these essential keyboard shortcuts for all Microsoft Office applications</p>
+            
+            <div class="app-badges">
+                <span class="app-badge"><i class="fas fa-file-word"></i> Word</span>
+                <span class="app-badge"><i class="fas fa-file-excel"></i> Excel</span>
+                <span class="app-badge"><i class="fas fa-file-powerpoint"></i> PowerPoint</span>
+                <span class="app-badge"><i class="fas fa-envelope"></i> Outlook</span>
+                <span class="app-badge"><i class="fas fa-database"></i> Access</span>
+                <span class="app-badge"><i class="fas fa-sticky-note"></i> OneNote</span>
+                <span class="app-badge"><i class="fas fa-users"></i> Teams</span>
+            </div>
+            
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search for a shortcut or action...">
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="categories">
+            <button class="category-btn active" data-category="all">All Shortcuts</button>
+            <button class="category-btn" data-category="common">Common to All</button>
+            <button class="category-btn" data-category="word">Word</button>
+            <button class="category-btn" data-category="excel">Excel</button>
+            <button class="category-btn" data-category="powerpoint">PowerPoint</button>
+            <button class="category-btn" data-category="outlook">Outlook</button>
+            <button class="category-btn" data-category="access">Access</button>
+            <button class="category-btn" data-category="onenote">OneNote</button>
+            <button class="category-btn" data-category="teams">Teams</button>
+            <button class="category-btn" data-category="productivity">Productivity</button>
+        </div>
+        
+        <div class="shortcuts-grid" id="shortcutsContainer">
+            <!-- Shortcuts will be dynamically inserted here -->
+        </div>
+        
+        <div class="ai-section">
+            <h3><i class="fas fa-robot"></i> AI Productivity Insights</h3>
+            <p>Based on analysis of Office workflow patterns, here are the most impactful shortcuts that can save you significant time:</p>
+            
+            <div class="ai-tip">
+                <h4><i class="fas fa-lightbulb"></i> Pro Tip: Master Navigation Shortcuts</h4>
+                <p>Using <strong>Ctrl+G</strong> (Go To) in Excel/Word or <strong>F5</strong> in PowerPoint can dramatically reduce time spent scrolling through large documents. Combine with <strong>Ctrl+Arrow Keys</strong> for rapid navigation.</p>
+            </div>
+            
+            <div class="ai-tip">
+                <h4><i class="fas fa-chart-line"></i> Efficiency Analysis</h4>
+                <p>Learning Excel's <strong>Alt+=</strong> (AutoSum) and <strong>Ctrl+Shift+L</strong> (Toggle Filters) can save data analysts up to 15 minutes daily. For frequent presenters, PowerPoint's <strong>Shift+F5</strong> (Start from current slide) eliminates presentation fumbling.</p>
+            </div>
+            
+            <div class="ai-tip">
+                <h4><i class="fas fa-magic"></i> Hidden Gems</h4>
+                <p>Use <strong>Ctrl+Shift+C/V</strong> to copy/paste formatting across Office apps. In Outlook, <strong>Ctrl+Shift+M</strong> creates a new email, and <strong>Ctrl+R</strong> replies instantly. These shortcuts are consistent but often underutilized.</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>MS Office Shortcuts Reference • Updated 2026 • Master shortcuts to maximize productivity</p>
+            <p> E-Gyan Skill Development</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Shortcuts data organized by application
+        const shortcutsData = {
+            "common": {
+                title: "Common to All Office Apps",
+                icon: "fas fa-layer-group",
+                colorClass: "common-shortcuts",
+                shortcuts: [
+                    { description: "Bold text", keys: ["Ctrl", "B"] },
+                    { description: "Italicize text", keys: ["Ctrl", "I"] },
+                    { description: "Underline text", keys: ["Ctrl", "U"] },
+                    { description: "Copy selected content", keys: ["Ctrl", "C"] },
+                    { description: "Cut selected content", keys: ["Ctrl", "X"] },
+                    { description: "Paste copied content", keys: ["Ctrl", "V"] },
+                    { description: "Undo last action", keys: ["Ctrl", "Z"] },
+                    { description: "Redo last action", keys: ["Ctrl", "Y"] },
+                    { description: "Save document", keys: ["Ctrl", "S"] },
+                    { description: "Print document", keys: ["Ctrl", "P"] },
+                    { description: "Open new document", keys: ["Ctrl", "N"] },
+                    { description: "Open existing document", keys: ["Ctrl", "O"] },
+                    { description: "Find text", keys: ["Ctrl", "F"] },
+                    { description: "Replace text", keys: ["Ctrl", "H"] },
+                    { description: "Select all content", keys: ["Ctrl", "A"] },
+                    { description: "Check spelling", keys: ["F7"] }
+                ]
+            },
+            "word": {
+                title: "Microsoft Word",
+                icon: "fas fa-file-word",
+                colorClass: "ms-word",
+                shortcuts: [
+                    { description: "Left align text", keys: ["Ctrl", "L"] },
+                    { description: "Center align text", keys: ["Ctrl", "E"] },
+                    { description: "Right align text", keys: ["Ctrl", "R"] },
+                    { description: "Justify text", keys: ["Ctrl", "J"] },
+                    { description: "Insert hyperlink", keys: ["Ctrl", "K"] },
+                    { description: "Insert page break", keys: ["Ctrl", "Enter"] },
+                    { description: "Go to", keys: ["Ctrl", "G"] },
+                    { description: "Repeat last action", keys: ["F4"] },
+                    { description: "Increase font size", keys: ["Ctrl", "Shift", ">"] },
+                    { description: "Decrease font size", keys: ["Ctrl", "Shift", "<"] },
+                    { description: "Copy formatting", keys: ["Ctrl", "Shift", "C"] },
+                    { description: "Paste formatting", keys: ["Ctrl", "Shift", "V"] },
+                    { description: "Insert comment", keys: ["Ctrl", "Alt", "M"] },
+                    { description: "Accept tracked change", keys: ["Ctrl", "Alt", "A"] },
+                    { description: "Reject tracked change", keys: ["Ctrl", "Alt", "R"] },
+                    { description: "Toggle review pane", keys: ["Ctrl", "Shift", "E"] },
+                    { description: "Insert date field", keys: ["Alt", "Shift", "D"] },
+                    { description: "Insert time field", keys: ["Alt", "Shift", "T"] },
+                    { description: "Update field", keys: ["F9"] },
+                    { description: "Word count", keys: ["Ctrl", "Shift", "G"] }
+                ]
+            },
+            "excel": {
+                title: "Microsoft Excel",
+                icon: "fas fa-file-excel",
+                colorClass: "ms-excel",
+                shortcuts: [
+                    { description: "Insert new worksheet", keys: ["Shift", "F11"] },
+                    { description: "Insert table", keys: ["Ctrl", "T"] },
+                    { description: "Insert function", keys: ["Shift", "F3"] },
+                    { description: "AutoSum selected cells", keys: ["Alt", "="] },
+                    { description: "Edit active cell", keys: ["F2"] },
+                    { description: "Toggle absolute/relative reference", keys: ["F4"] },
+                    { description: "Open format cells dialog", keys: ["Ctrl", "1"] },
+                    { description: "Apply/remove bold", keys: ["Ctrl", "2"] },
+                    { description: "Apply/remove italic", keys: ["Ctrl", "3"] },
+                    { description: "Apply/remove underline", keys: ["Ctrl", "4"] },
+                    { description: "Apply outline border", keys: ["Ctrl", "Shift", "&"] },
+                    { description: "Remove outline border", keys: ["Ctrl", "Shift", "_"] },
+                    { description: "Toggle filter", keys: ["Ctrl", "Shift", "L"] },
+                    { description: "Insert current date", keys: ["Ctrl", ";"] },
+                    { description: "Insert current time", keys: ["Ctrl", "Shift", ":"] },
+                    { description: "Fill down", keys: ["Ctrl", "D"] },
+                    { description: "Fill right", keys: ["Ctrl", "R"] },
+                    { description: "Hide selected rows", keys: ["Ctrl", "9"] },
+                    { description: "Unhide selected rows", keys: ["Ctrl", "Shift", "("] },
+                    { description: "Create chart from selected data", keys: ["Alt", "F1"] }
+                ]
+            },
+            "powerpoint": {
+                title: "Microsoft PowerPoint",
+                icon: "fas fa-file-powerpoint",
+                colorClass: "ms-powerpoint",
+                shortcuts: [
+                    { description: "Insert new slide", keys: ["Ctrl", "M"] },
+                    { description: "Start presentation from beginning", keys: ["F5"] },
+                    { description: "Start presentation from current slide", keys: ["Shift", "F5"] },
+                    { description: "End presentation", keys: ["Esc"] },
+                    { description: "Go to next slide", keys: ["N", "Enter", "Page Down", "→", "↓", "Space"] },
+                    { description: "Go to previous slide", keys: ["P", "Page Up", "←", "↑", "Backspace"] },
+                    { description: "Go to slide number", keys: ["number", "Enter"] },
+                    { description: "Black/white screen during presentation", keys: ["B", "W"] },
+                    { description: "Show/hide ink markup", keys: ["Ctrl", "M"] },
+                    { description: "Duplicate selected object", keys: ["Ctrl", "D"] },
+                    { description: "Group selected objects", keys: ["Ctrl", "G"] },
+                    { description: "Ungroup selected objects", keys: ["Ctrl", "Shift", "G"] },
+                    { description: "Increase font size", keys: ["Ctrl", "Shift", ">"] },
+                    { description: "Decrease font size", keys: ["Ctrl", "Shift", "<"] },
+                    { description: "Open font dialog", keys: ["Ctrl", "T"] },
+                    { description: "Toggle gridlines", keys: ["Shift", "F9"] },
+                    { description: "Toggle guides", keys: ["Alt", "F9"] },
+                    { description: "Align center", keys: ["Ctrl", "E"] },
+                    { description: "Align left", keys: ["Ctrl", "L"] },
+                    { description: "Align right", keys: ["Ctrl", "R"] }
+                ]
+            },
+            "outlook": {
+                title: "Microsoft Outlook",
+                icon: "fas fa-envelope",
+                colorClass: "ms-outlook",
+                shortcuts: [
+                    { description: "Create new email", keys: ["Ctrl", "Shift", "M"] },
+                    { description: "Send email", keys: ["Ctrl", "Enter"] },
+                    { description: "Reply to email", keys: ["Ctrl", "R"] },
+                    { description: "Reply all to email", keys: ["Ctrl", "Shift", "R"] },
+                    { description: "Forward email", keys: ["Ctrl", "F"] },
+                    { description: "Flag for follow up", keys: ["Ctrl", "Shift", "G"] },
+                    { description: "Mark as read", keys: ["Ctrl", "Q"] },
+                    { description: "Mark as unread", keys: ["Ctrl", "U"] },
+                    { description: "Go to inbox", keys: ["Ctrl", "Shift", "I"] },
+                    { description: "Go to calendar", keys: ["Ctrl", "Shift", "C"] },
+                    { description: "Go to contacts", keys: ["Ctrl", "Shift", "B"] },
+                    { description: "Create new appointment", keys: ["Ctrl", "Shift", "A"] },
+                    { description: "Create new contact", keys: ["Ctrl", "Shift", "C"] },
+                    { description: "Create new task", keys: ["Ctrl", "Shift", "K"] },
+                    { description: "Check names", keys: ["Ctrl", "K"] },
+                    { description: "Check spelling", keys: ["F7"] },
+                    { description: "Find message", keys: ["Ctrl", "E"] },
+                    { description: "Delete item", keys: ["Ctrl", "D"] },
+                    { description: "Archive selected message", keys: ["Backspace"] },
+                    { description: "Switch to compact view", keys: ["Ctrl", "Shift", "B"] }
+                ]
+            },
+            "access": {
+                title: "Microsoft Access",
+                icon: "fas fa-database",
+                colorClass: "ms-access",
+                shortcuts: [
+                    { description: "Switch between Design/Form view", keys: ["F4"] },
+                    { description: "Open property sheet", keys: ["F4"] },
+                    { description: "Switch to Form view", keys: ["F5"] },
+                    { description: "Switch to Design view", keys: ["F6"] },
+                    { description: "Switch to Datasheet view", keys: ["F7"] },
+                    { description: "Toggle field list", keys: ["F8"] },
+                    { description: "Toggle property sheet", keys: ["F4"] },
+                    { description: "Insert new record", keys: ["Ctrl", "+"] },
+                    { description: "Delete current record", keys: ["Ctrl", "-"] },
+                    { description: "Save current record", keys: ["Shift", "Enter"] },
+                    { description: "Undo changes in current field", keys: ["Esc"] },
+                    { description: "Undo changes in current record", keys: ["Esc", "Esc"] },
+                    { description: "Move to next field", keys: ["Tab"] },
+                    { description: "Move to previous field", keys: ["Shift", "Tab"] },
+                    { description: "Move to first field in record", keys: ["Home"] },
+                    { description: "Move to last field in record", keys: ["End"] },
+                    { description: "Move to first record", keys: ["Ctrl", "↑"] },
+                    { description: "Move to last record", keys: ["Ctrl", "↓"] },
+                    { description: "Open find dialog", keys: ["Ctrl", "F"] },
+                    { description: "Open replace dialog", keys: ["Ctrl", "H"] }
+                ]
+            },
+            "onenote": {
+                title: "Microsoft OneNote",
+                icon: "fas fa-sticky-note",
+                colorClass: "ms-onenote",
+                shortcuts: [
+                    { description: "Create new page", keys: ["Ctrl", "N"] },
+                    { description: "Create new subpage", keys: ["Ctrl", "Shift", "Alt", "N"] },
+                    { description: "Create quick note", keys: ["Win", "Shift", "N"] },
+                    { description: "Search all notebooks", keys: ["Ctrl", "E"] },
+                    { description: "Search current page", keys: ["Ctrl", "F"] },
+                    { description: "Dock/undock OneNote window", keys: ["Ctrl", "Alt", "D"] },
+                    { description: "Insert link", keys: ["Ctrl", "K"] },
+                    { description: "Insert date", keys: ["Alt", "Shift", "D"] },
+                    { description: "Insert date and time", keys: ["Alt", "Shift", "F"] },
+                    { description: "Insert time", keys: ["Alt", "Shift", "T"] },
+                    { description: "Check spelling", keys: ["F7"] },
+                    { description: "Make selected text a to-do tag", keys: ["Ctrl", "1"] },
+                    { description: "Apply/remove bold", keys: ["Ctrl", "2"] },
+                    { description: "Apply/remove italic", keys: ["Ctrl", "3"] },
+                    { description: "Apply/remove underline", keys: ["Ctrl", "4"] },
+                    { description: "Apply/remove strikethrough", keys: ["Ctrl", "5"] },
+                    { description: "Increase indent", keys: ["Tab"] },
+                    { description: "Decrease indent", keys: ["Shift", "Tab"] },
+                    { description: "Zoom in", keys: ["Alt", "Ctrl", "+"] },
+                    { description: "Zoom out", keys: ["Alt", "Ctrl", "-"] }
+                ]
+            },
+            "teams": {
+                title: "Microsoft Teams",
+                icon: "fas fa-users",
+                colorClass: "ms-teams",
+                shortcuts: [
+                    { description: "Search", keys: ["Ctrl", "E"] },
+                    { description: "Go to", keys: ["Ctrl", "G"] },
+                    { description: "Start new chat", keys: ["Ctrl", "N"] },
+                    { description: "Open commands", keys: ["Ctrl", "/"] },
+                    { description: "Toggle mute", keys: ["Ctrl", "Shift", "M"] },
+                    { description: "Toggle video", keys: ["Ctrl", "Shift", "O"] },
+                    { description: "Accept video call", keys: ["Ctrl", "Shift", "S"] },
+                    { description: "Decline video call", keys: ["Ctrl", "Shift", "D"] },
+                    { description: "Share screen in meeting", keys: ["Ctrl", "Shift", "E"] },
+                    { description: "Take control while sharing", keys: ["Ctrl", "Shift", "O"] },
+                    { description: "Give control while sharing", keys: ["Ctrl", "Shift", "P"] },
+                    { description: "Go to previous chat/team", keys: ["Ctrl", "Shift", "F6"] },
+                    { description: "Go to next chat/team", keys: ["Ctrl", "F6"] },
+                    { description: "Mark all as read", keys: ["Ctrl", "Shift", "A"] },
+                    { description: "Open files tab", keys: ["Ctrl", "6"] },
+                    { description: "Open activity feed", keys: ["Ctrl", "1"] },
+                    { description: "Open chat", keys: ["Ctrl", "2"] },
+                    { description: "Open teams", keys: ["Ctrl", "3"] },
+                    { description: "Open calendar", keys: ["Ctrl", "4"] },
+                    { description: "Open calls", keys: ["Ctrl", "5"] }
+                ]
+            },
+            "productivity": {
+                title: "Advanced Productivity",
+                icon: "fas fa-rocket",
+                colorClass: "productivity",
+                shortcuts: [
+                    { description: "Office Dictate (start listening)", keys: ["Alt", "`"] },
+                    { description: "Office Designer (PowerPoint)", keys: ["Alt", "Shift", "D"] },
+                    { description: "Translate selected text (Word)", keys: ["Alt", "Shift", "T"] },
+                    { description: "Insert Excel table in Word", keys: ["Alt", "Shift", "F1"] },
+                    { description: "Create citation (Word)", keys: ["Alt", "Shift", "I"] },
+                    { description: "Insert caption (Word)", keys: ["Alt", "Shift", "F10"] },
+                    { description: "Insert footnote (Word)", keys: ["Alt", "Ctrl", "F"] },
+                    { description: "Insert endnote (Word)", keys: ["Alt", "Ctrl", "D"] },
+                    { description: "Show all headings (Word)", keys: ["Alt", "Shift", "A"] },
+                    { description: "Insert Sparkline (Excel)", keys: ["Alt", "NS"] },
+                    { description: "Create PivotTable (Excel)", keys: ["Alt", "N", "V"] },
+                    { description: "Flash Fill (Excel 2013+)", keys: ["Ctrl", "E"] },
+                    { description: "Quick Analysis (Excel)", keys: ["Ctrl", "Q"] },
+                    { description: "Show presenter view (PowerPoint)", keys: ["Alt", "F5"] },
+                    { description: "Rehearse timings (PowerPoint)", keys: ["Alt", "R", "T"] },
+                    { description: "Record slide show (PowerPoint)", keys: ["Alt", "R", "S"] },
+                    { description: "Set transparent color (Office graphics)", keys: ["Alt", "J", "P", "T"] },
+                    { description: "Open Selection Pane (Office)", keys: ["Alt", "F10"] },
+                    { description: "Open Clipboard Pane (Office)", keys: ["Ctrl", "C", "C"] }
+                ]
+            }
+        };
+        
+        // DOM elements
+        const shortcutsContainer = document.getElementById('shortcutsContainer');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const searchInput = document.getElementById('searchInput');
+        
+        // Initialize the page with all shortcuts
+        function renderShortcuts(category = 'all', searchTerm = '') {
+            shortcutsContainer.innerHTML = '';
+            
+            let categoriesToShow = [];
+            
+            if (category === 'all') {
+                categoriesToShow = Object.keys(shortcutsData);
+            } else {
+                categoriesToShow = [category];
+            }
+            
+            let hasResults = false;
+            
+            categoriesToShow.forEach(catKey => {
+                const categoryData = shortcutsData[catKey];
+                let filteredShortcuts = categoryData.shortcuts;
+                
+                // Apply search filter if search term exists
+                if (searchTerm) {
+                    filteredShortcuts = categoryData.shortcuts.filter(item => 
+                        item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        item.keys.join(' ').toLowerCase().includes(searchTerm.toLowerCase())
+                    );
+                }
+                
+                // Only show category if it has results after filtering
+                if (filteredShortcuts.length > 0) {
+                    hasResults = true;
+                    
+                    // Create category card
+                    const card = document.createElement('div');
+                    card.className = 'shortcut-card';
+                    
+                    card.innerHTML = `
+                        <div class="card-header ${categoryData.colorClass}">
+                            <i class="${categoryData.icon}"></i>
+                            <h2>${categoryData.title}</h2>
+                        </div>
+                        <div class="card-body">
+                            ${filteredShortcuts.map(item => `
+                                <div class="shortcut-item">
+                                    <div class="shortcut-description">${item.description}</div>
+                                    <div class="shortcut-keys">
+                                        ${item.keys.map((key, index) => `
+                                            <span class="key">${key}</span>
+                                            ${index < item.keys.length - 1 ? '<span class="plus">+</span>' : ''}
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    
+                    shortcutsContainer.appendChild(card);
+                }
+            });
+            
+            // Show message if no results found
+            if (!hasResults) {
+                shortcutsContainer.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search fa-3x" style="margin-bottom: 15px;"></i>
+                        <h3>No shortcuts found</h3>
+                        <p>Try a different search term or select another category</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Event listeners for category buttons
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Render shortcuts for selected category
+                const category = button.getAttribute('data-category');
+                renderShortcuts(category, searchInput.value);
+            });
+        });
+        
+        // Event listener for search input
+        searchInput.addEventListener('input', () => {
+            const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
+            renderShortcuts(activeCategory, searchInput.value);
+        });
+        
+        // Initialize with all shortcuts
+        renderShortcuts();
+        
+        // Add keyboard shortcut hints
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+F to focus search
+            if (e.ctrlKey && e.key === 'f') {
+                e.preventDefault();
+                searchInput.focus();
+                searchInput.select();
+            }
+            
+            // Esc to clear search
+            if (e.key === 'Escape' && document.activeElement === searchInput) {
+                searchInput.value = '';
+                renderShortcuts('all', '');
+            }
+            
+            // Number keys 1-9 to switch categories
+            if (e.key >= '1' && e.key <= '9' && !e.ctrlKey && !e.altKey && !e.shiftKey) {
+                const index = parseInt(e.key) - 1;
+                if (index < categoryButtons.length) {
+                    categoryButtons[index].click();
+                }
+            }
+        });
+        
+        // Add hover effect to category buttons
+        categoryButtons.forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.transform = 'translateY(-3px)';
+                }
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

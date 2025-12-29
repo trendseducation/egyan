@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Shortcuts Master | Mobile Reference</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2b579a;
+            --primary-light: #4a76c8;
+            --secondary: #ff6b6b;
+            --success: #50c878;
+            --light-bg: #f5f7fa;
+            --dark-bg: #1a1a2e;
+            --dark-card: #16213e;
+            --dark-text: #e6e6e6;
+            --light-text: #333;
+            --card-bg: #ffffff;
+            --border-color: #e1e5eb;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+        
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1c3f76 100%);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            font-size: 2.2rem;
+            color: #ffcc00;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            justify-content: space-between;
+        }
+        
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+        }
+        
+        .search-box {
+            display: flex;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .search-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .search-btn:hover {
+            background: var(--primary-light);
+        }
+        
+        .header-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .header-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        /* Main Content Area */
+        .main-content {
+            padding: 25px 0 40px;
+        }
+        
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        body.dark-mode .stats-bar {
+            background: var(--dark-card);
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        body.dark-mode .stat-number {
+            color: #4a76c8;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        body.dark-mode .stat-label {
+            color: #aaa;
+        }
+        
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            overflow-x: auto;
+            gap: 8px;
+            margin-bottom: 25px;
+            padding-bottom: 5px;
+            scrollbar-width: thin;
+        }
+        
+        .category-tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .category-tabs::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+        
+        .tab {
+            background: var(--card-bg);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #555;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        body.dark-mode .tab {
+            background: var(--dark-card);
+            color: #bbb;
+        }
+        
+        .tab:hover {
+            background: #eef2ff;
+            transform: translateY(-2px);
+        }
+        
+        body.dark-mode .tab:hover {
+            background: #2a2a4a;
+        }
+        
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .tab i {
+            font-size: 1.1rem;
+        }
+        
+        /* Filter Controls */
+        .filter-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        body.dark-mode .filter-btn {
+            background: var(--dark-card);
+            border-color: #444;
+            color: #ddd;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .bookmarked-only {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .bookmarked-only input {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Shortcut Cards Grid */
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .shortcut-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body.dark-mode .shortcut-card {
+            background: var(--dark-card);
+        }
+        
+        .shortcut-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .shortcut-keys {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 8px rgba(43, 87, 154, 0.3);
+            word-break: break-word;
+        }
+        
+        .bookmark-btn {
+            background: transparent;
+            border: none;
+            color: #ccc;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 5px;
+        }
+        
+        .bookmark-btn.bookmarked {
+            color: var(--secondary);
+        }
+        
+        .bookmark-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .shortcut-action {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--light-text);
+        }
+        
+        body.dark-mode .shortcut-action {
+            color: var(--dark-text);
+        }
+        
+        .shortcut-category {
+            display: inline-block;
+            background: #eef2ff;
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        body.dark-mode .shortcut-category {
+            background: #2a2a4a;
+            color: #8ba3ff;
+        }
+        
+        .shortcut-description {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        body.dark-mode .shortcut-description {
+            color: #aaa;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        .empty-icon {
+            font-size: 3rem;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        body.dark-mode .empty-state h3 {
+            color: #aaa;
+        }
+        
+        /* Quick Actions Bar (Mobile) */
+        .quick-actions {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 90;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .quick-action-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(43, 87, 154, 0.4);
+            transition: var(--transition);
+        }
+        
+        .quick-action-btn:hover {
+            background: var(--primary-light);
+            transform: scale(1.1);
+        }
+        
+        /* Footer */
+        .app-footer {
+            text-align: center;
+            padding: 25px 0;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 30px;
+        }
+        
+        body.dark-mode .app-footer {
+            color: #aaa;
+            border-top-color: #444;
+        }
+        
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .header-controls {
+                width: auto;
+                flex: 1;
+                justify-content: flex-end;
+                margin-left: 30px;
+            }
+            
+            .logo-text h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+            
+            .stat-item {
+                min-width: 80px;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .tab {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .filter-controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="container header-content">
+            <div class="logo-container">
+                <i class="fas fa-file-word logo-icon"></i>
+                <div class="logo-text">
+                    <h1>Word Shortcuts Master</h1>
+                    <p>Mobile-friendly reference with search & filters</p>
+                </div>
+            </div>
+            
+            <div class="header-controls">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search shortcuts (e.g. 'bold', 'save', 'Ctrl+B')">
+                        <button class="search-btn" id="searchButton">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="header-buttons">
+                    <button class="header-btn" id="darkModeToggle" title="Toggle Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="header-btn" id="resetFilters" title="Reset Filters">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                    <button class="header-btn" id="showBookmarks" title="Show Bookmarks">
+                        <i class="fas fa-bookmark"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-number" id="totalShortcuts">0</span>
+                    <span class="stat-label">Total Shortcuts</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="visibleShortcuts">0</span>
+                    <span class="stat-label">Displayed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="bookmarkedCount">0</span>
+                    <span class="stat-label">Bookmarked</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="activeCategory">All</span>
+                    <span class="stat-label">Active Category</span>
+                </div>
+            </div>
+            
+            <!-- Category Tabs -->
+            <div class="category-tabs" id="categoryTabs">
+                <!-- Tabs will be generated by JavaScript -->
+            </div>
+            
+            <!-- Filter Controls -->
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-layer-group"></i> All
+                    </button>
+                    <button class="filter-btn" data-filter="basic">
+                        <i class="fas fa-star"></i> Basic
+                    </button>
+                    <button class="filter-btn" data-filter="advanced">
+                        <i class="fas fa-rocket"></i> Advanced
+                    </button>
+                    <button class="filter-btn" data-filter="frequent">
+                        <i class="fas fa-fire"></i> Most Used
+                    </button>
+                </div>
+                
+                <div class="bookmarked-only">
+                    <input type="checkbox" id="bookmarkedOnly">
+                    <label for="bookmarkedOnly">Show bookmarked only</label>
+                </div>
+            </div>
+            
+            <!-- Shortcuts Grid -->
+            <div class="shortcuts-grid" id="shortcutsContainer">
+                <!-- Shortcut cards will be generated by JavaScript -->
+            </div>
+        </div>
+    </main>
+    
+    <!-- Quick Actions (Mobile) -->
+    <div class="quick-actions">
+        <button class="quick-action-btn" id="scrollToTop" title="Scroll to top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <button class="quick-action-btn" id="scrollToBottom" title="Scroll to bottom">
+            <i class="fas fa-arrow-down"></i>
+        </button>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="container">
+            <p>Microsoft Word Shortcuts Reference | Compatible with Word 2016, 2019, 2021, and Microsoft 365</p>
+            <p>© 2023 Productivity Toolkit | All shortcuts are property of Microsoft Corporation</p>
+            <p>Designed for mobile responsiveness with search, filter, and bookmarking features</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Shortcuts Data - Organized by category
+        const shortcutsData = [
+            // Navigation & Selection
+            { 
+                id: 1, 
+                keys: "Ctrl + ↑", 
+                action: "Move up one paragraph", 
+                category: "navigation", 
+                description: "Quickly navigate up by paragraph instead of line by line", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 2, 
+                keys: "Ctrl + ↓", 
+                action: "Move down one paragraph", 
+                category: "navigation", 
+                description: "Quickly navigate down by paragraph instead of line by line", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 3, 
+                keys: "Ctrl + →", 
+                action: "Move right one word", 
+                category: "navigation", 
+                description: "Navigate text word by word instead of character by character", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 4, 
+                keys: "Ctrl + ←", 
+                action: "Move left one word", 
+                category: "navigation", 
+                description: "Navigate text word by word instead of character by character", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 5, 
+                keys: "Ctrl + Home", 
+                action: "Move to document top", 
+                category: "navigation", 
+                description: "Instantly jump to the beginning of the document", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 6, 
+                keys: "Ctrl + End", 
+                action: "Move to document bottom", 
+                category: "navigation", 
+                description: "Instantly jump to the end of the document", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 7, 
+                keys: "Ctrl + A", 
+                action: "Select all content", 
+                category: "selection", 
+                description: "Selects the entire document content for editing or formatting", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            
+            // Text Formatting
+            { 
+                id: 8, 
+                keys: "Ctrl + B", 
+                action: "Make text bold", 
+                category: "formatting", 
+                description: "Applies bold formatting to selected text or toggles bold for new text", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 9, 
+                keys: "Ctrl + I", 
+                action: "Make text italic", 
+                category: "formatting", 
+                description: "Applies italic formatting to selected text or toggles italic for new text", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 10, 
+                keys: "Ctrl + U", 
+                action: "Underline text", 
+                category: "formatting", 
+                description: "Applies underline formatting to selected text", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 11, 
+                keys: "Ctrl + Shift + D", 
+                action: "Double underline text", 
+                category: "formatting", 
+                description: "Applies double underline formatting to selected text", 
+                difficulty: "advanced",
+                frequency: "low"
+            },
+            { 
+                id: 12, 
+                keys: "Ctrl + Shift + >", 
+                action: "Increase font size", 
+                category: "formatting", 
+                description: "Increases the font size of selected text by one increment", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 13, 
+                keys: "Ctrl + Shift + <", 
+                action: "Decrease font size", 
+                category: "formatting", 
+                description: "Decreases the font size of selected text by one increment", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 14, 
+                keys: "Shift + F3", 
+                action: "Toggle text case", 
+                category: "formatting", 
+                description: "Cycles through uppercase, lowercase, and sentence case for selected text", 
+                difficulty: "advanced",
+                frequency: "medium"
+            },
+            
+            // Paragraph Formatting
+            { 
+                id: 15, 
+                keys: "Ctrl + L", 
+                action: "Left-align text", 
+                category: "paragraph", 
+                description: "Aligns selected paragraph(s) to the left margin", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 16, 
+                keys: "Ctrl + R", 
+                action: "Right-align text", 
+                category: "paragraph", 
+                description: "Aligns selected paragraph(s) to the right margin", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 17, 
+                keys: "Ctrl + E", 
+                action: "Center-align text", 
+                category: "paragraph", 
+                description: "Centers selected paragraph(s) between the margins", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 18, 
+                keys: "Ctrl + J", 
+                action: "Justify text", 
+                category: "paragraph", 
+                description: "Aligns text to both left and right margins", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 19, 
+                keys: "Ctrl + 1", 
+                action: "Single line spacing", 
+                category: "paragraph", 
+                description: "Sets line spacing to single for selected paragraph(s)", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 20, 
+                keys: "Ctrl + 2", 
+                action: "Double line spacing", 
+                category: "paragraph", 
+                description: "Sets line spacing to double for selected paragraph(s)", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 21, 
+                keys: "Ctrl + 5", 
+                action: "1.5 line spacing", 
+                category: "paragraph", 
+                description: "Sets line spacing to 1.5 for selected paragraph(s)", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            
+            // Document Management
+            { 
+                id: 22, 
+                keys: "Ctrl + N", 
+                action: "Create new document", 
+                category: "document", 
+                description: "Opens a new blank Word document", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 23, 
+                keys: "Ctrl + O", 
+                action: "Open document", 
+                category: "document", 
+                description: "Opens the file browser to open an existing document", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 24, 
+                keys: "Ctrl + S", 
+                action: "Save document", 
+                category: "document", 
+                description: "Saves the current document", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 25, 
+                keys: "F12", 
+                action: "Save As dialog", 
+                category: "document", 
+                description: "Opens the Save As dialog to save with a new name or location", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 26, 
+                keys: "Ctrl + P", 
+                action: "Print document", 
+                category: "document", 
+                description: "Opens the print dialog to print the current document", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 27, 
+                keys: "Ctrl + W", 
+                action: "Close document", 
+                category: "document", 
+                description: "Closes the current document (prompts to save if unsaved)", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            
+            // Editing & Clipboard
+            { 
+                id: 28, 
+                keys: "Ctrl + C", 
+                action: "Copy selection", 
+                category: "editing", 
+                description: "Copies the selected text or object to the clipboard", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 29, 
+                keys: "Ctrl + X", 
+                action: "Cut selection", 
+                category: "editing", 
+                description: "Cuts the selected text or object and copies it to the clipboard", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 30, 
+                keys: "Ctrl + V", 
+                action: "Paste from clipboard", 
+                category: "editing", 
+                description: "Pastes the contents of the clipboard at the cursor position", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 31, 
+                keys: "Ctrl + Z", 
+                action: "Undo last action", 
+                category: "editing", 
+                description: "Reverses the last action performed", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 32, 
+                keys: "Ctrl + Y", 
+                action: "Redo last action", 
+                category: "editing", 
+                description: "Re-applies the last undone action", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 33, 
+                keys: "Ctrl + F", 
+                action: "Find text", 
+                category: "editing", 
+                description: "Opens the Navigation pane to search for text in the document", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 34, 
+                keys: "Ctrl + H", 
+                action: "Find and replace", 
+                category: "editing", 
+                description: "Opens the Find and Replace dialog box", 
+                difficulty: "advanced",
+                frequency: "medium"
+            },
+            { 
+                id: 35, 
+                keys: "Ctrl + K", 
+                action: "Insert hyperlink", 
+                category: "editing", 
+                description: "Inserts a hyperlink at the cursor position or on selected text", 
+                difficulty: "advanced",
+                frequency: "medium"
+            },
+            
+            // View & Special Features
+            { 
+                id: 36, 
+                keys: "Ctrl + F1", 
+                action: "Toggle ribbon", 
+                category: "view", 
+                description: "Shows or hides the ribbon to maximize screen space", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 37, 
+                keys: "Alt + Ctrl + P", 
+                action: "Print Layout view", 
+                category: "view", 
+                description: "Switches to Print Layout view (default view)", 
+                difficulty: "advanced",
+                frequency: "low"
+            },
+            { 
+                id: 38, 
+                keys: "Alt + Ctrl + N", 
+                action: "Draft view", 
+                category: "view", 
+                description: "Switches to Draft view for faster editing", 
+                difficulty: "advanced",
+                frequency: "low"
+            },
+            { 
+                id: 39, 
+                keys: "F7", 
+                action: "Spell check", 
+                category: "proofing", 
+                description: "Runs spell check on the entire document", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 40, 
+                keys: "Alt + Ctrl + M", 
+                action: "Insert comment", 
+                category: "review", 
+                description: "Inserts a comment at the current cursor position", 
+                difficulty: "advanced",
+                frequency: "low"
+            },
+            { 
+                id: 41, 
+                keys: "Ctrl + Shift + E", 
+                action: "Track revisions", 
+                category: "review", 
+                description: "Turns revision tracking on or off", 
+                difficulty: "advanced",
+                frequency: "low"
+            }
+        ];
+        
+        // Category definitions with icons
+        const categories = [
+            { id: "all", name: "All Shortcuts", icon: "fas fa-layer-group" },
+            { id: "navigation", name: "Navigation", icon: "fas fa-arrows-alt" },
+            { id: "selection", name: "Selection", icon: "fas fa-mouse-pointer" },
+            { id: "formatting", name: "Formatting", icon: "fas fa-bold" },
+            { id: "paragraph", name: "Paragraph", icon: "fas fa-align-left" },
+            { id: "document", name: "Document", icon: "fas fa-file" },
+            { id: "editing", name: "Editing", icon: "fas fa-edit" },
+            { id: "view", name: "View", icon: "fas fa-desktop" },
+            { id: "proofing", name: "Proofing", icon: "fas fa-spell-check" },
+            { id: "review", name: "Review", icon: "fas fa-comments" }
+        ];
+        
+        // App State
+        const state = {
+            activeCategory: "all",
+            activeFilter: "all",
+            searchQuery: "",
+            bookmarkedOnly: false,
+            bookmarks: JSON.parse(localStorage.getItem("wordShortcutsBookmarks")) || [],
+            darkMode: localStorage.getItem("darkMode") === "true"
+        };
+        
+        // DOM Elements
+        const elements = {
+            shortcutsContainer: document.getElementById("shortcutsContainer"),
+            categoryTabs: document.getElementById("categoryTabs"),
+            searchInput: document.getElementById("searchInput"),
+            searchButton: document.getElementById("searchButton"),
+            darkModeToggle: document.getElementById("darkModeToggle"),
+            resetFilters: document.getElementById("resetFilters"),
+            showBookmarks: document.getElementById("showBookmarks"),
+            scrollToTop: document.getElementById("scrollToTop"),
+            scrollToBottom: document.getElementById("scrollToBottom"),
+            totalShortcuts: document.getElementById("totalShortcuts"),
+            visibleShortcuts: document.getElementById("visibleShortcuts"),
+            bookmarkedCount: document.getElementById("bookmarkedCount"),
+            activeCategory: document.getElementById("activeCategory"),
+            bookmarkedOnly: document.getElementById("bookmarkedOnly"),
+            filterButtons: document.querySelectorAll(".filter-btn")
+        };
+        
+        // Initialize App
+        function initApp() {
+            // Set dark mode if enabled
+            if (state.darkMode) {
+                document.body.classList.add("dark-mode");
+                elements.darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            
+            // Update stats
+            updateStats();
+            
+            // Render category tabs
+            renderCategoryTabs();
+            
+            // Render shortcuts
+            renderShortcuts();
+            
+            // Set up event listeners
+            setupEventListeners();
+        }
+        
+        // Render category tabs
+        function renderCategoryTabs() {
+            elements.categoryTabs.innerHTML = "";
+            
+            categories.forEach(category => {
+                const tab = document.createElement("button");
+                tab.className = `tab ${category.id === state.activeCategory ? "active" : ""}`;
+                tab.dataset.category = category.id;
+                tab.innerHTML = `<i class="${category.icon}"></i> ${category.name}`;
+                
+                tab.addEventListener("click", () => {
+                    setActiveCategory(category.id);
+                });
+                
+                elements.categoryTabs.appendChild(tab);
+            });
+        }
+        
+        // Render shortcut cards
+        function renderShortcuts() {
+            elements.shortcutsContainer.innerHTML = "";
+            
+            // Filter shortcuts based on current state
+            const filteredShortcuts = shortcutsData.filter(shortcut => {
+                // Category filter
+                if (state.activeCategory !== "all" && shortcut.category !== state.activeCategory) {
+                    return false;
+                }
+                
+                // Difficulty filter
+                if (state.activeFilter === "basic" && shortcut.difficulty !== "basic") {
+                    return false;
+                }
+                if (state.activeFilter === "advanced" && shortcut.difficulty !== "advanced") {
+                    return false;
+                }
+                if (state.activeFilter === "frequent" && shortcut.frequency !== "high") {
+                    return false;
+                }
+                
+                // Bookmarked only filter
+                if (state.bookmarkedOnly && !state.bookmarks.includes(shortcut.id)) {
+                    return false;
+                }
+                
+                // Search query filter
+                if (state.searchQuery) {
+                    const query = state.searchQuery.toLowerCase();
+                    const searchIn = `${shortcut.keys} ${shortcut.action} ${shortcut.description} ${shortcut.category}`.toLowerCase();
+                    if (!searchIn.includes(query)) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            });
+            
+            // Display message if no shortcuts match
+            if (filteredShortcuts.length === 0) {
+                elements.shortcutsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>No shortcuts found</h3>
+                        <p>Try adjusting your search or filters to see more results.</p>
+                        <button class="filter-btn active" id="resetEmptyState" style="margin-top: 15px;">
+                            <i class="fas fa-redo"></i> Reset Filters
+                        </button>
+                    </div>
+                `;
+                
+                document.getElementById("resetEmptyState")?.addEventListener("click", resetFilters);
+            } else {
+                // Create cards for each filtered shortcut
+                filteredShortcuts.forEach(shortcut => {
+                    const card = createShortcutCard(shortcut);
+                    elements.shortcutsContainer.appendChild(card);
+                });
+            }
+            
+            // Update stats
+            updateStats(filteredShortcuts.length);
+        }
+        
+        // Create a shortcut card element
+        function createShortcutCard(shortcut) {
+            const card = document.createElement("div");
+            card.className = "shortcut-card fade-in";
+            
+            const isBookmarked = state.bookmarks.includes(shortcut.id);
+            const categoryName = categories.find(c => c.id === shortcut.category)?.name || shortcut.category;
+            
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="shortcut-keys">${shortcut.keys}</div>
+                    <button class="bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" data-id="${shortcut.id}">
+                        <i class="fas fa-bookmark"></i>
+                    </button>
+                </div>
+                <div class="shortcut-action">${shortcut.action}</div>
+                <div class="shortcut-category">${categoryName}</div>
+                <div class="shortcut-description">${shortcut.description}</div>
+                <div style="display: flex; justify-content: space-between; margin-top: 15px; font-size: 0.8rem;">
+                    <span style="background: ${shortcut.difficulty === 'basic' ? '#e8f5e9' : '#fff3e0'}; 
+                                 color: ${shortcut.difficulty === 'basic' ? '#2e7d32' : '#f57c00'}; 
+                                 padding: 3px 8px; border-radius: 10px;">
+                        ${shortcut.difficulty === 'basic' ? 'Basic' : 'Advanced'}
+                    </span>
+                    <span style="background: ${shortcut.frequency === 'high' ? '#ffebee' : '#e8eaf6'}; 
+                                 color: ${shortcut.frequency === 'high' ? '#c62828' : '#3949ab'}; 
+                                 padding: 3px 8px; border-radius: 10px;">
+                        ${shortcut.frequency === 'high' ? 'Frequently Used' : shortcut.frequency === 'medium' ? 'Moderate Use' : 'Rarely Used'}
+                    </span>
+                </div>
+            `;
+            
+            // Add bookmark functionality
+            const bookmarkBtn = card.querySelector(".bookmark-btn");
+            bookmarkBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                toggleBookmark(shortcut.id);
+            });
+            
+            return card;
+        }
+        
+        // Toggle bookmark for a shortcut
+        function toggleBookmark(shortcutId) {
+            const index = state.bookmarks.indexOf(shortcutId);
+            
+            if (index === -1) {
+                // Add bookmark
+                state.bookmarks.push(shortcutId);
+            } else {
+                // Remove bookmark
+                state.bookmarks.splice(index, 1);
+            }
+            
+            // Save to localStorage
+            localStorage.setItem("wordShortcutsBookmarks", JSON.stringify(state.bookmarks));
+            
+            // Re-render shortcuts if in bookmark-only mode
+            if (state.bookmarkedOnly) {
+                renderShortcuts();
+            } else {
+                // Just update the specific card
+                const bookmarkBtn = document.querySelector(`.bookmark-btn[data-id="${shortcutId}"]`);
+                if (bookmarkBtn) {
+                    bookmarkBtn.classList.toggle("bookmarked");
+                }
+            }
+            
+            // Update stats
+            updateStats();
+        }
+        
+        // Set active category
+        function setActiveCategory(categoryId) {
+            state.activeCategory = categoryId;
+            
+            // Update UI
+            document.querySelectorAll(".tab").forEach(tab => {
+                tab.classList.toggle("active", tab.dataset.category === categoryId);
+            });
+            
+            // Update stats
+            elements.activeCategory.textContent = categories.find(c => c.id === categoryId)?.name || "All";
+            
+            // Re-render shortcuts
+            renderShortcuts();
+        }
+        
+        // Set active filter
+        function setActiveFilter(filter) {
+            state.activeFilter = filter;
+            
+            // Update UI
+            elements.filterButtons.forEach(btn => {
+                btn.classList.toggle("active", btn.dataset.filter === filter);
+            });
+            
+            // Re-render shortcuts
+            renderShortcuts();
+        }
+        
+        // Update statistics
+        function updateStats(visibleCount = null) {
+            elements.totalShortcuts.textContent = shortcutsData.length;
+            
+            if (visibleCount !== null) {
+                elements.visibleShortcuts.textContent = visibleCount;
+            }
+            
+            elements.bookmarkedCount.textContent = state.bookmarks.length;
+        }
+        
+        // Reset all filters
+        function resetFilters() {
+            state.activeCategory = "all";
+            state.activeFilter = "all";
+            state.searchQuery = "";
+            state.bookmarkedOnly = false;
+            
+            // Update UI
+            elements.searchInput.value = "";
+            elements.bookmarkedOnly.checked = false;
+            
+            // Re-render everything
+            renderCategoryTabs();
+            setActiveFilter("all");
+            renderShortcuts();
+        }
+        
+        // Toggle dark mode
+        function toggleDarkMode() {
+            state.darkMode = !state.darkMode;
+            document.body.classList.toggle("dark-mode", state.darkMode);
+            
+            // Update button icon
+            elements.darkModeToggle.innerHTML = state.darkMode 
+                ? '<i class="fas fa-sun"></i>' 
+                : '<i class="fas fa-moon"></i>';
+            
+            // Save preference
+            localStorage.setItem("darkMode", state.darkMode);
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Search functionality
+            elements.searchButton.addEventListener("click", () => {
+                state.searchQuery = elements.searchInput.value.trim();
+                renderShortcuts();
+            });
+            
+            elements.searchInput.addEventListener("keyup", (e) => {
+                if (e.key === "Enter") {
+                    state.searchQuery = elements.searchInput.value.trim();
+                    renderShortcuts();
+                }
+            });
+            
+            // Filter buttons
+            elements.filterButtons.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    setActiveFilter(btn.dataset.filter);
+                });
+            });
+            
+            // Bookmarked only checkbox
+            elements.bookmarkedOnly.addEventListener("change", (e) => {
+                state.bookmarkedOnly = e.target.checked;
+                renderShortcuts();
+            });
+            
+            // Control buttons
+            elements.darkModeToggle.addEventListener("click", toggleDarkMode);
+            elements.resetFilters.addEventListener("click", resetFilters);
+            elements.showBookmarks.addEventListener("click", () => {
+                state.bookmarkedOnly = true;
+                elements.bookmarkedOnly.checked = true;
+                renderShortcuts();
+            });
+            
+            // Scroll buttons
+            elements.scrollToTop.addEventListener("click", () => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+            
+            elements.scrollToBottom.addEventListener("click", () => {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+            });
+            
+            // Initialize filter buttons
+            setActiveFilter("all");
+        }
+        
+        // Initialize the app when DOM is loaded
+        document.addEventListener("DOMContentLoaded", initApp);
+    </script>
+</body>
+</html>

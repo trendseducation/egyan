@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Tools Shortcuts | E-Gyan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Light Theme (Default) */
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #212529;
+            --text-secondary: #666666;
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --vscode-color: #0078d4;
+            --debug-color: #e44d26;
+            --terminal-color: #4CAF50;
+            --git-color: #f05133;
+            --database-color: #ff9800;
+            --card-shadow: 0 4px 6px var(--shadow-color);
+            --card-hover-shadow: 0 10px 15px var(--shadow-color);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --border-color: #333333;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --primary-color: #5a6eff;
+            --secondary-color: #4d56d9;
+            --vscode-color: #1a8cff;
+            --debug-color: #ff7043;
+            --terminal-color: #66bb6a;
+            --git-color: #ff7043;
+            --database-color: #ffb74d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.2rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            flex: 1;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: white;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .theme-toggle .fa-sun {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .fa-sun {
+            display: block;
+        }
+
+        [data-theme="dark"] .theme-toggle .fa-moon {
+            display: none;
+        }
+
+        /* Navigation Tabs */
+        .dev-nav {
+            background: var(--card-bg);
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 84px;
+            z-index: 99;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            display: flex;
+            overflow-x: auto;
+            padding: 0.5rem 1rem;
+            gap: 0.8rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .dev-tab {
+            padding: 10px 16px;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid var(--border-color);
+            background: var(--card-bg);
+            white-space: nowrap;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px var(--shadow-color);
+            color: var(--text-color);
+        }
+
+        .dev-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .dev-tab.active {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+        }
+
+        .vscode-tab.active { background: linear-gradient(135deg, var(--vscode-color), #005a9e); }
+        .debug-tab.active { background: linear-gradient(135deg, var(--debug-color), #c13c1d); }
+        .terminal-tab.active { background: linear-gradient(135deg, var(--terminal-color), #388e3c); }
+        .git-tab.active { background: linear-gradient(135deg, var(--git-color), #d14124); }
+        .database-tab.active { background: linear-gradient(135deg, var(--database-color), #f57c00); }
+
+        .dev-tab i {
+            font-size: 1rem;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        /* Section Styling */
+        .dev-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .dev-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+            background: var(--card-bg);
+            padding: 1.2rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .vscode-icon { background: var(--vscode-color); }
+        .debug-icon { background: var(--debug-color); }
+        .terminal-icon { background: var(--terminal-color); }
+        .git-icon { background: var(--git-color); }
+        .database-icon { background: var(--database-color); }
+
+        .section-title h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            color: var(--text-color);
+        }
+
+        .section-title p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Keyboard Legend */
+        .keyboard-legend {
+            background: var(--card-bg);
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .keyboard-legend h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .key-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .key-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-color);
+        }
+
+        .key-symbol {
+            background: var(--bg-color);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            min-width: 60px;
+            text-align: center;
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .key-note {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .key-note i {
+            color: var(--primary-color);
+        }
+
+        /* Shortcuts Grid */
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .shortcut-category {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .shortcut-category:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .category-header i {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            width: 30px;
+            text-align: center;
+        }
+
+        .category-header h3 {
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px dashed var(--border-color);
+            transition: var(--transition);
+        }
+
+        .shortcut-item:last-child {
+            border-bottom: none;
+        }
+
+        .shortcut-description {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            flex: 1;
+        }
+
+        .shortcut-keys {
+            background: var(--bg-color);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 500;
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            font-size: 0.85rem;
+            white-space: nowrap;
+            margin-left: 10px;
+            text-align: center;
+            transition: var(--transition);
+            min-width: 120px;
+        }
+
+        .shortcut-keys:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        /* Platform Indicator */
+        .platform-indicator {
+            display: inline-block;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            background: var(--bg-color);
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 8px;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+        }
+
+        /* Developer Tips */
+        .dev-tips {
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(63, 55, 201, 0.1));
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .dev-tips h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1.2rem;
+        }
+
+        .tip-card {
+            background: var(--card-bg);
+            padding: 1.2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px var(--shadow-color);
+            transition: var(--transition);
+        }
+
+        .tip-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px var(--shadow-color);
+        }
+
+        .tip-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.6rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tip-card p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Special Note */
+        .special-note {
+            background: rgba(255, 184, 0, 0.1);
+            border-left: 4px solid #ffb300;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 184, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .special-note {
+            background: rgba(255, 184, 0, 0.15);
+            border-left-color: #ffb74d;
+        }
+
+        .special-note h4 {
+            color: #e65100;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        [data-theme="dark"] .special-note h4 {
+            color: #ffb74d;
+        }
+
+        .special-note ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .special-note li {
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            line-height: 1.4;
+            color: var(--text-color);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background-color: black; /* or use this var(--card-bg) */
+            color: white; /* or use this var(--text-color) */
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        footer p {
+            opacity: 0.8;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            .dev-tab {
+                padding: 10px 20px;
+                font-size: 0.95rem;
+            }
+            
+            .shortcuts-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .tips-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .key-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .nav-container {
+                justify-content: center;
+                overflow-x: visible;
+                flex-wrap: wrap;
+            }
+            
+            .shortcuts-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .tips-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .key-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .header-left {
+                width: 100%;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .section-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+            
+            .shortcut-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .shortcut-keys {
+                margin-left: 0;
+                align-self: stretch;
+                text-align: center;
+            }
+            
+            .platform-indicator {
+                display: block;
+                margin-top: 4px;
+                margin-left: 0;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="header-left">
+                <h1>
+                    <i class="fas fa-code"></i>
+                    Developer Tools Shortcuts
+                </h1>
+                <p>Master keyboard shortcuts for VS Code, debugging, terminals, Git, and databases</p>
+            </div>
+            <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="dev-nav">
+        <div class="nav-container" id="navContainer">
+            <div class="dev-tab vscode-tab active" data-section="vscode">
+                <i class="fas fa-file-code"></i> VS Code
+            </div>
+            <div class="dev-tab debug-tab" data-section="debug">
+                <i class="fas fa-bug"></i> Debugging
+            </div>
+            <div class="dev-tab terminal-tab" data-section="terminal">
+                <i class="fas fa-terminal"></i> Terminal
+            </div>
+            <div class="dev-tab git-tab" data-section="git">
+                <i class="fab fa-git-alt"></i> Git
+            </div>
+            <div class="dev-tab database-tab" data-section="database">
+                <i class="fas fa-database"></i> Databases
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Keyboard Legend -->
+        <div class="keyboard-legend">
+            <h3><i class="fas fa-keyboard"></i> Key Symbols Guide</h3>
+            <div class="key-grid">
+                <div class="key-item"><span class="key-symbol">Ctrl</span> Control (Win/Linux)</div>
+                <div class="key-item"><span class="key-symbol">⌘</span> Command (Mac)</div>
+                <div class="key-item"><span class="key-symbol">Alt</span> Alt/Option</div>
+                <div class="key-item"><span class="key-symbol">Shift</span> Shift Key</div>
+                <div class="key-item"><span class="key-symbol">F1-F12</span> Function Keys</div>
+                <div class="key-item"><span class="key-symbol">Esc</span> Escape</div>
+            </div>
+            <p class="key-note">
+                <i class="fas fa-info-circle"></i> 
+                Use <strong>Ctrl</strong> on Windows/Linux, <strong>⌘</strong> on Mac
+            </p>
+        </div>
+
+        <!-- VS Code Section -->
+        <section id="vscode" class="dev-section active">
+            <div class="section-header">
+                <div class="section-icon vscode-icon">
+                    <i class="fas fa-file-code"></i>
+                </div>
+                <div class="section-title">
+                    <h2>Visual Studio Code Shortcuts</h2>
+                    <p>Essential shortcuts for VS Code - The most popular code editor</p>
+                </div>
+            </div>
+
+            <div class="shortcuts-grid">
+                <!-- File Operations -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-file"></i>
+                        <h3>File Operations</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open file<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + P</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Save file<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + S</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Save all files<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + K S</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Close editor<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + W</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">New file<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + N</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open folder<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + O</div>
+                    </div>
+                </div>
+
+                <!-- Editing -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-edit"></i>
+                        <h3>Editing</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Cut line<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + X</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Copy line<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + C</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Move line up/down<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Alt + ↑/↓</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Duplicate line<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Shift + Alt + ↑/↓</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Delete line<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + Shift + K</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle comment<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + /</div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-compass"></i>
+                        <h3>Navigation</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Go to line<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + G</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Find in file<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + F</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Replace in file<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + H</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Find in all files<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + Shift + F</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Go to symbol<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + Shift + O</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle sidebar<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + B</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="special-note">
+                <h4><i class="fas fa-lightbulb"></i> VS Code Pro Tips</h4>
+                <ul>
+                    <li><strong>Ctrl + P</strong> - Quick file open (most used!)</li>
+                    <li><strong>Ctrl + `</strong> - Toggle terminal instantly</li>
+                    <li><strong>Alt + ↑/↓</strong> - Move lines quickly</li>
+                    <li><strong>Ctrl + D</strong> - Multi-select same text</li>
+                    <li><strong>F12</strong> - Go to definition</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Debugging Section -->
+        <section id="debug" class="dev-section">
+            <div class="section-header">
+                <div class="section-icon debug-icon">
+                    <i class="fas fa-bug"></i>
+                </div>
+                <div class="section-title">
+                    <h2>Debugging Shortcuts</h2>
+                    <p>Keyboard shortcuts for debugging across different environments</p>
+                </div>
+            </div>
+
+            <div class="shortcuts-grid">
+                <!-- Chrome DevTools -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fab fa-chrome"></i>
+                        <h3>Chrome DevTools</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open DevTools<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">F12 / Ctrl+Shift+I</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Inspect element<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+C</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle console<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+J</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle debugger<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+S</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Search in sources<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+F</div>
+                    </div>
+                </div>
+
+                <!-- Firefox DevTools -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fab fa-firefox"></i>
+                        <h3>Firefox DevTools</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open DevTools<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">F12</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Inspect element<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+C</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Web console<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+K</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Debugger<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+S</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Style editor<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Shift+F7</div>
+                    </div>
+                </div>
+
+                <!-- Debugging Commands -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-play-circle"></i>
+                        <h3>Debug Actions</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Continue/Pause<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">F5</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Step over<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">F10</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Step into<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">F11</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Step out<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Shift+F11</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Restart debugger<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+F5</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Terminal Section -->
+        <section id="terminal" class="dev-section">
+            <div class="section-header">
+                <div class="section-icon terminal-icon">
+                    <i class="fas fa-terminal"></i>
+                </div>
+                <div class="section-title">
+                    <h2>Terminal & Command Line</h2>
+                    <p>Essential shortcuts for terminal/command prompt usage</p>
+                </div>
+            </div>
+
+            <div class="shortcuts-grid">
+                <!-- General Terminal -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-desktop"></i>
+                        <h3>General Terminal</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Clear terminal<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + L</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Cancel command<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + C</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Exit terminal<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + D</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Search history<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + R</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">End of file<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + E</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Beginning of line<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + A</div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-arrows-alt-h"></i>
+                        <h3>Cursor Navigation</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Move forward word<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Alt + F</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Move backward word<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Alt + B</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Clear line<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + U</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Clear to end<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + K</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Yank (paste)<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + Y</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Kill word forward<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Alt + D</div>
+                    </div>
+                </div>
+
+                <!-- Windows CMD -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fab fa-windows"></i>
+                        <h3>Windows CMD/PowerShell</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Copy text<span class="platform-indicator">Win</span></div>
+                        <div class="shortcut-keys">Ctrl + C</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Paste text<span class="platform-indicator">Win</span></div>
+                        <div class="shortcut-keys">Ctrl + V</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Select all<span class="platform-indicator">Win</span></div>
+                        <div class="shortcut-keys">Ctrl + A</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Command history<span class="platform-indicator">Win</span></div>
+                        <div class="shortcut-keys">F7</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Auto-complete<span class="platform-indicator">Win</span></div>
+                        <div class="shortcut-keys">Tab</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Quick edit mode<span class="platform-indicator">Win</span></div>
+                        <div class="shortcut-keys">Alt + Enter</div>
+                    </div>
+                </div>
+
+                <!-- Linux/Mac Terminal -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fab fa-linux"></i>
+                        <h3>Linux/Mac Terminal</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Kill process<span class="platform-indicator">*nix</span></div>
+                        <div class="shortcut-keys">Ctrl + C</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Suspend process<span class="platform-indicator">*nix</span></div>
+                        <div class="shortcut-keys">Ctrl + Z</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Foreground process<span class="platform-indicator">*nix</span></div>
+                        <div class="shortcut-keys">fg</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Background process<span class="platform-indicator">*nix</span></div>
+                        <div class="shortcut-keys">bg</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Clear screen<span class="platform-indicator">*nix</span></div>
+                        <div class="shortcut-keys">clear / Ctrl+L</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Search backwards<span class="platform-indicator">*nix</span></div>
+                        <div class="shortcut-keys">Ctrl + R</div>
+                    </div>
+                </div>
+
+                <!-- Terminal Multiplexers -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-window-maximize"></i>
+                        <h3>tmux (Terminal Multiplexer)</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">New window<span class="platform-indicator">tmux</span></div>
+                        <div class="shortcut-keys">Ctrl+B C</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">New pane (split)<span class="platform-indicator">tmux</span></div>
+                        <div class="shortcut-keys">Ctrl+B %</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Vertical split<span class="platform-indicator">tmux</span></div>
+                        <div class="shortcut-keys">Ctrl+B "</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Switch panes<span class="platform-indicator">tmux</span></div>
+                        <div class="shortcut-keys">Ctrl+B arrow keys</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Detach session<span class="platform-indicator">tmux</span></div>
+                        <div class="shortcut-keys">Ctrl+B D</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">List sessions<span class="platform-indicator">tmux</span></div>
+                        <div class="shortcut-keys">tmux ls</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="special-note">
+                <h4><i class="fas fa-lightbulb"></i> Terminal Pro Tips</h4>
+                <ul>
+                    <li><strong>Ctrl + R</strong> - Search command history (reverse-i-search)</li>
+                    <li><strong>Ctrl + L</strong> - Clear screen (faster than typing 'clear')</li>
+                    <li><strong>Ctrl + A / E</strong> - Jump to beginning/end of line</li>
+                    <li><strong>Alt + B / F</strong> - Move by words (backward/forward)</li>
+                    <li><strong>!!</strong> - Re-run last command</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Git Section -->
+        <section id="git" class="dev-section">
+            <div class="section-header">
+                <div class="section-icon git-icon">
+                    <i class="fab fa-git-alt"></i>
+                </div>
+                <div class="section-title">
+                    <h2>Git Version Control</h2>
+                    <p>Keyboard shortcuts for Git operations and workflows</p>
+                </div>
+            </div>
+
+            <div class="shortcuts-grid">
+                <!-- Basic Git Commands -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-code-branch"></i>
+                        <h3>Basic Operations</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Initialize repo<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git init</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Clone repository<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git clone [url]</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Status check<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git status</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Add all changes<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git add .</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Commit changes<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git commit -m ""</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">View commits<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git log</div>
+                    </div>
+                </div>
+
+                <!-- Branch Management -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-sitemap"></i>
+                        <h3>Branch Management</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Create branch<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git branch [name]</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Switch branch<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git checkout [branch]</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Create & switch<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git checkout -b [name]</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Merge branch<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git merge [branch]</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Delete branch<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git branch -d [name]</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">List branches<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git branch -a</div>
+                    </div>
+                </div>
+
+                <!-- Remote Operations -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-cloud"></i>
+                        <h3>Remote Operations</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Push to remote<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git push</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Pull from remote<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git pull</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Fetch updates<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git fetch</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Add remote<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git remote add [name] [url]</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">View remotes<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git remote -v</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Remove remote<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git remote remove [name]</div>
+                    </div>
+                </div>
+
+                <!-- Stashing & Undoing -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-undo"></i>
+                        <h3>Stashing & Undoing</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Stash changes<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git stash</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Apply stash<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git stash apply</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">List stashes<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git stash list</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Discard changes<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git checkout -- .</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Undo commit<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git reset --soft HEAD~1</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Amend commit<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">git commit --amend</div>
+                    </div>
+                </div>
+
+                <!-- VS Code Git -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-file-code"></i>
+                        <h3>VS Code Git</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Stage file<span class="platform-indicator">VS Code</span></div>
+                        <div class="shortcut-keys">Click + icon</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Commit staged<span class="platform-indicator">VS Code</span></div>
+                        <div class="shortcut-keys">Ctrl+Enter</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Push commits<span class="platform-indicator">VS Code</span></div>
+                        <div class="shortcut-keys">Click sync icon</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">View changes<span class="platform-indicator">VS Code</span></div>
+                        <div class="shortcut-keys">Click file in Git view</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open Git panel<span class="platform-indicator">VS Code</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+G</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Stage all changes<span class="platform-indicator">VS Code</span></div>
+                        <div class="shortcut-keys">Click + on Changes</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="special-note">
+                <h4><i class="fas fa-lightbulb"></i> Git Pro Tips</h4>
+                <ul>
+                    <li><strong>git status</strong> - Always check status before committing</li>
+                    <li><strong>git add -p</strong> - Stage changes interactively</li>
+                    <li><strong>git log --oneline --graph</strong> - View compact commit history</li>
+                    <li><strong>git stash pop</strong> - Apply and remove stash</li>
+                    <li><strong>git diff</strong> - See changes before committing</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Database Section -->
+        <section id="database" class="dev-section">
+            <div class="section-header">
+                <div class="section-icon database-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="section-title">
+                    <h2>Database Tools</h2>
+                    <p>Shortcuts for database management and query tools</p>
+                </div>
+            </div>
+
+            <div class="shortcuts-grid">
+                <!-- General SQL -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-database"></i>
+                        <h3>SQL Editors</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Execute query<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">F5 / Ctrl+Enter</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Format SQL<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+F</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Comment line<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl + /</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Auto-complete<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl+Space</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle results<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl+R</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">New query tab<span class="platform-indicator">All</span></div>
+                        <div class="shortcut-keys">Ctrl+T</div>
+                    </div>
+                </div>
+
+                <!-- MySQL Workbench -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-server"></i>
+                        <h3>MySQL Workbench</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Execute query<span class="platform-indicator">MySQL</span></div>
+                        <div class="shortcut-keys">Ctrl+Enter</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Execute selection<span class="platform-indicator">MySQL</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+Enter</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Format SQL<span class="platform-indicator">MySQL</span></div>
+                        <div class="shortcut-keys">Ctrl+B</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle output<span class="platform-indicator">MySQL</span></div>
+                        <div class="shortcut-keys">Ctrl+Alt+O</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Explain query<span class="platform-indicator">MySQL</span></div>
+                        <div class="shortcut-keys">Ctrl+Alt+X</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Save results<span class="platform-indicator">MySQL</span></div>
+                        <div class="shortcut-keys">Ctrl+S</div>
+                    </div>
+                </div>
+
+                <!-- pgAdmin -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-elephant"></i>
+                        <h3>pgAdmin (PostgreSQL)</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Execute query<span class="platform-indicator">pgAdmin</span></div>
+                        <div class="shortcut-keys">F5</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Explain query<span class="platform-indicator">pgAdmin</span></div>
+                        <div class="shortcut-keys">F7</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Explain analyze<span class="platform-indicator">pgAdmin</span></div>
+                        <div class="shortcut-keys">Shift+F7</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">New query tool<span class="platform-indicator">pgAdmin</span></div>
+                        <div class="shortcut-keys">Ctrl+E</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle results<span class="platform-indicator">pgAdmin</span></div>
+                        <div class="shortcut-keys">F6</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Format SQL<span class="platform-indicator">pgAdmin</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+F</div>
+                    </div>
+                </div>
+
+                <!-- MongoDB Compass -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-leaf"></i>
+                        <h3>MongoDB Compass</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Run query<span class="platform-indicator">MongoDB</span></div>
+                        <div class="shortcut-keys">Ctrl+Enter</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Format JSON<span class="platform-indicator">MongoDB</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+F</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle schema<span class="platform-indicator">MongoDB</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+S</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">New query tab<span class="platform-indicator">MongoDB</span></div>
+                        <div class="shortcut-keys">Ctrl+T</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Export data<span class="platform-indicator">MongoDB</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+E</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle aggregation<span class="platform-indicator">MongoDB</span></div>
+                        <div class="shortcut-keys">Ctrl+Shift+A</div>
+                    </div>
+                </div>
+
+                <!-- Database CLI Tools -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-terminal"></i>
+                        <h3>Database CLI</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Connect MySQL<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">mysql -u user -p</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Connect PostgreSQL<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">psql -U user -d db</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Show databases<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">SHOW DATABASES;</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Use database<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">USE dbname;</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Show tables<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">SHOW TABLES;</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Describe table<span class="platform-indicator">CLI</span></div>
+                        <div class="shortcut-keys">DESC tablename;</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="special-note">
+                <h4><i class="fas fa-lightbulb"></i> Database Pro Tips</h4>
+                <ul>
+                    <li><strong>Ctrl+Enter</strong> - Execute query (works in most tools)</li>
+                    <li><strong>Ctrl+Shift+F</strong> - Format SQL for readability</li>
+                    <li>Always use <strong>LIMIT</strong> with SELECT * on large tables</li>
+                    <li>Use <strong>EXPLAIN</strong> to analyze query performance</li>
+                    <li>Backup databases regularly with <strong>mysqldump</strong> or <strong>pg_dump</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Developer Tips -->
+        <div class="dev-tips">
+            <h3><i class="fas fa-lightbulb"></i> Developer Productivity Tips</h3>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4><i class="fas fa-keyboard"></i> Learn Gradually</h4>
+                    <p>Master 2-3 shortcuts daily rather than trying to learn everything at once.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-magic"></i> Use Snippets</h4>
+                    <p>Create code snippets for repetitive tasks to save significant time.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-terminal"></i> CLI Mastery</h4>
+                    <p>Learn basic terminal commands - they're faster than GUI for many tasks.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-rocket"></i> Custom Shortcuts</h4>
+                    <p>Most tools allow custom keyboard shortcuts - configure them to match your workflow.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>E-Gyan Skill Development</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const loading = document.getElementById('loading');
+            
+            // Show loading animation
+            setTimeout(() => {
+                loading.style.opacity = '0';
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                }, 300);
+            }, 500);
+            
+            // Theme Management
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            // Load saved theme or default to light
+            const savedTheme = localStorage.getItem('devTheme') || 'light';
+            body.setAttribute('data-theme', savedTheme);
+            
+            // Update toggle button icon
+            updateThemeIcon(savedTheme);
+            
+            // Theme toggle function
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                
+                // Apply new theme
+                body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('devTheme', newTheme);
+                
+                // Update icon
+                updateThemeIcon(newTheme);
+                
+                // Add transition effect
+                themeToggle.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    themeToggle.style.transform = '';
+                }, 150);
+            });
+            
+            function updateThemeIcon(theme) {
+                const moonIcon = themeToggle.querySelector('.fa-moon');
+                const sunIcon = themeToggle.querySelector('.fa-sun');
+                
+                if (theme === 'dark') {
+                    themeToggle.title = 'Switch to light mode';
+                } else {
+                    themeToggle.title = 'Switch to dark mode';
+                }
+            }
+            
+            // Tab Navigation
+            const tabs = document.querySelectorAll('.dev-tab');
+            const sections = document.querySelectorAll('.dev-section');
+            
+            // Set active section
+            function setActiveSection(sectionName) {
+                // Update tabs
+                tabs.forEach(tab => {
+                    if (tab.dataset.section === sectionName) {
+                        tab.classList.add('active');
+                        // Scroll tab into view on mobile
+                        if (window.innerWidth < 1024) {
+                            setTimeout(() => {
+                                tab.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'nearest',
+                                    inline: 'center'
+                                });
+                            }, 100);
+                        }
+                    } else {
+                        tab.classList.remove('active');
+                    }
+                });
+                
+                // Update sections
+                sections.forEach(section => {
+                    if (section.id === sectionName) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+                
+                // Store preference
+                localStorage.setItem('lastDevSection', sectionName);
+            }
+            
+            // Tab click event
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const sectionName = this.dataset.section;
+                    setActiveSection(sectionName);
+                });
+            });
+            
+            // Load last viewed section or default to vscode
+            const lastSection = localStorage.getItem('lastDevSection') || 'vscode';
+            setActiveSection(lastSection);
+            
+            // Swipe support for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            document.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            document.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    const currentIndex = Array.from(tabs).findIndex(tab => tab.classList.contains('active'));
+                    
+                    if (diff > 0) {
+                        // Swipe left - next section
+                        const nextIndex = (currentIndex + 1) % tabs.length;
+                        const nextSection = tabs[nextIndex].dataset.section;
+                        setActiveSection(nextSection);
+                    } else {
+                        // Swipe right - previous section
+                        const prevIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                        const prevSection = tabs[prevIndex].dataset.section;
+                        setActiveSection(prevSection);
+                    }
+                }
+            }
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                // Number keys 1-5 for quick navigation
+                if (e.key >= '1' && e.key <= '5' && !e.ctrlKey && !e.altKey && !e.metaKey) {
+                    e.preventDefault();
+                    const sectionIndex = parseInt(e.key) - 1;
+                    if (tabs[sectionIndex]) {
+                        setActiveSection(tabs[sectionIndex].dataset.section);
+                    }
+                }
+                
+                // Arrow keys for navigation
+                if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                    const currentIndex = Array.from(tabs).findIndex(tab => tab.classList.contains('active'));
+                    let newIndex;
+                    
+                    if (e.key === 'ArrowLeft') {
+                        newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                    } else {
+                        newIndex = (currentIndex + 1) % tabs.length;
+                    }
+                    
+                    setActiveSection(tabs[newIndex].dataset.section);
+                }
+                
+                // T key to toggle theme
+                if (e.key === 't' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    themeToggle.click();
+                }
+            });
+            
+            // Platform indicator tooltips
+            const platformIndicators = document.querySelectorAll('.platform-indicator');
+            platformIndicators.forEach(indicator => {
+                const text = indicator.textContent;
+                if (text.includes('All')) {
+                    indicator.title = 'Works on all platforms';
+                } else if (text.includes('Win')) {
+                    indicator.title = 'Windows only';
+                } else if (text.includes('*nix')) {
+                    indicator.title = 'Linux/Mac only';
+                } else if (text.includes('CLI')) {
+                    indicator.title = 'Command Line Interface';
+                }
+            });
+            
+            // Auto-detect system theme preference
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            if (prefersDarkScheme.matches && !localStorage.getItem('devTheme')) {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('devTheme', 'dark');
+                updateThemeIcon('dark');
+            }
+            
+            // Listen for system theme changes
+            prefersDarkScheme.addEventListener('change', (e) => {
+                if (!localStorage.getItem('devTheme')) {
+                    const newTheme = e.matches ? 'dark' : 'light';
+                    body.setAttribute('data-theme', newTheme);
+                    updateThemeIcon(newTheme);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Shortcuts | E-Gyan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --chrome-color: #4285F4;
+            --firefox-color: #FF7139;
+            --edge-color: #0078D4;
+            --safari-color: #000000;
+            --opera-color: #FF1B2D;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --card-hover-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header - Mobile Optimized */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.2rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-align: center;
+        }
+
+        header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* Horizontal Scroll Tabs - Simple Design */
+        .browser-nav {
+            background: white;
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 84px;
+            z-index: 99;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav-container {
+            display: flex;
+            overflow-x: auto;
+            padding: 0.5rem 1rem;
+            gap: 0.8rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .browser-tab {
+            padding: 10px 16px;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid #f0f0f0;
+            background: white;
+            white-space: nowrap;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .browser-tab.active {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+        }
+
+        .chrome-tab.active { background: linear-gradient(135deg, var(--chrome-color), #3367D6); }
+        .firefox-tab.active { background: linear-gradient(135deg, var(--firefox-color), #E65C19); }
+        .edge-tab.active { background: linear-gradient(135deg, var(--edge-color), #106EBE); }
+        .safari-tab.active { background: linear-gradient(135deg, var(--safari-color), #333333); }
+        .opera-tab.active { background: linear-gradient(135deg, var(--opera-color), #D81B60); }
+
+        .browser-tab i {
+            font-size: 1rem;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        /* Browser Sections */
+        .browser-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .browser-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Browser Header */
+        .browser-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+            background: white;
+            padding: 1.2rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .browser-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .chrome-icon { background: var(--chrome-color); }
+        .firefox-icon { background: var(--firefox-color); }
+        .edge-icon { background: var(--edge-color); }
+        .safari-icon { background: var(--safari-color); }
+        .opera-icon { background: var(--opera-color); }
+        .universal-icon { 
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .browser-title h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            color: var(--dark-color);
+        }
+
+        .browser-title p {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Shortcuts Grid */
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1.2rem;
+        }
+
+        .shortcut-category {
+            background: white;
+            border-radius: 12px;
+            padding: 1.2rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 1px solid #f0f0f0;
+        }
+
+        .shortcut-category:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .category-header i {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            width: 30px;
+            text-align: center;
+        }
+
+        .category-header h3 {
+            font-size: 1.1rem;
+            color: var(--dark-color);
+        }
+
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.7rem 0;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .shortcut-item:last-child {
+            border-bottom: none;
+        }
+
+        .shortcut-description {
+            font-size: 0.9rem;
+            color: #555;
+            flex: 1;
+        }
+
+        .shortcut-keys {
+            background: #f1f3f9;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: var(--dark-color);
+            border: 1px solid #ddd;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+
+        /* Keyboard Legend */
+        .keyboard-layout {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            box-shadow: var(--card-shadow);
+        }
+
+        .keyboard-layout h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .key-legend {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 1rem;
+        }
+
+        .key-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+        }
+
+        .key-symbol {
+            background: #f1f3f9;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            font-size: 0.8rem;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        /* Quick Tips */
+        .quick-tips {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: var(--card-shadow);
+        }
+
+        .quick-tips h3 {
+            color: #1565c0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1.2rem;
+        }
+
+        .tip-card {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .tip-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.6rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tip-card p {
+            color: #555;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background-color: var(--dark-color);
+            color: white;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        footer p {
+            opacity: 0.8;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Special Note */
+        .special-note {
+            background: #fff8e1;
+            border-left: 4px solid #ffb300;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .special-note h4 {
+            color: #e65100;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .special-note ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .special-note li {
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            .browser-tab {
+                padding: 10px 20px;
+                font-size: 0.95rem;
+            }
+            
+            .shortcuts-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .tips-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .key-legend {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .nav-container {
+                justify-content: center;
+                overflow-x: visible;
+                flex-wrap: wrap;
+            }
+            
+            .shortcuts-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .tips-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .key-legend {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .browser-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .browser-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+            
+            .shortcut-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .shortcut-keys {
+                margin-left: 0;
+                align-self: stretch;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <h1>
+                <i class="fas fa-globe"></i>
+                Browser Shortcuts
+            </h1>
+            <p>Swipe through browser tabs to discover time-saving keyboard shortcuts</p>
+        </div>
+    </header>
+
+    <!-- Horizontal Scroll Tabs -->
+    <div class="browser-nav">
+        <div class="nav-container" id="navContainer">
+            <div class="browser-tab universal-tab active" data-browser="universal">
+                <i class="fas fa-star"></i> Universal
+            </div>
+            <div class="browser-tab chrome-tab" data-browser="chrome">
+                <i class="fab fa-chrome"></i> Chrome
+            </div>
+            <div class="browser-tab firefox-tab" data-browser="firefox">
+                <i class="fab fa-firefox-browser"></i> Firefox
+            </div>
+            <div class="browser-tab edge-tab" data-browser="edge">
+                <i class="fab fa-edge"></i> Edge
+            </div>
+            <div class="browser-tab safari-tab" data-browser="safari">
+                <i class="fab fa-safari"></i> Safari
+            </div>
+            <div class="browser-tab opera-tab" data-browser="opera">
+                <i class="fab fa-opera"></i> Opera
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Universal Shortcuts -->
+        <section id="universal" class="browser-section active">
+            <div class="browser-header">
+                <div class="browser-icon universal-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="browser-title">
+                    <h2>Universal Browser Shortcuts</h2>
+                    <p>These work across Chrome, Firefox, Edge, Safari & Opera</p>
+                </div>
+            </div>
+
+            <!-- Keyboard Layout -->
+            <div class="keyboard-layout">
+                <h3><i class="fas fa-keyboard"></i> Key Symbols Guide</h3>
+                <div class="key-legend">
+                    <div class="key-item"><span class="key-symbol">Ctrl</span> Control (Win/Linux)</div>
+                    <div class="key-item"><span class="key-symbol">⌘</span> Command (Mac)</div>
+                    <div class="key-item"><span class="key-symbol">Alt</span> Alt/Option</div>
+                    <div class="key-item"><span class="key-symbol">Shift</span> Shift Key</div>
+                    <div class="key-item"><span class="key-symbol">F1-F12</span> Function Keys</div>
+                    <div class="key-item"><span class="key-symbol">Esc</span> Escape Key</div>
+                </div>
+                <p style="margin-top: 10px; font-size: 0.8rem; color: #666;">
+                    <i class="fas fa-info-circle"></i> Use <strong>Ctrl</strong> on Windows/Linux, <strong>⌘</strong> on Mac
+                </p>
+            </div>
+
+            <div class="shortcuts-grid">
+                <!-- Navigation -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-compass"></i>
+                        <h3>Page Navigation</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Refresh current page</div>
+                        <div class="shortcut-keys">Ctrl + R</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Hard refresh (clear cache)</div>
+                        <div class="shortcut-keys">Ctrl + Shift + R</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Go back to previous page</div>
+                        <div class="shortcut-keys">Alt + ←</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Go forward to next page</div>
+                        <div class="shortcut-keys">Alt + →</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Scroll down one screen</div>
+                        <div class="shortcut-keys">Space</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Scroll up one screen</div>
+                        <div class="shortcut-keys">Shift + Space</div>
+                    </div>
+                </div>
+
+                <!-- Tab Management -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-window-restore"></i>
+                        <h3>Tab Management</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open new tab</div>
+                        <div class="shortcut-keys">Ctrl + T</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Close current tab</div>
+                        <div class="shortcut-keys">Ctrl + W</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Reopen closed tab</div>
+                        <div class="shortcut-keys">Ctrl + Shift + T</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Switch to next tab</div>
+                        <div class="shortcut-keys">Ctrl + Tab</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Switch to previous tab</div>
+                        <div class="shortcut-keys">Ctrl + Shift + Tab</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Jump to tab 1-8</div>
+                        <div class="shortcut-keys">Ctrl + 1-8</div>
+                    </div>
+                </div>
+
+                <!-- Address Bar -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-search"></i>
+                        <h3>Address Bar & Search</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Focus address bar</div>
+                        <div class="shortcut-keys">Ctrl + L</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Search from address bar</div>
+                        <div class="shortcut-keys">Type + Enter</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open search in new tab</div>
+                        <div class="shortcut-keys">Alt + Enter</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Add www. and .com</div>
+                        <div class="shortcut-keys">Ctrl + Enter</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Find text on page</div>
+                        <div class="shortcut-keys">Ctrl + F</div>
+                    </div>
+                </div>
+
+                <!-- Bookmarks & History -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-bookmark"></i>
+                        <h3>Bookmarks & History</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Bookmark current page</div>
+                        <div class="shortcut-keys">Ctrl + D</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open bookmarks manager</div>
+                        <div class="shortcut-keys">Ctrl + Shift + O</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open history page</div>
+                        <div class="shortcut-keys">Ctrl + H</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open downloads page</div>
+                        <div class="shortcut-keys">Ctrl + J</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Clear browsing data</div>
+                        <div class="shortcut-keys">Ctrl + Shift + Delete</div>
+                    </div>
+                </div>
+
+                <!-- Zoom & View -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-search-plus"></i>
+                        <h3>Zoom & View Options</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Zoom in</div>
+                        <div class="shortcut-keys">Ctrl + +</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Zoom out</div>
+                        <div class="shortcut-keys">Ctrl + -</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Reset zoom to 100%</div>
+                        <div class="shortcut-keys">Ctrl + 0</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle full-screen</div>
+                        <div class="shortcut-keys">F11</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open developer tools</div>
+                        <div class="shortcut-keys">F12</div>
+                    </div>
+                </div>
+
+                <!-- Text Selection -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-highlighter"></i>
+                        <h3>Text Selection</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Select all text</div>
+                        <div class="shortcut-keys">Ctrl + A</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Copy selected text</div>
+                        <div class="shortcut-keys">Ctrl + C</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Paste text</div>
+                        <div class="shortcut-keys">Ctrl + V</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Cut selected text</div>
+                        <div class="shortcut-keys">Ctrl + X</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Undo text input</div>
+                        <div class="shortcut-keys">Ctrl + Z</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Note -->
+            <div class="special-note">
+                <h4><i class="fas fa-lightbulb"></i> Top 5 Must-Know Shortcuts</h4>
+                <ul>
+                    <li><strong>Ctrl + T</strong> - New tab (most used!)</li>
+                    <li><strong>Ctrl + Tab</strong> - Switch between tabs</li>
+                    <li><strong>Ctrl + L</strong> - Jump to address bar</li>
+                    <li><strong>Ctrl + F</strong> - Find text on page</li>
+                    <li><strong>Ctrl + W</strong> - Close current tab</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Chrome Shortcuts -->
+        <section id="chrome" class="browser-section">
+            <div class="browser-header">
+                <div class="browser-icon chrome-icon">
+                    <i class="fab fa-chrome"></i>
+                </div>
+                <div class="browser-title">
+                    <h2>Google Chrome Shortcuts</h2>
+                    <p>Special shortcuts for Chrome browser</p>
+                </div>
+            </div>
+
+            <div class="shortcuts-grid">
+                <!-- Chrome Specific -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fab fa-chrome"></i>
+                        <h3>Chrome Features</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open Chrome Task Manager</div>
+                        <div class="shortcut-keys">Shift + Esc</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Cast tab to devices</div>
+                        <div class="shortcut-keys">Ctrl + Shift + M</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open guest window</div>
+                        <div class="shortcut-keys">Ctrl + Shift + N</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open incognito window</div>
+                        <div class="shortcut-keys">Ctrl + Shift + N</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open extensions page</div>
+                        <div class="shortcut-keys">chrome://extensions</div>
+                    </div>
+                </div>
+
+                <!-- Chrome Dev Tools -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-code"></i>
+                        <h3>Chrome Dev Tools</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle DevTools</div>
+                        <div class="shortcut-keys">F12</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Inspect element</div>
+                        <div class="shortcut-keys">Ctrl + Shift + C</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Console panel</div>
+                        <div class="shortcut-keys">Ctrl + Shift + J</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle device toolbar</div>
+                        <div class="shortcut-keys">Ctrl + Shift + M</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Search across files</div>
+                        <div class="shortcut-keys">Ctrl + Shift + F</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Firefox Shortcuts -->
+        <section id="firefox" class="browser-section">
+            <div class="browser-header">
+                <div class="browser-icon firefox-icon">
+                    <i class="fab fa-firefox-browser"></i>
+                </div>
+                <div class="browser-title">
+                    <h2>Mozilla Firefox Shortcuts</h2>
+                    <p>Special shortcuts for Firefox browser</p>
+                </div>
+            </div>
+
+            <div class="shortcuts-grid">
+                <!-- Firefox Specific -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fab fa-firefox-browser"></i>
+                        <h3>Firefox Features</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open private window</div>
+                        <div class="shortcut-keys">Ctrl + Shift + P</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle reader view</div>
+                        <div class="shortcut-keys">F9</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Take screenshot</div>
+                        <div class="shortcut-keys">Ctrl + Shift + S</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open Library</div>
+                        <div class="shortcut-keys">Ctrl + Shift + B</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open synced tabs</div>
+                        <div class="shortcut-keys">Ctrl + Shift + Y</div>
+                    </div>
+                </div>
+
+                <!-- Firefox Developer -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-tools"></i>
+                        <h3>Firefox Developer</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle DevTools</div>
+                        <div class="shortcut-keys">F12</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle responsive design</div>
+                        <div class="shortcut-keys">Ctrl + Shift + M</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Web console</div>
+                        <div class="shortcut-keys">Ctrl + Shift + K</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Debugger</div>
+                        <div class="shortcut-keys">Ctrl + Shift + S</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Edge Shortcuts -->
+        <section id="edge" class="browser-section">
+            <div class="browser-header">
+                <div class="browser-icon edge-icon">
+                    <i class="fab fa-edge"></i>
+                </div>
+                <div class="browser-title">
+                    <h2>Microsoft Edge Shortcuts</h2>
+                    <p>Special shortcuts for Edge browser</p>
+                </div>
+            </div>
+
+            <div class="shortcuts-grid">
+                <!-- Edge Specific -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fab fa-edge"></i>
+                        <h3>Edge Features</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open InPrivate window</div>
+                        <div class="shortcut-keys">Ctrl + Shift + N</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open Collections</div>
+                        <div class="shortcut-keys">Ctrl + Shift + Y</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle Immersive Reader</div>
+                        <div class="shortcut-keys">F9</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Read aloud</div>
+                        <div class="shortcut-keys">Ctrl + Shift + U</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Web capture</div>
+                        <div class="shortcut-keys">Ctrl + Shift + S</div>
+                    </div>
+                </div>
+
+                <!-- Edge Productivity -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Edge Productivity</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Vertical tabs toggle</div>
+                        <div class="shortcut-keys">Ctrl + Shift + ,</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open sidebar apps</div>
+                        <div class="shortcut-keys">Ctrl + Shift + E</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open downloads sidebar</div>
+                        <div class="shortcut-keys">Ctrl + J</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open history sidebar</div>
+                        <div class="shortcut-keys">Ctrl + H</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Safari Shortcuts -->
+        <section id="safari" class="browser-section">
+            <div class="browser-header">
+                <div class="browser-icon safari-icon">
+                    <i class="fab fa-safari"></i>
+                </div>
+                <div class="browser-title">
+                    <h2>Apple Safari Shortcuts</h2>
+                    <p>Special shortcuts for Safari on macOS</p>
+                </div>
+            </div>
+
+            <div class="shortcuts-grid">
+                <!-- Safari Specific -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fab fa-safari"></i>
+                        <h3>Safari on macOS</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">New private window</div>
+                        <div class="shortcut-keys">⌘ + Shift + N</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Show reader view</div>
+                        <div class="shortcut-keys">⌘ + Shift + R</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Show sidebar</div>
+                        <div class="shortcut-keys">⌘ + Shift + L</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Show downloads</div>
+                        <div class="shortcut-keys">⌘ + Option + L</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Add to reading list</div>
+                        <div class="shortcut-keys">⌘ + Shift + D</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Opera Shortcuts -->
+        <section id="opera" class="browser-section">
+            <div class="browser-header">
+                <div class="browser-icon opera-icon">
+                    <i class="fab fa-opera"></i>
+                </div>
+                <div class="browser-title">
+                    <h2>Opera Browser Shortcuts</h2>
+                    <p>Special shortcuts for Opera browser</p>
+                </div>
+            </div>
+
+            <div class="shortcuts-grid">
+                <!-- Opera Specific -->
+                <div class="shortcut-category">
+                    <div class="category-header">
+                        <i class="fab fa-opera"></i>
+                        <h3>Opera Features</h3>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open private window</div>
+                        <div class="shortcut-keys">Ctrl + Shift + N</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle sidebar</div>
+                        <div class="shortcut-keys">Ctrl + Shift + S</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle workspaces</div>
+                        <div class="shortcut-keys">Ctrl + Shift + E</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Open snapshot tool</div>
+                        <div class="shortcut-keys">Ctrl + Shift + 5</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-description">Toggle video pop-out</div>
+                        <div class="shortcut-keys">Ctrl + Shift + P</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Tips -->
+        <div class="quick-tips">
+            <h3><i class="fas fa-lightbulb"></i> Browser Tips</h3>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4><i class="fas fa-sync-alt"></i> Sync Across Devices</h4>
+                    <p>Sign in to your browser account to sync bookmarks, passwords, and history across all devices.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-shield-alt"></i> Security First</h4>
+                    <p>Use Ctrl+Shift+Delete to clear browsing data. Enable automatic updates for security patches.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-bolt"></i> Performance Tips</h4>
+                    <p>Close unused tabs, disable unnecessary extensions, and clear cache regularly for better performance.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-mobile-alt"></i> Mobile Browsing</h4>
+                    <p>On mobile, use gestures like swipe to go back/forward and pull to refresh for better navigation.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>E-Gyan Skill Development</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Tab Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.browser-tab');
+            const sections = document.querySelectorAll('.browser-section');
+            
+            // Set active browser
+            function setActiveBrowser(browserName) {
+                // Update tabs
+                tabs.forEach(tab => {
+                    if (tab.dataset.browser === browserName) {
+                        tab.classList.add('active');
+                        // Scroll tab into view on mobile
+                        if (window.innerWidth < 1024) {
+                            setTimeout(() => {
+                                tab.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'nearest',
+                                    inline: 'center'
+                                });
+                            }, 100);
+                        }
+                    } else {
+                        tab.classList.remove('active');
+                    }
+                });
+                
+                // Update sections
+                sections.forEach(section => {
+                    if (section.id === browserName) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+                
+                // Store preference
+                localStorage.setItem('lastBrowser', browserName);
+            }
+            
+            // Tab click event
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const browserName = this.dataset.browser;
+                    setActiveBrowser(browserName);
+                });
+            });
+            
+            // Load last viewed browser or default to universal
+            const lastBrowser = localStorage.getItem('lastBrowser') || 'universal';
+            setActiveBrowser(lastBrowser);
+            
+            // Swipe support for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            document.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            document.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    const currentIndex = Array.from(tabs).findIndex(tab => tab.classList.contains('active'));
+                    
+                    if (diff > 0) {
+                        // Swipe left - next browser
+                        const nextIndex = (currentIndex + 1) % tabs.length;
+                        const nextBrowser = tabs[nextIndex].dataset.browser;
+                        setActiveBrowser(nextBrowser);
+                    } else {
+                        // Swipe right - previous browser
+                        const prevIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                        const prevBrowser = tabs[prevIndex].dataset.browser;
+                        setActiveBrowser(prevBrowser);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

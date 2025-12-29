@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Office Suite Shortcuts | Complete Reference</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --excel-color: #217346;
+            --excel-light: #2e8b57;
+            --powerpoint-color: #d24726;
+            --powerpoint-light: #e74c3c;
+            --access-color: #a4373a;
+            --access-light: #c0392b;
+            --outlook-color: #0072c6;
+            --outlook-light: #2980b9;
+            --word-color: #2b579a;
+            --word-light: #4a76c8;
+            --light-bg: #f5f7fa;
+            --dark-bg: #1a1a2e;
+            --dark-card: #16213e;
+            --dark-text: #e6e6e6;
+            --light-text: #333;
+            --card-bg: #ffffff;
+            --border-color: #e1e5eb;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+        
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        .app-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            font-size: 2.2rem;
+            color: #ffcc00;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            justify-content: space-between;
+        }
+        
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+        }
+        
+        .search-box {
+            display: flex;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .search-btn {
+            background: var(--word-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .search-btn:hover {
+            background: var(--word-light);
+        }
+        
+        .header-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .header-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        /* Application Selector */
+        .app-selector {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            scrollbar-width: thin;
+        }
+        
+        .app-selector::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .app-selector::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+        
+        .app-card {
+            min-width: 140px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            border: 2px solid transparent;
+        }
+        
+        body.dark-mode .app-card {
+            background: var(--dark-card);
+        }
+        
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .app-card.active {
+            border-color: var(--primary-color);
+        }
+        
+        .app-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .app-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .app-count {
+            font-size: 0.8rem;
+            color: #666;
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        
+        body.dark-mode .app-count {
+            color: #aaa;
+            background: #2a2a2a;
+        }
+        
+        /* Main Content Area */
+        .main-content {
+            padding: 25px 0 40px;
+        }
+        
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        body.dark-mode .stats-bar {
+            background: var(--dark-card);
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        body.dark-mode .stat-number {
+            color: var(--primary-light);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        body.dark-mode .stat-label {
+            color: #aaa;
+        }
+        
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            overflow-x: auto;
+            gap: 8px;
+            margin-bottom: 25px;
+            padding-bottom: 5px;
+            scrollbar-width: thin;
+        }
+        
+        .category-tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .category-tabs::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+        
+        .tab {
+            background: var(--card-bg);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #555;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        body.dark-mode .tab {
+            background: var(--dark-card);
+            color: #bbb;
+        }
+        
+        .tab:hover {
+            background: #eef2ff;
+            transform: translateY(-2px);
+        }
+        
+        body.dark-mode .tab:hover {
+            background: #2a2a4a;
+        }
+        
+        .tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .tab i {
+            font-size: 1.1rem;
+        }
+        
+        /* Filter Controls */
+        .filter-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        body.dark-mode .filter-btn {
+            background: var(--dark-card);
+            border-color: #444;
+            color: #ddd;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .bookmarked-only {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .bookmarked-only input {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Shortcut Cards Grid */
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .shortcut-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        body.dark-mode .shortcut-card {
+            background: var(--dark-card);
+        }
+        
+        .shortcut-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .shortcut-keys {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            word-break: break-word;
+        }
+        
+        .bookmark-btn {
+            background: transparent;
+            border: none;
+            color: #ccc;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 5px;
+        }
+        
+        .bookmark-btn.bookmarked {
+            color: var(--secondary);
+        }
+        
+        .bookmark-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .shortcut-action {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--light-text);
+        }
+        
+        body.dark-mode .shortcut-action {
+            color: var(--dark-text);
+        }
+        
+        .shortcut-category {
+            display: inline-block;
+            background: #eef2ff;
+            color: var(--primary-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        body.dark-mode .shortcut-category {
+            background: #2a2a4a;
+            color: var(--primary-light);
+        }
+        
+        .shortcut-description {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        body.dark-mode .shortcut-description {
+            color: #aaa;
+        }
+        
+        .app-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        .empty-icon {
+            font-size: 3rem;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        body.dark-mode .empty-state h3 {
+            color: #aaa;
+        }
+        
+        /* Quick Actions Bar (Mobile) */
+        .quick-actions {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 90;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .quick-action-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: var(--transition);
+        }
+        
+        .quick-action-btn:hover {
+            background: var(--primary-light);
+            transform: scale(1.1);
+        }
+        
+        /* Footer */
+        .app-footer {
+            text-align: center;
+            padding: 25px 0;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 30px;
+        }
+        
+        body.dark-mode .app-footer {
+            color: #aaa;
+            border-top-color: #444;
+        }
+        
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .header-controls {
+                width: auto;
+                flex: 1;
+                justify-content: flex-end;
+                margin-left: 30px;
+            }
+            
+            .logo-text h1 {
+                font-size: 2rem;
+            }
+            
+            .app-selector {
+                justify-content: center;
+            }
+            
+            .app-card {
+                min-width: 160px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+            
+            .stat-item {
+                min-width: 80px;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .tab {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .filter-controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .app-card {
+                min-width: 120px;
+                padding: 15px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="container header-content">
+            <div class="logo-container">
+                <i class="fas fa-microsoft logo-icon"></i>
+                <div class="logo-text">
+                    <h1>Office Suite Shortcuts</h1>
+                    <p>Complete reference for Excel, PowerPoint, Access & Outlook</p>
+                </div>
+            </div>
+            
+            <div class="header-controls">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search shortcuts (e.g. 'copy', 'Ctrl+C', 'save')">
+                        <button class="search-btn" id="searchButton">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="header-buttons">
+                    <button class="header-btn" id="darkModeToggle" title="Toggle Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="header-btn" id="resetFilters" title="Reset Filters">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                    <button class="header-btn" id="showBookmarks" title="Show Bookmarks">
+                        <i class="fas fa-bookmark"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Application Selector -->
+    <div class="container app-selector" id="appSelector">
+        <!-- App cards will be generated by JavaScript -->
+    </div>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-number" id="totalShortcuts">0</span>
+                    <span class="stat-label">Total Shortcuts</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="visibleShortcuts">0</span>
+                    <span class="stat-label">Displayed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="bookmarkedCount">0</span>
+                    <span class="stat-label">Bookmarked</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="activeApp">Excel</span>
+                    <span class="stat-label">Active App</span>
+                </div>
+            </div>
+            
+            <!-- Category Tabs -->
+            <div class="category-tabs" id="categoryTabs">
+                <!-- Tabs will be generated by JavaScript -->
+            </div>
+            
+            <!-- Filter Controls -->
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-layer-group"></i> All
+                    </button>
+                    <button class="filter-btn" data-filter="basic">
+                        <i class="fas fa-star"></i> Basic
+                    </button>
+                    <button class="filter-btn" data-filter="advanced">
+                        <i class="fas fa-rocket"></i> Advanced
+                    </button>
+                    <button class="filter-btn" data-filter="frequent">
+                        <i class="fas fa-fire"></i> Most Used
+                    </button>
+                </div>
+                
+                <div class="bookmarked-only">
+                    <input type="checkbox" id="bookmarkedOnly">
+                    <label for="bookmarkedOnly">Show bookmarked only</label>
+                </div>
+            </div>
+            
+            <!-- Shortcuts Grid -->
+            <div class="shortcuts-grid" id="shortcutsContainer">
+                <!-- Shortcut cards will be generated by JavaScript -->
+            </div>
+        </div>
+    </main>
+    
+    <!-- Quick Actions (Mobile) -->
+    <div class="quick-actions">
+        <button class="quick-action-btn" id="scrollToTop" title="Scroll to top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <button class="quick-action-btn" id="scrollToBottom" title="Scroll to bottom">
+            <i class="fas fa-arrow-down"></i>
+        </button>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="container">
+            <p>Microsoft Office Suite Shortcuts Reference | Excel, PowerPoint, Access, Outlook</p>
+            <p>© 2023 Office Productivity Toolkit | All shortcuts are property of Microsoft Corporation</p>
+            <p>Designed for mobile with search, filter, and bookmarking features</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Office Applications Data
+        const officeApps = [
+            {
+                id: "excel",
+                name: "Excel",
+                color: "#217346",
+                lightColor: "#2e8b57",
+                icon: "fas fa-file-excel",
+                description: "Spreadsheet application"
+            },
+            {
+                id: "powerpoint",
+                name: "PowerPoint",
+                color: "#d24726",
+                lightColor: "#e74c3c",
+                icon: "fas fa-file-powerpoint",
+                description: "Presentation software"
+            },
+            {
+                id: "access",
+                name: "Access",
+                color: "#a4373a",
+                lightColor: "#c0392b",
+                icon: "fas fa-database",
+                description: "Database management"
+            },
+            {
+                id: "outlook",
+                name: "Outlook",
+                color: "#0072c6",
+                lightColor: "#2980b9",
+                icon: "fas fa-envelope",
+                description: "Email & calendar"
+            },
+            {
+                id: "word",
+                name: "Word",
+                color: "#2b579a",
+                lightColor: "#4a76c8",
+                icon: "fas fa-file-word",
+                description: "Word processing"
+            }
+        ];
+        
+        // Categories for each application
+        const appCategories = {
+            excel: [
+                { id: "all", name: "All Excel Shortcuts", icon: "fas fa-layer-group" },
+                { id: "navigation", name: "Navigation", icon: "fas fa-arrows-alt" },
+                { id: "ribbon", name: "Ribbon", icon: "fas fa-bars" },
+                { id: "data", name: "Working with Data", icon: "fas fa-table" },
+                { id: "formatting", name: "Formatting", icon: "fas fa-bold" },
+                { id: "formulas", name: "Formulas", icon: "fas fa-calculator" },
+                { id: "workbook", name: "Workbook", icon: "fas fa-folder-open" }
+            ],
+            powerpoint: [
+                { id: "all", name: "All PowerPoint Shortcuts", icon: "fas fa-layer-group" },
+                { id: "presentation", name: "Presentation", icon: "fas fa-desktop" },
+                { id: "slides", name: "Slides", icon: "fas fa-images" },
+                { id: "editing", name: "Editing", icon: "fas fa-edit" },
+                { id: "formatting", name: "Formatting", icon: "fas fa-paint-brush" },
+                { id: "view", name: "View", icon: "fas fa-eye" }
+            ],
+            access: [
+                { id: "all", name: "All Access Shortcuts", icon: "fas fa-layer-group" },
+                { id: "navigation", name: "Navigation", icon: "fas fa-arrows-alt" },
+                { id: "database", name: "Database", icon: "fas fa-database" },
+                { id: "objects", name: "Objects", icon: "fas fa-cube" },
+                { id: "editing", name: "Editing", icon: "fas fa-edit" }
+            ],
+            outlook: [
+                { id: "all", name: "All Outlook Shortcuts", icon: "fas fa-layer-group" },
+                { id: "navigation", name: "Navigation", icon: "fas fa-arrows-alt" },
+                { id: "email", name: "Email", icon: "fas fa-envelope" },
+                { id: "calendar", name: "Calendar", icon: "fas fa-calendar" },
+                { id: "tasks", name: "Tasks", icon: "fas fa-tasks" },
+                { id: "search", name: "Search", icon: "fas fa-search" }
+            ],
+            word: [
+                { id: "all", name: "All Word Shortcuts", icon: "fas fa-layer-group" },
+                { id: "navigation", name: "Navigation", icon: "fas fa-arrows-alt" },
+                { id: "formatting", name: "Formatting", icon: "fas fa-bold" },
+                { id: "editing", name: "Editing", icon: "fas fa-edit" },
+                { id: "document", name: "Document", icon: "fas fa-file" }
+            ]
+        };
+        
+        // Shortcuts Data for all Office applications
+        const allShortcutsData = [
+            // Excel Shortcuts
+            { 
+                id: 1, 
+                keys: "PgUp / PgDn", 
+                action: "Move one screen up / down", 
+                category: "navigation", 
+                app: "excel",
+                description: "Quick navigation through large worksheets", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 2, 
+                keys: "Alt + PgUp / Alt + PgDn", 
+                action: "Move one screen left / right", 
+                category: "navigation", 
+                app: "excel",
+                description: "Horizontal screen navigation", 
+                difficulty: "advanced",
+                frequency: "medium"
+            },
+            { 
+                id: 3, 
+                keys: "Ctrl + PgUp / Ctrl + PgDn", 
+                action: "Move between worksheet tabs", 
+                category: "navigation", 
+                app: "excel",
+                description: "Navigate between different sheets in a workbook", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 4, 
+                keys: "Ctrl + Home", 
+                action: "Move to beginning of worksheet", 
+                category: "navigation", 
+                app: "excel",
+                description: "Jump to cell A1 instantly", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 5, 
+                keys: "Ctrl + End", 
+                action: "Move to last cell with content", 
+                category: "navigation", 
+                app: "excel",
+                description: "Find the last used cell in the worksheet", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 6, 
+                keys: "Shift + Spacebar", 
+                action: "Select entire row", 
+                category: "data", 
+                app: "excel",
+                description: "Quickly select a complete row", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 7, 
+                keys: "Ctrl + Spacebar", 
+                action: "Select entire column", 
+                category: "data", 
+                app: "excel",
+                description: "Quickly select a complete column", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 8, 
+                keys: "Ctrl + A", 
+                action: "Select entire worksheet", 
+                category: "data", 
+                app: "excel",
+                description: "Select all cells in the current worksheet", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 9, 
+                keys: "Ctrl + 1", 
+                action: "Format Cells dialog", 
+                category: "formatting", 
+                app: "excel",
+                description: "Open the comprehensive formatting dialog", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 10, 
+                keys: "Ctrl + Shift + $", 
+                action: "Apply Currency format", 
+                category: "formatting", 
+                app: "excel",
+                description: "Format selection as currency with two decimal places", 
+                difficulty: "advanced",
+                frequency: "medium"
+            },
+            { 
+                id: 11, 
+                keys: "Ctrl + Shift + %", 
+                action: "Apply Percentage format", 
+                category: "formatting", 
+                app: "excel",
+                description: "Format selection as percentage with no decimals", 
+                difficulty: "advanced",
+                frequency: "medium"
+            },
+            { 
+                id: 12, 
+                keys: "Ctrl + ;", 
+                action: "Insert current date", 
+                category: "data", 
+                app: "excel",
+                description: "Insert today's date into the active cell", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 13, 
+                keys: "Ctrl + Shift + ;", 
+                action: "Insert current time", 
+                category: "data", 
+                app: "excel",
+                description: "Insert current time into the active cell", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 14, 
+                keys: "=", 
+                action: "Begin a formula", 
+                category: "formulas", 
+                app: "excel",
+                description: "Start entering a formula in the active cell", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 15, 
+                keys: "Alt + =", 
+                action: "AutoSum function", 
+                category: "formulas", 
+                app: "excel",
+                description: "Insert SUM function for adjacent cells", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 16, 
+                keys: "F9", 
+                action: "Calculate all worksheets", 
+                category: "formulas", 
+                app: "excel",
+                description: "Recalculate all formulas in all open workbooks", 
+                difficulty: "advanced",
+                frequency: "low"
+            },
+            { 
+                id: 17, 
+                keys: "Ctrl + N", 
+                action: "New workbook", 
+                category: "workbook", 
+                app: "excel",
+                description: "Create a new Excel workbook", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 18, 
+                keys: "Ctrl + S", 
+                action: "Save workbook", 
+                category: "workbook", 
+                app: "excel",
+                description: "Save the current workbook", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 19, 
+                keys: "F12", 
+                action: "Save As dialog", 
+                category: "workbook", 
+                app: "excel",
+                description: "Open Save As dialog to save with new name", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 20, 
+                keys: "Ctrl + F", 
+                action: "Find and Replace", 
+                category: "data", 
+                app: "excel",
+                description: "Open Find and Replace dialog box", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 21, 
+                keys: "Alt + H", 
+                action: "Go to Home tab", 
+                category: "ribbon", 
+                app: "excel",
+                description: "Activate the Home tab on the ribbon", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 22, 
+                keys: "Alt + N", 
+                action: "Go to Insert tab", 
+                category: "ribbon", 
+                app: "excel",
+                description: "Activate the Insert tab on the ribbon", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 23, 
+                keys: "Alt + M", 
+                action: "Go to Formulas tab", 
+                category: "ribbon", 
+                app: "excel",
+                description: "Activate the Formulas tab on the ribbon", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            
+            // PowerPoint Shortcuts
+            { 
+                id: 101, 
+                keys: "Ctrl + N", 
+                action: "New presentation", 
+                category: "presentation", 
+                app: "powerpoint",
+                description: "Create a new PowerPoint presentation", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 102, 
+                keys: "Ctrl + M", 
+                action: "New slide", 
+                category: "slides", 
+                app: "powerpoint",
+                description: "Insert a new slide after the current one", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 103, 
+                keys: "F5", 
+                action: "Start slideshow", 
+                category: "presentation", 
+                app: "powerpoint",
+                description: "Start presentation from the beginning", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 104, 
+                keys: "Esc", 
+                action: "End slideshow", 
+                category: "presentation", 
+                app: "powerpoint",
+                description: "Exit slideshow and return to edit view", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 105, 
+                keys: "Page Down", 
+                action: "Next slide", 
+                category: "slides", 
+                app: "powerpoint",
+                description: "Advance to the next slide in slideshow or edit view", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 106, 
+                keys: "Page Up", 
+                action: "Previous slide", 
+                category: "slides", 
+                app: "powerpoint",
+                description: "Go back to the previous slide", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 107, 
+                keys: "Ctrl + S", 
+                action: "Save presentation", 
+                category: "presentation", 
+                app: "powerpoint",
+                description: "Save the current presentation", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 108, 
+                keys: "Alt + N, P", 
+                action: "Insert picture", 
+                category: "editing", 
+                app: "powerpoint",
+                description: "Insert an image from your computer", 
+                difficulty: "advanced",
+                frequency: "medium"
+            },
+            { 
+                id: 109, 
+                keys: "Alt + N, S, H", 
+                action: "Insert shape", 
+                category: "editing", 
+                app: "powerpoint",
+                description: "Insert a shape from the shapes gallery", 
+                difficulty: "advanced",
+                frequency: "medium"
+            },
+            { 
+                id: 110, 
+                keys: "Alt + H, L", 
+                action: "Select slide layout", 
+                category: "slides", 
+                app: "powerpoint",
+                description: "Change the layout of the current slide", 
+                difficulty: "advanced",
+                frequency: "medium"
+            },
+            { 
+                id: 111, 
+                keys: "Alt + W, Q", 
+                action: "Open Zoom dialog", 
+                category: "view", 
+                app: "powerpoint",
+                description: "Adjust the zoom level of the slide view", 
+                difficulty: "advanced",
+                frequency: "low"
+            },
+            { 
+                id: 112, 
+                keys: "Ctrl + Shift + I", 
+                action: "Open Immersive Reader", 
+                category: "view", 
+                app: "powerpoint",
+                description: "Open text in Microsoft's Immersive Reader", 
+                difficulty: "advanced",
+                frequency: "low"
+            },
+            
+            // Access Shortcuts
+            { 
+                id: 201, 
+                keys: "F1", 
+                action: "Display Help", 
+                category: "navigation", 
+                app: "access",
+                description: "Open Microsoft Access Help", 
+                difficulty: "basic",
+                frequency: "low"
+            },
+            { 
+                id: 202, 
+                keys: "F11", 
+                action: "Database window", 
+                category: "database", 
+                app: "access",
+                description: "Display the Database window", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 203, 
+                keys: "F12", 
+                action: "Save As dialog", 
+                category: "database", 
+                app: "access",
+                description: "Open the Save As dialog box", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 204, 
+                keys: "Ctrl + N", 
+                action: "New database", 
+                category: "database", 
+                app: "access",
+                description: "Create a new Access database", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 205, 
+                keys: "Ctrl + O", 
+                action: "Open database", 
+                category: "database", 
+                app: "access",
+                description: "Open an existing database", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 206, 
+                keys: "Ctrl + P", 
+                action: "Print object", 
+                category: "objects", 
+                app: "access",
+                description: "Print the current or selected database object", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 207, 
+                keys: "Ctrl + S", 
+                action: "Save object", 
+                category: "objects", 
+                app: "access",
+                description: "Save the current database object", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 208, 
+                keys: "Alt + F11", 
+                action: "Toggle Visual Basic editor", 
+                category: "editing", 
+                app: "access",
+                description: "Switch between Access and Visual Basic editor", 
+                difficulty: "advanced",
+                frequency: "low"
+            },
+            { 
+                id: 209, 
+                keys: "Shift + F10", 
+                action: "Shortcut menu", 
+                category: "navigation", 
+                app: "access",
+                description: "Display the context (right-click) menu", 
+                difficulty: "advanced",
+                frequency: "medium"
+            },
+            
+            // Outlook Shortcuts
+            { 
+                id: 301, 
+                keys: "Ctrl + Shift + M", 
+                action: "New message", 
+                category: "email", 
+                app: "outlook",
+                description: "Create a new email message", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 302, 
+                keys: "Alt + S", 
+                action: "Send message", 
+                category: "email", 
+                app: "outlook",
+                description: "Send the current email message", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 303, 
+                keys: "Ctrl + E", 
+                action: "Search", 
+                category: "search", 
+                app: "outlook",
+                description: "Move focus to the search box", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 304, 
+                keys: "Delete", 
+                action: "Delete item", 
+                category: "email", 
+                app: "outlook",
+                description: "Delete selected message, task, or meeting", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 305, 
+                keys: "Ctrl + 2", 
+                action: "Go to Calendar", 
+                category: "calendar", 
+                app: "outlook",
+                description: "Switch to Calendar view", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 306, 
+                keys: "Ctrl + Shift + A", 
+                action: "New appointment", 
+                category: "calendar", 
+                app: "outlook",
+                description: "Create a new calendar appointment", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 307, 
+                keys: "Ctrl + Shift + K", 
+                action: "New task", 
+                category: "tasks", 
+                app: "outlook",
+                description: "Create a new task", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            { 
+                id: 308, 
+                keys: "Alt + H, R, P", 
+                action: "Reply to message", 
+                category: "email", 
+                app: "outlook",
+                description: "Reply to the sender of the selected message", 
+                difficulty: "advanced",
+                frequency: "high"
+            },
+            { 
+                id: 309, 
+                keys: "Alt + H, F, W", 
+                action: "Forward message", 
+                category: "email", 
+                app: "outlook",
+                description: "Forward the selected message", 
+                difficulty: "advanced",
+                frequency: "high"
+            },
+            { 
+                id: 310, 
+                keys: "Alt + H, R, A", 
+                action: "Reply All", 
+                category: "email", 
+                app: "outlook",
+                description: "Reply to all recipients of the selected message", 
+                difficulty: "advanced",
+                frequency: "medium"
+            },
+            { 
+                id: 311, 
+                keys: "Ctrl + M", 
+                action: "Check for new messages", 
+                category: "email", 
+                app: "outlook",
+                description: "Send and receive all email accounts", 
+                difficulty: "basic",
+                frequency: "medium"
+            },
+            
+            // Common shortcuts (Word-like for reference)
+            { 
+                id: 401, 
+                keys: "Ctrl + C", 
+                action: "Copy", 
+                category: "editing", 
+                app: "word",
+                description: "Copy selected text or object", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 402, 
+                keys: "Ctrl + V", 
+                action: "Paste", 
+                category: "editing", 
+                app: "word",
+                description: "Paste from clipboard", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 403, 
+                keys: "Ctrl + Z", 
+                action: "Undo", 
+                category: "editing", 
+                app: "word",
+                description: "Undo the last action", 
+                difficulty: "basic",
+                frequency: "high"
+            },
+            { 
+                id: 404, 
+                keys: "Ctrl + Y", 
+                action: "Redo", 
+                category: "editing", 
+                app: "word",
+                description: "Redo the last undone action", 
+                difficulty: "basic",
+                frequency: "high"
+            }
+        ];
+        
+        // App State
+        const state = {
+            activeApp: "excel",
+            activeCategory: "all",
+            activeFilter: "all",
+            searchQuery: "",
+            bookmarkedOnly: false,
+            bookmarks: JSON.parse(localStorage.getItem("officeShortcutsBookmarks")) || [],
+            darkMode: localStorage.getItem("darkMode") === "true"
+        };
+        
+        // DOM Elements
+        const elements = {
+            shortcutsContainer: document.getElementById("shortcutsContainer"),
+            categoryTabs: document.getElementById("categoryTabs"),
+            appSelector: document.getElementById("appSelector"),
+            searchInput: document.getElementById("searchInput"),
+            searchButton: document.getElementById("searchButton"),
+            darkModeToggle: document.getElementById("darkModeToggle"),
+            resetFilters: document.getElementById("resetFilters"),
+            showBookmarks: document.getElementById("showBookmarks"),
+            scrollToTop: document.getElementById("scrollToTop"),
+            scrollToBottom: document.getElementById("scrollToBottom"),
+            totalShortcuts: document.getElementById("totalShortcuts"),
+            visibleShortcuts: document.getElementById("visibleShortcuts"),
+            bookmarkedCount: document.getElementById("bookmarkedCount"),
+            activeApp: document.getElementById("activeApp"),
+            bookmarkedOnly: document.getElementById("bookmarkedOnly"),
+            filterButtons: document.querySelectorAll(".filter-btn")
+        };
+        
+        // Initialize App
+        function initApp() {
+            // Set dark mode if enabled
+            if (state.darkMode) {
+                document.body.classList.add("dark-mode");
+                elements.darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            
+            // Update stats
+            updateStats();
+            
+            // Render app selector
+            renderAppSelector();
+            
+            // Set active app colors
+            setActiveAppColors();
+            
+            // Render category tabs
+            renderCategoryTabs();
+            
+            // Render shortcuts
+            renderShortcuts();
+            
+            // Set up event listeners
+            setupEventListeners();
+        }
+        
+        // Render application selector
+        function renderAppSelector() {
+            elements.appSelector.innerHTML = "";
+            
+            officeApps.forEach(app => {
+                const appCard = document.createElement("div");
+                appCard.className = `app-card ${app.id === state.activeApp ? "active" : ""}`;
+                appCard.dataset.app = app.id;
+                appCard.style.setProperty("--primary-color", app.color);
+                appCard.style.setProperty("--primary-light", app.lightColor);
+                
+                // Count shortcuts for this app
+                const appShortcutCount = allShortcutsData.filter(s => s.app === app.id).length;
+                
+                appCard.innerHTML = `
+                    <div class="app-icon" style="color: ${app.color}">
+                        <i class="${app.icon}"></i>
+                    </div>
+                    <div class="app-name">${app.name}</div>
+                    <div class="app-count">${appShortcutCount} shortcuts</div>
+                `;
+                
+                appCard.addEventListener("click", () => {
+                    setActiveApp(app.id);
+                });
+                
+                elements.appSelector.appendChild(appCard);
+            });
+        }
+        
+        // Set active application
+        function setActiveApp(appId) {
+            state.activeApp = appId;
+            state.activeCategory = "all";
+            
+            // Update UI
+            document.querySelectorAll(".app-card").forEach(card => {
+                card.classList.toggle("active", card.dataset.app === appId);
+            });
+            
+            // Update active app name
+            const activeAppObj = officeApps.find(app => app.id === appId);
+            elements.activeApp.textContent = activeAppObj?.name || "Excel";
+            
+            // Set CSS variables for active app colors
+            setActiveAppColors();
+            
+            // Re-render category tabs and shortcuts
+            renderCategoryTabs();
+            renderShortcuts();
+        }
+        
+        // Set CSS variables for active app colors
+        function setActiveAppColors() {
+            const activeAppObj = officeApps.find(app => app.id === state.activeApp);
+            
+            if (activeAppObj) {
+                document.documentElement.style.setProperty("--primary-color", activeAppObj.color);
+                document.documentElement.style.setProperty("--primary-light", activeAppObj.lightColor);
+            }
+        }
+        
+        // Render category tabs
+        function renderCategoryTabs() {
+            elements.categoryTabs.innerHTML = "";
+            
+            const categories = appCategories[state.activeApp] || appCategories.excel;
+            
+            categories.forEach(category => {
+                const tab = document.createElement("button");
+                tab.className = `tab ${category.id === state.activeCategory ? "active" : ""}`;
+                tab.dataset.category = category.id;
+                tab.innerHTML = `<i class="${category.icon}"></i> ${category.name}`;
+                
+                tab.addEventListener("click", () => {
+                    setActiveCategory(category.id);
+                });
+                
+                elements.categoryTabs.appendChild(tab);
+            });
+        }
+        
+        // Render shortcut cards
+        function renderShortcuts() {
+            elements.shortcutsContainer.innerHTML = "";
+            
+            // Get shortcuts for active app
+            let filteredShortcuts = allShortcutsData.filter(shortcut => shortcut.app === state.activeApp);
+            
+            // Apply filters
+            filteredShortcuts = filteredShortcuts.filter(shortcut => {
+                // Category filter
+                if (state.activeCategory !== "all" && shortcut.category !== state.activeCategory) {
+                    return false;
+                }
+                
+                // Difficulty filter
+                if (state.activeFilter === "basic" && shortcut.difficulty !== "basic") {
+                    return false;
+                }
+                if (state.activeFilter === "advanced" && shortcut.difficulty !== "advanced") {
+                    return false;
+                }
+                if (state.activeFilter === "frequent" && shortcut.frequency !== "high") {
+                    return false;
+                }
+                
+                // Bookmarked only filter
+                if (state.bookmarkedOnly && !state.bookmarks.includes(shortcut.id)) {
+                    return false;
+                }
+                
+                // Search query filter
+                if (state.searchQuery) {
+                    const query = state.searchQuery.toLowerCase();
+                    const searchIn = `${shortcut.keys} ${shortcut.action} ${shortcut.description} ${shortcut.category}`.toLowerCase();
+                    if (!searchIn.includes(query)) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            });
+            
+            // Display message if no shortcuts match
+            if (filteredShortcuts.length === 0) {
+                elements.shortcutsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>No shortcuts found</h3>
+                        <p>Try adjusting your search or filters to see more results.</p>
+                        <button class="filter-btn active" id="resetEmptyState" style="margin-top: 15px;">
+                            <i class="fas fa-redo"></i> Reset Filters
+                        </button>
+                    </div>
+                `;
+                
+                document.getElementById("resetEmptyState")?.addEventListener("click", resetFilters);
+            } else {
+                // Create cards for each filtered shortcut
+                filteredShortcuts.forEach(shortcut => {
+                    const card = createShortcutCard(shortcut);
+                    elements.shortcutsContainer.appendChild(card);
+                });
+            }
+            
+            // Update stats
+            updateStats(filteredShortcuts.length);
+        }
+        
+        // Create a shortcut card element
+        function createShortcutCard(shortcut) {
+            const card = document.createElement("div");
+            card.className = "shortcut-card fade-in";
+            
+            const isBookmarked = state.bookmarks.includes(shortcut.id);
+            const appName = officeApps.find(app => app.id === shortcut.app)?.name || shortcut.app;
+            const categoryName = (appCategories[shortcut.app] || []).find(c => c.id === shortcut.category)?.name || shortcut.category;
+            
+            card.innerHTML = `
+                <div class="app-badge">${appName}</div>
+                <div class="card-header">
+                    <div class="shortcut-keys">${shortcut.keys}</div>
+                    <button class="bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" data-id="${shortcut.id}">
+                        <i class="fas fa-bookmark"></i>
+                    </button>
+                </div>
+                <div class="shortcut-action">${shortcut.action}</div>
+                <div class="shortcut-category">${categoryName}</div>
+                <div class="shortcut-description">${shortcut.description}</div>
+                <div style="display: flex; justify-content: space-between; margin-top: 15px; font-size: 0.8rem;">
+                    <span style="background: ${shortcut.difficulty === 'basic' ? '#e8f5e9' : '#fff3e0'}; 
+                                 color: ${shortcut.difficulty === 'basic' ? '#2e7d32' : '#f57c00'}; 
+                                 padding: 3px 8px; border-radius: 10px;">
+                        ${shortcut.difficulty === 'basic' ? 'Basic' : 'Advanced'}
+                    </span>
+                    <span style="background: ${shortcut.frequency === 'high' ? '#ffebee' : '#e8eaf6'}; 
+                                 color: ${shortcut.frequency === 'high' ? '#c62828' : '#3949ab'}; 
+                                 padding: 3px 8px; border-radius: 10px;">
+                        ${shortcut.frequency === 'high' ? 'Frequently Used' : shortcut.frequency === 'medium' ? 'Moderate Use' : 'Rarely Used'}
+                    </span>
+                </div>
+            `;
+            
+            // Add bookmark functionality
+            const bookmarkBtn = card.querySelector(".bookmark-btn");
+            bookmarkBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                toggleBookmark(shortcut.id);
+            });
+            
+            return card;
+        }
+        
+        // Toggle bookmark for a shortcut
+        function toggleBookmark(shortcutId) {
+            const index = state.bookmarks.indexOf(shortcutId);
+            
+            if (index === -1) {
+                // Add bookmark
+                state.bookmarks.push(shortcutId);
+            } else {
+                // Remove bookmark
+                state.bookmarks.splice(index, 1);
+            }
+            
+            // Save to localStorage
+            localStorage.setItem("officeShortcutsBookmarks", JSON.stringify(state.bookmarks));
+            
+            // Re-render shortcuts if in bookmark-only mode
+            if (state.bookmarkedOnly) {
+                renderShortcuts();
+            } else {
+                // Just update the specific card
+                const bookmarkBtn = document.querySelector(`.bookmark-btn[data-id="${shortcutId}"]`);
+                if (bookmarkBtn) {
+                    bookmarkBtn.classList.toggle("bookmarked");
+                }
+            }
+            
+            // Update stats
+            updateStats();
+        }
+        
+        // Set active category
+        function setActiveCategory(categoryId) {
+            state.activeCategory = categoryId;
+            
+            // Update UI
+            document.querySelectorAll(".tab").forEach(tab => {
+                tab.classList.toggle("active", tab.dataset.category === categoryId);
+            });
+            
+            // Re-render shortcuts
+            renderShortcuts();
+        }
+        
+        // Set active filter
+        function setActiveFilter(filter) {
+            state.activeFilter = filter;
+            
+            // Update UI
+            elements.filterButtons.forEach(btn => {
+                btn.classList.toggle("active", btn.dataset.filter === filter);
+            });
+            
+            // Re-render shortcuts
+            renderShortcuts();
+        }
+        
+        // Update statistics
+        function updateStats(visibleCount = null) {
+            // Count shortcuts for active app
+            const appShortcutCount = allShortcutsData.filter(s => s.app === state.activeApp).length;
+            elements.totalShortcuts.textContent = appShortcutCount;
+            
+            if (visibleCount !== null) {
+                elements.visibleShortcuts.textContent = visibleCount;
+            }
+            
+            elements.bookmarkedCount.textContent = state.bookmarks.length;
+        }
+        
+        // Reset all filters
+        function resetFilters() {
+            state.activeCategory = "all";
+            state.activeFilter = "all";
+            state.searchQuery = "";
+            state.bookmarkedOnly = false;
+            
+            // Update UI
+            elements.searchInput.value = "";
+            elements.bookmarkedOnly.checked = false;
+            
+            // Re-render everything
+            renderCategoryTabs();
+            setActiveFilter("all");
+            renderShortcuts();
+        }
+        
+        // Toggle dark mode
+        function toggleDarkMode() {
+            state.darkMode = !state.darkMode;
+            document.body.classList.toggle("dark-mode", state.darkMode);
+            
+            // Update button icon
+            elements.darkModeToggle.innerHTML = state.darkMode 
+                ? '<i class="fas fa-sun"></i>' 
+                : '<i class="fas fa-moon"></i>';
+            
+            // Save preference
+            localStorage.setItem("darkMode", state.darkMode);
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Search functionality
+            elements.searchButton.addEventListener("click", () => {
+                state.searchQuery = elements.searchInput.value.trim();
+                renderShortcuts();
+            });
+            
+            elements.searchInput.addEventListener("keyup", (e) => {
+                if (e.key === "Enter") {
+                    state.searchQuery = elements.searchInput.value.trim();
+                    renderShortcuts();
+                }
+            });
+            
+            // Filter buttons
+            elements.filterButtons.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    setActiveFilter(btn.dataset.filter);
+                });
+            });
+            
+            // Bookmarked only checkbox
+            elements.bookmarkedOnly.addEventListener("change", (e) => {
+                state.bookmarkedOnly = e.target.checked;
+                renderShortcuts();
+            });
+            
+            // Control buttons
+            elements.darkModeToggle.addEventListener("click", toggleDarkMode);
+            elements.resetFilters.addEventListener("click", resetFilters);
+            elements.showBookmarks.addEventListener("click", () => {
+                state.bookmarkedOnly = true;
+                elements.bookmarkedOnly.checked = true;
+                renderShortcuts();
+            });
+            
+            // Scroll buttons
+            elements.scrollToTop.addEventListener("click", () => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+            
+            elements.scrollToBottom.addEventListener("click", () => {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+            });
+            
+            // Initialize filter buttons
+            setActiveFilter("all");
+        }
+        
+        // Initialize the app when DOM is loaded
+        document.addEventListener("DOMContentLoaded", initApp);
+    </script>
+</body>
+</html>
