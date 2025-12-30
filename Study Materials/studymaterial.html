@@ -872,8 +872,7 @@
         
         // Show logout success message (optional)
         setTimeout(() => {
-          // Redirect to login page with updated URL
-          window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
+          window.location.href = 'login.html'; // Redirect to login page
         }, 500);
       },
       
@@ -896,9 +895,8 @@
             </div>
           `;
         } else {
-          // Updated to external login URL
           authButton.innerHTML = `
-            <a href="https://trendseducation.github.io/egyan/Branch/login.html">
+            <a href="login.html">
               <i class="fas fa-sign-in-alt"></i> Login
             </a>
           `;
@@ -1082,7 +1080,7 @@
           <p>You will be automatically redirected to the login page.</p>
           <div class="spinner" style="width: 40px; height: 40px; margin: 20px auto;"></div>
           <p>If you are not redirected, please click the button below:</p>
-          <a href="https://trendseducation.github.io/egyan/Branch/login.html" class="login-btn">
+          <a href="login.html" class="login-btn">
             <i class="fas fa-sign-in-alt"></i> Go to Login Page
           </a>
         </div>
@@ -1099,9 +1097,9 @@
         }
       }, 1000);
       
-      // Redirect to login page after 3 seconds - Updated URL
+      // Redirect to login page after 3 seconds
       setTimeout(() => {
-        window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
+        window.location.href = 'login.html';
       }, 3000);
     }
     
@@ -1129,9 +1127,14 @@
     function initPage() {
       // Check authentication status
       if (AuthSystem.checkAuthentication()) {
-        // User is authenticated - redirect to study materials
-        window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
-        return; // Exit function to prevent loading shortcuts content
+        // User is authenticated - load shortcuts content
+        loadShortcutsContent();
+        AuthSystem.updateAuthButton();
+        AuthSystem.updateMobileUserInfo();
+        AuthSystem.updateWelcomeBanner();
+        
+        // Store current page as redirect URL for login page
+        sessionStorage.setItem('redirectAfterLogin', window.location.href);
       } else {
         // User is not authenticated - show redirect message
         showLoginRedirect();
@@ -1157,8 +1160,7 @@
           if (!AuthSystem.checkAuthentication()) {
             event.preventDefault();
             alert('Your session has expired. Please login again to access shortcuts.');
-            // Updated redirect URL
-            window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
+            window.location.href = 'login.html';
             return false;
           }
           
@@ -1174,8 +1176,7 @@
       setInterval(() => {
         if (!AuthSystem.checkAuthentication()) {
           alert('Your session has expired. Please login again.');
-          // Updated redirect URL
-          window.location.href = 'https://trendseducation.github.io/egyan/Branch/login.html';
+          window.location.href = 'login.html';
         }
       }, 5 * 60 * 1000); // 5 minutes
       
@@ -1202,4 +1203,3 @@
   </script>
 </body>
 </html>
-
