@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TallyPrime GST Shortcuts Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .gst-badge {
+            background-color: var(--success);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: bold;
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 100%;
+            padding: 1rem;
+        }
+        
+        /* Search Box */
+        .search-container {
+            margin: 1.5rem auto;
+            max-width: 600px;
+        }
+        
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box input:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+        }
+        
+        /* Tab Navigation */
+        .tabs-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .tabs-scroll-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tabs-nav {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 10px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+        
+        .tabs-nav::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        
+        .tab-button {
+            flex: 0 0 auto;
+            background: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            margin-right: 0.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .tab-button i {
+            font-size: 0.9rem;
+        }
+        
+        .tab-button:hover {
+            background-color: var(--light);
+            transform: translateY(-2px);
+        }
+        
+        .tab-button.active {
+            background-color: var(--secondary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+        }
+        
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 10;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-btn:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .scroll-btn.left {
+            left: 0;
+            display: none;
+        }
+        
+        .scroll-btn.right {
+            right: 0;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Shortcuts Grid */
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Category Card */
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.2rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .category-header h3 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .category-icon {
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .shortcut-count {
+            background-color: var(--accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        /* Shortcut Items */
+        .shortcut-items {
+            padding: 1rem;
+        }
+        
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.9rem 0;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s ease;
+        }
+        
+        .shortcut-item:last-child {
+            border-bottom: none;
+        }
+        
+        .shortcut-item:hover {
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+        
+        .shortcut-key {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .key-combo {
+            background-color: var(--light);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: var(--primary);
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .key-combo i {
+            font-size: 0.8rem;
+            margin: 0 2px;
+        }
+        
+        .shortcut-description {
+            flex: 1;
+            padding: 0 1rem;
+            font-size: 0.95rem;
+            color: #555;
+        }
+        
+        .shortcut-gst {
+            background-color: rgba(39, 174, 96, 0.1);
+            color: var(--success);
+            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        
+        /* Quick Tips Section */
+        .quick-tips {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .quick-tips h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .tip-icon {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Mobile Responsive Adjustments */
+        @media (min-width: 768px) {
+            .shortcuts-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tips-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .scroll-btn {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 2rem;
+            }
+            
+            .shortcuts-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .tips-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .tabs-container {
+                max-width: 1000px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 1rem 0.8rem;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .category-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .shortcut-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .shortcut-description {
+                padding: 0;
+            }
+            
+            .tab-button {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .scroll-btn {
+                display: none; /* Hide arrows on very small screens */
+            }
+        }
+        
+        /* Touch scrolling improvements */
+        .tabs-nav {
+            scroll-snap-type: x mandatory;
+        }
+        
+        .tab-button {
+            scroll-snap-align: start;
+        }
+        
+        /* Print Styles */
+        @media print {
+            .header, .search-container, .tabs-container, .footer {
+                display: none;
+            }
+            
+            .category-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                break-inside: avoid;
+            }
+            
+            .tab-content {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <h1><i class="fas fa-keyboard"></i> TallyPrime GST Shortcuts</h1>
+        <div class="gst-badge">GST Accounting Focused</div>
+    </header>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Search Box -->
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search for shortcuts (e.g., 'voucher', 'ledger', 'GSTR')...">
+            </div>
+        </div>
+        
+        <!-- Tab Navigation -->
+        <div class="tabs-container">
+            <div class="tabs-scroll-wrapper">
+                <button class="scroll-btn left" id="scrollLeft">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <nav class="tabs-nav" id="tabsNav">
+                    <button class="tab-button active" data-tab="all">
+                        <i class="fas fa-list"></i> All Shortcuts
+                    </button>
+                    <button class="tab-button" data-tab="gst">
+                        <i class="fas fa-percentage"></i> GST
+                    </button>
+                    <button class="tab-button" data-tab="navigation">
+                        <i class="fas fa-compass"></i> Navigation
+                    </button>
+                    <button class="tab-button" data-tab="voucher">
+                        <i class="fas fa-file-invoice"></i> Vouchers
+                    </button>
+                    <button class="tab-button" data-tab="masters">
+                        <i class="fas fa-address-book"></i> Masters
+                    </button>
+                    <button class="tab-button" data-tab="reports">
+                        <i class="fas fa-chart-bar"></i> Reports
+                    </button>
+                    <button class="tab-button" data-tab="printing">
+                        <i class="fas fa-print"></i> Printing
+                    </button>
+                </nav>
+                
+                <button class="scroll-btn right" id="scrollRight">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Tab Contents -->
+        <!-- All Shortcuts Tab (Active by default) -->
+        <div class="tab-content active" id="all">
+            <div class="shortcuts-grid">
+                <!-- All categories will be loaded here dynamically -->
+            </div>
+        </div>
+        
+        <!-- GST Tab -->
+        <div class="tab-content" id="gst">
+            <div class="shortcuts-grid">
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3><span class="category-icon"><i class="fas fa-percentage"></i></span> GST Specific</h3>
+                        <span class="shortcut-count">7 Shortcuts</span>
+                    </div>
+                    <div class="shortcut-items">
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + G</span>
+                            </div>
+                            <div class="shortcut-description">GST invoice from sales voucher</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + G</span>
+                            </div>
+                            <div class="shortcut-description">Toggle between GST and non-GST</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + A</span>
+                            </div>
+                            <div class="shortcut-description">Add GST details in invoice</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + P</span>
+                            </div>
+                            <div class="shortcut-description">Print GST invoice</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + R</span>
+                            </div>
+                            <div class="shortcut-description">GST return filing screen</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + S</span>
+                            </div>
+                            <div class="shortcut-description">GSTR reports</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + T</span>
+                            </div>
+                            <div class="shortcut-description">Tax ledger details</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- GST Reports Category -->
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3><span class="category-icon"><i class="fas fa-file-alt"></i></span> GST Reports</h3>
+                        <span class="shortcut-count">5 Shortcuts</span>
+                    </div>
+                    <div class="shortcut-items">
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + S + 1</span>
+                            </div>
+                            <div class="shortcut-description">GSTR-1 Report</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + S + 2</span>
+                            </div>
+                            <div class="shortcut-description">GSTR-3B Report</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + S + 3</span>
+                            </div>
+                            <div class="shortcut-description">GSTR-2A/2B Reconciliation</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + S + 9</span>
+                            </div>
+                            <div class="shortcut-description">GSTR-9 Annual Return</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + H</span>
+                            </div>
+                            <div class="shortcut-description">GST History</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation Tab -->
+        <div class="tab-content" id="navigation">
+            <div class="shortcuts-grid">
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3><span class="category-icon"><i class="fas fa-compass"></i></span> Navigation Shortcuts</h3>
+                        <span class="shortcut-count">8 Shortcuts</span>
+                    </div>
+                    <div class="shortcut-items">
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + F2</span>
+                            </div>
+                            <div class="shortcut-description">Change period</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + F3</span>
+                            </div>
+                            <div class="shortcut-description">Company info / Select company</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">F1</span>
+                            </div>
+                            <div class="shortcut-description">Select company / Select features</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">F2</span>
+                            </div>
+                            <div class="shortcut-description">Change date</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + F1</span>
+                            </div>
+                            <div class="shortcut-description">Detailed report / Shut company</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + A</span>
+                            </div>
+                            <div class="shortcut-description">Accept a form</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + Enter</span>
+                            </div>
+                            <div class="shortcut-description">Accept and create another</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Esc</span>
+                            </div>
+                            <div class="shortcut-description">Cancel / Exit from screen</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Voucher Tab -->
+        <div class="tab-content" id="voucher">
+            <div class="shortcuts-grid">
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3><span class="category-icon"><i class="fas fa-file-invoice"></i></span> Voucher Creation</h3>
+                        <span class="shortcut-count">9 Shortcuts</span>
+                    </div>
+                    <div class="shortcut-items">
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">F4</span>
+                            </div>
+                            <div class="shortcut-description">Contra voucher</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">F5</span>
+                            </div>
+                            <div class="shortcut-description">Payment voucher</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">F6</span>
+                            </div>
+                            <div class="shortcut-description">Receipt voucher</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">F7</span>
+                            </div>
+                            <div class="shortcut-description">Journal voucher</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">F8</span>
+                            </div>
+                            <div class="shortcut-description">Sales voucher</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">F9</span>
+                            </div>
+                            <div class="shortcut-description">Purchase voucher</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + F8</span>
+                            </div>
+                            <div class="shortcut-description">Sales order</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + F9</span>
+                            </div>
+                            <div class="shortcut-description">Purchase order</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + F7</span>
+                            </div>
+                            <div class="shortcut-description">Stock journal</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Masters Tab -->
+        <div class="tab-content" id="masters">
+            <div class="shortcuts-grid">
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3><span class="category-icon"><i class="fas fa-address-book"></i></span> Masters & Ledgers</h3>
+                        <span class="shortcut-count">6 Shortcuts</span>
+                    </div>
+                    <div class="shortcut-items">
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + C</span>
+                            </div>
+                            <div class="shortcut-description">Create ledger</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + L</span>
+                            </div>
+                            <div class="shortcut-description">Ledger summary</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + L</span>
+                            </div>
+                            <div class="shortcut-description">Ledger voucher</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + I</span>
+                            </div>
+                            <div class="shortcut-description">Inventory items</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + M</span>
+                            </div>
+                            <div class="shortcut-description">Stock item summary</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">F11</span>
+                            </div>
+                            <div class="shortcut-description">Features and configuration</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Reports Tab -->
+        <div class="tab-content" id="reports">
+            <div class="shortcuts-grid">
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3><span class="category-icon"><i class="fas fa-chart-bar"></i></span> Reports & Display</h3>
+                        <span class="shortcut-count">8 Shortcuts</span>
+                    </div>
+                    <div class="shortcut-items">
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">F12</span>
+                            </div>
+                            <div class="shortcut-description">Configure report</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + F12</span>
+                            </div>
+                            <div class="shortcut-description">Detailed configuration</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + B</span>
+                            </div>
+                            <div class="shortcut-description">Balance sheet</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + P & L</span>
+                            </div>
+                            <div class="shortcut-description">Profit & Loss statement</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + D</span>
+                            </div>
+                            <div class="shortcut-description">Display more details</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + N</span>
+                            </div>
+                            <div class="shortcut-description">Notes in reports</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + J</span>
+                            </div>
+                            <div class="shortcut-description">Jump to report from voucher</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + R</span>
+                            </div>
+                            <div class="shortcut-description">Repeat narration in voucher</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Printing Tab -->
+        <div class="tab-content" id="printing">
+            <div class="shortcuts-grid">
+                <div class="category-card">
+                    <div class="category-header">
+                        <h3><span class="category-icon"><i class="fas fa-print"></i></span> Printing & Export</h3>
+                        <span class="shortcut-count">6 Shortcuts</span>
+                    </div>
+                    <div class="shortcut-items">
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + P</span>
+                            </div>
+                            <div class="shortcut-description">Print current screen</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + P</span>
+                            </div>
+                            <div class="shortcut-description">Print voucher</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + E</span>
+                            </div>
+                            <div class="shortcut-description">Export report data</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + M</span>
+                            </div>
+                            <div class="shortcut-description">Email document</div>
+                            <div class="shortcut-gst"></div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Ctrl + Shift + E</span>
+                            </div>
+                            <div class="shortcut-description">Export to Excel</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                        <div class="shortcut-item">
+                            <div class="shortcut-key">
+                                <span class="key-combo">Alt + X</span>
+                            </div>
+                            <div class="shortcut-description">Export GST reports</div>
+                            <div class="shortcut-gst">GST</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Tips Section -->
+        <div class="quick-tips">
+            <h3><i class="fas fa-lightbulb"></i> Quick Tips for GST in TallyPrime</h3>
+            <div class="tips-grid">
+                <div class="tip-item">
+                    <div class="tip-icon"><i class="fas fa-check-circle"></i></div>
+                    <div>
+                        <h4>GST Reconciliation</h4>
+                        <p>Use <strong>Alt+R</strong> to quickly access GST reconciliation reports and match purchase data with GSTR-2A/2B.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <div class="tip-icon"><i class="fas fa-bolt"></i></div>
+                    <div>
+                        <h4>Quick GST Invoice</h4>
+                        <p>Press <strong>Alt+G</strong> in sales voucher to instantly convert it to a GST invoice with all required details.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <div class="tip-icon"><i class="fas fa-file-export"></i></div>
+                    <div>
+                        <h4>Export GST Returns</h4>
+                        <p>Use <strong>Alt+X</strong> to export GST return data for offline filing or backup purposes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3><i class="fas fa-keyboard"></i> TallyPrime GST Shortcuts Guide</h3>
+            <p class="copyright">TallyPrime GST Shortcuts Guide. All shortcuts are for TallyPrime version 3.0 and above.</p>
+            <p><em>Note: Some shortcuts may vary based on TallyPrime configuration.</em></p>
+        </div>
+    </footer>
+    
+    <script>
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Tab scrolling functionality
+        const tabsNav = document.getElementById('tabsNav');
+        const scrollLeftBtn = document.getElementById('scrollLeft');
+        const scrollRightBtn = document.getElementById('scrollRight');
+        
+        scrollLeftBtn.addEventListener('click', () => {
+            tabsNav.scrollBy({ left: -200, behavior: 'smooth' });
+        });
+        
+        scrollRightBtn.addEventListener('click', () => {
+            tabsNav.scrollBy({ left: 200, behavior: 'smooth' });
+        });
+        
+        // Show/hide scroll buttons based on scroll position
+        tabsNav.addEventListener('scroll', () => {
+            // Show left button if scrolled right
+            scrollLeftBtn.style.display = tabsNav.scrollLeft > 0 ? 'flex' : 'none';
+            
+            // Show right button if not at the end
+            const maxScroll = tabsNav.scrollWidth - tabsNav.clientWidth;
+            scrollRightBtn.style.display = tabsNav.scrollLeft < maxScroll - 10 ? 'flex' : 'none';
+        });
+        
+        // Initialize scroll buttons visibility
+        setTimeout(() => {
+            tabsNav.dispatchEvent(new Event('scroll'));
+        }, 100);
+        
+        // Populate "All Shortcuts" tab with all categories
+        function populateAllShortcutsTab() {
+            const allTab = document.querySelector('#all .shortcuts-grid');
+            
+            // Clear existing content
+            allTab.innerHTML = '';
+            
+            // Define all categories data
+            const allCategories = [
+                {
+                    id: 'navigation',
+                    title: 'Navigation Shortcuts',
+                    icon: 'fas fa-compass',
+                    count: '8',
+                    shortcuts: [
+                        { key: 'Alt + F2', desc: 'Change period', gst: true },
+                        { key: 'Alt + F3', desc: 'Company info / Select company', gst: true },
+                        { key: 'F1', desc: 'Select company / Select features', gst: false },
+                        { key: 'F2', desc: 'Change date', gst: true },
+                        { key: 'Alt + F1', desc: 'Detailed report / Shut company', gst: false },
+                        { key: 'Ctrl + A', desc: 'Accept a form', gst: true },
+                        { key: 'Ctrl + Enter', desc: 'Accept and create another', gst: false },
+                        { key: 'Esc', desc: 'Cancel / Exit from screen', gst: false }
+                    ]
+                },
+                {
+                    id: 'voucher',
+                    title: 'Voucher Creation',
+                    icon: 'fas fa-file-invoice',
+                    count: '9',
+                    shortcuts: [
+                        { key: 'F4', desc: 'Contra voucher', gst: false },
+                        { key: 'F5', desc: 'Payment voucher', gst: false },
+                        { key: 'F6', desc: 'Receipt voucher', gst: false },
+                        { key: 'F7', desc: 'Journal voucher', gst: false },
+                        { key: 'F8', desc: 'Sales voucher', gst: true },
+                        { key: 'F9', desc: 'Purchase voucher', gst: true },
+                        { key: 'Ctrl + F8', desc: 'Sales order', gst: false },
+                        { key: 'Ctrl + F9', desc: 'Purchase order', gst: false },
+                        { key: 'Alt + F7', desc: 'Stock journal', gst: true }
+                    ]
+                },
+                {
+                    id: 'gst-specific',
+                    title: 'GST Specific',
+                    icon: 'fas fa-percentage',
+                    count: '7',
+                    shortcuts: [
+                        { key: 'Alt + G', desc: 'GST invoice from sales voucher', gst: true },
+                        { key: 'Ctrl + G', desc: 'Toggle between GST and non-GST', gst: true },
+                        { key: 'Alt + A', desc: 'Add GST details in invoice', gst: true },
+                        { key: 'Alt + P', desc: 'Print GST invoice', gst: true },
+                        { key: 'Alt + R', desc: 'GST return filing screen', gst: true },
+                        { key: 'Alt + S', desc: 'GSTR reports', gst: true },
+                        { key: 'Ctrl + T', desc: 'Tax ledger details', gst: true }
+                    ]
+                },
+                {
+                    id: 'gst-reports',
+                    title: 'GST Reports',
+                    icon: 'fas fa-file-alt',
+                    count: '5',
+                    shortcuts: [
+                        { key: 'Alt + S + 1', desc: 'GSTR-1 Report', gst: true },
+                        { key: 'Alt + S + 2', desc: 'GSTR-3B Report', gst: true },
+                        { key: 'Alt + S + 3', desc: 'GSTR-2A/2B Reconciliation', gst: true },
+                        { key: 'Alt + S + 9', desc: 'GSTR-9 Annual Return', gst: true },
+                        { key: 'Ctrl + H', desc: 'GST History', gst: true }
+                    ]
+                },
+                {
+                    id: 'masters',
+                    title: 'Masters & Ledgers',
+                    icon: 'fas fa-address-book',
+                    count: '6',
+                    shortcuts: [
+                        { key: 'Alt + C', desc: 'Create ledger', gst: true },
+                        { key: 'Alt + L', desc: 'Ledger summary', gst: false },
+                        { key: 'Ctrl + L', desc: 'Ledger voucher', gst: false },
+                        { key: 'Alt + I', desc: 'Inventory items', gst: true },
+                        { key: 'Alt + M', desc: 'Stock item summary', gst: false },
+                        { key: 'F11', desc: 'Features and configuration', gst: true }
+                    ]
+                },
+                {
+                    id: 'reports',
+                    title: 'Reports & Display',
+                    icon: 'fas fa-chart-bar',
+                    count: '8',
+                    shortcuts: [
+                        { key: 'F12', desc: 'Configure report', gst: false },
+                        { key: 'Alt + F12', desc: 'Detailed configuration', gst: false },
+                        { key: 'Alt + B', desc: 'Balance sheet', gst: false },
+                        { key: 'Alt + P & L', desc: 'Profit & Loss statement', gst: false },
+                        { key: 'Alt + D', desc: 'Display more details', gst: false },
+                        { key: 'Ctrl + N', desc: 'Notes in reports', gst: false },
+                        { key: 'Ctrl + J', desc: 'Jump to report from voucher', gst: false },
+                        { key: 'Ctrl + R', desc: 'Repeat narration in voucher', gst: false }
+                    ]
+                },
+                {
+                    id: 'printing',
+                    title: 'Printing & Export',
+                    icon: 'fas fa-print',
+                    count: '6',
+                    shortcuts: [
+                        { key: 'Ctrl + P', desc: 'Print current screen', gst: false },
+                        { key: 'Alt + P', desc: 'Print voucher', gst: true },
+                        { key: 'Ctrl + E', desc: 'Export report data', gst: false },
+                        { key: 'Ctrl + M', desc: 'Email document', gst: false },
+                        { key: 'Ctrl + Shift + E', desc: 'Export to Excel', gst: true },
+                        { key: 'Alt + X', desc: 'Export GST reports', gst: true }
+                    ]
+                }
+            ];
+            
+            // Create and append category cards
+            allCategories.forEach(category => {
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'category-card';
+                categoryCard.innerHTML = `
+                    <div class="category-header">
+                        <h3><span class="category-icon"><i class="${category.icon}"></i></span> ${category.title}</h3>
+                        <span class="shortcut-count">${category.count} Shortcuts</span>
+                    </div>
+                    <div class="shortcut-items">
+                        ${category.shortcuts.map(shortcut => `
+                            <div class="shortcut-item">
+                                <div class="shortcut-key">
+                                    <span class="key-combo">${shortcut.key}</span>
+                                </div>
+                                <div class="shortcut-description">${shortcut.desc}</div>
+                                <div class="shortcut-gst">${shortcut.gst ? 'GST' : ''}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                allTab.appendChild(categoryCard);
+            });
+        }
+        
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const activeTab = document.querySelector('.tab-content.active');
+            const shortcutItems = activeTab.querySelectorAll('.shortcut-item');
+            
+            shortcutItems.forEach(item => {
+                const description = item.querySelector('.shortcut-description').textContent.toLowerCase();
+                const keyCombo = item.querySelector('.key-combo').textContent.toLowerCase();
+                
+                if (description.includes(searchTerm) || keyCombo.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                    // Highlight the parent category
+                    const categoryCard = item.closest('.category-card');
+                    if (searchTerm.length > 0) {
+                        categoryCard.style.boxShadow = '0 0 0 3px rgba(52, 152, 219, 0.3)';
+                    } else {
+                        categoryCard.style.boxShadow = 'var(--shadow)';
+                    }
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Show/hide empty categories
+            const categoryCards = activeTab.querySelectorAll('.category-card');
+            categoryCards.forEach(card => {
+                const visibleItems = card.querySelectorAll('.shortcut-item[style="display: flex"]');
+                
+                if (visibleItems.length === 0 && searchTerm.length > 0) {
+                    card.style.display = 'none';
+                } else {
+                    card.style.display = 'block';
+                }
+            });
+        });
+        
+        // Add click effect to shortcut items
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.shortcut-item')) {
+                const item = e.target.closest('.shortcut-item');
+                const keyCombo = item.querySelector('.key-combo').textContent;
+                const description = item.querySelector('.shortcut-description').textContent;
+                
+                // Visual feedback
+                item.style.backgroundColor = 'rgba(52, 152, 219, 0.1)';
+                setTimeout(() => {
+                    item.style.backgroundColor = '';
+                }, 300);
+                
+                // Show a temporary notification (visual cue)
+                showShortcutNotification(`${keyCombo}: ${description}`);
+            }
+        });
+        
+        // Show notification function
+        function showShortcutNotification(message) {
+            // Remove existing notification if any
+            const existingNotification = document.querySelector('.shortcut-notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = 'shortcut-notification';
+            notification.innerHTML = `
+                <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); 
+                background: var(--secondary); color: white; padding: 12px 20px; border-radius: 8px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 1000; font-weight: 500; 
+                animation: slideUp 0.3s ease;">
+                    <i class="fas fa-keyboard" style="margin-right: 8px;"></i> ${message}
+                </div>
+            `;
+            
+            // Add styles for animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideUp {
+                    from { bottom: -50px; opacity: 0; }
+                    to { bottom: 20px; opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 2 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 2000);
+        }
+        
+        // Touch scrolling for tabs on mobile
+        let isDragging = false;
+        let startX;
+        let scrollLeft;
+        
+        tabsNav.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX - tabsNav.offsetLeft;
+            scrollLeft = tabsNav.scrollLeft;
+        });
+        
+        tabsNav.addEventListener('mouseleave', () => {
+            isDragging = false;
+        });
+        
+        tabsNav.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+        
+        tabsNav.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - tabsNav.offsetLeft;
+            const walk = (x - startX) * 2;
+            tabsNav.scrollLeft = scrollLeft - walk;
+        });
+        
+        // Touch events for mobile
+        tabsNav.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].pageX - tabsNav.offsetLeft;
+            scrollLeft = tabsNav.scrollLeft;
+        });
+        
+        tabsNav.addEventListener('touchmove', (e) => {
+            const x = e.touches[0].pageX - tabsNav.offsetLeft;
+            const walk = (x - startX) * 2;
+            tabsNav.scrollLeft = scrollLeft - walk;
+        });
+        
+        // Initialize the "All Shortcuts" tab content on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            populateAllShortcutsTab();
+            
+            // Scroll "All Shortcuts" tab to the beginning on load
+            const allTabButton = document.querySelector('[data-tab="all"]');
+            const tabsContainer = document.querySelector('.tabs-container');
+            
+            // Ensure "All Shortcuts" tab is visible
+            if (allTabButton && tabsContainer) {
+                allTabButton.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+            }
+        });
+    </script>
+</body>
+</html>
