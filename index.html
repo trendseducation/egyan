@@ -990,6 +990,278 @@
         .delay-3 {
             transition-delay: 0.6s;
         }
+        
+        /* ENROLLMENT POPUP STYLES */
+        .enrollment-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 20px;
+        }
+        
+        .enrollment-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .popup-container {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .enrollment-popup.active .popup-container {
+            transform: translateY(0) scale(1);
+        }
+        
+        .popup-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 30px;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .popup-header h2 {
+            color: white;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        
+        .popup-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+        
+        .popup-content {
+            padding: 30px;
+        }
+        
+        .popup-content .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .popup-content label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .popup-content .required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+        
+        .popup-content input, .popup-content textarea, .popup-content select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e6ed;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+        
+        .popup-content input:focus, .popup-content textarea:focus, .popup-content select:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+        
+        .popup-content textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .field-hint {
+            font-size: 13px;
+            color: #7f8c8d;
+            margin-top: 6px;
+            margin-left: 5px;
+        }
+        
+        .validation-message {
+            font-size: 13px;
+            color: #e74c3c;
+            margin-top: 6px;
+            margin-left: 5px;
+            display: none;
+        }
+        
+        .interest-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .interest-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: #f8f9fa;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .interest-option:hover {
+            border-color: #667eea;
+            background-color: #f0f7ff;
+        }
+        
+        .interest-option.selected {
+            border-color: #667eea;
+            background-color: #e8f4ff;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+        
+        .interest-option input {
+            width: auto;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .interest-label {
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #34495e;
+        }
+        
+        .popup-button-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .popup-button-container button {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .popup-submit-btn {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+        }
+        
+        .popup-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+        }
+        
+        .popup-reset-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+        
+        .popup-reset-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+        
+        .popup-status-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 25px;
+            font-weight: 500;
+            text-align: center;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .popup-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        
+        .popup-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        
+        .date-display {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            background-color: #f0f7ff;
+            border: 2px solid #cce5ff;
+            border-radius: 10px;
+            color: #0066cc;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        
+        .date-icon {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .info-box-popup {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+            font-size: 14px;
+            color: #546e7a;
+        }
 
         /* Mobile Styles */
         @media (max-width: 1199px) {
@@ -1042,6 +1314,14 @@
     .feature-card h3 {
         font-size: 1.2rem;
     }
+            
+            .popup-container {
+                max-width: 90%;
+            }
+            
+            .interest-options {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 767px) {
@@ -1382,6 +1662,27 @@
                 flex-direction: column;
                 gap: 10px;
             }
+            
+            .popup-container {
+                max-width: 95%;
+                max-height: 95vh;
+            }
+            
+            .popup-header {
+                padding: 20px;
+            }
+            
+            .popup-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .popup-content {
+                padding: 20px;
+            }
+            
+            .popup-button-container {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 575px) {
@@ -1514,7 +1815,7 @@
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
                 <div class="desktop-nav-cta">
-                    <a href="contact.html" class="btn btn-primary">Enroll Now</a>
+                    <a href="#" class="btn btn-primary enroll-btn">Enroll Now</a>
                 </div>
             </div>
             
@@ -1537,7 +1838,7 @@
                     <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
                 <div class="nav-cta">
-                    <a href="contact.html" class="btn btn-primary">Enroll Now</a>
+                    <a href="#" class="btn btn-primary enroll-btn">Enroll Now</a>
                 </div>
                 <div class="mobile-menu-footer">
                     <div class="contact-info">
@@ -1563,7 +1864,7 @@
             <p>Master in-demand computer skills with our practical training programs and accelerate your career in the digital world.</p>
             <div class="hero-btns">
                 <a href="course.html" class="btn btn-primary">Explore Courses</a>
-                <a href="contact.html" class="btn btn-secondary">Free Consultation</a>
+                <a href="#" class="btn btn-secondary enroll-btn">Free Consultation</a>
             </div>
         </div>
         <div class="hero-shape"></div>
@@ -1733,7 +2034,7 @@
                 <h2>Ready to Transform Your Career?</h2>
                 <p>Join hundreds of students who have successfully launched their careers with our practical computer courses. Limited seats available for the upcoming batch.</p>
                 <div class="mt-40">
-                    <a href="contact.html" class="btn btn-secondary">Enroll Now</a>
+                    <a href="#" class="btn btn-secondary enroll-btn">Enroll Now</a>
                 </div>
             </div>
         </div>
@@ -1813,7 +2114,136 @@
         </div>
     </footer>
 
+    <!-- Enrollment Popup -->
+    <div class="enrollment-popup" id="enrollmentPopup">
+        <div class="popup-container">
+            <div class="popup-header">
+                <h2>📚 Course Enrollment</h2>
+                <button class="popup-close" id="popupClose" aria-label="Close enrollment form">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-content">
+                <div class="info-box-popup">
+                    Fill in all the required fields below. All fields marked with <span style="color: #e74c3c;">*</span> are mandatory.
+                </div>
+                
+                <form id="enrollmentFormPopup">
+                    <!-- Hidden fields for spreadsheet information -->
+                    <input type="hidden" name="spreadsheetId" value="1ddmMkZCqhpYwFS5JFVu0Sy5ArQRkOPLnDR_KsH8neRo">
+                    <input type="hidden" name="sheetName" value="Website_Enroll">
+                    
+                    <!-- Today's Date (Auto) -->
+                    <div class="form-group">
+                        <label>
+                            <span>📅 Date</span>
+                        </label>
+                        <div class="date-display" id="todayDate">
+                            <span class="date-icon">📅</span>
+                            <span id="dateDisplay">Loading...</span>
+                        </div>
+                        <input type="hidden" id="date" name="Date" value="">
+                    </div>
+                    
+                    <!-- Full Name -->
+                    <div class="form-group">
+                        <label for="fullNamePopup" class="required">
+                            <span>👤 Full Name</span>
+                        </label>
+                        <input type="text" id="fullNamePopup" name="Full Name" placeholder="Enter your full name" required>
+                        <div class="validation-message" id="nameErrorPopup">Please enter your full name</div>
+                    </div>
+                    
+                    <!-- Email ID -->
+                    <div class="form-group">
+                        <label for="emailPopup" class="required">
+                            <span>📧 Email ID</span>
+                        </label>
+                        <input type="email" id="emailPopup" name="Email Id" placeholder="example@domain.com" required>
+                        <div class="field-hint">Enter a valid email address</div>
+                        <div class="validation-message" id="emailErrorPopup">Invalid email format</div>
+                    </div>
+                    
+                    <!-- Mobile Number -->
+                    <div class="form-group">
+                        <label for="mobilePopup" class="required">
+                            <span>📱 Mobile Number</span>
+                        </label>
+                        <input type="tel" id="mobilePopup" name="Mobile Number" placeholder="Enter 10-digit mobile number" required maxlength="10">
+                        <div class="field-hint">Must start with 6, 7, 8, or 9</div>
+                        <div class="validation-message" id="mobileErrorPopup">Invalid mobile number. Must start with 6,7,8,9 and be 10 digits</div>
+                    </div>
+                    
+                    <!-- Interest In -->
+                    <div class="form-group">
+                        <label class="required">
+                            <span>🎯 Interest In</span>
+                        </label>
+                        <div class="interest-options" id="interestOptionsPopup">
+                            <label class="interest-option" data-value="Basic">
+                                <input type="radio" name="Interest In" value="Basic" required>
+                                <span class="interest-label">Basic</span>
+                            </label>
+                            <label class="interest-option" data-value="Tally">
+                                <input type="radio" name="Interest In" value="Tally" required>
+                                <span class="interest-label">Tally</span>
+                            </label>
+                            <label class="interest-option" data-value="Advance Excel">
+                                <input type="radio" name="Interest In" value="Advance Excel" required>
+                                <span class="interest-label">Advance Excel</span>
+                            </label>
+                            <label class="interest-option" data-value="Basic + Tally">
+                                <input type="radio" name="Interest In" value="Basic + Tally" required>
+                                <span class="interest-label">Basic + Tally</span>
+                            </label>
+                            <label class="interest-option" data-value="Tally + Advance Excel">
+                                <input type="radio" name="Interest In" value="Tally + Advance Excel" required>
+                                <span class="interest-label">Tally + Advance Excel</span>
+                            </label>
+                            <label class="interest-option" data-value="Basic + Advance Excel">
+                                <input type="radio" name="Interest In" value="Basic + Advance Excel" required>
+                                <span class="interest-label">Basic + Advance Excel</span>
+                            </label>
+                            <label class="interest-option" data-value="Basic + Tally + Advance Excel">
+                                <input type="radio" name="Interest In" value="Basic + Tally + Advance Excel" required>
+                                <span class="interest-label">Basic + Tally + Advance Excel</span>
+                            </label>
+                        </div>
+                        <div class="validation-message" id="interestErrorPopup">Please select your course interest</div>
+                    </div>
+                    
+                    <!-- Comment -->
+                    <div class="form-group">
+                        <label for="commentPopup">
+                            <span>💭 Comment</span>
+                        </label>
+                        <textarea id="commentPopup" name="Comment" placeholder="Any additional comments or queries..."></textarea>
+                        <div class="field-hint">Optional - Maximum 500 characters</div>
+                        <div class="validation-message" id="commentErrorPopup">Comment exceeds 500 characters</div>
+                    </div>
+                    
+                    <div class="popup-button-container">
+                        <button type="submit" class="popup-submit-btn">
+                            <span>✅ Submit Enrollment</span>
+                        </button>
+                        <button type="reset" class="popup-reset-btn">
+                            <span>🗑️ Reset Form</span>
+                        </button>
+                    </div>
+                    
+                    <div id="popupStatusMessage" class="popup-status-message"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Configuration
+        const CONFIG = {
+            // IMPORTANT: Replace with your actual Google Apps Script web app URL after deployment
+            scriptUrl: 'https://script.google.com/macros/s/AKfycbz6J_9Tx5Rdj_t1iEMW2t9iJvKLZIZvB-V1swiiYN20U1Xu1pZ7Ot8hl07BNNHenWU3/exec'
+        };
+
         // Enhanced Mobile Menu Functionality
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -1870,7 +2300,349 @@
                     toggleMenu();
                 }
             });
+            
+            // ENROLLMENT POPUP FUNCTIONALITY
+            const enrollmentPopup = document.getElementById('enrollmentPopup');
+            const popupClose = document.getElementById('popupClose');
+            const enrollButtons = document.querySelectorAll('.enroll-btn');
+            
+            // Function to open enrollment popup
+            function openEnrollmentPopup() {
+                enrollmentPopup.classList.add('active');
+                body.classList.add('no-scroll');
+                setTodayDate();
+                
+                // Focus on first input field
+                setTimeout(() => {
+                    document.getElementById('fullNamePopup').focus();
+                }, 300);
+            }
+            
+            // Function to close enrollment popup
+            function closeEnrollmentPopup() {
+                enrollmentPopup.classList.remove('active');
+                body.classList.remove('no-scroll');
+            }
+            
+            // Add click event to all enroll buttons
+            enrollButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openEnrollmentPopup();
+                });
+            });
+            
+            // Close popup when close button is clicked
+            popupClose.addEventListener('click', closeEnrollmentPopup);
+            
+            // Close popup when clicking outside the popup container
+            enrollmentPopup.addEventListener('click', function(e) {
+                if (e.target === enrollmentPopup) {
+                    closeEnrollmentPopup();
+                }
+            });
+            
+            // Close popup with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && enrollmentPopup.classList.contains('active')) {
+                    closeEnrollmentPopup();
+                }
+            });
+            
+            // Initialize popup form
+            initEnrollmentForm();
+            
+            // Set today's date
+            setTodayDate();
         });
+
+        function setTodayDate() {
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('en-IN', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            const isoDate = today.toISOString().split('T')[0];
+            
+            document.getElementById('dateDisplay').textContent = formattedDate;
+            document.getElementById('date').value = isoDate;
+        }
+
+        function initEnrollmentForm() {
+            const form = document.getElementById('enrollmentFormPopup');
+            const statusMessage = document.getElementById('popupStatusMessage');
+            
+            // Mobile number validation function
+            function isValidMobileNumber(number) {
+                if (!number) return false;
+                const mobilePattern = /^[6-9]\d{9}$/;
+                return mobilePattern.test(number.replace(/\D/g, ''));
+            }
+            
+            // Email validation function
+            function isValidEmail(email) {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailPattern.test(email);
+            }
+            
+            // Initialize mobile number validation
+            const mobileField = document.getElementById('mobilePopup');
+            const mobileError = document.getElementById('mobileErrorPopup');
+            
+            mobileField.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '').slice(0, 10);
+                mobileError.style.display = 'none';
+                this.style.borderColor = '#e0e6ed';
+            });
+            
+            mobileField.addEventListener('blur', function() {
+                if (!isValidMobileNumber(this.value)) {
+                    mobileError.style.display = 'block';
+                    this.style.borderColor = '#e74c3c';
+                    return false;
+                }
+                return true;
+            });
+            
+            // Initialize email validation
+            const emailField = document.getElementById('emailPopup');
+            const emailError = document.getElementById('emailErrorPopup');
+            
+            emailField.addEventListener('blur', function() {
+                if (!isValidEmail(this.value)) {
+                    emailError.style.display = 'block';
+                    this.style.borderColor = '#e74c3c';
+                    return false;
+                }
+                emailError.style.display = 'none';
+                this.style.borderColor = '#e0e6ed';
+                return true;
+            });
+            
+            // Initialize name validation
+            const nameField = document.getElementById('fullNamePopup');
+            const nameError = document.getElementById('nameErrorPopup');
+            
+            nameField.addEventListener('blur', function() {
+                if (!this.value.trim()) {
+                    nameError.style.display = 'block';
+                    this.style.borderColor = '#e74c3c';
+                    return false;
+                }
+                nameError.style.display = 'none';
+                this.style.borderColor = '#e0e6ed';
+                return true;
+            });
+            
+            // Initialize comment validation
+            const commentField = document.getElementById('commentPopup');
+            const commentError = document.getElementById('commentErrorPopup');
+            
+            commentField.addEventListener('input', function() {
+                if (this.value.length > 500) {
+                    commentError.style.display = 'block';
+                    this.style.borderColor = '#e74c3c';
+                    this.value = this.value.substring(0, 500);
+                } else {
+                    commentError.style.display = 'none';
+                    this.style.borderColor = '#e0e6ed';
+                }
+            });
+            
+            // Initialize interest selection styling
+            const interestOptions = document.querySelectorAll('#interestOptionsPopup .interest-option');
+            interestOptions.forEach(option => {
+                const radio = option.querySelector('input[type="radio"]');
+                
+                option.addEventListener('click', function() {
+                    // Unselect all
+                    interestOptions.forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Select this one
+                    this.classList.add('selected');
+                    radio.checked = true;
+                    
+                    // Clear error
+                    document.getElementById('interestErrorPopup').style.display = 'none';
+                });
+                
+                radio.addEventListener('change', function() {
+                    if (this.checked) {
+                        interestOptions.forEach(opt => {
+                            opt.classList.remove('selected');
+                            if (opt.querySelector('input').value === this.value) {
+                                opt.classList.add('selected');
+                            }
+                        });
+                    }
+                });
+            });
+            
+            // Form submission handler
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Check if script URL is configured
+                if (!CONFIG.scriptUrl || CONFIG.scriptUrl.includes('YOUR_SCRIPT_ID')) {
+                    showPopupMessage('❌ Please configure the Google Apps Script URL first', 'error');
+                    return;
+                }
+                
+                // Validate all fields before submission
+                if (!validatePopupForm()) {
+                    showPopupMessage('❌ Please fix all validation errors before submitting', 'error');
+                    return;
+                }
+                
+                // Disable submit button and show loading
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '⏳ Processing Enrollment...';
+                submitBtn.disabled = true;
+                
+                // Clear previous status messages
+                statusMessage.className = 'popup-status-message';
+                statusMessage.textContent = '';
+                
+                try {
+                    // Get form data
+                    const formData = new FormData(form);
+                    
+                    // Convert FormData to URL-encoded string
+                    const params = new URLSearchParams();
+                    for (const [key, value] of formData.entries()) {
+                        params.append(key, value);
+                    }
+                    
+                    // Send data to Google Apps Script
+                    const response = await fetch(CONFIG.scriptUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: params.toString()
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.status === 'success') {
+                        showPopupMessage('✅ Enrollment submitted successfully! We will contact you soon.', 'success');
+                        
+                        // Reset form after successful submission
+                        setTimeout(() => {
+                            form.reset();
+                            setTodayDate();
+                            statusMessage.className = 'popup-status-message';
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = originalText;
+                            
+                            // Reset interest selection styling
+                            interestOptions.forEach(opt => {
+                                opt.classList.remove('selected');
+                            });
+                            
+                            // Close popup after 3 seconds
+                            setTimeout(() => {
+                                closeEnrollmentPopup();
+                            }, 3000);
+                        }, 3000);
+                    } else {
+                        showPopupMessage(`❌ Error: ${result.message}`, 'error');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    }
+                    
+                } catch (error) {
+                    showPopupMessage(`❌ Network error: ${error.message}`, 'error');
+                    console.error('Error:', error);
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
+            });
+            
+            // Form reset handler
+            form.addEventListener('reset', function() {
+                // Clear validation errors
+                document.querySelectorAll('.validation-message').forEach(msg => {
+                    msg.style.display = 'none';
+                });
+                
+                // Reset field borders
+                document.querySelectorAll('input, textarea, select').forEach(field => {
+                    field.style.borderColor = '#e0e6ed';
+                });
+                
+                // Reset interest selection styling
+                interestOptions.forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Set today's date
+                setTodayDate();
+                
+                // Clear status message
+                statusMessage.className = 'popup-status-message';
+                statusMessage.textContent = '';
+            });
+        }
+        
+        function validatePopupForm() {
+            let isValid = true;
+            
+            // Validate name
+            const nameField = document.getElementById('fullNamePopup');
+            const nameError = document.getElementById('nameErrorPopup');
+            if (!nameField.value.trim()) {
+                nameError.style.display = 'block';
+                nameField.style.borderColor = '#e74c3c';
+                isValid = false;
+            }
+            
+            // Validate email
+            const emailField = document.getElementById('emailPopup');
+            const emailError = document.getElementById('emailErrorPopup');
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
+                emailError.style.display = 'block';
+                emailField.style.borderColor = '#e74c3c';
+                isValid = false;
+            }
+            
+            // Validate mobile
+            const mobileField = document.getElementById('mobilePopup');
+            const mobileError = document.getElementById('mobileErrorPopup');
+            const mobilePattern = /^[6-9]\d{9}$/;
+            if (!mobilePattern.test(mobileField.value)) {
+                mobileError.style.display = 'block';
+                mobileField.style.borderColor = '#e74c3c';
+                isValid = false;
+            }
+            
+            // Validate interest selection
+            const interestSelected = document.querySelector('#interestOptionsPopup input[name="Interest In"]:checked');
+            const interestError = document.getElementById('interestErrorPopup');
+            if (!interestSelected) {
+                interestError.style.display = 'block';
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        function showPopupMessage(message, type) {
+            const statusMessage = document.getElementById('popupStatusMessage');
+            if (statusMessage) {
+                statusMessage.textContent = message;
+                statusMessage.className = `popup-status-message popup-${type}`;
+                
+                // Scroll to message
+                statusMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
 
         // Testimonial Slider
         const testimonialSlides = document.querySelectorAll('.testimonial-slide');
@@ -2081,4 +2853,3 @@
     </script>
 </body>
 </html>
-
