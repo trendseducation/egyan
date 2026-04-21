@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="theme-color" content="#3b82f6">
+    <title>School Directory Manager | Smart Comments</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: auto;
+            padding: 16px;
+            position: relative;
+        }
+
+        /* Glassmorphism Container */
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Header Section */
+        .header-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 24px 28px;
+            color: white;
+        }
+
+        .header-gradient h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Toolbar - Mobile First */
+        .toolbar {
+            padding: 20px 24px;
+            background: white;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            flex: 2;
+            min-width: 200px;
+        }
+
+        .search-box {
+            flex: 2;
+            min-width: 180px;
+            position: relative;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-style: normal;
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            border: 2px solid #e2e8f0;
+            border-radius: 48px;
+            font-size: 0.95rem;
+            background: #f8fafc;
+            transition: all 0.3s;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .search-box input:focus {
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8fafc;
+            padding: 4px 8px 4px 18px;
+            border-radius: 48px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #475569;
+        }
+
+        #schoolFilter {
+            padding: 10px 32px 10px 14px;
+            border-radius: 40px;
+            border: none;
+            background: white;
+            font-size: 0.85rem;
+            min-width: 160px;
+            cursor: pointer;
+            outline: none;
+            font-family: inherit;
+            font-weight: 500;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 48px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .refresh-btn:active {
+            transform: translateY(0);
+        }
+
+        .refresh-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Table Wrapper */
+        .table-wrapper {
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 70vh;
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e1 #f1f5f9;
+            position: relative;
+        }
+        
+        .table-wrapper::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        
+        .table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        @media (max-width: 768px) {
+            .table-wrapper::-webkit-scrollbar {
+                height: 0px;
+                width: 0px;
+            }
+            .table-wrapper {
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 900px;
+            white-space: nowrap;
+        }
+
+        .data-table th {
+            background: #f8fafc;
+            padding: 16px 14px;
+            text-align: left;
+            font-weight: 700;
+            color: #1e293b;
+            border-bottom: 2px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+        }
+
+        .data-table td {
+            padding: 14px;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        /* Enhanced Comment Styles */
+        .comment-placeholder, .comment-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            white-space: nowrap;
+            max-width: 250px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .comment-placeholder {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+
+        .comment-text {
+            background: #fef3c7;
+            color: #92400e;
+            border-left: none;
+            max-width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Expanded comment view on hover (desktop) */
+        @media (min-width: 768px) {
+            .comment-text:hover {
+                white-space: normal;
+                word-break: break-word;
+                max-width: 300px;
+                position: relative;
+                z-index: 20;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+        }
+
+        .comment-placeholder:hover, .comment-text:hover {
+            transform: scale(1.02);
+            filter: brightness(0.98);
+        }
+
+        /* Saving state for comments */
+        .comment-saving {
+            opacity: 0.6;
+            pointer-events: none;
+            position: relative;
+        }
+        
+        .comment-saving::after {
+            content: "⏳";
+            position: absolute;
+            right: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+        }
+
+        /* Character counter */
+        .char-counter {
+            font-size: 0.75rem;
+            text-align: right;
+            margin-top: 4px;
+            color: #94a3b8;
+        }
+        
+        .char-counter.warning {
+            color: #f59e0b;
+        }
+        
+        .char-counter.danger {
+            color: #ef4444;
+        }
+
+        /* Modal Enhancements */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-card {
+            background: white;
+            max-width: 480px;
+            width: 90%;
+            border-radius: 32px;
+            padding: 28px;
+            box-shadow: 0 40px 60px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: #1e293b;
+        }
+
+        .modal-card textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 20px;
+            border: 2px solid #e2e8f0;
+            font-family: inherit;
+            font-size: 0.95rem;
+            margin: 16px 0;
+            resize: vertical;
+            transition: 0.2s;
+        }
+
+        .modal-card textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 10px 24px;
+            border-radius: 40px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast Alert */
+        .alert-toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            left: auto;
+            background: white;
+            border-radius: 60px;
+            padding: 14px 24px;
+            box-shadow: 0 20px 35px -8px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1100;
+            transform: translateX(120%);
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            max-width: 380px;
+            border-left: 4px solid;
+        }
+
+        .alert-toast.show {
+            transform: translateX(0);
+        }
+
+        .status-msg {
+            padding: 14px 24px;
+            background: #f8fafc;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #475569;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+        }
+
+        /* Clear filters button */
+        .clear-filters-btn {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            padding: 8px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .clear-filters-btn:hover {
+            background: #e2e8f0;
+        }
+
+        @media (max-width: 1024px) {
+            .data-table {
+                min-width: 850px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .data-table {
+                min-width: 750px;
+                font-size: 0.8rem;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 12px 10px;
+            }
+            
+            .comment-placeholder, .comment-text {
+                padding: 4px 10px;
+                font-size: 0.75rem;
+                white-space: nowrap;
+                max-width: 180px;
+            }
+            
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-section {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                justify-content: space-between;
+            }
+            
+            .header-gradient h1 {
+                font-size: 1.4rem;
+            }
+            
+            .alert-toast {
+                left: 16px;
+                right: 16px;
+                bottom: 16px;
+                max-width: calc(100% - 32px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-container {
+                border-radius: 24px;
+            }
+            
+            .data-table {
+                min-width: 650px;
+                font-size: 0.75rem;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 10px 8px;
+            }
+            
+            .comment-placeholder, .comment-text {
+                padding: 3px 8px;
+                font-size: 0.7rem;
+                max-width: 150px;
+            }
+        }
+
+        .table-wrapper {
+            scroll-behavior: smooth;
+        }
+        
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 12px;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .scroll-hint {
+            display: none;
+            text-align: center;
+            padding: 8px;
+            background: #f8fafc;
+            font-size: 0.7rem;
+            color: #94a3b8;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        @media (max-width: 768px) {
+            .scroll-hint {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <div class="header-gradient">
+        <h1>
+            📚 School Directory Manager
+            <span class="badge">✨ Live Comments</span>
+        </h1>
+    </div>
+
+    <div class="toolbar">
+        <div class="search-section">
+            <div class="search-box">
+                <i>🔍</i>
+                <input type="text" id="globalSearch" placeholder="Search by school, student, contact..." aria-label="Search records">
+            </div>
+            <div class="filter-group">
+                <label>🏫 Filter School:</label>
+                <select id="schoolFilter" aria-label="Filter by school"></select>
+            </div>
+        </div>
+        <button class="refresh-btn" id="refreshDataBtn" aria-label="Refresh data from spreadsheet">
+            🔄 Refresh
+        </button>
+    </div>
+
+    <div class="scroll-hint">
+        👉 Swipe horizontally to see all columns 👈
+    </div>
+
+    <div class="table-wrapper" id="tableWrapper">
+        <table class="data-table" id="dataTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>School Name</th>
+                    <th>Student Name</th>
+                    <th>Contact No</th>
+                    <th>Comment 1</th>
+                    <th>Comment 2</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr><td colspan="6" style="text-align:center; padding:40px;">⏳ Loading data...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="statusMsg" class="status-msg">✅ Ready — Tap on any comment to edit instantly</div>
+</div>
+
+<!-- Enhanced Comment Modal -->
+<div id="commentModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+        <h3 id="modalTitle">💬 Add Comment</h3>
+        <textarea id="commentTextarea" rows="3" placeholder="Write your comment here..." maxlength="500" aria-label="Comment text"></textarea>
+        <div class="char-counter" id="charCounter">0 / 500 characters</div>
+        <div class="modal-actions">
+            <button class="btn-secondary" id="modalCancelBtn" aria-label="Cancel">Cancel</button>
+            <button class="btn-primary" id="modalSubmitBtn" aria-label="Save comment">
+                <span id="submitBtnText">Save Comment</span>
+                <span id="submitSpinner" style="display: none;"><span class="spinner"></span></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ==================== CONFIGURATION ====================
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyg5EwL2WVufTR0Ks1mH9ZEHWwyuIBXshTvjANGhIq8zD7yZEmgOfimxdpB8pTjkqwq/exec";
+    const SPREADSHEET_ID = "1j2i3CtmQgiukLMTg3KTwzC20O0qCb5WXRBAPM6J3c3M";
+    const SHEET_NAME = "12Com_BNN";
+    
+    // Global variables
+    let originalData = [];
+    let currentDisplayData = [];
+    let isSavingComment = false;
+    let searchTimeout = null;
+    let pendingSave = null;
+    let currentScrollPosition = 0;
+    
+    // Store scroll position before modal opens
+    let savedScrollLeft = 0;
+    let savedScrollTop = 0;
+    
+    // ==================== HELPER FUNCTIONS ====================
+    
+    // SECURE HTML escaping (fixes XSS vulnerability)
+    function escapeHtml(str) {
+        if (!str) return "";
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+    
+    // Show Toast Alert with auto-dismiss
+    function showAlert(message, type = "info", duration = 4000) {
+        const existingToast = document.querySelector('.alert-toast');
+        if (existingToast) existingToast.remove();
+        
+        const toast = document.createElement('div');
+        toast.className = `alert-toast ${type}`;
+        const icon = type === 'success' ? '✅' : (type === 'error' ? '❌' : 'ℹ️');
+        toast.innerHTML = `
+            <div class="alert-icon">${icon}</div>
+            <div class="alert-message">${escapeHtml(message)}</div>
+            <div style="cursor:pointer; font-weight:bold;" onclick="this.parentElement.remove()" aria-label="Close">✕</div>
+        `;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => toast.classList.add('show'), 10);
+        setTimeout(() => {
+            if (toast && toast.parentElement) toast.remove();
+        }, duration);
+    }
+    
+    // Save and restore scroll position
+    function saveScrollPosition() {
+        const wrapper = document.getElementById('tableWrapper');
+        if (wrapper) {
+            savedScrollLeft = wrapper.scrollLeft;
+            savedScrollTop = wrapper.scrollTop;
+        }
+    }
+    
+    function restoreScrollPosition() {
+        const wrapper = document.getElementById('tableWrapper');
+        if (wrapper) {
+            wrapper.scrollLeft = savedScrollLeft;
+            wrapper.scrollTop = savedScrollTop;
+        }
+    }
+    
+    // Fetch Data with retry logic
+    async function fetchSheetData(retryCount = 0) {
+        const url = `${SCRIPT_URL}?spreadsheetId=${encodeURIComponent(SPREADSHEET_ID)}&sheetName=${encodeURIComponent(SHEET_NAME)}&t=${Date.now()}`;
+        
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 15000);
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: { 'Accept': 'application/json' },
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+            
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const result = await response.json();
+            if (result.status === "success" && Array.isArray(result.data)) return result.data;
+            throw new Error(result.message || "Failed to fetch");
+        } catch (err) {
+            console.error("Fetch error:", err);
+            if (retryCount < 3) {
+                showAlert(`Retrying... (${retryCount + 1}/3)`, "info", 2000);
+                await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1)));
+                return fetchSheetData(retryCount + 1);
+            }
+            throw err;
+        }
+    }
+    
+    // Save Comment with retry logic and optimistic update
+    async function saveCommentToSheet(rowNumber, columnName, newComment, retryCount = 0) {
+        const formData = new FormData();
+        formData.append("action", "update");
+        formData.append("spreadsheetId", SPREADSHEET_ID);
+        formData.append("sheetName", SHEET_NAME);
+        formData.append("rowIndex", rowNumber.toString());
+        formData.append(columnName, newComment);
+        formData.append("_t", Date.now().toString());
+        
+        try {
+            const response = await fetch(SCRIPT_URL, {
+                method: "POST",
+                body: formData
+            });
+            
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const result = await response.json();
+            if (result.status === "success") return { success: true };
+            throw new Error(result.message || "Update failed");
+        } catch (err) {
+            console.error("Save error:", err);
+            if (retryCount < 3) {
+                showAlert(`Retrying save... (${retryCount + 1}/3)`, "info", 2000);
+                await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1)));
+                return saveCommentToSheet(rowNumber, columnName, newComment, retryCount + 1);
+            }
+            throw new Error("Connection failed after 3 attempts. Please check network.");
+        }
+    }
+    
+    // Optimistic update - updates local data without refetch
+    function updateLocalComment(rowNum, columnName, newComment) {
+        const row = originalData.find(r => r._row === rowNum);
+        if (row) {
+            const commentKey = columnName === "Comment 1" ? "comment1" : "comment2";
+            row[commentKey] = newComment;
+            
+            // Also update in currentDisplayData
+            const displayRow = currentDisplayData.find(r => r._row === rowNum);
+            if (displayRow) {
+                displayRow[commentKey] = newComment;
+            }
+        }
+    }
+    
+    // Enhanced normalizeRow with better column detection
+    function normalizeRow(rowObj, idx, actualRowNumber = null) {
+        const keys = Object.keys(rowObj);
+        
+        const findKey = (possibilities) => {
+            // First try exact match
+            for (let p of possibilities) {
+                const found = keys.find(k => k.trim().toLowerCase() === p.toLowerCase());
+                if (found && rowObj[found]) return rowObj[found].toString();
+            }
+            // Then try partial match
+            for (let p of possibilities) {
+                const found = keys.find(k => k.trim().toLowerCase().includes(p.toLowerCase()));
+                if (found && rowObj[found]) return rowObj[found].toString();
+            }
+            return "";
+        };
+        
+        // Try to find actual row number from sheet
+        let actualRow = actualRowNumber;
+        if (!actualRow) {
+            const rowKey = findKey(["Row", "Row Number", "Line No", "Sl No", "Serial No"]);
+            if (rowKey && !isNaN(parseInt(rowKey))) {
+                actualRow = parseInt(rowKey);
+            }
+        }
+        
+        let srNo = findKey(["Sr. No", "Sr No", "Serial No", "SrNo", "S.No"]);
+        let school = findKey(["Name of the School", "School Name", "Name of School", "School"]);
+        let student = findKey(["Name of Students", "Student Name", "Name of Student", "Student"]);
+        let contact = findKey(["Contact No", "Contact Number", "Contact", "Phone", "Mobile"]);
+        let comment1 = findKey(["Comment 1", "Comment1", "Comments 1", "Notes 1"]);
+        let comment2 = findKey(["Comment 2", "Comment2", "Comments 2", "Notes 2"]);
+        
+        // Fallback for exact matches with original headers
+        if (!srNo && rowObj["Sr. No"] !== undefined) srNo = rowObj["Sr. No"].toString();
+        if (!school && rowObj["Name of the School"] !== undefined) school = rowObj["Name of the School"].toString();
+        if (!student && rowObj["Name of Students"] !== undefined) student = rowObj["Name of Students"].toString();
+        if (!contact && rowObj["Contact No"] !== undefined) contact = rowObj["Contact No"].toString();
+        if (!comment1 && rowObj["Comment 1"] !== undefined) comment1 = rowObj["Comment 1"].toString();
+        if (!comment2 && rowObj["Comment 2"] !== undefined) comment2 = rowObj["Comment 2"].toString();
+        
+        return {
+            srNo: srNo || (idx + 1),
+            school: school || "",
+            student: student || "",
+            contact: contact || "",
+            comment1: comment1 || "",
+            comment2: comment2 || "",
+            _row: actualRow || (idx + 2)  // Use actual row number if found
+        };
+    }
+    
+    // Precompute search cache for better performance
+    function prepareSearchCache(data) {
+        return data.map(item => ({
+            ...item,
+            _searchStr: `${item.srNo} ${item.school} ${item.student} ${item.contact}`.toLowerCase()
+        }));
+    }
+    
+    // Render table with preserved scroll position
+    function renderTable(data) {
+        const tbody = document.getElementById("tableBody");
+        if (!data.length) {
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">📭 No records found<br><button class="clear-filters-btn" onclick="clearAllFilters()">Clear Filters</button></td></tr>`;
+            return;
+        }
+        
+        let html = "";
+        data.forEach((row, idx) => {
+            const comment1Display = row.comment1 ? truncateText(row.comment1, 50) : "";
+            const comment2Display = row.comment2 ? truncateText(row.comment2, 50) : "";
+            
+            const comment1Html = row.comment1 ? 
+                `<span class="comment-text" data-type="comment1" data-row="${row._row}" data-col="Comment 1" data-fulltext="${escapeHtml(row.comment1)}" title="${escapeHtml(row.comment1)}">💬 ${escapeHtml(comment1Display)}</span>` :
+                `<span class="comment-placeholder" data-type="comment1" data-row="${row._row}" data-col="Comment 1">➕ Add</span>`;
+            
+            const comment2Html = row.comment2 ? 
+                `<span class="comment-text" data-type="comment2" data-row="${row._row}" data-col="Comment 2" data-fulltext="${escapeHtml(row.comment2)}" title="${escapeHtml(row.comment2)}">💬 ${escapeHtml(comment2Display)}</span>` :
+                `<span class="comment-placeholder" data-type="comment2" data-row="${row._row}" data-col="Comment 2">➕ Add</span>`;
+            
+            html += `<tr>
+                        <td><strong>${escapeHtml(row.srNo.toString())}</strong></td>
+                        <td>${escapeHtml(row.school)}</td>
+                        <td>${escapeHtml(row.student)}</td>
+                        <td>${escapeHtml(row.contact)}</td>
+                        <td>${comment1Html}</td>
+                        <td>${comment2Html}</td>
+                     </tr>`;
+        });
+        
+        tbody.innerHTML = html;
+        attachCommentListeners();
+    }
+    
+    // Helper to truncate long text
+    function truncateText(text, maxLength) {
+        if (!text) return "";
+        if (text.length <= maxLength) return text;
+        return text.substring(0, maxLength) + "...";
+    }
+    
+    function attachCommentListeners() {
+        document.querySelectorAll('.comment-text, .comment-placeholder').forEach(el => {
+            el.removeEventListener('click', commentClickHandler);
+            el.addEventListener('click', commentClickHandler);
+        });
+    }
+    
+    function commentClickHandler(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        
+        // Save current scroll position before opening modal
+        saveScrollPosition();
+        
+        const rowNum = parseInt(this.getAttribute('data-row'));
+        const colName = this.getAttribute('data-col');
+        const currentText = this.classList.contains('comment-text') ? this.getAttribute('data-fulltext') || this.innerText.replace('💬', '').trim() : "";
+        openCommentModal(rowNum, colName, currentText);
+    }
+    
+    function updateSchoolFilter(schools) {
+        const select = document.getElementById("schoolFilter");
+        let currentVal = select.value;
+        select.innerHTML = '<option value="">-- All Schools --</option>';
+        schools.forEach(sch => {
+            const option = document.createElement("option");
+            option.value = sch;
+            option.textContent = sch;
+            select.appendChild(option);
+        });
+        if (currentVal && schools.includes(currentVal)) select.value = currentVal;
+        else select.value = "";
+    }
+    
+    // Debounced filter application
+    let filterTimeout;
+    function applyFiltersAndRender() {
+        if (filterTimeout) clearTimeout(filterTimeout);
+        filterTimeout = setTimeout(() => {
+            const searchTerm = document.getElementById("globalSearch").value.toLowerCase().trim();
+            const selectedSchool = document.getElementById("schoolFilter").value;
+            
+            let filtered = [...originalData];
+            if (selectedSchool) {
+                filtered = filtered.filter(item => item.school === selectedSchool);
+            }
+            if (searchTerm) {
+                filtered = filtered.filter(item => 
+                    item._searchStr.includes(searchTerm)
+                );
+            }
+            currentDisplayData = filtered;
+            renderTable(filtered);
+        }, 300);
+    }
+    
+    // Clear all filters
+    window.clearAllFilters = function() {
+        document.getElementById("globalSearch").value = "";
+        document.getElementById("schoolFilter").value = "";
+        applyFiltersAndRender();
+        showAlert("Filters cleared", "info", 2000);
+    };
+    
+    // Modal handlers
+    let activeModalRow = null, activeModalColumn = null;
+    
+    function openCommentModal(rowIndex, columnName, existingComment) {
+        activeModalRow = rowIndex;
+        activeModalColumn = columnName;
+        const modal = document.getElementById("commentModal");
+        const textarea = document.getElementById("commentTextarea");
+        const modalTitle = document.getElementById("modalTitle");
+        modalTitle.innerText = existingComment ? `✏️ Edit ${columnName}` : `➕ Add ${columnName}`;
+        textarea.value = existingComment || "";
+        
+        // Update character counter
+        updateCharCounter();
+        
+        modal.classList.add("active");
+        textarea.focus();
+        
+        // Set textarea height based on content
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.min(textarea.scrollHeight, 200) + 'px';
+        
+        const submitBtn = document.getElementById("modalSubmitBtn");
+        const btnText = document.getElementById("submitBtnText");
+        const spinner = document.getElementById("submitSpinner");
+        submitBtn.disabled = false;
+        btnText.style.display = "inline";
+        spinner.style.display = "none";
+    }
+    
+    function updateCharCounter() {
+        const textarea = document.getElementById("commentTextarea");
+        const counter = document.getElementById("charCounter");
+        const length = textarea.value.length;
+        const maxLength = 500;
+        
+        counter.textContent = `${length} / ${maxLength} characters`;
+        counter.classList.remove('warning', 'danger');
+        
+        if (length > maxLength * 0.8) {
+            counter.classList.add('warning');
+        }
+        if (length >= maxLength) {
+            counter.classList.add('danger');
+        }
+    }
+    
+    async function submitModalComment() {
+        if (isSavingComment) {
+            showAlert("Please wait, saving in progress...", "info", 2000);
+            return;
+        }
+        
+        const newComment = document.getElementById("commentTextarea").value;
+        
+        // Validate comment length
+        if (newComment.length > 500) {
+            showAlert("Comment cannot exceed 500 characters", "error", 3000);
+            return;
+        }
+        
+        if (!activeModalRow || !activeModalColumn) {
+            closeModal();
+            return;
+        }
+        
+        isSavingComment = true;
+        const submitBtn = document.getElementById("modalSubmitBtn");
+        const btnText = document.getElementById("submitBtnText");
+        const spinner = document.getElementById("submitSpinner");
+        
+        submitBtn.disabled = true;
+        btnText.style.display = "none";
+        spinner.style.display = "inline-block";
+        
+        // Find the comment element to show saving state
+        const commentElement = document.querySelector(`[data-row="${activeModalRow}"][data-col="${activeModalColumn}"]`);
+        if (commentElement) {
+            commentElement.classList.add('comment-saving');
+        }
+        
+        try {
+            // First, optimistically update the UI
+            updateLocalComment(activeModalRow, activeModalColumn, newComment);
+            
+            // Then save to server
+            await saveCommentToSheet(activeModalRow, activeModalColumn, newComment);
+            
+            showAlert(`✅ ${activeModalColumn} updated successfully!`, "success", 2000);
+            closeModal();
+            
+            // Re-render to ensure consistency (preserves scroll position)
+            saveScrollPosition();
+            applyFiltersAndRender();
+            setTimeout(() => restoreScrollPosition(), 100);
+            
+        } catch (err) {
+            showAlert(`❌ Failed: ${err.message}`, "error", 4000);
+            
+            // Revert optimistic update on error
+            // Refetch the specific row to get original value
+            try {
+                const freshData = await fetchSheetData();
+                const freshRow = freshData.find((row, idx) => {
+                    const normalized = normalizeRow(row, idx);
+                    return normalized._row === activeModalRow;
+                });
+                if (freshRow) {
+                    const normalized = normalizeRow(freshRow, 0);
+                    const originalComment = activeModalColumn === "Comment 1" ? normalized.comment1 : normalized.comment2;
+                    updateLocalComment(activeModalRow, activeModalColumn, originalComment);
+                    applyFiltersAndRender();
+                }
+            } catch (refreshErr) {
+                console.error("Failed to revert:", refreshErr);
+            }
+            
+            submitBtn.disabled = false;
+            btnText.style.display = "inline";
+            spinner.style.display = "none";
+        } finally {
+            isSavingComment = false;
+            if (commentElement) {
+                commentElement.classList.remove('comment-saving');
+            }
+        }
+    }
+    
+    function closeModal() {
+        document.getElementById("commentModal").classList.remove("active");
+        activeModalRow = null;
+        activeModalColumn = null;
+        // Restore scroll position when modal closes
+        restoreScrollPosition();
+    }
+    
+    // Load data with loading state
+    async function loadData() {
+        const tbody = document.getElementById("tableBody");
+        const refreshBtn = document.getElementById("refreshDataBtn");
+        
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">⏳ Loading data...</td></tr>';
+        refreshBtn.disabled = true;
+        
+        try {
+            const records = await fetchSheetData();
+            if (!records.length) throw new Error("No data found");
+            
+            // Normalize with actual row numbers if available
+            const normalized = records.map((row, idx) => {
+                // Try to extract actual row number from the data
+                let actualRow = null;
+                if (row["Row"] && !isNaN(parseInt(row["Row"]))) {
+                    actualRow = parseInt(row["Row"]);
+                }
+                return normalizeRow(row, idx, actualRow);
+            });
+            
+            originalData = prepareSearchCache(normalized);
+            const schoolsList = [...new Set(originalData.map(item => item.school).filter(s => s && s.trim() !== ""))].sort();
+            updateSchoolFilter(schoolsList);
+            applyFiltersAndRender();
+            document.getElementById("statusMsg").innerHTML = `✅ Loaded ${originalData.length} records • Tap any comment to edit • Swipe horizontally for more columns`;
+            showAlert(`Successfully loaded ${originalData.length} records`, "success", 2000);
+        } catch (err) {
+            tbody.innerHTML = `<td><td colspan="6" style="text-align:center; color:red;">❌ ${escapeHtml(err.message)}<br><br><button class="clear-filters-btn" onclick="location.reload()">Retry</button></td></tr>`;
+            showAlert("Failed to load data: " + err.message, "error");
+        } finally {
+            refreshBtn.disabled = false;
+        }
+    }
+    
+    // ==================== EVENT LISTENERS ====================
+    document.getElementById("globalSearch").addEventListener("input", () => applyFiltersAndRender());
+    document.getElementById("schoolFilter").addEventListener("change", () => applyFiltersAndRender());
+    document.getElementById("refreshDataBtn").addEventListener("click", () => loadData());
+    document.getElementById("modalCancelBtn").addEventListener("click", closeModal);
+    document.getElementById("modalSubmitBtn").addEventListener("click", submitModalComment);
+    document.getElementById("commentTextarea").addEventListener("input", updateCharCounter);
+    
+    // Close modal on escape key
+    document.addEventListener('keydown', (e) => {
+        const modal = document.getElementById("commentModal");
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+    
+    // Close modal when clicking overlay
+    document.getElementById("commentModal").addEventListener("click", (e) => { 
+        if (e.target === document.getElementById("commentModal")) closeModal(); 
+    });
+    
+    // Save scroll position before table updates
+    const tableWrapper = document.getElementById("tableWrapper");
+    if (tableWrapper) {
+        tableWrapper.addEventListener('scroll', () => {
+            if (!isSavingComment) {
+                saveScrollPosition();
+            }
+        });
+    }
+    
+    // Initialize
+    loadData();
+</script>
+</body>
+</html>
